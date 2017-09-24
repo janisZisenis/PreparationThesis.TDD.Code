@@ -2,6 +2,7 @@
 #include "CNGuiLayer.h"
 #include "CNView.h"
 #include "CNMatcher.h"
+#include "CNMatcherTestDoubles.h"
 
 class GuiLayerTest : public testing::Test {
 protected:
@@ -61,19 +62,54 @@ protected:
     virtual FakeMatcherPtr makeFakeMatcher(CNViewPtr matchingView) {
         return FakeMatcher::getNewInstance(matchingView);
     }
+    virtual CNMatcherStubPtr make_NotMatching_Matcher() {
+        CNMatcherStubPtr matcher = CNMatcherStub::getNewInstance();
+        matcher->setIsMatching(false);
+        return matcher;
+    }
 };
 
 
-TEST_F(GuiLayerTest, Loaded_TopLevelView__LoadView_MatchingTopLevelView__ShouldAdd_View_to_TopLevelView) {
+TEST_F(GuiLayerTest, LoadedTopLevelView__Load_SubView_MatchingTopLevelView__ShouldAdd_SubView_to_TopLevelView) {
     CNGuiLayerPtr sut = makeGuiLayer();
     FakeViewPtr topLevelView = makeFakeView();
     sut->loadTopLevel(topLevelView);
 
-    FakeViewPtr view = makeFakeView();
-    FakeMatcherPtr matcher = makeFakeMatcher(topLevelView);
-    sut->load(view, matcher);
+    FakeViewPtr subView = makeFakeView();
+    FakeMatcherPtr subMatcher = makeFakeMatcher(topLevelView);
+    sut->load(subView, subMatcher);
 
     int expectedChildCount = 1;
-    ASSERT_THAT(topLevelView->getChildCount(), testing::Eq(1)) << "The ToplevelView's ChildCount should be " + std::to_string(expectedChildCount) + ". Instead it is " + std::to_string(topLevelView->getChildCount());
-    EXPECT_THAT(topLevelView->getChild(0), testing::Eq(view)) << "The view was not registered as child or at least at a wrong position!";
+    ASSERT_THAT(topLevelView->getChildCount(), testing::Eq(expectedChildCount)) << "The ToplevelView's ChildCount should be " + std::to_string(expectedChildCount) + ". Instead it is " + std::to_string(topLevelView->getChildCount());
+    EXPECT_THAT(topLevelView->getChild(0), testing::Eq(subView)) << "The view was not registered as child or at least at a wrong position!";
 }
+
+TEST_F(GuiLayerTest, LoadedTopLevelView__Load_SubViewNotMatchingTopLevelView__ShouldNotAdd_SubView_to_TopLevelView) {
+    CNGuiLayerPtr sut = makeGuiLayer();
+    FakeViewPtr topLevelView = makeFakeView();
+    sut->loadTopLevel(topLevelView);
+
+    FakeViewPtr subView = makeFakeView();
+    CNMatcherStubPtr subMatcher = make_NotMatching_Matcher();
+    sut->load(subView, subMatcher);
+
+    int expectedChildCount = 0;
+    ASSERT_THAT(topLevelView->getChildCount(), testing::Eq(expectedChildCount)) << "The ToplevelView's ChildCount should be " + std::to_string(expectedChildCount) + ". Instead it is " + std::to_string(topLevelView->getChildCount());
+}
+
+
+//TEST_F(GuiLayerTest, LoadedTopLevelView_and_SubView__Load_SubSubView_Matching_SubView__ShouldAdd_SubSubView_to_SubView) {
+//    CNGuiLayerPtr sut = makeGuiLayer();
+//    FakeViewPtr topLevelView = makeFakeView();
+//    sut->loadTopLevel(topLevelView);
+//    FakeViewPtr subView = makeFakeView();
+//    FakeMatcherPtr subMatcher = makeFakeMatcher(topLevelView);
+//    sut->load(subView, subMatcher);
+//
+//    FakeViewPtr subSubView = makeFakeView();
+//    FakeMatcherPtr subsubMatcher = makeFakeMatcher(subView);
+//
+//    int expectedChildCount = 1;
+//    ASSERT_THAT(subView->getChildCount(), testing::Eq(1)) << "The SubView's ChildCount should be " + std::to_string(expectedChildCount) + ". Instead it is " + std::to_string(subView->getChildCount());
+//    EXPECT_THAT(subView->getChild(0), testing::Eq(subSubView)) << "The view was not registered as child or at least at a wrong position!";
+//}

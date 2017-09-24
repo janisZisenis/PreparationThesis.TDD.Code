@@ -3,6 +3,8 @@
 
 #include <memory>
 
+class CNView;
+
 class CNMatcher;
 typedef std::shared_ptr<CNMatcher> CNMatcherPtr;
 
