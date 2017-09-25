@@ -23,7 +23,7 @@ public:
     virtual void load(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> machter);
 
 private:
-    virtual std::shared_ptr<CNView> findParent(std::shared_ptr<CNMatcher> matcher);
+    virtual std::shared_ptr<CNView> findParent(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> root);
 
 private:
     std::shared_ptr<CNView> topLevelView;
