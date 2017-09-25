@@ -196,7 +196,7 @@ TEST_F(GuiLayerTest, _2TopLevelViews_Loaded__Load_View_MatchingFirstTopLevelView
     sut->loadTopLevel(secondTopLevelView);
 
     CNViewDummyPtr view = makeCNViewDummy();
-    sut->load(view, makeFakeMatcher(secondTopLevelView));
+    sut->load(view, makeFakeMatcher(firstTopLevelView));
 
     expect_View_WasAddedTo_View(view, "View", firstTopLevelView, "FirstTopLevelView");
 }
