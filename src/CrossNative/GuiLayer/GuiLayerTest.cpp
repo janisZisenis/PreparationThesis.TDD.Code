@@ -91,7 +91,7 @@ protected:
     virtual void expect_View_AddedNothing(CNViewSpyPtr adding, std::string addingName) {
         CNViewPtr actual = adding->getAddedView();
 
-        std::string errorMessage = addingName + " should not have been adding another view, but it had!";
+        std::string errorMessage = addingName + " should not have been adding another view, but it has!";
 
         EXPECT_THAT(actual, testing::IsNull()) << errorMessage;
     }
@@ -134,19 +134,18 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_and_View_MatchingTopLevelView__Load_SubV
     expect_View_WasAddedTo_View(subView, "SubView", view, "View");
 }
 
-//TEST_F(GuiLayerTest, LoadedTopLevelView_and_View_MatchingTopLevelView__Load_SubView_NotMatching__ShouldNotAdd_SubView_to_View) {
-//    CNGuiLayerPtr sut = makeGuiLayer();
-//    FakeViewPtr topLevelView = makeFakeView();
-//    sut->loadTopLevel(topLevelView);
-//    CNViewSpyPtr view = makeCNViewSpy();
-//    sut->load(view, makeFakeMatcher(topLevelView));
-//
-//    CNViewDummyPtr subView = makeCNViewDummy();
-//    CNMatcherPtr subMatcher = make_NotMatching_Matcher();
-//    sut->load(subView, subMatcher);
-//
-//    EXPECT_THAT(view->getAddedView(), testing::IsNull()) << "The subView should not be added to view, but it was!";
-//}
+TEST_F(GuiLayerTest, LoadedTopLevelView_and_View_MatchingTopLevelView__Load_SubView_NotMatching__ShouldNotAdd_SubView_to_View) {
+    CNGuiLayerPtr sut = makeGuiLayer();
+    FakeViewPtr topLevelView = makeFakeView();
+    sut->loadTopLevel(topLevelView);
+    CNViewSpyPtr view = makeCNViewSpy();
+    sut->load(view, makeFakeMatcher(topLevelView));
+
+    CNViewDummyPtr subView = makeCNViewDummy();
+    sut->load(subView, make_NotMatching_Matcher());
+
+    expect_View_AddedNothing(view, "View");
+}
 
 //TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubView_MatchingSubView__ShouldAdd_SubSubView_to_SubView) {
 //    CNGuiLayerPtr sut = makeGuiLayer();
