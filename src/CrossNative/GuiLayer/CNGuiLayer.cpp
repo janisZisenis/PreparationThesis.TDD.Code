@@ -32,8 +32,7 @@ CNViewPtr CNGuiLayer::findMatching(CNMatcherPtr matcher) {
     for(int i = 0; i < topLevelViews.size(); i++) {
         matching = findMatchingInViewHierarchy(matcher, topLevelViews[i]);
 
-        if (matching)
-            break;
+        if (matching) break;
     }
 
     return matching;
@@ -46,8 +45,11 @@ CNViewPtr CNGuiLayer::findMatchingInViewHierarchy(CNMatcherPtr matcher, CNViewPt
 CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
     CNViewPtr matching = nullptr;
 
-    for(int i = 0; i < parent->getChildCount(); i++)
+    for(int i = 0; i < parent->getChildCount(); i++) {
         matching = findMatchingInViewHierarchy(matcher, parent->getChild(i));
+
+        if(matching) break;
+    }
 
     return matching;
 }
