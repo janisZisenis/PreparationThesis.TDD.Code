@@ -172,10 +172,9 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubVie
     sut->load(subView, makeFakeMatcher(view));
 
     CNViewDummyPtr subSubView = makeCNViewDummy();
-    CNMatcherPtr subSubMatcher = makeMatcherDummy();
-    sut->load(subSubView, subSubMatcher);
+    sut->load(subSubView, make_NotMatching_Matcher());
 
-    EXPECT_THAT(subView->getAddedView(), testing::IsNull()) << "The subSubView should not be added to subView, but it was!";
+    expect_View_AddedNothing(subView, "SubView");
 }
 
 
