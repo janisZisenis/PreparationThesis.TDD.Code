@@ -26,12 +26,17 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
         matching->add(view);
 }
 
-CNViewPtr CNGuiLayer::findMatching(CNMatcherPtr matcher, CNViewPtr root) {
-    return isMatching(matcher, root) ? root : findMatchingChild(matcher, root);
+CNViewPtr CNGuiLayer::findMatching(CNMatcherPtr matcher, CNViewPtr parent) {
+    return isMatching(matcher, parent) ? parent : findMatchingInChildren(matcher, parent);
 }
 
-CNViewPtr CNGuiLayer::findMatchingChild(CNMatcherPtr matcher, CNViewPtr parent) {
-    return parent->getChildCount() == 0 ? nullptr : findMatching(matcher, parent->getChild(0));
+CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
+    CNViewPtr matching = nullptr;
+
+    for(int i = 0; i < parent->getChildCount(); i++)
+        matching = findMatching(matcher, parent->getChild(i));
+
+    return matching;
 }
 
 bool CNGuiLayer::isMatching(CNMatcherPtr matcher, CNViewPtr view) {
