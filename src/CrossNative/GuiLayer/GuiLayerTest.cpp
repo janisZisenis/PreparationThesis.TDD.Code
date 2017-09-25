@@ -9,32 +9,6 @@
 
 class GuiLayerTest : public testing::Test {
 protected:
-    class FakeView;
-    typedef std::shared_ptr<FakeView> FakeViewPtr;
-    class FakeView : public CNView {
-    public:
-        static FakeViewPtr getNewInstance() {
-            return FakeViewPtr(new FakeView());
-        }
-        virtual ~FakeView() {}
-    protected:
-        FakeView() {}
-
-    public:
-        virtual void add(CNViewPtr view) override {
-            children.push_back(view);
-        }
-        virtual CNViewPtr getChild(int position) override {
-            return children[position];
-        }
-        virtual int getChildCount() override {
-            return (int)children.size();
-        };
-
-    private:
-        std::vector<CNViewPtr> children;
-    };
-
     class FakeMatcher;
     typedef std::shared_ptr<FakeMatcher> FakeMatcherPtr;
     class FakeMatcher : public CNMatcher {
@@ -55,16 +29,13 @@ protected:
         CNViewPtr matchingView;
     };
 
-    virtual CNGuiLayerPtr makeGuiLayer() {
+    virtual CNGuiLayerPtr makeCNGuiLayer() {
         return CNGuiLayer::getNewInstance();
-    }
-    virtual FakeViewPtr makeFakeView() {
-        return FakeView::getNewInstance();
     }
     virtual FakeMatcherPtr makeFakeMatcher(CNViewPtr matchingView) {
         return FakeMatcher::getNewInstance(matchingView);
     }
-    virtual CNMatcherStubPtr make_NotMatching_Matcher() {
+    virtual CNMatcherPtr make_NotMatching_Matcher() {
         CNMatcherStubPtr matcher = CNMatcherStub::getNewInstance();
         matcher->setIsMatching(false);
         return matcher;
@@ -93,47 +64,85 @@ protected:
     }
 };
 
+class GuiLayer_With_FakeView_Loaded_to_TopLevel : public GuiLayerTest {
+protected:
+    class FakeView;
+    typedef std::shared_ptr<FakeView> FakeViewPtr;
+    class FakeView : public CNView {
+    public:
+        static FakeViewPtr getNewInstance() {
+            return FakeViewPtr(new FakeView());
+        }
+        virtual ~FakeView() {}
+    protected:
+        FakeView() {}
+
+    public:
+        virtual void add(CNViewPtr view) override {
+            children.push_back(view);
+        }
+        virtual CNViewPtr getChild(int position) override {
+            return children[position];
+        }
+        virtual int getChildCount() override {
+            return (int)children.size();
+        };
+
+    private:
+        std::vector<CNViewPtr> children;
+    };
+
+protected:
+    virtual void SetUp() override {
+        sut = makeCNGuiLayer();
+        topLevelView = makeFakeView();
+
+        sut->loadTopLevel(topLevelView);
+    }
+protected:
+    CNGuiLayerPtr sut;
+    FakeViewPtr topLevelView;
+
+protected:
+    virtual FakeViewPtr makeFakeView() {
+        return FakeView::getNewInstance();
+    }
+};
+
 
 TEST_F(GuiLayerTest, LoadedTopLevelView__Load_View_MatchingTopLevelView__ShouldAdd_View_to_TopLevelView) {
-    CNGuiLayerPtr sut = makeGuiLayer();
+    CNGuiLayerPtr sut = makeCNGuiLayer();
     CNViewSpyPtr topLevelView = makeCNViewSpy();
     sut->loadTopLevel(topLevelView);
 
-    CNViewDummyPtr view = makeCNViewDummy();
+    CNViewPtr view = makeCNViewDummy();
     sut->load(view, makeFakeMatcher(topLevelView));
 
     expect_View_WasAddedTo_View(view, "View", topLevelView, "TopLevelView");
 }
 
 TEST_F(GuiLayerTest, LoadedTopLevelView__Load_View_NotMatching__ShouldNotAdd_View_to_TopLevelView) {
-    CNGuiLayerPtr sut = makeGuiLayer();
+    CNGuiLayerPtr sut = makeCNGuiLayer();
     CNViewSpyPtr topLevelView = makeCNViewSpy();
     sut->loadTopLevel(topLevelView);
 
-    FakeViewPtr view = makeFakeView();
+    CNViewPtr view = makeCNViewDummy();
     sut->load(view, make_NotMatching_Matcher());
 
     expect_View_AddedNothing(topLevelView, "TopLevelView");
 }
 
-TEST_F(GuiLayerTest, LoadedTopLevelView_and_View_MatchingTopLevelView__Load_SubView_MatchingView__ShouldAdd_SubView_to_View) {
-    CNGuiLayerPtr sut = makeGuiLayer();
-    FakeViewPtr topLevelView = makeFakeView();
-    sut->loadTopLevel(topLevelView);
+TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, View_Loaded_MatchingTopLevelView__Load_SubView_MatchingView__ShouldAdd_SubView_to_View) {
     CNViewSpyPtr view = makeCNViewSpy();
     sut->load(view, makeFakeMatcher(topLevelView));
 
     CNViewDummyPtr subView = makeCNViewDummy();
-    CNMatcherPtr subMatcher = makeFakeMatcher(view);
-    sut->load(subView, subMatcher);
+    sut->load(subView, makeFakeMatcher(view));
 
     expect_View_WasAddedTo_View(subView, "SubView", view, "View");
 }
 
-TEST_F(GuiLayerTest, LoadedTopLevelView_and_View_MatchingTopLevelView__Load_SubView_NotMatching__ShouldNotAdd_SubView_to_View) {
-    CNGuiLayerPtr sut = makeGuiLayer();
-    FakeViewPtr topLevelView = makeFakeView();
-    sut->loadTopLevel(topLevelView);
+TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, View_Loaded_MatchingTopLevelView__Load_SubView_NotMatching__ShouldNotAdd_SubView_to_View) {
     CNViewSpyPtr view = makeCNViewSpy();
     sut->load(view, makeFakeMatcher(topLevelView));
 
@@ -143,10 +152,7 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_and_View_MatchingTopLevelView__Load_SubV
     expect_View_AddedNothing(view, "View");
 }
 
-TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubView_MatchingSubView__ShouldAdd_SubSubView_to_SubView) {
-    CNGuiLayerPtr sut = makeGuiLayer();
-    FakeViewPtr topLevelView = makeFakeView();
-    sut->loadTopLevel(topLevelView);
+TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, View_and_SubView_Loaded_inALine__Load_SubSubView_MatchingSubView__ShouldAdd_SubSubView_to_SubView) {
     FakeViewPtr view = makeFakeView();
     sut->load(view, makeFakeMatcher(topLevelView));
     CNViewSpyPtr subView = makeCNViewSpy();
@@ -158,10 +164,7 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubVie
     expect_View_WasAddedTo_View(subSubView, "SubSubView", subView, "SubView");
 }
 
-TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubView_NotMatching__ShouldNotAdd_SubSubView_to_SubView) {
-    CNGuiLayerPtr sut = makeGuiLayer();
-    FakeViewPtr topLevelView = makeFakeView();
-    sut->loadTopLevel(topLevelView);
+TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, View_and_SubView_Loaded_inALine__Load_SubSubView_NotMatching__ShouldNotAdd_SubSubView_to_SubView) {
     FakeViewPtr view = makeFakeView();
     sut->load(view, makeFakeMatcher(topLevelView));
     CNViewSpyPtr subView = makeCNViewSpy();
@@ -173,10 +176,7 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubVie
     expect_View_AddedNothing(subView, "SubView");
 }
 
-TEST_F(GuiLayerTest, LoadedTopLevelView_and_2Views_MatchingTopLevelView__Load_SubView_MatchingSecondView__ShouldAdd_SubView_to_SecondView) {
-    CNGuiLayerPtr sut = makeGuiLayer();
-    FakeViewPtr topLevelView = makeFakeView();
-    sut->loadTopLevel(topLevelView);
+TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, _2Views_Loaded_MatchingTopLevelView__Load_SubView_MatchingSecondView__ShouldAdd_SubView_to_SecondView) {
     CNViewDummyPtr firstView = makeCNViewDummy();
     sut->load(firstView, makeFakeMatcher(topLevelView));
     CNViewSpyPtr secondView = makeCNViewSpy();
