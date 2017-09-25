@@ -20,7 +20,8 @@ void CNGuiLayer::loadTopLevel(std::shared_ptr<CNView> view) {
 }
 
 void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
-    topLevelView->add(view);
+    if(matcher->matches(topLevelView))
+        topLevelView->add(view);
 }
 
 //void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
