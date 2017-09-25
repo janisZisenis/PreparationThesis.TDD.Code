@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 #include "CNGuiLayer.h"
 #include "CNView.h"
+#include "CNViewTestDoubles.h"
 #include "CNMatcher.h"
 #include "CNMatcherTestDoubles.h"
 
@@ -62,54 +63,57 @@ protected:
     virtual FakeMatcherPtr makeFakeMatcher(CNViewPtr matchingView) {
         return FakeMatcher::getNewInstance(matchingView);
     }
+    virtual CNMatcherDummyPtr makeMatcherDummy() {
+        return CNMatcherDummy::getNewInstance();
+    }
     virtual CNMatcherStubPtr make_NotMatching_Matcher() {
         CNMatcherStubPtr matcher = CNMatcherStub::getNewInstance();
         matcher->setIsMatching(false);
         return matcher;
     }
+    virtual CNViewSpyPtr makeCNViewSpy() {
+        return CNViewSpy::getNewInstance();
+    }
+    virtual CNViewDummyPtr makeCNViewDummy() {
+        return CNViewDummy::getNewInstance();
+    }
 };
 
 
-TEST_F(GuiLayerTest, LoadedTopLevelView__Load_SubView_MatchingTopLevelView__ShouldAdd_SubView_to_TopLevelView) {
+TEST_F(GuiLayerTest, LoadedTopLevelView__Load_View_MatchingTopLevelView__ShouldAdd_View_to_TopLevelView) {
     CNGuiLayerPtr sut = makeGuiLayer();
-    FakeViewPtr topLevelView = makeFakeView();
+    CNViewSpyPtr topLevelView = makeCNViewSpy();
     sut->loadTopLevel(topLevelView);
 
-    FakeViewPtr subView = makeFakeView();
+    CNViewDummyPtr view = makeCNViewDummy();
     FakeMatcherPtr subMatcher = makeFakeMatcher(topLevelView);
-    sut->load(subView, subMatcher);
+    sut->load(view, subMatcher);
 
-    int expectedChildCount = 1;
-    ASSERT_THAT(topLevelView->getChildCount(), testing::Eq(expectedChildCount)) << "The ToplevelView's ChildCount should be " + std::to_string(expectedChildCount) + ". Instead it is " + std::to_string(topLevelView->getChildCount());
-    EXPECT_THAT(topLevelView->getChild(0), testing::Eq(subView)) << "The view was not registered as child or at least at a wrong position!";
+    EXPECT_THAT(topLevelView->getAddedView(), testing::Eq(view)) << "The view should be added to TopLevelView, but it was not!";
 }
 
-TEST_F(GuiLayerTest, LoadedTopLevelView__Load_SubViewNotMatchingTopLevelView__ShouldNotAdd_SubView_to_TopLevelView) {
+TEST_F(GuiLayerTest, LoadedTopLevelView__Load_View_NotMatchingTopLevelView__ShouldNotAdd_View_to_TopLevelView) {
     CNGuiLayerPtr sut = makeGuiLayer();
-    FakeViewPtr topLevelView = makeFakeView();
+    CNViewSpyPtr topLevelView = makeCNViewSpy();
     sut->loadTopLevel(topLevelView);
 
     FakeViewPtr subView = makeFakeView();
     CNMatcherStubPtr subMatcher = make_NotMatching_Matcher();
-    sut->load(subView, subMatcher);
+    sut->load(subView, make_NotMatching_Matcher());
 
-    int expectedChildCount = 0;
-    ASSERT_THAT(topLevelView->getChildCount(), testing::Eq(expectedChildCount)) << "The ToplevelView's ChildCount should be " + std::to_string(expectedChildCount) + ". Instead it is " + std::to_string(topLevelView->getChildCount());
+    EXPECT_THAT(topLevelView->getAddedView(), testing::IsNull()) << "The view should not be added to TopLevelView, but it was!";
 }
 
 
-//TEST_F(GuiLayerTest, LoadedTopLevelView_and_SubView__Load_SubSubView_Matching_SubView__ShouldAdd_SubSubView_to_SubView) {
-//    CNGuiLayerPtr sut = makeGuiLayer();
-//    FakeViewPtr topLevelView = makeFakeView();
-//    sut->loadTopLevel(topLevelView);
-//    FakeViewPtr subView = makeFakeView();
-//    FakeMatcherPtr subMatcher = makeFakeMatcher(topLevelView);
-//    sut->load(subView, subMatcher);
-//
-//    FakeViewPtr subSubView = makeFakeView();
-//    FakeMatcherPtr subsubMatcher = makeFakeMatcher(subView);
-//
-//    int expectedChildCount = 1;
-//    ASSERT_THAT(subView->getChildCount(), testing::Eq(1)) << "The SubView's ChildCount should be " + std::to_string(expectedChildCount) + ". Instead it is " + std::to_string(subView->getChildCount());
-//    EXPECT_THAT(subView->getChild(0), testing::Eq(subSubView)) << "The view was not registered as child or at least at a wrong position!";
-//}
+TEST_F(GuiLayerTest, LoadedTopLevelView_and_View__Load_SubView_Matching_View__ShouldAdd_SubView_to_View) {
+    CNGuiLayerPtr sut = makeGuiLayer();
+    FakeViewPtr topLevelView = makeFakeView();
+    sut->loadTopLevel(topLevelView);
+    CNViewSpyPtr view = makeCNViewSpy();
+    sut->load(view, makeFakeMatcher(topLevelView));
+
+    CNViewDummyPtr subView = makeCNViewDummy();
+    FakeMatcherPtr subMatcher = makeFakeMatcher(view);
+
+    EXPECT_THAT(view->getAddedView(), testing::Eq(subView)) << "The subView should be added to view, but it was not!";
+}
