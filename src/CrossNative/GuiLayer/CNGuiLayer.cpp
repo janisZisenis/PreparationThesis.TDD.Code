@@ -24,7 +24,8 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
         topLevelView->add(view);
     else {
         if (topLevelView->getChildCount() == 1)
-            topLevelView->getChild(0)->add(view);
+            if(matcher->matches(topLevelView->getChild(0)))
+                topLevelView->getChild(0)->add(view);
     }
 }
 
