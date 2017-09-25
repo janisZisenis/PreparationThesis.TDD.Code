@@ -188,6 +188,18 @@ TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, _2Views_Loaded_MatchingTopLeve
     expect_View_WasAddedTo_View(subView, "SubView", secondView, "SecondView");
 }
 
+TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, _2Views_Loaded_MatchingTopLevelView__Load_SubView_MatchingFirstView__ShouldAdd_SubView_to_FirstView) {
+    CNViewSpyPtr firstView = makeCNViewSpy();
+    sut->load(firstView, makeFakeMatcher(topLevelView));
+    CNViewDummyPtr secondView = makeCNViewDummy();
+    sut->load(secondView, makeFakeMatcher(topLevelView));
+
+    CNViewDummyPtr subView = makeCNViewDummy();
+    sut->load(subView, makeFakeMatcher(firstView));
+
+    expect_View_WasAddedTo_View(subView, "SubView", firstView, "FirstView");
+}
+
 TEST_F(GuiLayerTest, _2TopLevelViews_Loaded__Load_View_MatchingFirstTopLevelView__ShouldAdd_View_to_FirstTopLevelView) {
     CNGuiLayerPtr sut = makeCNGuiLayer();
     CNViewSpyPtr firstTopLevelView = makeCNViewSpy();
