@@ -16,43 +16,42 @@ CNGuiLayer::CNGuiLayer() {
 }
 
 void CNGuiLayer::loadTopLevel(CNViewPtr view) {
-    topLevelViews.push_back(view);
+    viewHierarchies.push_back(view);
 }
 
 void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
-    CNViewPtr matching = findMatching(matcher);
+    CNViewPtr matchingView = findMatchingView(matcher);
 
-    if(matching)
-        matching->add(view);
+    if(matchingView)
+        matchingView->add(view);
 }
 
-CNViewPtr CNGuiLayer::findMatching(CNMatcherPtr matcher) {
-    CNViewPtr matching = nullptr;
+CNViewPtr CNGuiLayer::findMatchingView(CNMatcherPtr matcher) {
+    for(int i = 0; i < viewHierarchies.size(); i++) {
+        CNViewPtr matchingView = findMatchingViewInHierarchy(matcher, viewHierarchies[i]);
 
-    for(int i = 0; i < topLevelViews.size(); i++) {
-        matching = findMatchingInViewHierarchy(matcher, topLevelViews[i]);
-
-        if (matching) break;
+        if (matchingView)
+            return matchingView;
     }
 
-    return matching;
+    return nullptr;
 }
 
-CNViewPtr CNGuiLayer::findMatchingInViewHierarchy(CNMatcherPtr matcher, CNViewPtr root) {
+CNViewPtr CNGuiLayer::findMatchingViewInHierarchy(CNMatcherPtr matcher, CNViewPtr root) {
     return isMatching(matcher, root) ? root : findMatchingInChildren(matcher, root);
 }
 
 CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
-    CNViewPtr matching = nullptr;
+    for (int i = 0; i < parent->getChildCount(); i++) {
+        CNViewPtr matchingView = findMatchingViewInHierarchy(matcher, parent->getChild(i));
 
-    for(int i = 0; i < parent->getChildCount(); i++) {
-        matching = findMatchingInViewHierarchy(matcher, parent->getChild(i));
-
-        if(matching) break;
+        if (matchingView)
+            return matchingView;
     }
 
-    return matching;
+    return nullptr;
 }
+
 
 bool CNGuiLayer::isMatching(CNMatcherPtr matcher, CNViewPtr view) {
     return matcher->matches(view);
