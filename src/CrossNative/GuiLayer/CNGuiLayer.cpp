@@ -20,50 +20,20 @@ void CNGuiLayer::loadTopLevel(std::shared_ptr<CNView> view) {
 }
 
 void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
-    CNViewPtr matching = nullptr;
-    CNViewPtr parent = topLevelView;
-
-    if(matcher->matches(parent))
-        matching = parent;
-    else {
-        if (parent->getChildCount() < 1) return;
-        parent = parent->getChild(0);
-        if(matcher->matches(parent))
-            matching = parent;
-        else {
-            if(parent->getChildCount() < 1) return;
-            parent = parent->getChild(0);
-            if(matcher->matches(parent))
-                matching = parent;
-        }
-    }
+    CNViewPtr matching = findMatching(matcher, topLevelView);
 
     if(matching)
         matching->add(view);
 }
 
-//void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
-//    CNViewPtr parent = findMatching(matcher, topLevelView);
-//
-//    if(parent)
-//        parent->add(view);
-//}
+CNViewPtr CNGuiLayer::findMatching(CNMatcherPtr matcher, CNViewPtr root) {
+    return isMatching(matcher, root) ? root : findMatchingChild(matcher, root);
+}
 
-//CNViewPtr CNGuiLayer::findMatching(CNMatcherPtr matcher, CNViewPtr root) {
-//    return isMatching(matcher, root) ? root : findMatchingInChildren(matcher, root);
-//}
-//
-//CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
-//    CNViewPtr matching = nullptr;
-//
-//    for (int i = 0; i < parent->getChildCount(); i++) {
-//        matching = findMatching(matcher, parent->getChild(i));
-//        if(matching) break;
-//    }
-//
-//    return matching;
-//}
-//
-//bool CNGuiLayer::isMatching(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> view) {
-//    return matcher->matches(view);
-//}
+CNViewPtr CNGuiLayer::findMatchingChild(CNMatcherPtr matcher, CNViewPtr parent) {
+    return parent->getChildCount() == 0 ? nullptr : findMatching(matcher, parent->getChild(0));
+}
+
+bool CNGuiLayer::isMatching(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> view) {
+    return matcher->matches(view);
+}
