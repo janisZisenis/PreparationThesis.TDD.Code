@@ -24,5 +24,7 @@ void CNGuiLayer::load(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> m
         topLevelView->add(view);
     else
         if(topLevelView->getChildCount() == 1)
-            topLevelView->getChild(0)->add(view);
+            if(matcher->matches(topLevelView->getChild(0)))
+                topLevelView->getChild(0)->add(view);
+
 }
