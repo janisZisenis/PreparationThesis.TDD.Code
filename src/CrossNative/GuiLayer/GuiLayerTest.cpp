@@ -162,21 +162,21 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubVie
     expect_View_WasAddedTo_View(subSubView, "SubSubView", subView, "SubView");
 }
 
-//TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubView_NotMatching__ShouldNotAdd_SubSubView_to_SubView) {
-//    CNGuiLayerPtr sut = makeGuiLayer();
-//    FakeViewPtr topLevelView = makeFakeView();
-//    sut->loadTopLevel(topLevelView);
-//    FakeViewPtr view = makeFakeView();
-//    sut->load(view, makeFakeMatcher(topLevelView));
-//    CNViewSpyPtr subView = makeCNViewSpy();
-//    sut->load(subView, makeFakeMatcher(view));
-//
-//    CNViewDummyPtr subSubView = makeCNViewDummy();
-//    CNMatcherPtr subSubMatcher = makeMatcherDummy();
-//    sut->load(subSubView, subSubMatcher);
-//
-//    EXPECT_THAT(subView->getAddedView(), testing::IsNull()) << "The subSubView should not be added to subView, but it was!";
-//}
+TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubView_NotMatching__ShouldNotAdd_SubSubView_to_SubView) {
+    CNGuiLayerPtr sut = makeGuiLayer();
+    FakeViewPtr topLevelView = makeFakeView();
+    sut->loadTopLevel(topLevelView);
+    FakeViewPtr view = makeFakeView();
+    sut->load(view, makeFakeMatcher(topLevelView));
+    CNViewSpyPtr subView = makeCNViewSpy();
+    sut->load(subView, makeFakeMatcher(view));
+
+    CNViewDummyPtr subSubView = makeCNViewDummy();
+    CNMatcherPtr subSubMatcher = makeMatcherDummy();
+    sut->load(subSubView, subSubMatcher);
+
+    EXPECT_THAT(subView->getAddedView(), testing::IsNull()) << "The subSubView should not be added to subView, but it was!";
+}
 
 
 
