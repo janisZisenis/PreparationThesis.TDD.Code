@@ -131,3 +131,19 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_and_View_MatchingTopLevelView__Load_SubV
 
     EXPECT_THAT(view->getAddedView(), testing::IsNull()) << "The subView should not be added to view, but it was!";
 }
+
+TEST_F(GuiLayerTest, LoadedTopLevelView_and_2Views_MatchingTopLevelView__Load_SubView_MatchingSecondView__ShouldAdd_SubView_to_SecondView) {
+    CNGuiLayerPtr sut = makeGuiLayer();
+    FakeViewPtr topLevelView = makeFakeView();
+    sut->loadTopLevel(topLevelView);
+    CNViewDummyPtr firstView = makeCNViewDummy();
+    sut->load(firstView, makeFakeMatcher(topLevelView));
+    CNViewSpyPtr secondView = makeCNViewSpy();
+    sut->load(secondView, makeFakeMatcher(topLevelView));
+
+    CNViewDummyPtr subView = makeCNViewDummy();
+    FakeMatcherPtr subMatcher = makeFakeMatcher(secondView);
+    sut->load(subView, subMatcher);
+
+    EXPECT_THAT(secondView->getAddedView(), testing::Eq(subView)) << "The subView should be added to secondView, but it was not!";
+}
