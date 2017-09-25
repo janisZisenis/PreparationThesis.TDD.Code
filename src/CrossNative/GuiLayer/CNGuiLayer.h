@@ -24,12 +24,13 @@ public:
     virtual void load(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> machter);
 
 private:
-    virtual std::shared_ptr<CNView> findMatching(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> parent);
+    virtual std::shared_ptr<CNView> findMatchingInViewHierarchy(std::shared_ptr<CNMatcher> matcher,
+                                                                std::shared_ptr<CNView> root);
+    virtual std::shared_ptr<CNView> findMatching(std::shared_ptr<CNMatcher> matcher);
     virtual std::shared_ptr<CNView> findMatchingInChildren(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> parent);
     virtual bool isMatching(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> view);
 private:
     std::vector< std::shared_ptr<CNView> > topLevelViews;
-    std::shared_ptr<CNView> topLevelView;
 };
 
 
