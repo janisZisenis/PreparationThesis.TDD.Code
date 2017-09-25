@@ -64,9 +64,6 @@ protected:
     virtual FakeMatcherPtr makeFakeMatcher(CNViewPtr matchingView) {
         return FakeMatcher::getNewInstance(matchingView);
     }
-    virtual CNMatcherDummyPtr makeMatcherDummy() {
-        return CNMatcherDummy::getNewInstance();
-    }
     virtual CNMatcherStubPtr make_NotMatching_Matcher() {
         CNMatcherStubPtr matcher = CNMatcherStub::getNewInstance();
         matcher->setIsMatching(false);
@@ -87,7 +84,6 @@ protected:
 
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-
     virtual void expect_View_AddedNothing(CNViewSpyPtr adding, std::string addingName) {
         CNViewPtr actual = adding->getAddedView();
 
@@ -177,20 +173,17 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_View_and_SubView_inALine__Load_SubSubVie
     expect_View_AddedNothing(subView, "SubView");
 }
 
+TEST_F(GuiLayerTest, LoadedTopLevelView_and_2Views_MatchingTopLevelView__Load_SubView_MatchingSecondView__ShouldAdd_SubView_to_SecondView) {
+    CNGuiLayerPtr sut = makeGuiLayer();
+    FakeViewPtr topLevelView = makeFakeView();
+    sut->loadTopLevel(topLevelView);
+    CNViewDummyPtr firstView = makeCNViewDummy();
+    sut->load(firstView, makeFakeMatcher(topLevelView));
+    CNViewSpyPtr secondView = makeCNViewSpy();
+    sut->load(secondView, makeFakeMatcher(topLevelView));
 
+    CNViewDummyPtr subView = makeCNViewDummy();
+    sut->load(subView, makeFakeMatcher(secondView));
 
-//TEST_F(GuiLayerTest, LoadedTopLevelView_and_2Views_MatchingTopLevelView__Load_SubView_MatchingSecondView__ShouldAdd_SubView_to_SecondView) {
-//    CNGuiLayerPtr sut = makeGuiLayer();
-//    FakeViewPtr topLevelView = makeFakeView();
-//    sut->loadTopLevel(topLevelView);
-//    CNViewDummyPtr firstView = makeCNViewDummy();
-//    sut->load(firstView, makeFakeMatcher(topLevelView));
-//    CNViewSpyPtr secondView = makeCNViewSpy();
-//    sut->load(secondView, makeFakeMatcher(topLevelView));
-//
-//    CNViewDummyPtr subView = makeCNViewDummy();
-//    FakeMatcherPtr subMatcher = makeFakeMatcher(secondView);
-//    sut->load(subView, subMatcher);
-//
-//    EXPECT_THAT(secondView->getAddedView(), testing::Eq(subView)) << "The subView should be added to secondView, but it was not!";
-//}
+    expect_View_WasAddedTo_View(subView, "SubView", secondView, "SecondView");
+}
