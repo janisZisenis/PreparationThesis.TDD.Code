@@ -16,6 +16,12 @@ protected:
 
 public:
     virtual void add(CNViewPtr view) override {};
+    virtual CNViewPtr getChild(int position) override {
+        return nullptr;
+    };
+    virtual int getChildCount() override {
+        return 0;
+    };
 };
 
 class CNViewSpy;

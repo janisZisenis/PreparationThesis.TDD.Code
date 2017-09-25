@@ -14,6 +14,8 @@ protected:
 
 public:
     virtual void add(CNViewPtr view) = 0;
+    virtual CNViewPtr getChild(int position) = 0;
+    virtual int getChildCount() = 0;
 };
 
 

@@ -19,16 +19,15 @@ protected:
         FakeView() {}
 
     public:
-        virtual void add(CNViewPtr view) {
+        virtual void add(CNViewPtr view) override {
             children.push_back(view);
         }
-
-        virtual int getChildCount() {
-            return (int)children.size();
-        }
-        virtual CNViewPtr getChild(int position) {
+        virtual CNViewPtr getChild(int position) override {
             return children[position];
         }
+        virtual int getChildCount() override {
+            return (int)children.size();
+        };
 
     private:
         std::vector<CNViewPtr> children;
@@ -114,6 +113,7 @@ TEST_F(GuiLayerTest, LoadedTopLevelView_and_View__Load_SubView_Matching_View__Sh
 
     CNViewDummyPtr subView = makeCNViewDummy();
     FakeMatcherPtr subMatcher = makeFakeMatcher(view);
+    sut->load(subView, subMatcher);
 
     EXPECT_THAT(view->getAddedView(), testing::Eq(subView)) << "The subView should be added to view, but it was not!";
 }
