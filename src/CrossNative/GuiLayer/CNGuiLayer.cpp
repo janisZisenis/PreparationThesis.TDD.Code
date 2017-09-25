@@ -17,10 +17,11 @@ CNGuiLayer::CNGuiLayer() {
 
 void CNGuiLayer::loadTopLevel(CNViewPtr view) {
     topLevelView = view;
+    topLevelViews.push_back(view);
 }
 
 void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
-    CNViewPtr matching = findMatching(matcher, topLevelView);
+    CNViewPtr matching = findMatching(matcher, topLevelViews[0]);
 
     if(matching)
         matching->add(view);
