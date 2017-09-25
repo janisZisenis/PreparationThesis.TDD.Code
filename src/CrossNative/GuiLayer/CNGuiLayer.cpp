@@ -27,17 +27,14 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
 }
 
 CNViewPtr CNGuiLayer::findParent(CNMatcherPtr matcher, CNViewPtr root) {
-    CNViewPtr parent;
-
     if(matcher->matches(root)) {
-        parent = root;
-    }
-    else {
-        for (int i = 0; i < root->getChildCount(); i++) {
-            parent = findParent(matcher, root->getChild(i));
-            if (parent) break;
-        }
+        return root;
     }
 
+    CNViewPtr parent;
+    for (int i = 0; i < root->getChildCount(); i++) {
+        parent = findParent(matcher, root->getChild(i));
+        if (parent) break;
+    }
     return parent;
 }
