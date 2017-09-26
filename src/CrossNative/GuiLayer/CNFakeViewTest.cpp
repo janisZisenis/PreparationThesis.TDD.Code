@@ -11,6 +11,10 @@ protected:
         return CNViewDummy::getNewInstance();
     }
 
+    virtual std::string getNotInitializedIteratorErrorMessage() {
+        return "Should throw CNNotInitializedIteratorException, but it threw nothing";
+    }
+
     virtual void expectIteratorIsDone(CNIteratorPtr it) {
         std::string errorMessage = "The Iterator should be done, but is it not!";
 
@@ -22,12 +26,12 @@ TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsCurrent__S
     CNFakeViewPtr sut = makeCNFakeView();
     CNIteratorPtr it = sut->makeIterator();
 
-    EXPECT_THROW(it->current(), CNNotInitializedIteratorException);
+    EXPECT_THROW(it->current(), CNNotInitializedIteratorException) << getNotInitializedIteratorErrorMessage();
 }
 
 TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsNext__ShouldThrow_NotInitializedIteratorException) {
     CNFakeViewPtr sut = makeCNFakeView();
     CNIteratorPtr it = sut->makeIterator();
 
-    EXPECT_THROW(it->next(), CNNotInitializedIteratorException);
+    EXPECT_THROW(it->next(), CNNotInitializedIteratorException) << getNotInitializedIteratorErrorMessage();
 }
