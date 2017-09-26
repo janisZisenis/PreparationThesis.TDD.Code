@@ -42,8 +42,9 @@ CNViewPtr CNGuiLayer::findMatchingViewInHierarchy(CNMatcherPtr matcher, CNViewPt
 }
 
 CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
-    for (int i = 0; i < parent->getChildCount(); i++) {
-        CNViewPtr matchingView = findMatchingViewInHierarchy(matcher, parent->getChild(i));
+    CNIteratorPtr it = parent->makeIterator();
+    for (it->first(); !it->isDone(); it->next()) {
+        CNViewPtr matchingView = findMatchingViewInHierarchy(matcher, it->current());
 
         if (matchingView)
             return matchingView;
