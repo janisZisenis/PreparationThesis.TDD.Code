@@ -63,12 +63,6 @@ public:
         children.push_back(view);
     }
 
-    virtual CNViewPtr getChild(int position) override {
-        return children[position];
-    }
-    virtual int getChildCount() override {
-        return children.size();
-    }
     virtual CNIteratorPtr makeIterator() override {
         return Iterator::getNewInstance(children);
     }
