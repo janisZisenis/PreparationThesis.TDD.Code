@@ -22,20 +22,21 @@ private:
 
     public:
         void first() override {
-
+            initialized = true;
         }
         void next() override {
             throw CNNotInitializedIteratorException();
         }
         bool isDone() override {
-            throw CNNotInitializedIteratorException();
-            return false;
+            if(!initialized) throw CNNotInitializedIteratorException();
+            return true;
         }
         CNViewPtr current() override {
             throw CNNotInitializedIteratorException();
             return nullptr;
         }
     private:
+        bool initialized = false;
         std::vector<CNViewPtr> views;
     };
 

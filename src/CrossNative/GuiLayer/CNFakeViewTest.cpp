@@ -42,3 +42,11 @@ TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsIsDone__Sh
 
     EXPECT_THROW(it->isDone(), CNNotInitializedIteratorException) << getNotInitializedIteratorErrorMessage();
 }
+
+TEST_F(CNFakeViewTest, FreshInstance_InitializedIterator__IteratorShouldBeDone) {
+    CNFakeViewPtr sut = makeCNFakeView();
+    CNIteratorPtr it = sut->makeIterator();
+    it->first();
+
+    expectIteratorIsDone(it);
+}
