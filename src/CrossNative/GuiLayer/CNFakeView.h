@@ -34,13 +34,12 @@ private:
         bool isDone() override {
             if(!initialized) throw CNNotInitializedIteratorException();
 
-            return true;
+            return it >= views.end();
         }
         CNViewPtr current() override {
             if(!initialized) throw CNNotInitializedIteratorException();
-            if(it >= views.end()) throw CNNotIteratorOutOfBoundsException();
 
-            return it >= views.end() ? nullptr : *it;
+            return isDone() ? throw CNNotIteratorOutOfBoundsException() : *it;
         }
     private:
         bool initialized = false;
