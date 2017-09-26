@@ -26,7 +26,7 @@ protected:
     virtual void expectIteratorIs_Not_Done(CNIteratorPtr it) {
         std::string errorMessage = "The Iterator should not be done, but it is!";
 
-        EXPECT_TRUE(it->isDone()) << errorMessage;
+        EXPECT_FALSE(it->isDone()) << errorMessage;
     }
     virtual void expectEquals(CNViewPtr actual, CNViewPtr expected) {
         std::string errorMessage = "The views are not equal, the iterator does not iterate in the correct order!";
@@ -130,7 +130,6 @@ TEST_F(CNFakeViewTest, _3ViewsAdded_InitializedIterator__2TimesIteratorsNext__It
     CNIteratorPtr it = sut->makeIterator();
     it->first();
 
-    it->next();
     it->next();
     it->next();
 
