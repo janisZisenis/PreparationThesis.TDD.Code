@@ -5,6 +5,12 @@
 
 class CNView;
 
+class CNNotInitializedIteratorException : public std::exception {
+    const char *what() const throw() override {
+        return std::string("The Iterator was not initialized, call iterator's \"first\" method before using it !").c_str();
+    }
+};
+
 class CNIterator;
 typedef std::shared_ptr<CNIterator> CNIteratorPtr;
 

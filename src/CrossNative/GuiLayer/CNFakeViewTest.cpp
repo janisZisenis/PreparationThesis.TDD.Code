@@ -18,9 +18,9 @@ protected:
     }
 };
 
-TEST_F(CNFakeViewTest, Fresh__makeIterator__ShouldProvideIterator_ThatIsAlreadyDone) {
+TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsCurrentShouldThrow_NotInitializedIteratorException) {
     CNFakeViewPtr sut = makeCNFakeView();
     CNIteratorPtr it = sut->makeIterator();
 
-    expectIteratorIsDone(it);
+    EXPECT_THROW(it->current(), CNNotInitializedIteratorException);
 }
