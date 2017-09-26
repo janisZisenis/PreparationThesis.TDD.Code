@@ -31,7 +31,6 @@ private:
     virtual bool isMatching(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> view);
 private:
     std::vector< std::shared_ptr<CNView> > viewHierarchies;
-    std::shared_ptr<CNView> pending;
 };
 
 

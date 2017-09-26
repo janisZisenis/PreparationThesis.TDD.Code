@@ -17,9 +17,6 @@ CNGuiLayer::CNGuiLayer() {
 
 void CNGuiLayer::loadTopLevel(CNViewPtr view) {
     viewHierarchies.push_back(view);
-
-    if(pending)
-        view->add(pending);
 }
 
 void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
@@ -27,8 +24,6 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
 
     if(matchingView)
         matchingView->add(view);
-    else
-        pending = view;
 }
 
 CNViewPtr CNGuiLayer::findMatchingView(CNMatcherPtr matcher) {
