@@ -68,7 +68,7 @@ public:
         return children[position];
     }
     virtual int getChildCount() {
-        return getChildCount();
+        return children.size();
     }
     virtual CNIteratorPtr makeIterator() {
         return Iterator::getNewInstance(children);

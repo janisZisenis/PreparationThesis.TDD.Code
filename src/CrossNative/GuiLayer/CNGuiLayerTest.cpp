@@ -2,8 +2,11 @@
 #include <string>
 
 #include "CNGuiLayer.h"
+
 #include "CNView.h"
+#include "CNFakeView.h"
 #include "CNViewTestDoubles.h"
+
 #include "CNMatcher.h"
 #include "CNMatcherTestDoubles.h"
 
@@ -69,33 +72,6 @@ protected:
 
 class GuiLayer_With_FakeView_Loaded_to_TopLevel : public CNGuiLayerTest {
 protected:
-    class FakeView;
-    typedef std::shared_ptr<FakeView> FakeViewPtr;
-    class FakeView : public CNView {
-    public:
-        static FakeViewPtr getNewInstance() {
-            return FakeViewPtr(new FakeView());
-        }
-        virtual ~FakeView() {}
-    protected:
-        FakeView() {}
-
-    public:
-        virtual void add(CNViewPtr view) override {
-            children.push_back(view);
-        }
-        virtual CNViewPtr getChild(int position) override {
-            return children[position];
-        }
-        virtual int getChildCount() override {
-            return (int)children.size();
-        };
-
-    private:
-        std::vector<CNViewPtr> children;
-    };
-
-protected:
     virtual void SetUp() override {
         sut = makeCNGuiLayer();
         topLevelView = makeFakeView();
@@ -103,16 +79,13 @@ protected:
         sut->loadTopLevel(topLevelView);
     }
 
-    virtual void setupSUT() {
-
-    }
 protected:
     CNGuiLayerPtr sut;
-    FakeViewPtr topLevelView;
+    CNFakeViewPtr topLevelView;
 
 protected:
-    virtual FakeViewPtr makeFakeView() {
-        return FakeView::getNewInstance();
+    virtual CNFakeViewPtr makeFakeView() {
+        return CNFakeView::getNewInstance();
     }
 };
 
@@ -164,7 +137,7 @@ TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, View_Loaded_MatchingTopLevelVi
 }
 
 TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, View_and_SubView_Loaded_inALine__Load_SubSubView_MatchingSubView__ShouldAdd_SubSubView_to_SubView) {
-    FakeViewPtr view = makeFakeView();
+    CNFakeViewPtr view = makeFakeView();
     sut->load(view, makeFakeMatcher(topLevelView));
     CNViewSpyPtr subView = makeCNViewSpy();
     sut->load(subView, makeFakeMatcher(view));
@@ -177,7 +150,7 @@ TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, View_and_SubView_Loaded_inALin
 }
 
 TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, View_and_SubView_Loaded_inALine__Load_SubSubView_NotMatching__ShouldNotAdd_SubSubView_to_SubView) {
-    FakeViewPtr view = makeFakeView();
+    CNFakeViewPtr view = makeFakeView();
     sut->load(view, makeFakeMatcher(topLevelView));
     CNViewSpyPtr subView = makeCNViewSpy();
     sut->load(subView, makeFakeMatcher(view));
