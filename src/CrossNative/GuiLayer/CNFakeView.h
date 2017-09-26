@@ -38,6 +38,7 @@ private:
         }
         CNViewPtr current() override {
             if(!initialized) throw CNNotInitializedIteratorException();
+            if(it >= views.end()) throw CNNotIteratorOutOfBoundsException();
 
             return it >= views.end() ? nullptr : *it;
         }
