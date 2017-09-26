@@ -28,6 +28,7 @@ private:
             throw CNNotInitializedIteratorException();
         }
         bool isDone() override {
+            throw CNNotInitializedIteratorException();
             return false;
         }
         CNViewPtr current() override {
