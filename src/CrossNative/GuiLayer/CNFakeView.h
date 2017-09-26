@@ -34,7 +34,7 @@ private:
         bool isDone() override {
             if(!initialized) throw CNNotInitializedIteratorException();
 
-            return true;
+            return false;
         }
         CNViewPtr current() override {
             if(!initialized) throw CNNotInitializedIteratorException();

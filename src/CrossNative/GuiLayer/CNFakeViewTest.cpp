@@ -53,14 +53,6 @@ TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsIsDone__Sh
     EXPECT_THROW(it->isDone(), CNNotInitializedIteratorException) << errorMessage;
 }
 
-TEST_F(CNFakeViewTest, FreshInstance_InitializedIterator__IteratorShouldBeDone) {
-    CNFakeViewPtr sut = makeCNFakeView();
-    CNIteratorPtr it = sut->makeIterator();
-    it->first();
-
-    expectIteratorIsDone(it);
-}
-
 TEST_F(CNFakeViewTest, _3ViewsAdded_InitializedIterator__IteratorShould_IterateChildrenInCorrectOrder) {
     CNFakeViewPtr sut = makeCNFakeView();
     CNViewPtr first = makeCNViewDummy();
@@ -100,4 +92,23 @@ TEST_F(CNFakeViewTest, _3ViewsAdded_InitializedIterator__IteratorsNext_BeyondThe
 
     std::string errorMessage = getIteratorOutOfBoundsErrorMessage();
     ASSERT_THROW(it->current(), CNNotIteratorOutOfBoundsException) << errorMessage;
+}
+
+TEST_F(CNFakeViewTest, _3ViewsAdded_InitializedIterator__IteratorsNext_BeyondTheLastElement__IteratorShouldBeDone) {
+    CNFakeViewPtr sut = makeCNFakeView();
+    CNViewPtr first = makeCNViewDummy();
+    CNViewPtr second = makeCNViewDummy();
+    CNViewPtr third = makeCNViewDummy();
+    sut->add(first);
+    sut->add(second);
+    sut->add(third);
+
+    CNIteratorPtr it = sut->makeIterator();
+    it->first();
+
+    it->next();
+    it->next();
+    it->next();
+
+    expectIteratorIsDone(it);
 }
