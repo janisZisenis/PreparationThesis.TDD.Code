@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "CNIterator.h"
+
 class CNView;
 typedef std::shared_ptr<CNView> CNViewPtr;
 
@@ -16,6 +18,7 @@ public:
     virtual void add(CNViewPtr view) = 0;
     virtual CNViewPtr getChild(int position) = 0;
     virtual int getChildCount() = 0;
+    virtual CNIteratorPtr makeIterator() = 0;
 };
 
 

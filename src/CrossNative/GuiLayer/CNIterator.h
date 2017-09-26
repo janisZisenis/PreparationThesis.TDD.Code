@@ -2,6 +2,7 @@
 #define CROSSNATIVE_ITERATOR_H
 
 #include <memory>
+#include <string>
 
 class CNView;
 

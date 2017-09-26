@@ -2,7 +2,6 @@
 #define CROSSNATIVE_FAKEVIEW_H
 
 #include "CNView.h"
-#include "CNIterator.h"
 
 class CNFakeView;
 typedef std::shared_ptr<CNFakeView> CNFakeViewPtr;
@@ -60,17 +59,17 @@ protected:
     CNFakeView() {};
 
 public:
-    virtual void add(CNViewPtr view) {
+    virtual void add(CNViewPtr view) override {
         children.push_back(view);
     }
 
-    virtual CNViewPtr getChild(int position) {
+    virtual CNViewPtr getChild(int position) override {
         return children[position];
     }
-    virtual int getChildCount() {
+    virtual int getChildCount() override {
         return children.size();
     }
-    virtual CNIteratorPtr makeIterator() {
+    virtual CNIteratorPtr makeIterator() override {
         return Iterator::getNewInstance(children);
     }
 

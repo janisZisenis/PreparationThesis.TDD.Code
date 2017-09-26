@@ -22,6 +22,9 @@ public:
     virtual int getChildCount() override {
         return 0;
     };
+    virtual CNIteratorPtr makeIterator() override {
+        return nullptr;
+    }
 };
 
 class CNViewSpy;
