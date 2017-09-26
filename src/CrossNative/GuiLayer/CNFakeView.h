@@ -23,24 +23,28 @@ private:
     public:
         void first() override {
             initialized = true;
-
             it = views.begin();
         }
         void next() override {
-            if(!initialized) throw CNNotInitializedIteratorException();
+            throwExceptionIfWasNotInitialized();
 
             it++;
         }
         bool isDone() override {
-            if(!initialized) throw CNNotInitializedIteratorException();
+            throwExceptionIfWasNotInitialized();
 
             return it >= views.end();
         }
         CNViewPtr current() override {
-            if(!initialized) throw CNNotInitializedIteratorException();
+            throwExceptionIfWasNotInitialized();
 
             return isDone() ? throw CNNotIteratorOutOfBoundsException() : *it;
         }
+    private:
+        virtual void throwExceptionIfWasNotInitialized() {
+            if(!initialized) throw CNNotInitializedIteratorException();
+        }
+
     private:
         bool initialized = false;
         std::vector<CNViewPtr> views;
@@ -61,10 +65,10 @@ public:
     }
 
     virtual CNViewPtr getChild(int position) {
-        return nullptr;
+        return children[position];
     }
     virtual int getChildCount() {
-        return 0;
+        return getChildCount();
     }
     virtual CNIteratorPtr makeIterator() {
         return Iterator::getNewInstance(children);
