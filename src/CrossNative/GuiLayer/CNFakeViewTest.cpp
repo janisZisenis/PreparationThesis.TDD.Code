@@ -18,9 +18,16 @@ protected:
     }
 };
 
-TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsCurrentShouldThrow_NotInitializedIteratorException) {
+TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsCurrent__ShouldThrow_NotInitializedIteratorException) {
     CNFakeViewPtr sut = makeCNFakeView();
     CNIteratorPtr it = sut->makeIterator();
 
     EXPECT_THROW(it->current(), CNNotInitializedIteratorException);
+}
+
+TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsNext__ShouldThrow_NotInitializedIteratorException) {
+    CNFakeViewPtr sut = makeCNFakeView();
+    CNIteratorPtr it = sut->makeIterator();
+
+    EXPECT_THROW(it->next(), CNNotInitializedIteratorException);
 }
