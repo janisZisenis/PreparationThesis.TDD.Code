@@ -25,14 +25,14 @@ private:
             initialized = true;
         }
         void next() override {
-            throw CNNotInitializedIteratorException();
+            if(!initialized) throw CNNotInitializedIteratorException();
         }
         bool isDone() override {
             if(!initialized) throw CNNotInitializedIteratorException();
             return true;
         }
         CNViewPtr current() override {
-            throw CNNotInitializedIteratorException();
+            if(!initialized) throw CNNotInitializedIteratorException();
             return nullptr;
         }
     private:

@@ -20,6 +20,10 @@ protected:
 
         EXPECT_TRUE(it->isDone()) << errorMessage;
     }
+    virtual void expectEquals(CNViewPtr actual, CNViewPtr expected) {
+        std::string errorMessage = "The views are not equal, the iterator does not iterate in the correct order!";
+        ASSERT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
 };
 
 TEST_F(CNFakeViewTest, FreshInstance_NotInitializedIterator__IteratorsCurrent__ShouldThrow_NotInitializedIteratorException) {
@@ -49,4 +53,25 @@ TEST_F(CNFakeViewTest, FreshInstance_InitializedIterator__IteratorShouldBeDone) 
     it->first();
 
     expectIteratorIsDone(it);
+}
+
+TEST_F(CNFakeViewTest, SomeViewsAdded_InitializedIterator__IteratorShould_IterateChildrenInCorrectOrder) {
+    CNFakeViewPtr sut = makeCNFakeView();
+    CNViewPtr first = makeCNViewDummy();
+    CNViewPtr second = makeCNViewDummy();
+    CNViewPtr third = makeCNViewDummy();
+    sut->add(first);
+    sut->add(second);
+    sut->add(third);
+
+    CNIteratorPtr it = sut->makeIterator();
+    it->first();
+
+    expectEquals(first, it->current());
+    it->next();
+
+    expectEquals(second, it->current());
+    it->next();
+
+    expectEquals(third, it->current());
 }
