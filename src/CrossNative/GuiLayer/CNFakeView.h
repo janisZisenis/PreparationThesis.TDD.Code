@@ -25,7 +25,7 @@ private:
 
         }
         void next() override {
-
+            throw CNNotInitializedIteratorException();
         }
         bool isDone() override {
             return false;
