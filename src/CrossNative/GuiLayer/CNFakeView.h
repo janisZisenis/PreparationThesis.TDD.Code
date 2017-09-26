@@ -30,7 +30,8 @@ private:
         bool isDone() override {
             return false;
         }
-        std::shared_ptr<CNView> current() override {
+        CNViewPtr current() override {
+            throw CNNotInitializedIteratorException();
             return nullptr;
         }
     private:
