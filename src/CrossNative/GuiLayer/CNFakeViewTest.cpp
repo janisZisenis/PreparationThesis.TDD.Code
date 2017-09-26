@@ -19,7 +19,7 @@ protected:
     }
 
     virtual void expectIteratorIsDone(CNIteratorPtr it) {
-        std::string errorMessage = "The Iterator should be done, but is it not!";
+        std::string errorMessage = "The Iterator should be done, but it is not!";
 
         EXPECT_TRUE(it->isDone()) << errorMessage;
     }
@@ -94,7 +94,7 @@ TEST_F(CNFakeViewTest, _3ViewsAdded_InitializedIterator__IteratorsNext_BeyondThe
     ASSERT_THROW(it->current(), CNNotIteratorOutOfBoundsException) << errorMessage;
 }
 
-TEST_F(CNFakeViewTest, _3ViewsAdded_InitializedIterator__IteratorsNext_BeyondTheLastElement__IteratorShouldBeDone) {
+TEST_F(CNFakeViewTest, _3ViewsAdded_InitializedIterator__3TimesIteratorsNext__IteratorShouldBeDone) {
     CNFakeViewPtr sut = makeCNFakeView();
     CNViewPtr first = makeCNViewDummy();
     CNViewPtr second = makeCNViewDummy();
