@@ -23,21 +23,28 @@ private:
     public:
         void first() override {
             initialized = true;
+
+            it = views.begin();
         }
         void next() override {
             if(!initialized) throw CNNotInitializedIteratorException();
+
+            it++;
         }
         bool isDone() override {
             if(!initialized) throw CNNotInitializedIteratorException();
+
             return true;
         }
         CNViewPtr current() override {
             if(!initialized) throw CNNotInitializedIteratorException();
-            return nullptr;
+
+            return it >= views.end() ? nullptr : *it;
         }
     private:
         bool initialized = false;
         std::vector<CNViewPtr> views;
+        std::vector<CNViewPtr>::iterator it;
     };
 
 public:
@@ -50,7 +57,7 @@ protected:
 
 public:
     virtual void add(CNViewPtr view) {
-
+        children.push_back(view);
     }
 
     virtual CNViewPtr getChild(int position) {

@@ -7,7 +7,13 @@ class CNView;
 
 class CNNotInitializedIteratorException : public std::exception {
     const char *what() const throw() override {
-        return std::string("The Iterator was not initialized, call iterator's \"first\" method before using it !").c_str();
+        return std::string("The Iterator was not initialized, call iterator's \"first\" method before using it!").c_str();
+    }
+};
+
+class CNNotIteratorOutOfBoundsException : public std::exception {
+    const char *what() const throw() override {
+        return std::string("The Iterator is out of bounds, use iterators \"isDone\" method to prevent this error!").c_str();
     }
 };
 
