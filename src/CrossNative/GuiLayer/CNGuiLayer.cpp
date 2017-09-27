@@ -17,7 +17,7 @@ void CNGuiLayer::PreOrderIterator::first() {
 
 void CNGuiLayer::PreOrderIterator::next() {
     CNViewPtr currentView = current();
-    moveOverCurrent();
+    moveCurrent();
     pushChildrenOf(currentView);
 }
 
@@ -36,7 +36,7 @@ void CNGuiLayer::PreOrderIterator::pushChildrenOf(CNViewPtr parent) {
         iterators.push(it);
 }
 
-void CNGuiLayer::PreOrderIterator::moveOverCurrent() {
+void CNGuiLayer::PreOrderIterator::moveCurrent() {
     iterators.top()->next();
     if(iterators.top()->isDone())
         iterators.pop();

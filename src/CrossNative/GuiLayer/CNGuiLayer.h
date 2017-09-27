@@ -31,7 +31,7 @@ private:
         virtual std::shared_ptr<CNView> current();
     private:
         virtual void pushChildrenOf(std::shared_ptr<CNView> parent);
-        virtual void moveOverCurrent();
+        virtual void moveCurrent();
 
     private:
         std::stack< std::shared_ptr<CNIterator> > iterators;
