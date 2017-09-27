@@ -27,30 +27,33 @@ public:
             addChildrenToStack(current);
     }
     virtual bool isDone() {
-        return views.empty();
+        return iterators.empty();
     }
     virtual CNViewPtr current() {
         return currentView();
     }
 private:
     virtual bool hasChildren(CNViewPtr parent) {
-        return parent->getChildCount() > 0;
+        CNIteratorPtr it = parent->makeIterator();
+        it->first();
+        return !it->isDone();
     }
     virtual void addChildrenToStack(CNViewPtr parent) {
-        CNIteratorPtr it = parent->makeIterator();
-        for (it->first(); !it->isDone(); it->next()) {
-            views.push(it->current());
-        }
+        CNIteratorPtr itIt = parent->makeIterator();
+        itIt->first();
+        iterators.push(itIt);
     }
     virtual CNViewPtr currentView() {
-        return views.top();
+        return iterators.top()->current();
     }
     virtual void moveOverCurrent() {
-        views.pop();
+        iterators.top()->next();
+        if(iterators.top()->isDone())
+            iterators.pop();
     }
 
 private:
-    std::stack< std::shared_ptr<CNView> > views;
+    std::stack<CNIteratorPtr> iterators;
     CNViewPtr root;
 };
 
