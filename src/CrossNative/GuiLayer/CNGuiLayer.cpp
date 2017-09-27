@@ -3,6 +3,42 @@
 #include "CNView.h"
 #include "CNMatcher.h"
 
+class PreOrderIterator;
+typedef std::shared_ptr<PreOrderIterator> PreOrderIteratorPtr;
+class PreOrderIterator : public CNIterator {
+public:
+    static PreOrderIteratorPtr getNewInstance(CNViewPtr root) {
+        return PreOrderIteratorPtr(new PreOrderIterator(root));
+    }
+    virtual ~PreOrderIterator() {}
+private:
+    PreOrderIterator(CNViewPtr root) : root(root) {}
+
+public:
+    virtual void first() override {
+        for (int i = 0; i < root->getChildCount(); i++) {
+            views.push(root->getChild(i));
+        }
+    }
+    virtual void next() override {
+        CNViewPtr top = views.top();
+        views.pop();
+        for(int i = 0; i < top->getChildCount(); i++) {
+            views.push(top->getChild(i));
+        }
+    }
+    virtual bool isDone() override {
+        return views.empty();
+    }
+    virtual CNViewPtr current() override {
+        return views.top();
+    }
+
+private:
+    std::stack< std::shared_ptr<CNView> > views;
+    CNViewPtr root;
+};
+
 CNGuiLayerPtr CNGuiLayer::getNewInstance() {
     return CNGuiLayerPtr(new CNGuiLayer());
 }
@@ -42,12 +78,11 @@ CNViewPtr CNGuiLayer::findMatchingViewInHierarchy(CNMatcherPtr matcher, CNViewPt
 }
 
 CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
-    views = std::stack<CNViewPtr>();
-    localRoot = parent;
+    CNIteratorPtr it = PreOrderIterator::getNewInstance(parent);
 
-    for(first(); !isDone(); next()) {
-        if(isMatching(matcher, current()))
-            return current();
+    for(it->first(); !it->isDone(); it->next()) {
+        if(isMatching(matcher, it->current()))
+            return it->current();
     }
 
     return nullptr;
@@ -56,47 +91,3 @@ CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr par
 bool CNGuiLayer::isMatching(CNMatcherPtr matcher, CNViewPtr view) {
     return matcher->matches(view);
 }
-
-void CNGuiLayer::first() {
-    for (int i = 0; i < localRoot->getChildCount(); i++) {
-        views.push(localRoot->getChild(i));
-    }
-}
-
-void CNGuiLayer::next() {
-    CNViewPtr top = views.top();
-    views.pop();
-    for(int i = 0; i < top->getChildCount(); i++) {
-    views.push(top->getChild(i));
-}
-}
-
-CNViewPtr CNGuiLayer::current() {
-    return views.top();
-}
-
-bool CNGuiLayer::isDone() {
-    return views.empty();
-}
-
-//class PreOrderIterator;
-//typedef std::shared_ptr<PreOrderIterator> PreOrderIteratorPtr;
-//class PreOrderIterator : public CNIterator {
-//public:
-//    static PreOrderIteratorPtr getNewInstance() {
-//        return PreOrderIteratorPtr(new PreOrderIterator());
-//    }
-//    virtual ~PreOrderIterator() {}
-//private:
-//    PreOrderIterator() {}
-//
-//public:
-//    virtual void first() override {}
-//    virtual void next() override {}
-//    virtual bool isDone() override {
-//        return false;
-//    }
-//    virtual CNViewPtr current() override {
-//        return nullptr;
-//    }
-//};

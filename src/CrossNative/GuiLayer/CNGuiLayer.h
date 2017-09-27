@@ -30,16 +30,8 @@ private:
     virtual std::shared_ptr<CNView> findMatchingView(std::shared_ptr<CNMatcher> matcher);
     virtual std::shared_ptr<CNView> findMatchingInChildren(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> parent);
     virtual bool isMatching(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> view);
-
-    virtual void first();
-    virtual void next();
-    virtual std::shared_ptr<CNView> current();
-    virtual bool isDone();
 private:
     std::vector< std::shared_ptr<CNView> > viewHierarchies;
-
-    std::stack< std::shared_ptr<CNView> > views;
-    std::shared_ptr<CNView> localRoot;
 };
 
 
