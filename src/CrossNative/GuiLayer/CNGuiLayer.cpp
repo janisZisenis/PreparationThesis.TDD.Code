@@ -3,8 +3,6 @@
 #include "CNView.h"
 #include "CNMatcher.h"
 
-#include <stack>
-
 CNGuiLayerPtr CNGuiLayer::getNewInstance() {
     return CNGuiLayerPtr(new CNGuiLayer());
 }
@@ -44,36 +42,46 @@ CNViewPtr CNGuiLayer::findMatchingViewInHierarchy(CNMatcherPtr matcher, CNViewPt
 }
 
 CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
-    std::stack<CNViewPtr> views;
+    views = std::stack<CNViewPtr>();
+    localRoot = parent;
 
-    for (int i = 0; i < parent->getChildCount(); i++) {
-        views.push(parent->getChild(i));
-    }
+    first();
 
-    while(!views.empty()) {
-        if(isMatching(matcher, views.top()))
-            return views.top();
+    while(!isDone()) {
+        if(isMatching(matcher, current()))
+            return current();
         else {
-            CNViewPtr top = views.top();
-            views.pop();
-            for(int i = 0; i < top->getChildCount(); i++) {
-                views.push(top->getChild(i));
-            }
+            next();
         }
     }
-
-//    for (int i = 0; i < parent->getChildCount(); i++) {
-//        CNViewPtr matchingView = findMatchingViewInHierarchy(matcher, parent->getChild(i));
-//
-//        if (matchingView)
-//            return matchingView;
-//    }
 
     return nullptr;
 }
 
 bool CNGuiLayer::isMatching(CNMatcherPtr matcher, CNViewPtr view) {
     return matcher->matches(view);
+}
+
+void CNGuiLayer::first() {
+    for (int i = 0; i < localRoot->getChildCount(); i++) {
+        views.push(localRoot->getChild(i));
+    }
+}
+
+void CNGuiLayer::next() {
+    CNViewPtr top = views.top();
+    views.pop();
+    for(int i = 0; i < top->getChildCount(); i++) {
+    views.push(top->getChild(i));
+}
+}
+
+CNViewPtr CNGuiLayer::current() {
+    return views.top();
+}
+
+bool CNGuiLayer::isDone() {
+    return views.empty();
 }
 
 //class PreOrderIterator;
