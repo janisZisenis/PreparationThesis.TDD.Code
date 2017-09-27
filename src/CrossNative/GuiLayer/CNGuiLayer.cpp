@@ -16,35 +16,25 @@ private:
 
 public:
     virtual void first() {
-        if(hasChildren(root))
-            addChildrenToStack(root);
+        pushChildrenOf(root);
     }
     virtual void next() {
-        CNViewPtr current = this->current();
+        CNViewPtr currentView = current();
         moveOverCurrent();
-
-        if(hasChildren(current))
-            addChildrenToStack(current);
+        pushChildrenOf(currentView);
     }
     virtual bool isDone() {
         return iterators.empty();
     }
     virtual CNViewPtr current() {
-        return currentView();
+        return iterators.top()->current();
     }
 private:
-    virtual bool hasChildren(CNViewPtr parent) {
+    virtual void pushChildrenOf(CNViewPtr parent) {
         CNIteratorPtr it = parent->makeIterator();
         it->first();
-        return !it->isDone();
-    }
-    virtual void addChildrenToStack(CNViewPtr parent) {
-        CNIteratorPtr itIt = parent->makeIterator();
-        itIt->first();
-        iterators.push(itIt);
-    }
-    virtual CNViewPtr currentView() {
-        return iterators.top()->current();
+        if(!it->isDone())
+            iterators.push(it);
     }
     virtual void moveOverCurrent() {
         iterators.top()->next();
