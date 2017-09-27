@@ -48,13 +48,9 @@ CNGuiLayerPtr CNGuiLayer::getNewInstance() {
     return CNGuiLayerPtr(new CNGuiLayer());
 }
 
-CNGuiLayer::~CNGuiLayer() {
+CNGuiLayer::~CNGuiLayer() {}
 
-}
-
-CNGuiLayer::CNGuiLayer() {
-
-}
+CNGuiLayer::CNGuiLayer() {}
 
 void CNGuiLayer::loadTopLevel(CNViewPtr view) {
     viewHierarchies.push_back(view);
@@ -68,8 +64,10 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
 }
 
 CNViewPtr CNGuiLayer::findMatchingView(CNMatcherPtr matcher) {
-    for(int i = 0; i < viewHierarchies.size(); i++) {
-        CNViewPtr matchingView = findMatchingViewInHierarchy(matcher, viewHierarchies[i]);
+    std::vector<CNViewPtr>::iterator it;
+
+    for(it = viewHierarchies.begin(); it != viewHierarchies.end(); it++) {
+        CNViewPtr matchingView = findMatchingViewInHierarchy(matcher, *it);
 
         if (matchingView)
             return matchingView;
