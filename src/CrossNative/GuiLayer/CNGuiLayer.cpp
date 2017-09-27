@@ -5,7 +5,7 @@
 
 class PreOrderIterator;
 typedef std::shared_ptr<PreOrderIterator> PreOrderIteratorPtr;
-class PreOrderIterator : public CNIterator {
+class PreOrderIterator {
 public:
     static PreOrderIteratorPtr getNewInstance(CNViewPtr root) {
         return PreOrderIteratorPtr(new PreOrderIterator(root));
@@ -15,22 +15,22 @@ private:
     PreOrderIterator(CNViewPtr root) : root(root) {}
 
 public:
-    virtual void first() override {
+    virtual void first() {
         for (int i = 0; i < root->getChildCount(); i++) {
             views.push(root->getChild(i));
         }
     }
-    virtual void next() override {
+    virtual void next() {
         CNViewPtr top = views.top();
         views.pop();
         for(int i = 0; i < top->getChildCount(); i++) {
             views.push(top->getChild(i));
         }
     }
-    virtual bool isDone() override {
+    virtual bool isDone() {
         return views.empty();
     }
-    virtual CNViewPtr current() override {
+    virtual CNViewPtr current() {
         return views.top();
     }
 
@@ -78,7 +78,7 @@ CNViewPtr CNGuiLayer::findMatchingViewInHierarchy(CNMatcherPtr matcher, CNViewPt
 }
 
 CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
-    CNIteratorPtr it = PreOrderIterator::getNewInstance(parent);
+    PreOrderIteratorPtr it = PreOrderIterator::getNewInstance(parent);
 
     for(it->first(); !it->isDone(); it->next()) {
         if(isMatching(matcher, it->current()))
