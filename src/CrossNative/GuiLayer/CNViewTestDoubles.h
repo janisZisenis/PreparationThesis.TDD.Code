@@ -19,6 +19,12 @@ public:
     virtual CNIteratorPtr makeIterator() override {
         return nullptr;
     }
+    virtual CNViewPtr getChild(int position) override {
+        return nullptr;
+    };
+    virtual int getChildCount() override {
+        return 0;
+    };
 };
 
 class CNViewStub;

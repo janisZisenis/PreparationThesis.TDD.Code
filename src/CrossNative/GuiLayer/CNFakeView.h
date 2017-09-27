@@ -67,6 +67,13 @@ public:
         return Iterator::getNewInstance(children);
     }
 
+    virtual CNViewPtr getChild(int position) override {
+        return children[position];
+    };
+    virtual int getChildCount() override {
+        return children.size();
+    };
+
 private:
     std::vector<CNViewPtr> children;
 };
