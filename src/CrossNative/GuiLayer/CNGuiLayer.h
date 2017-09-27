@@ -60,6 +60,8 @@ private:
 
 private:
     std::vector< std::shared_ptr<CNView> > viewHierarchies;
+
+    std::shared_ptr<CNView> pendingView;
 };
 
 
