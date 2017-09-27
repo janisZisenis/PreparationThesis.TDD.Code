@@ -16,29 +16,41 @@ private:
 
 public:
     virtual void first() {
-        CNIteratorPtr it = root->makeIterator();
-        for (it->first(); !it->isDone(); it->next()) {
-            views.push(it->current());
-        }
+        if(hasChildren(root))
+            addChildrenToStack(root);
     }
     virtual void next() {
-        CNViewPtr top = views.top();
-        views.pop();
-        CNIteratorPtr it = top->makeIterator();
-        for(it->first(); !it->isDone(); it->next()) {
-            views.push(it->current());
-        }
+        CNViewPtr current = this->current();
+        moveOverCurrent();
+
+        if(hasChildren(current))
+            addChildrenToStack(current);
     }
     virtual bool isDone() {
         return views.empty();
     }
     virtual CNViewPtr current() {
+        return currentView();
+    }
+private:
+    virtual bool hasChildren(CNViewPtr parent) {
+        return parent->getChildCount() > 0;
+    }
+    virtual void addChildrenToStack(CNViewPtr parent) {
+        CNIteratorPtr it = parent->makeIterator();
+        for (it->first(); !it->isDone(); it->next()) {
+            views.push(it->current());
+        }
+    }
+    virtual CNViewPtr currentView() {
         return views.top();
+    }
+    virtual void moveOverCurrent() {
+        views.pop();
     }
 
 private:
     std::stack< std::shared_ptr<CNView> > views;
-    std::stack< CNIteratorPtr > iterators;
     CNViewPtr root;
 };
 
