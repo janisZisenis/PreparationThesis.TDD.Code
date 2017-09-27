@@ -224,3 +224,15 @@ TEST_F(CNGuiLayerTest, _2TopLevelViews_Loaded__Load_View_MatchingSecondTopLevelV
     std::string errorMessage = getAddedView_ErrorMessage("View", "SecondTopLevelView");
     expect_View_WasAddedTo_View(view, secondTopLevelView, errorMessage);
 }
+
+TEST_F(CNGuiLayerTest, View_Loaded_MatchingTopLevelView__Load_TopLevelView__ShouldAdd_View_to_TopLevelView) {
+    CNGuiLayerPtr sut = makeCNGuiLayer();
+    CNViewSpyPtr topLevelView = makeCNViewSpy_WithDoneIterator();
+    CNViewDummyPtr view = makeCNViewDummy();
+    sut->load(view, makeFakeMatcher(topLevelView));
+
+    sut->loadTopLevel(topLevelView);
+
+    std::string errorMessage = getAddedView_ErrorMessage("View", "TopLevelView");
+    expect_View_WasAddedTo_View(view, topLevelView, errorMessage);
+}
