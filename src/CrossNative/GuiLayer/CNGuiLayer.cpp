@@ -45,14 +45,9 @@ CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr par
     views = std::stack<CNViewPtr>();
     localRoot = parent;
 
-    first();
-
-    while(!isDone()) {
+    for(first(); !isDone(); next()) {
         if(isMatching(matcher, current()))
             return current();
-        else {
-            next();
-        }
     }
 
     return nullptr;
