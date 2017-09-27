@@ -187,7 +187,7 @@ TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, _2Views_Loaded_MatchingTopLeve
 TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, _2Views_Loaded_MatchingTopLevelView__Load_SubView_MatchingFirstView__ShouldAdd_SubView_to_FirstView) {
     CNViewSpyPtr firstView = makeCNViewSpy_WithDoneIterator();
     sut->load(firstView, makeFakeMatcher(topLevelView));
-    CNViewDummyPtr secondView = makeCNViewDummy();
+    CNFakeViewPtr secondView = makeCNFakeView();
     sut->load(secondView, makeFakeMatcher(topLevelView));
 
     CNViewDummyPtr subView = makeCNViewDummy();

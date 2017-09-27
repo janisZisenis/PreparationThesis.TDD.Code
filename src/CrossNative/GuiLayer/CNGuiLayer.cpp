@@ -16,15 +16,17 @@ private:
 
 public:
     virtual void first() {
-        for (int i = 0; i < root->getChildCount(); i++) {
-            views.push(root->getChild(i));
+        CNIteratorPtr it = root->makeIterator();
+        for (it->first(); !it->isDone(); it->next()) {
+            views.push(it->current());
         }
     }
     virtual void next() {
         CNViewPtr top = views.top();
         views.pop();
-        for(int i = 0; i < top->getChildCount(); i++) {
-            views.push(top->getChild(i));
+        CNIteratorPtr it = top->makeIterator();
+        for(it->first(); !it->isDone(); it->next()) {
+            views.push(it->current());
         }
     }
     virtual bool isDone() {
@@ -36,6 +38,7 @@ public:
 
 private:
     std::stack< std::shared_ptr<CNView> > views;
+    std::stack< CNIteratorPtr > iterators;
     CNViewPtr root;
 };
 
