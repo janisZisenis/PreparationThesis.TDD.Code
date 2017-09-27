@@ -3,49 +3,46 @@
 #include "CNView.h"
 #include "CNMatcher.h"
 
-class PreOrderIterator;
-typedef std::shared_ptr<PreOrderIterator> PreOrderIteratorPtr;
-class PreOrderIterator {
-public:
-    static PreOrderIteratorPtr getNewInstance(CNViewPtr root) {
-        return PreOrderIteratorPtr(new PreOrderIterator(root));
-    }
-    virtual ~PreOrderIterator() {}
-private:
-    PreOrderIterator(CNViewPtr root) : root(root) {}
+CNGuiLayer::PreOrderIteratorPtr CNGuiLayer::PreOrderIterator::getNewInstance(CNViewPtr root) {
+    return PreOrderIteratorPtr(new PreOrderIterator(root));
+}
 
-public:
-    virtual void first() {
-        pushChildrenOf(root);
-    }
-    virtual void next() {
-        CNViewPtr currentView = current();
-        moveOverCurrent();
-        pushChildrenOf(currentView);
-    }
-    virtual bool isDone() {
-        return iterators.empty();
-    }
-    virtual CNViewPtr current() {
-        return iterators.top()->current();
-    }
-private:
-    virtual void pushChildrenOf(CNViewPtr parent) {
-        CNIteratorPtr it = parent->makeIterator();
-        it->first();
-        if(!it->isDone())
-            iterators.push(it);
-    }
-    virtual void moveOverCurrent() {
-        iterators.top()->next();
-        if(iterators.top()->isDone())
-            iterators.pop();
-    }
+CNGuiLayer::PreOrderIterator::~PreOrderIterator() {}
 
-private:
-    std::stack<CNIteratorPtr> iterators;
-    CNViewPtr root;
-};
+CNGuiLayer::PreOrderIterator::PreOrderIterator(CNViewPtr root) : root(root) {}
+
+void CNGuiLayer::PreOrderIterator::first() {
+    pushChildrenOf(root);
+}
+
+void CNGuiLayer::PreOrderIterator::next() {
+    CNViewPtr currentView = current();
+    moveOverCurrent();
+    pushChildrenOf(currentView);
+}
+
+bool CNGuiLayer::PreOrderIterator::isDone() {
+    return iterators.empty();
+}
+
+CNViewPtr CNGuiLayer::PreOrderIterator::current() {
+    return iterators.top()->current();
+}
+
+void CNGuiLayer::PreOrderIterator::pushChildrenOf(CNViewPtr parent) {
+    CNIteratorPtr it = parent->makeIterator();
+    it->first();
+    if(!it->isDone())
+        iterators.push(it);
+}
+
+void CNGuiLayer::PreOrderIterator::moveOverCurrent() {
+    iterators.top()->next();
+    if(iterators.top()->isDone())
+        iterators.pop();
+}
+
+
 
 CNGuiLayerPtr CNGuiLayer::getNewInstance() {
     return CNGuiLayerPtr(new CNGuiLayer());
@@ -86,7 +83,7 @@ CNViewPtr CNGuiLayer::findMatchingViewInHierarchy(CNMatcherPtr matcher, CNViewPt
 }
 
 CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr parent) {
-    PreOrderIteratorPtr it = PreOrderIterator::getNewInstance(parent);
+    PreOrderIteratorPtr it = makeHierarchyIterator(parent);
 
     for(it->first(); !it->isDone(); it->next()) {
         if(isMatching(matcher, it->current()))
@@ -98,4 +95,8 @@ CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr par
 
 bool CNGuiLayer::isMatching(CNMatcherPtr matcher, CNViewPtr view) {
     return matcher->matches(view);
+}
+
+CNGuiLayer::PreOrderIteratorPtr CNGuiLayer::makeHierarchyIterator(CNViewPtr root) {
+    return PreOrderIterator::getNewInstance(root);
 }
