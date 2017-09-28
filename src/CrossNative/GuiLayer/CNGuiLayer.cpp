@@ -69,24 +69,29 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
         if(pendingView)
             if(isMatching(pendingMatcher, view))
                 view->add(pendingView);
+
+        return;
     }
-    else {
-        if (pendingView) {
-            if(isMatching(matcher, pendingView))
-                pendingView->add(view);
-            else if(isMatching(pendingMatcher, view)) {
-                view->add(pendingView);
-                pendingView = view;
-                pendingMatcher = matcher;
-            } else {
-                pendingView = view;
-                pendingMatcher = matcher;
-            }
-        } else {
-            pendingView = view;
-            pendingMatcher = matcher;
-        }
+
+    if (!pendingView) {
+        setPending(view, matcher);
+        return;
     }
+
+    if(isMatching(matcher, pendingView)) {
+        pendingView->add(view);
+        return;
+    }
+
+    if(isMatching(pendingMatcher, view)) {
+        view->add(pendingView);
+    }
+    setPending(view, matcher);
+}
+
+void CNGuiLayer::setPending(CNViewPtr view, CNMatcherPtr matcher) {
+    pendingView = view;
+    pendingMatcher = matcher;
 }
 
 CNViewPtr CNGuiLayer::findMatchingView(CNMatcherPtr matcher) {
