@@ -70,7 +70,7 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
         if (lastLoadedView) {
             if(isMatching(matcher, lastLoadedView))
                 lastLoadedView->add(view);
-            else
+            else if(isMatching(lastLoadedMatcher, view))
                 view->add(lastLoadedView);
 
         }
