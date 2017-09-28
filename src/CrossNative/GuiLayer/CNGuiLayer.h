@@ -60,8 +60,8 @@ private:
 private:
     std::vector< std::shared_ptr<CNView> > viewHierarchies;
 
-    std::shared_ptr<CNView> pendingView;
-    std::shared_ptr<CNMatcher> pendingMatcher;
+    std::shared_ptr<CNView> lastLoadedView;
+    std::shared_ptr<CNMatcher> lastLoadedMatcher;
 };
 
 
