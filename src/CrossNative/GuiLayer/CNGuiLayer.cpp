@@ -78,6 +78,9 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
                 view->add(pendingView);
                 pendingView = view;
                 pendingMatcher = matcher;
+            } else {
+                pendingView = view;
+                pendingMatcher = matcher;
             }
         } else {
             pendingView = view;
