@@ -62,31 +62,39 @@ void CNGuiLayer::loadTopLevel(CNViewPtr view) {
 }
 
 void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
+    if(loadToViewHierarchies(view, matcher) || loadToPendingView(view, matcher))
+        return;
+
+    loadAsPendingView(view, matcher);
+}
+
+void CNGuiLayer::loadAsPendingView(const CNViewPtr &view, const CNMatcherPtr &matcher) {
+    loadPendingViewTo(view);
+    setPending(view, matcher);
+}
+
+
+bool CNGuiLayer::loadToViewHierarchies(CNViewPtr view, CNMatcherPtr matcher) {
     CNViewPtr matchingView = findMatchingView(matcher);
 
     if(matchingView) {
         matchingView->add(view);
-        if(pendingView)
-            if(isMatching(pendingMatcher, view))
-                view->add(pendingView);
-
-        return;
+        loadPendingViewTo(view);
+        return true;
     }
 
-    if (!pendingView) {
-        setPending(view, matcher);
-        return;
-    }
+    return false;
+}
 
-    if(isMatching(matcher, pendingView)) {
-        pendingView->add(view);
-        return;
-    }
-
-    if(isMatching(pendingMatcher, view)) {
+void CNGuiLayer::loadPendingViewTo(CNViewPtr view) {
+    if (pendingView && isMatching(pendingMatcher, view))
         view->add(pendingView);
-    }
-    setPending(view, matcher);
+}
+
+bool CNGuiLayer::loadToPendingView(CNViewPtr view, CNMatcherPtr matcher) {
+    bool matches = pendingView && isMatching(matcher, pendingView);
+    if(matches) pendingView->add(view);
+    return matches;
 }
 
 void CNGuiLayer::setPending(CNViewPtr view, CNMatcherPtr matcher) {
@@ -129,3 +137,4 @@ bool CNGuiLayer::isMatching(CNMatcherPtr matcher, CNViewPtr view) {
 CNGuiLayer::PreOrderIteratorPtr CNGuiLayer::makeHierarchyIterator(CNViewPtr root) {
     return PreOrderIterator::getNewInstance(root);
 }
+
