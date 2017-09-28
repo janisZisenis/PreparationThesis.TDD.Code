@@ -73,7 +73,6 @@ void CNGuiLayer::loadAsPendingView(const CNViewPtr &view, const CNMatcherPtr &ma
     setPending(view, matcher);
 }
 
-
 bool CNGuiLayer::loadToViewHierarchies(CNViewPtr view, CNMatcherPtr matcher) {
     CNViewPtr matchingView = findMatchingView(matcher);
 
