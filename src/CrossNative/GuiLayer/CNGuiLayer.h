@@ -57,13 +57,8 @@ private:
     virtual std::shared_ptr<CNView> findMatchingView(std::shared_ptr<CNMatcher> matcher);
     virtual std::shared_ptr<CNView> findMatchingInChildren(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> parent);
     virtual bool isMatching(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> view);
-
-    virtual void addPendingViewTo(std::shared_ptr<CNView> view);
 private:
     std::vector< std::shared_ptr<CNView> > viewHierarchies;
-
-    std::shared_ptr<CNView> pendingView;
-    std::shared_ptr<CNMatcher> pendingMatcher;
 };
 
 

@@ -54,8 +54,6 @@ CNGuiLayer::CNGuiLayer() {}
 
 void CNGuiLayer::loadTopLevel(CNViewPtr view) {
     viewHierarchies.push_back(view);
-
-    addPendingViewTo(view);
 }
 
 void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
@@ -63,12 +61,6 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
 
     if(matchingView)
         matchingView->add(view);
-    else {
-        pendingMatcher = matcher;
-        pendingView = view;
-    }
-
-    addPendingViewTo(view);
 }
 
 CNViewPtr CNGuiLayer::findMatchingView(CNMatcherPtr matcher) {
@@ -101,12 +93,6 @@ CNViewPtr CNGuiLayer::findMatchingInChildren(CNMatcherPtr matcher, CNViewPtr par
 
 bool CNGuiLayer::isMatching(CNMatcherPtr matcher, CNViewPtr view) {
     return matcher->matches(view);
-}
-
-void CNGuiLayer::addPendingViewTo(CNViewPtr view) {
-    if(pendingView)
-        if(isMatching(pendingMatcher, view))
-            view->add(pendingView);
 }
 
 CNGuiLayer::PreOrderIteratorPtr CNGuiLayer::makeHierarchyIterator(CNViewPtr root) {
