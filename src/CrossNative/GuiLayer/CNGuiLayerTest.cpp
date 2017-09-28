@@ -333,3 +333,14 @@ TEST_F(CNGuiLayerTest, SubView_Loaded_MatchingView_and_View_Loaded_MatchingTopLe
     std::string errorMessage = getAddedView_ErrorMessage("View", "TopLevelView");
     expect_View_WasAddedTo_View(view, topLevelView, errorMessage);
 }
+
+TEST_F(GuiLayer_With_FakeView_Loaded_to_TopLevel, SubView_Loaded_MatchingView__Load_View_MatchingTopLevelView__SubView_ShouldBeAdded_to_View) {
+    CNViewSpyPtr view = makeCNViewSpy_WithDoneIterator();
+    CNViewDummyPtr subView = makeCNViewDummy();
+    sut->load(subView, makeFakeMatcher(view));
+
+    sut->load(view, makeFakeMatcher(topLevelView));
+
+    std::string errorMessage = getAddedView_ErrorMessage("SubView", "View");
+    expect_View_WasAddedTo_View(subView, view, errorMessage);
+}
