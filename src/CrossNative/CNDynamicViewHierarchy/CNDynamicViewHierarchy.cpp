@@ -11,4 +11,9 @@ CNDynamicViewHierarchy::~CNDynamicViewHierarchy() {}
 
 CNDynamicViewHierarchy::CNDynamicViewHierarchy() {}
 
-void CNDynamicViewHierarchy::load(CNViewPtr view) {}
+void CNDynamicViewHierarchy::load(CNViewPtr view) {
+    if(!firstView)
+        firstView = view;
+    else
+        firstView->add(view);
+}
