@@ -49,7 +49,7 @@ protected:
 
 public:
     virtual void loadTopLevel(std::shared_ptr<CNView> view);
-    virtual void load(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> machter);
+    virtual void load(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
 
 private:
     virtual std::shared_ptr<CNView> findMatchingViewInHierarchy(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> root);
@@ -59,9 +59,9 @@ private:
 private:
     virtual void addPending(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
     virtual void loadPendingViewsTo(std::shared_ptr<CNView> view);
-    virtual bool loadToPendingView(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
+    virtual bool loadToPendingViews(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
     virtual bool loadToViewHierarchies(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
-    void loadAsPendingView(const std::shared_ptr<CNView> &view, const std::shared_ptr<CNMatcher> &matcher);
+    void loadAsPendingView(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
 
     std::vector< std::shared_ptr<CNView> > viewHierarchies;
 
