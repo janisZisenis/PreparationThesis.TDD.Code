@@ -21,7 +21,7 @@ protected:
     CNDynamicViewHierarchy();
 
 public:
-    virtual void load(std::shared_ptr<CNView> view);
+    virtual void load(std::shared_ptr<CNView> view, bool matches);
 
 private:
     std::shared_ptr<CNView> firstView;
