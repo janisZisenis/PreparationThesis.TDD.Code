@@ -37,6 +37,10 @@ protected:
 
         expectUnequals(actual, unexpected, errorMessage);
     }
+
+    virtual std::string get_ReceiverAddedView_ErrorMessage(std::string receiverName, std::string viewName) {
+        return receiverName + " should be added to " + viewName + ", but it was not!";
+    }
 };
 
 TEST_F(CNDynamicViewHierarchyTest, Loaded_View__LoadSubView_Matching__SubView_SubViewShouldBeAddedToView) {
@@ -47,7 +51,7 @@ TEST_F(CNDynamicViewHierarchyTest, Loaded_View__LoadSubView_Matching__SubView_Su
     CNViewDummyPtr subView = makeCNViewDummy();
     sut->load(subView, true);
 
-    std::string errorMessage = "SubView should be added to View, but it was not!";
+    std::string errorMessage = get_ReceiverAddedView_ErrorMessage("SubView", "View");
     expect_Receiver_Added_View(view, subView, errorMessage);
 }
 
@@ -73,7 +77,7 @@ TEST_F(CNDynamicViewHierarchyTest, Loaded_View_Loaded_SubView_Matching__Load_Sub
     CNViewDummyPtr subSubView = makeCNViewDummy();
     sut->load(subSubView, true);
 
-    std::string errorMessage = "SubSubView should be added to SubView, but it was not!";
+    std::string errorMessage = get_ReceiverAddedView_ErrorMessage("SubSubView", "SubView");
     expect_Receiver_Added_View(subView, subSubView, errorMessage);
 }
 
