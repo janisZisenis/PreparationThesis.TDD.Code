@@ -55,24 +55,17 @@ CNGuiLayer::CNGuiLayer() {}
 void CNGuiLayer::loadTopLevel(CNViewPtr view) {
     viewHierarchies.push_back(view);
 
-    CNViewPtr pendingView = nullptr;
-    CNMatcherPtr pendingMatcher = nullptr;
-
-    if(pendingViews.size() > 0) {
-        pendingView = pendingViews[pendingViews.size() - 1];
-        pendingMatcher = pendingMatchers[pendingMatchers.size() - 1];
+    for(int i = 0; i < pendingViews.size(); i++) {
+        if (isMatching(pendingMatchers[i], view))
+            view->add(pendingViews[i]);
     }
-
-    if(pendingView)
-        if(isMatching(pendingMatcher, view))
-            view->add(pendingView);
-
 }
 
 void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
-    if(loadToViewHierarchies(view, matcher) || loadToPendingViews(view, matcher))
+    if(loadToViewHierarchies(view, matcher))
         return;
 
+    loadToPendingViews(view, matcher);
     loadAsPendingView(view, matcher);
 }
 
