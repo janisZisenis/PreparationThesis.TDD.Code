@@ -1,12 +1,7 @@
 #include <gmock/gmock.h>
 #include "CNDynamicViewHierarchy.h"
 
-#include <string>
-
 #include "CrossNative/CNView/CNViewTestDoubles.h"
-
-#include "CrossNative/CNMatcher/CNFakeMatcher.h"
-#include "CrossNative/CNMatcher/CNMatcherTestDoubles.h"
 
 class CNDynamicViewHierarchyTest : public testing::Test {
 protected:
