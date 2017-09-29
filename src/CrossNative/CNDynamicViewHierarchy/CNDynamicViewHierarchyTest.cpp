@@ -25,7 +25,7 @@ protected:
         EXPECT_THAT(actual, testing::Ne(unexpected)) << errorMessage;
     }
 
-    virtual void expect_View_Added_View(CNViewSpyPtr receiver, CNViewPtr view, std::string errorMessage) {
+    virtual void expect_Receiver_Added_View(CNViewSpyPtr receiver, CNViewPtr view, std::string errorMessage) {
         CNViewPtr expected = view;
         CNViewPtr actual = receiver->getAddedView();
 
@@ -39,7 +39,7 @@ protected:
     }
 };
 
-TEST_F(CNDynamicViewHierarchyTest, Loaded_View__LoadSubView_Matching__SubView_ShouldBeAddedTo_View) {
+TEST_F(CNDynamicViewHierarchyTest, Loaded_View__LoadSubView_Matching__SubView_SubViewShouldBeAddedToView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr view = makeCNViewSpy();
     sut->load(view, false);
@@ -48,10 +48,10 @@ TEST_F(CNDynamicViewHierarchyTest, Loaded_View__LoadSubView_Matching__SubView_Sh
     sut->load(subView, true);
 
     std::string errorMessage = "SubView should be added to View, but it was not!";
-    expect_View_Added_View(view, subView, errorMessage);
+    expect_Receiver_Added_View(view, subView, errorMessage);
 }
 
-TEST_F(CNDynamicViewHierarchyTest, Loaded_View_LoadSubView_NotMatching_ShouldNotBeAddedTo_View) {
+TEST_F(CNDynamicViewHierarchyTest, Loaded_View__LoadSubView_NotMatching__SubViewShouldNotBeAddedToView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr view = makeCNViewSpy();
     sut->load(view, false);
@@ -62,3 +62,20 @@ TEST_F(CNDynamicViewHierarchyTest, Loaded_View_LoadSubView_NotMatching_ShouldNot
     std::string errorMessage = "SubView should not be added to View, but it was!";
     expect_Receiver_DidNotAdd_View(view, subView, errorMessage);
 }
+
+TEST_F(CNDynamicViewHierarchyTest, Loaded_View_Loaded_SubView_Matching__Load_SubSubView_Matching__SubSubViewShouldBeAddedToSubView) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewSpyPtr view = makeCNViewSpy();
+    sut->load(view, false);
+    CNViewSpyPtr subView = makeCNViewSpy();
+    sut->load(subView, true);
+
+    CNViewDummyPtr subSubView = makeCNViewDummy();
+    sut->load(subSubView, true);
+
+    std::string errorMessage = "SubSubView should be added to SubView, but it was not!";
+    expect_Receiver_Added_View(subView, subSubView, errorMessage);
+}
+
+
+
