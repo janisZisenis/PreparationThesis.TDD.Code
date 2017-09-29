@@ -1,7 +1,7 @@
 #include "CNGuiLayer.h"
 
-#include "CNView.h"
-#include "CNMatcher.h"
+#include "CrossNative/CNView/CNView.h"
+#include "CrossNative/CNMatcher/CNMatcher.h"
 
 CNGuiLayer::PreOrderIteratorPtr CNGuiLayer::PreOrderIterator::getNewInstance(CNViewPtr root) {
     return PreOrderIteratorPtr(new PreOrderIterator(root));

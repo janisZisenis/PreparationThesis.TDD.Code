@@ -3,15 +3,15 @@
 
 #include "CNGuiLayer.h"
 
-#include "CNView.h"
-#include "CNFakeView.h"
-#include "CNViewTestDoubles.h"
+#include "CrossNative/CNView/CNView.h"
+#include "CrossNative/CNView/CNFakeView.h"
+#include "CrossNative/CNView/CNViewTestDoubles.h"
 
-#include "CNIteratorTestDoubles.h"
+#include "CrossNative/CNView/CNIteratorTestDoubles.h"
 
-#include "CNMatcher.h"
-#include "CNMatcherTestDoubles.h"
-#include "CNFakeMatcher.h"
+#include "CrossNative/CNMatcher/CNMatcher.h"
+#include "CrossNative/CNMatcher/CNMatcherTestDoubles.h"
+#include "CrossNative/CNMatcher/CNFakeMatcher.h"
 
 class CNGuiLayerTest : public testing::Test {
 protected:

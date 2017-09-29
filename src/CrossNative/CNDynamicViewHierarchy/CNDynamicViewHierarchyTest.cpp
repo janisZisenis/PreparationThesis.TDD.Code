@@ -2,7 +2,7 @@
 #include <string>
 
 #include "CNDynamicViewHierarchy.h"
-#include "CNMatcherTestDoubles.h"
+#include "CrossNative/CNMatcher/CNMatcherTestDoubles.h"
 
 class CNDynamicViewHierarchyTest : public testing::Test {
 protected:
