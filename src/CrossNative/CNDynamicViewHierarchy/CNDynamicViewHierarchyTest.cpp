@@ -81,5 +81,18 @@ TEST_F(CNDynamicViewHierarchyTest, Loaded_View_Loaded_SubView_Matching__Load_Sub
     expect_Receiver_Added_View(subView, subSubView, errorMessage);
 }
 
+TEST_F(CNDynamicViewHierarchyTest, Loaded_View_Loaded_SubView_Matching__Load_SubSubView_NotMatching__SubSubViewShouldNotBeAddedToSubView) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewSpyPtr view = makeCNViewSpy();
+    sut->load(view, false);
+    CNViewSpyPtr subView = makeCNViewSpy();
+    sut->load(subView, true);
+
+    CNViewDummyPtr subSubView = makeCNViewDummy();
+    sut->load(subSubView, false);
+
+    std::string errorMessage = "SubSubView should not be added to SubView, but it was!";
+    expect_Receiver_DidNotAdd_View(subView, subSubView, errorMessage);
+}
 
 
