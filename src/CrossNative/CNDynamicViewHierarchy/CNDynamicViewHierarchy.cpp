@@ -11,6 +11,4 @@ CNDynamicViewHierarchy::~CNDynamicViewHierarchy() {}
 
 CNDynamicViewHierarchy::CNDynamicViewHierarchy() {}
 
-void CNDynamicViewHierarchy::load(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher) {
-
-}
+void CNDynamicViewHierarchy::load(CNViewPtr view) {}
