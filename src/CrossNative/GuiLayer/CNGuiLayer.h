@@ -59,7 +59,7 @@ private:
 private:
     virtual void addPending(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
     virtual void loadPendingViewsTo(std::shared_ptr<CNView> view);
-    virtual bool loadToPendingViews(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
+    virtual void loadToPendingViews(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
     virtual bool loadToViewHierarchies(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
     void loadAsPendingView(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
 

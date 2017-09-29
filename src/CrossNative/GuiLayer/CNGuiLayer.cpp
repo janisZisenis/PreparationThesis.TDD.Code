@@ -93,14 +93,11 @@ void CNGuiLayer::loadPendingViewsTo(CNViewPtr view) {
     }
 }
 
-bool CNGuiLayer::loadToPendingViews(CNViewPtr view, CNMatcherPtr matcher) {
-    bool matches = false;
-
+void CNGuiLayer::loadToPendingViews(CNViewPtr view, CNMatcherPtr matcher) {
     for(int i = 0; i < pendingViews.size(); i++) {
-        matches = isMatching(matcher, pendingViews[i]);
-        if (matches) pendingViews[i]->add(view);
+        if(isMatching(matcher, pendingViews[i]))
+            pendingViews[i]->add(view);
     }
-    return matches;
 }
 
 void CNGuiLayer::addPending(CNViewPtr view, CNMatcherPtr matcher) {
