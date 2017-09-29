@@ -101,13 +101,12 @@ void CNGuiLayer::loadPendingViewsTo(CNViewPtr view) {
 }
 
 bool CNGuiLayer::loadToPendingView(CNViewPtr view, CNMatcherPtr matcher) {
-    CNViewPtr pendingView = nullptr;
-    if(pendingViews.size() > 0) {
-        pendingView = pendingViews[pendingViews.size() - 1];
-    }
+    bool matches = false;
 
-    bool matches = pendingView && isMatching(matcher, pendingView);
-    if(matches) pendingView->add(view);
+    for(int i = 0; i < pendingViews.size(); i++) {
+        matches = isMatching(matcher, pendingViews[i]);
+        if (matches) pendingViews[i]->add(view);
+    }
     return matches;
 }
 
