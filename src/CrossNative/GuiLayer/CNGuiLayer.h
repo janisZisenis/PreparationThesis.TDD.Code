@@ -57,8 +57,8 @@ private:
     virtual std::shared_ptr<CNView> findMatchingInChildren(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> parent);
     virtual bool isMatching(std::shared_ptr<CNMatcher> matcher, std::shared_ptr<CNView> view);
 private:
-    virtual void setPending(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
-    virtual void loadPendingViewTo(std::shared_ptr<CNView> view);
+    virtual void addPending(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
+    virtual void loadPendingViewsTo(std::shared_ptr<CNView> view);
     virtual bool loadToPendingView(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
     virtual bool loadToViewHierarchies(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
     void loadAsPendingView(const std::shared_ptr<CNView> &view, const std::shared_ptr<CNMatcher> &matcher);
@@ -67,6 +67,8 @@ private:
 
     std::shared_ptr<CNView> pendingView;
     std::shared_ptr<CNMatcher> pendingMatcher;
+    std::vector< std::shared_ptr<CNView> > pendingViews;
+    std::vector< std::shared_ptr<CNMatcher> > pendingMatchers;
 };
 
 #endif //CROSSNATIVE_GUILAYER_H

@@ -69,8 +69,8 @@ void CNGuiLayer::load(CNViewPtr view, CNMatcherPtr matcher) {
 }
 
 void CNGuiLayer::loadAsPendingView(const CNViewPtr &view, const CNMatcherPtr &matcher) {
-    loadPendingViewTo(view);
-    setPending(view, matcher);
+    loadPendingViewsTo(view);
+    addPending(view, matcher);
 }
 
 bool CNGuiLayer::loadToViewHierarchies(CNViewPtr view, CNMatcherPtr matcher) {
@@ -78,16 +78,18 @@ bool CNGuiLayer::loadToViewHierarchies(CNViewPtr view, CNMatcherPtr matcher) {
 
     if(matchingView) {
         matchingView->add(view);
-        loadPendingViewTo(view);
+        loadPendingViewsTo(view);
         return true;
     }
 
     return false;
 }
 
-void CNGuiLayer::loadPendingViewTo(CNViewPtr view) {
-    if (pendingView && isMatching(pendingMatcher, view))
-        view->add(pendingView);
+void CNGuiLayer::loadPendingViewsTo(CNViewPtr view) {
+    for(int i = 0; i < pendingViews.size(); i++) {
+        if (isMatching(pendingMatchers[i], view))
+            view->add(pendingViews[i]);
+    }
 }
 
 bool CNGuiLayer::loadToPendingView(CNViewPtr view, CNMatcherPtr matcher) {
@@ -96,9 +98,11 @@ bool CNGuiLayer::loadToPendingView(CNViewPtr view, CNMatcherPtr matcher) {
     return matches;
 }
 
-void CNGuiLayer::setPending(CNViewPtr view, CNMatcherPtr matcher) {
+void CNGuiLayer::addPending(CNViewPtr view, CNMatcherPtr matcher) {
     pendingView = view;
     pendingMatcher = matcher;
+    pendingViews.push_back(view);
+    pendingMatchers.push_back(matcher);
 }
 
 CNViewPtr CNGuiLayer::findMatchingView(CNMatcherPtr matcher) {
