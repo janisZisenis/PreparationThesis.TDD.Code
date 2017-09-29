@@ -1,7 +1,6 @@
 #include "CNDynamicViewHierarchy.h"
 
 #include "CrossNative/CNView/CNView.h"
-#include "CrossNative/CNMatcher/CNMatcher.h"
 
 CNDynamicViewHierarchyPtr CNDynamicViewHierarchy::getNewInstance() {
     return CNDynamicViewHierarchyPtr(new CNDynamicViewHierarchy());

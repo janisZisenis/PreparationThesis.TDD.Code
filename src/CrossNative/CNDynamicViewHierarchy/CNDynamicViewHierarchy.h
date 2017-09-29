@@ -7,7 +7,6 @@
 #include <stack>
 
 class CNView;
-class CNMatcher;
 
 class CNDynamicViewHierarchy;
 typedef std::shared_ptr<CNDynamicViewHierarchy> CNDynamicViewHierarchyPtr;
