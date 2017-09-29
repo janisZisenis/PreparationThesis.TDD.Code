@@ -24,6 +24,7 @@ public:
 
 private:
     std::shared_ptr<CNView> firstView;
+    std::shared_ptr<CNView> secondView;
 };
 
 #endif //CROSSNATIVE_GUILAYER_H
