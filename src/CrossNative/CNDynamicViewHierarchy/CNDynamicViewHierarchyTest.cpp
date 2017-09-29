@@ -41,6 +41,9 @@ protected:
     virtual std::string get_ReceiverAddedView_ErrorMessage(std::string receiverName, std::string viewName) {
         return receiverName + " should be added to " + viewName + ", but it was not!";
     }
+    virtual std::string get_ReceiverDidNotAddView_ErrorMessage(std::string receiverName, std::string viewName) {
+        return receiverName + " should not be added to " + viewName + ", but it was!";
+    }
 };
 
 TEST_F(CNDynamicViewHierarchyTest, Loaded_View__LoadSubView_Matching__SubView_SubViewShouldBeAddedToView) {
@@ -63,7 +66,7 @@ TEST_F(CNDynamicViewHierarchyTest, Loaded_View__LoadSubView_NotMatching__SubView
     CNViewDummyPtr subView = makeCNViewDummy();
     sut->load(subView, false);
 
-    std::string errorMessage = "SubView should not be added to View, but it was!";
+    std::string errorMessage = get_ReceiverDidNotAddView_ErrorMessage("SubView", "View");
     expect_Receiver_DidNotAdd_View(view, subView, errorMessage);
 }
 
@@ -91,7 +94,7 @@ TEST_F(CNDynamicViewHierarchyTest, Loaded_View_Loaded_SubView_Matching__Load_Sub
     CNViewDummyPtr subSubView = makeCNViewDummy();
     sut->load(subSubView, false);
 
-    std::string errorMessage = "SubSubView should not be added to SubView, but it was!";
+    std::string errorMessage = get_ReceiverDidNotAddView_ErrorMessage("SubSubView", "SubView");
     expect_Receiver_DidNotAdd_View(subView, subSubView, errorMessage);
 }
 
