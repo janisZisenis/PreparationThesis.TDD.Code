@@ -15,13 +15,13 @@ void CNDynamicViewHierarchy::load(CNViewPtr view, CNMatcherPtr matcher) {
     views.push_back(view);
 
     if(views.size() == 1) {
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < views.size(); i++) {
             if (matcher->matches(views[i])) {
                 views[i]->add(view);
             }
         }
     } else {
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < views.size(); i++) {
             if (matcher->matches(views[i])) {
                 views[i]->add(view);
             }
