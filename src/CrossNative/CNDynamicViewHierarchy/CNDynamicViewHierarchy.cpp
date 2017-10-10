@@ -16,16 +16,15 @@ void CNDynamicViewHierarchy::load(CNViewPtr view, bool matches, CNMatcherPtr mat
         firstView = view;
     } else if(!secondView) {
         secondView = view;
-        if(matches) {
+        if(matcher->matches(firstView)) {
             firstView->add(view);
         }
     } else {
-        if(matches) {
+        if(matcher->matches(firstView)) {
             firstView->add(view);
-            if(!matcher->matches(firstView)) {
-                secondView->add(view);
-            }
         }
-
+        if(matcher->matches(secondView)) {
+            secondView->add(view);
+        }
     }
 }

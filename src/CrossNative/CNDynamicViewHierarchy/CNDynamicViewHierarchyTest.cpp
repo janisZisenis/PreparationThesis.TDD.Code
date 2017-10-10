@@ -65,7 +65,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__LoadSecondViewMatching__Seco
     sut->load(firstView, false, makeCNMatcherDummy());
 
     CNViewPtr secondView = makeCNViewDummy();
-    sut->load(secondView, true, makeCNMatcherDummy());
+    sut->load(secondView, true, makeCNFakeMatcher(firstView));
 
     std::string errorMessage = getReceiverAddedViewErrorMessage("FirstView", "SecondView");
     expectReceiverAddedView(firstView, secondView, errorMessage);
@@ -88,10 +88,10 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     CNViewPtr firstView = makeCNFakeView();
     sut->load(firstView, false, makeCNMatcherDummy());
     CNViewSpyPtr secondView = makeCNViewSpy();
-    sut->load(secondView, true, makeCNMatcherDummy());
+    sut->load(secondView, true, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
-    sut->load(thirdView, true, makeCNMatcherDummy());
+    sut->load(thirdView, true, makeCNFakeMatcher(secondView));
 
     std::string errorMessage = getReceiverAddedViewErrorMessage("SecondView", "ThirdView");
     expectReceiverAddedView(secondView, thirdView, errorMessage);
@@ -102,7 +102,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     CNViewPtr firstView = makeCNFakeView();
     sut->load(firstView, false, makeCNMatcherDummy());
     CNViewSpyPtr secondView = makeCNViewSpy();
-    sut->load(secondView, true, makeCNMatcherDummy());
+    sut->load(secondView, true, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
     sut->load(thirdView, false, makeCNMatcherDummy());
@@ -116,10 +116,10 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     CNViewSpyPtr firstView = makeCNViewSpy();
     sut->load(firstView, false, makeCNMatcherDummy());
     CNViewPtr secondView = makeCNViewDummy();
-    sut->load(secondView, true, makeCNMatcherDummy());
+    sut->load(secondView, true, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
-    sut->load(thirdView, true, makeCNMatcherDummy());
+    sut->load(thirdView, true, makeCNFakeMatcher(firstView));
 
     std::string errorMessage = getReceiverAddedViewErrorMessage("FirstView", "ThirdView");
     expectReceiverAddedView(firstView, thirdView, errorMessage);
@@ -130,7 +130,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     CNViewSpyPtr firstView = makeCNViewSpy();
     sut->load(firstView, false, makeCNMatcherDummy());
     CNViewPtr secondView = makeCNViewDummy();
-    sut->load(secondView, true, makeCNMatcherDummy());
+    sut->load(secondView, true, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
     sut->load(thirdView, false, makeCNMatcherDummy());
@@ -144,7 +144,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     CNViewPtr firstView = makeCNViewDummy();
     sut->load(firstView, false, makeCNMatcherDummy());
     CNViewSpyPtr secondView = makeCNViewSpy();
-    sut->load(secondView, true, makeCNMatcherDummy());
+    sut->load(secondView, true, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
     sut->load(thirdView, true, makeCNFakeMatcher(firstView));
