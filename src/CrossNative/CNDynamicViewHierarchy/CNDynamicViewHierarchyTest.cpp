@@ -62,10 +62,10 @@ protected:
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__LoadSecondViewMatching__SecondViewShouldBeAddedToFirstView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr firstView = makeCNViewSpy();
-    sut->load(firstView, false, makeCNMatcherDummy());
+    sut->load(firstView, makeCNMatcherDummy());
 
     CNViewPtr secondView = makeCNViewDummy();
-    sut->load(secondView, true, makeCNFakeMatcher(firstView));
+    sut->load(secondView, makeCNFakeMatcher(firstView));
 
     std::string errorMessage = getReceiverAddedViewErrorMessage("FirstView", "SecondView");
     expectReceiverAddedView(firstView, secondView, errorMessage);
@@ -74,10 +74,10 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__LoadSecondViewMatching__Seco
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__LoadSecondViewNotMatching__SecondViewShouldNotBeAddedToFirstView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr firstView = makeCNViewSpy();
-    sut->load(firstView, false, makeCNMatcherDummy());
+    sut->load(firstView, makeCNMatcherDummy());
 
     CNViewPtr secondView = makeCNViewDummy();
-    sut->load(secondView, false, makeCNMatcherDummy());
+    sut->load(secondView, makeCNMatcherDummy());
 
     std::string errorMessage = getReceiverDidNotAddViewErrorMessage("FirstView", "SecondView");
     expectReceiverDidNotAddView(firstView, secondView, errorMessage);
@@ -86,12 +86,12 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__LoadSecondViewNotMatching__S
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewMatching__ThirdViewShouldBeAddedToSecondView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewPtr firstView = makeCNFakeView();
-    sut->load(firstView, false, makeCNMatcherDummy());
+    sut->load(firstView, makeCNMatcherDummy());
     CNViewSpyPtr secondView = makeCNViewSpy();
-    sut->load(secondView, true, makeCNFakeMatcher(firstView));
+    sut->load(secondView, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
-    sut->load(thirdView, true, makeCNFakeMatcher(secondView));
+    sut->load(thirdView, makeCNFakeMatcher(secondView));
 
     std::string errorMessage = getReceiverAddedViewErrorMessage("SecondView", "ThirdView");
     expectReceiverAddedView(secondView, thirdView, errorMessage);
@@ -100,12 +100,12 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewNotMatching__ThirdViewShouldNotBeAddedToSecondView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewPtr firstView = makeCNFakeView();
-    sut->load(firstView, false, makeCNMatcherDummy());
+    sut->load(firstView, makeCNMatcherDummy());
     CNViewSpyPtr secondView = makeCNViewSpy();
-    sut->load(secondView, true, makeCNFakeMatcher(firstView));
+    sut->load(secondView, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
-    sut->load(thirdView, false, makeCNMatcherDummy());
+    sut->load(thirdView, makeCNMatcherDummy());
 
     std::string errorMessage = getReceiverDidNotAddViewErrorMessage("SecondView", "ThirdView");
     expectReceiverDidNotAddView(secondView, thirdView, errorMessage);
@@ -114,12 +114,12 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewMatching__ThirdViewShouldBeAddedToFirstView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr firstView = makeCNViewSpy();
-    sut->load(firstView, false, makeCNMatcherDummy());
+    sut->load(firstView, makeCNMatcherDummy());
     CNViewPtr secondView = makeCNViewDummy();
-    sut->load(secondView, true, makeCNFakeMatcher(firstView));
+    sut->load(secondView, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
-    sut->load(thirdView, true, makeCNFakeMatcher(firstView));
+    sut->load(thirdView, makeCNFakeMatcher(firstView));
 
     std::string errorMessage = getReceiverAddedViewErrorMessage("FirstView", "ThirdView");
     expectReceiverAddedView(firstView, thirdView, errorMessage);
@@ -128,12 +128,12 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewNotMatching__ThirdViewShouldNotBeAddedToFirstView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr firstView = makeCNViewSpy();
-    sut->load(firstView, false, makeCNMatcherDummy());
+    sut->load(firstView, makeCNMatcherDummy());
     CNViewPtr secondView = makeCNViewDummy();
-    sut->load(secondView, true, makeCNFakeMatcher(firstView));
+    sut->load(secondView, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
-    sut->load(thirdView, false, makeCNMatcherDummy());
+    sut->load(thirdView, makeCNMatcherDummy());
 
     std::string errorMessage = getReceiverDidNotAddViewErrorMessage("FirstView", "ThirdView");
     expectReceiverDidNotAddView(firstView, thirdView, errorMessage);
@@ -142,12 +142,12 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewMatchingFirstView__ThirdViewShouldNotBeAddedToSecondView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewPtr firstView = makeCNViewDummy();
-    sut->load(firstView, false, makeCNMatcherDummy());
+    sut->load(firstView, makeCNMatcherDummy());
     CNViewSpyPtr secondView = makeCNViewSpy();
-    sut->load(secondView, true, makeCNFakeMatcher(firstView));
+    sut->load(secondView, makeCNFakeMatcher(firstView));
 
     CNViewPtr thirdView = makeCNViewDummy();
-    sut->load(thirdView, true, makeCNFakeMatcher(firstView));
+    sut->load(thirdView, makeCNFakeMatcher(firstView));
 
     std::string errorMessage = getReceiverDidNotAddViewErrorMessage("SecondView", "ThirdView");
     expectReceiverDidNotAddView(secondView, thirdView, errorMessage);

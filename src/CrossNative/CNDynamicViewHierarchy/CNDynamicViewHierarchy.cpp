@@ -11,7 +11,7 @@ CNDynamicViewHierarchy::~CNDynamicViewHierarchy() {}
 
 CNDynamicViewHierarchy::CNDynamicViewHierarchy() {}
 
-void CNDynamicViewHierarchy::load(CNViewPtr view, bool matches, CNMatcherPtr matcher) {
+void CNDynamicViewHierarchy::load(CNViewPtr view, CNMatcherPtr matcher) {
     if(!firstView) {
         firstView = view;
     } else if(!secondView) {
