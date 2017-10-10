@@ -24,8 +24,7 @@ public:
     virtual void load(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
 
 private:
-    std::shared_ptr<CNView> firstView;
-    std::shared_ptr<CNView> secondView;
+    std::vector< std::shared_ptr<CNView> > views;
 };
 
 #endif //CROSSNATIVE_GUILAYER_H
