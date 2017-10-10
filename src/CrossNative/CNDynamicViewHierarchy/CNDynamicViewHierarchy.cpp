@@ -21,7 +21,7 @@ void CNDynamicViewHierarchy::load(CNViewPtr view, bool matches) {
     } else {
         if(matches) {
             secondView->add(view);
+            firstView->add(view);
         }
-        firstView->add(view);
     }
 }
