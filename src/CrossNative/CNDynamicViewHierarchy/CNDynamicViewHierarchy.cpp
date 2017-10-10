@@ -12,10 +12,9 @@ CNDynamicViewHierarchy::~CNDynamicViewHierarchy() {}
 CNDynamicViewHierarchy::CNDynamicViewHierarchy() {}
 
 void CNDynamicViewHierarchy::load(CNViewPtr view, CNMatcherPtr matcher) {
-    if(views.size() == 0) {
-        views.push_back(view);
-    } else if(views.size() == 1) {
-        views.push_back(view);
+    views.push_back(view);
+
+    if(views.size() == 1) {
         if(matcher->matches(views[0])) {
             views[0]->add(view);
         }
