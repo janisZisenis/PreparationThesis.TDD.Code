@@ -7,6 +7,7 @@
 #include <stack>
 
 class CNView;
+class CNMatcher;
 
 class CNDynamicViewHierarchy;
 typedef std::shared_ptr<CNDynamicViewHierarchy> CNDynamicViewHierarchyPtr;
@@ -20,7 +21,7 @@ protected:
     CNDynamicViewHierarchy();
 
 public:
-    virtual void load(std::shared_ptr<CNView> view, bool matches);
+    virtual void load(std::shared_ptr<CNView> view, bool matches, std::shared_ptr<CNMatcher> matcher);
 
 private:
     std::shared_ptr<CNView> firstView;

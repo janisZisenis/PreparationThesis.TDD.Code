@@ -1,6 +1,7 @@
 #include "CNDynamicViewHierarchy.h"
 
 #include "CrossNative/CNView/CNView.h"
+#include "CrossNative/CNMatcher/CNMatcher.h"
 
 CNDynamicViewHierarchyPtr CNDynamicViewHierarchy::getNewInstance() {
     return CNDynamicViewHierarchyPtr(new CNDynamicViewHierarchy());
@@ -10,7 +11,7 @@ CNDynamicViewHierarchy::~CNDynamicViewHierarchy() {}
 
 CNDynamicViewHierarchy::CNDynamicViewHierarchy() {}
 
-void CNDynamicViewHierarchy::load(CNViewPtr view, bool matches) {
+void CNDynamicViewHierarchy::load(CNViewPtr view, bool matches, CNMatcherPtr matcher) {
     if(!firstView) {
         firstView = view;
     } else if(!secondView) {
@@ -20,8 +21,11 @@ void CNDynamicViewHierarchy::load(CNViewPtr view, bool matches) {
         }
     } else {
         if(matches) {
-            secondView->add(view);
             firstView->add(view);
+            if(!matcher->matches(firstView)) {
+                secondView->add(view);
+            }
         }
+
     }
 }
