@@ -113,3 +113,17 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     std::string errorMessage = getReceiverAddedViewErrorMessage("FirstView", "ThirdView");
     expectReceiverAddedView(firstView, thirdView, errorMessage);
 }
+
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewNotMatching__ThirdViewShouldNotBeAddedToFirstView) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewSpyPtr firstView = makeCNViewSpy();
+    sut->load(firstView, false);
+    CNViewPtr secondView = makeCNViewDummy();
+    sut->load(secondView, true);
+
+    CNViewPtr thirdView = makeCNViewDummy();
+    sut->load(thirdView, false);
+
+    std::string errorMessage = getReceiverDidNotAddViewErrorMessage("FirstView", "ThirdView");
+    expectReceiverDidNotAddView(firstView, thirdView, errorMessage);
+}
