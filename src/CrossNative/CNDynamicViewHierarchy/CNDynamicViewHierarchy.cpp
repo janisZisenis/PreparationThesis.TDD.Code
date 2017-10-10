@@ -13,15 +13,14 @@ CNDynamicViewHierarchy::CNDynamicViewHierarchy() {}
 void CNDynamicViewHierarchy::load(CNViewPtr view, bool matches) {
     if(!firstView) {
         firstView = view;
-        return;
-    }
-
-    if(!secondView) {
+    } else if(!secondView) {
         secondView = view;
-        if (matches)
+        if(matches) {
             firstView->add(view);
+        }
+    } else {
+        if(matches) {
+            secondView->add(view);
+        }
     }
-
-    if(matches)
-        secondView->add(view);
 }
