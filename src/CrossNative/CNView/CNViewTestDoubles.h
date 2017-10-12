@@ -16,42 +16,11 @@ protected:
 
 public:
     virtual void add(CNViewPtr view) override {};
-    virtual CNIteratorPtr makeIterator() override {
-        return nullptr;
-    }
-    virtual CNViewPtr getChild(int position) override {
-        return nullptr;
-    };
-    virtual int getChildCount() override {
-        return 0;
-    };
-};
-
-class CNViewStub;
-typedef std::shared_ptr<CNViewStub> CNViewStubPtr;
-class CNViewStub : public CNViewDummy {
-public:
-    static CNViewStubPtr getNewInstance() {
-        return CNViewStubPtr(new CNViewStub());
-    }
-    virtual ~CNViewStub() {}
-protected:
-    CNViewStub() {}
-
-public:
-    virtual void setIterator(CNIteratorPtr iterator) {
-        this->iterator = iterator;
-    };
-    virtual CNIteratorPtr makeIterator() override {
-        return iterator;
-    }
-private:
-    CNIteratorPtr iterator;
 };
 
 class CNViewSpy;
 typedef std::shared_ptr<CNViewSpy> CNViewSpyPtr;
-class CNViewSpy : public CNViewStub {
+class CNViewSpy : public CNView {
 public:
     static CNViewSpyPtr getNewInstance() {
         return CNViewSpyPtr(new CNViewSpy());
