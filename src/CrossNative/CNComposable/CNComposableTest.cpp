@@ -92,6 +92,19 @@ TEST_F(CNComposableTest, ChildAdded__RemoveChild__SUTShouldNotBeParentOfChild) {
     expectIsNotParentOfComponent(sut, child);
 }
 
+TEST_F(CNComposableTest, TwoChildrenAdded__RemoveSecond__SUTShouldNotBeParentOfSecond) {
+    CNComposerSpyPtr composer = makeCNComposerSpy();
+    CNComposablePtr sut = makeCNComposable(composer);
+    CNComponentPtr first = makeCNComponentDummy();
+    sut->add(first);
+    CNComponentPtr second= makeCNComponentDummy();
+    sut->add(second);
+
+    sut->remove(second);
+
+    expectIsNotParentOfComponent(sut, second);
+}
+
 TEST_F(CNComposableTest, FreshInstance__RemoveChild__ShouldThrowCNChildNotFoundException) {
     CNComposerPtr composer = makeCNComposerDummy();
     CNComposablePtr sut = makeCNComposable(composer);

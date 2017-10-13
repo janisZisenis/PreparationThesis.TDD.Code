@@ -32,5 +32,5 @@ int CNComposable::findPosition(std::shared_ptr<CNComponent> component) {
     std::vector< std::shared_ptr<CNComponent> >::iterator it;
     it = std::find(children.begin(), children.end(), component);
 
-    return it == children.end() ? -1 : (int)(children.begin() - it);
+    return it == children.end() ? -1 : (int)(it - children.begin());
 }
