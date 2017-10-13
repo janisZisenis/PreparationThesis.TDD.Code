@@ -27,6 +27,7 @@ void CNDynamicViewHierarchy::unload(CNViewPtr view) {
 
 void CNDynamicViewHierarchy::move(CNViewPtr view, CNMatcherPtr matcher) {
     unloadView(view);
+    loadView(view, matcher);
 }
 
 void CNDynamicViewHierarchy::loadView(CNViewPtr view, CNMatcherPtr matcher) {
