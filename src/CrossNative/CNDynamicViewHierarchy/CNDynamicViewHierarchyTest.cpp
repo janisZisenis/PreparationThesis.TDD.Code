@@ -283,3 +283,17 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView__UnloadThird
     std::string errorMessage = getThrowsCNViewNotLoadedExcpetionErrorMessage();
     EXPECT_THROW(sut->unload(thirdView), CNViewNotLoadedException) << errorMessage;
 }
+
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_LoadedThirdView_FirstViewIsParent__UnloadSecondView__ShouldRemoveSecondViewFromFirstView) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewSpyPtr firstView = makeCNViewSpy();
+    firstView->setIsParentOf(true);
+    sut->load(firstView, makeNotMatchingCNMatcher());
+    CNViewPtr secondView = makeCNViewDummy();
+    sut->load(secondView, makeCNFakeMatcher(firstView));
+    CNViewPtr thirdView = makeCNViewDummy();
+    sut->load(thirdView, makeNotMatchingCNMatcher());
+
+    std::string errorMessage = getThrowsCNViewNotLoadedExcpetionErrorMessage();
+    EXPECT_THROW(sut->unload(thirdView), CNViewNotLoadedException) << errorMessage;
+}
