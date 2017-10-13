@@ -81,6 +81,10 @@ protected:
         return viewName + " should not be removed from " + receiverName + ", but it was!";
     }
 
+    virtual std::string getThrowsCNViewNotLoadedExcpetionErrorMessage() {
+        return "CNDynamicViewHierarchy should throw CNViewNotLoadedException, but it did not!";
+    }
+
 };
 
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__LoadSecondViewMatching__SecondViewShouldBeAddedToFirstView) {
@@ -252,6 +256,17 @@ TEST_F(CNDynamicViewHierarchyTest, FreshInstance__UnloadFirstView__ShouldThrowCN
 
     CNViewPtr firstView = makeCNViewDummy();
 
-    std::string errorMessage = "CNDynamicViewHierarchy should throw CNViewNotLoadedException, but it did not!";
+    std::string errorMessage =  getThrowsCNViewNotLoadedExcpetionErrorMessage();
     EXPECT_THROW(sut->unload(firstView), CNViewNotLoadedException) << errorMessage;
+}
+
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__UnloadSecondView__ShouldThrowCNViewNotLoadedException) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewPtr firstView = makeCNFakeView();
+    sut->load(firstView, makeNotMatchingCNMatcher());
+
+    CNViewPtr secondView = makeCNViewDummy();
+
+    std::string errorMessage = getThrowsCNViewNotLoadedExcpetionErrorMessage();
+    EXPECT_THROW(sut->unload(secondView), CNViewNotLoadedException) << errorMessage;
 }
