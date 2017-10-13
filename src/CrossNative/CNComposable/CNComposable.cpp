@@ -28,5 +28,5 @@ void CNComposable::remove(std::shared_ptr<CNComponent> child) {
 }
 
 bool CNComposable::isParentOf(std::shared_ptr<CNComponent> component) {
-    return false;
+    return true;
 }
