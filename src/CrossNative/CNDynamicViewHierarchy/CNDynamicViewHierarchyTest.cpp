@@ -294,6 +294,8 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_LoadedThirdV
     CNViewPtr thirdView = makeCNViewDummy();
     sut->load(thirdView, makeNotMatchingCNMatcher());
 
-    std::string errorMessage = getThrowsCNViewNotLoadedExcpetionErrorMessage();
-    EXPECT_THROW(sut->unload(thirdView), CNViewNotLoadedException) << errorMessage;
+    sut->unload(secondView);
+
+    std::string errorMessage = getReceiverRemovedViewErrorMessage("FirstView", "SecondView");
+    expectReceiverRemovedView(firstView, secondView, errorMessage);
 }
