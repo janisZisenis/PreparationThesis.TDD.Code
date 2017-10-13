@@ -25,11 +25,12 @@ void CNDynamicViewHierarchy::load(CNViewPtr view, CNMatcherPtr matcher) {
 void CNDynamicViewHierarchy::unload(CNViewPtr view) {
     bool wasLoaded = false;
     for(int i = 0; i < views.size(); i++) {
-        wasLoaded = wasLoaded || views[i] == view;
+        if(views[i] == view) {
+            views.erase(views.begin()+i);
+            wasLoaded = wasLoaded || true;
+        }
     }
     if(!wasLoaded) throw CNViewNotLoadedException();
-
-
 
     for(int i = 0; i < views.size(); i++)
         if(views[i]->isParentOf(view))
