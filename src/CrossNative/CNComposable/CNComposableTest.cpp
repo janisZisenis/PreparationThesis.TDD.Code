@@ -14,6 +14,9 @@ protected:
         return CNComponentDummy::getNewInstance();
     }
 
+    virtual CNComposerPtr makeCNComposerDummy() {
+        return CNComposerDummy::getNewInstance();
+    }
     virtual CNComposerSpyPtr makeCNComposerSpy() {
         return CNComposerSpy::getNewInstance();
     }
@@ -53,4 +56,14 @@ TEST_F(CNComposableTest, ChildAdded__RemoveChild__ComposerShouldHaveDismountedTh
     sut->remove(child);
 
     expectComposerDismountedChild(composer, child);
+}
+
+TEST_F(CNComposableTest, FreshInstance__RemoveChild__ShouldThrowCNChildNotFoundException) {
+    CNComposerPtr composer = makeCNComposerDummy();
+    CNComposablePtr sut = makeCNComposable(composer);
+
+    CNComponentPtr child = makeCNComponentDummy();
+
+    std::string errorMessage = "CNComposable should throw CNChildNotFoundException, but it did not";
+    EXPECT_THROW(sut->remove(child), CNChildNotFoundException) << errorMessage;
 }
