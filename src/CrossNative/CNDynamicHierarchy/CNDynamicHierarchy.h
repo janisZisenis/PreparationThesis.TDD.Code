@@ -8,7 +8,7 @@
 
 class CNComponentAlreadyLoadedException : public std::exception {
     const char *what() const throw() override {
-        return std::string("The component was already loaded, views can't be loaded more than once!").c_str();
+        return std::string("The component was already loaded, components can't be loaded more than once!").c_str();
     }
 };
 
@@ -33,23 +33,23 @@ protected:
     CNDynamicHierarchy();
 
 public:
-    virtual void load(std::shared_ptr<CNComponent> view, std::shared_ptr<CNMatcher> matcher);
-    virtual void unload(std::shared_ptr<CNComponent> view);
-    virtual void move(std::shared_ptr<CNComponent> view, std::shared_ptr<CNMatcher> matcher);
+    virtual void load(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher);
+    virtual void unload(std::shared_ptr<CNComponent> component);
+    virtual void move(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher);
 
 private:
-    virtual void loadView(std::shared_ptr<CNComponent> view, std::shared_ptr<CNMatcher> matcher);
-    virtual void unloadView(std::shared_ptr<CNComponent> view);
+    virtual void loadComponent(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher);
+    virtual void unloadComponent(std::shared_ptr<CNComponent> component);
 
-    virtual void addToViewList(std::shared_ptr<CNComponent> view);
-    virtual void addToParent(std::shared_ptr<CNComponent> view, std::shared_ptr<CNMatcher> matcher);
-    virtual void removeFromViewList(std::shared_ptr<CNComponent> view);
-    virtual void removeFromParent(std::shared_ptr<CNComponent> view);
+    virtual void addToComponentList(std::shared_ptr<CNComponent> component);
+    virtual void addToParent(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher);
+    virtual void removeFromComponentList(std::shared_ptr<CNComponent> component);
+    virtual void removeFromParent(std::shared_ptr<CNComponent> component);
 
-    virtual bool isAlreadyLoaded(std::shared_ptr<CNComponent> view);
-    virtual int findPosition(std::shared_ptr<CNComponent> view);
+    virtual bool isAlreadyLoaded(std::shared_ptr<CNComponent> component);
+    virtual int findPosition(std::shared_ptr<CNComponent> component);
 private:
-    std::vector< std::shared_ptr<CNComponent> > views;
+    std::vector< std::shared_ptr<CNComponent> > components;
 };
 
 #endif //CROSSNATIVE_CNDYNAMICHIERARCHY_H

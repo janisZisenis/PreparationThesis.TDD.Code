@@ -11,65 +11,63 @@ CNDynamicHierarchy::~CNDynamicHierarchy() {}
 
 CNDynamicHierarchy::CNDynamicHierarchy() {}
 
-void CNDynamicHierarchy::load(CNComponentPtr view, CNMatcherPtr matcher) {
-    if (isAlreadyLoaded(view))
+void CNDynamicHierarchy::load(CNComponentPtr component, CNMatcherPtr matcher) {
+    if (isAlreadyLoaded(component))
         throw CNComponentAlreadyLoadedException();
 
-    loadView(view, matcher);
+    loadComponent(component, matcher);
 }
 
-void CNDynamicHierarchy::unload(CNComponentPtr view) {
-    if(!isAlreadyLoaded(view))
+void CNDynamicHierarchy::unload(CNComponentPtr component) {
+    if(!isAlreadyLoaded(component))
         throw CNComponentNotLoadedException();
 
-    unloadView(view);
+    unloadComponent(component);
 }
 
-void CNDynamicHierarchy::move(CNComponentPtr view, CNMatcherPtr matcher) {
-    unload(view);
-    loadView(view, matcher);
+void CNDynamicHierarchy::move(CNComponentPtr component, CNMatcherPtr matcher) {
+    unload(component);
+    loadComponent(component, matcher);
 }
 
-void CNDynamicHierarchy::loadView(CNComponentPtr view, CNMatcherPtr matcher) {
-    addToParent(view, matcher);
-    addToViewList(view);
+void CNDynamicHierarchy::loadComponent(CNComponentPtr component, CNMatcherPtr matcher) {
+    addToParent(component, matcher);
+    addToComponentList(component);
 }
 
-void CNDynamicHierarchy::unloadView(std::shared_ptr<CNComponent> view) {
-    removeFromViewList(view);
-    removeFromParent(view);
+void CNDynamicHierarchy::unloadComponent(CNComponentPtr component) {
+    removeFromComponentList(component);
+    removeFromParent(component);
 }
 
-void CNDynamicHierarchy::addToViewList(CNComponentPtr view) {
-    views.push_back(view);
+void CNDynamicHierarchy::addToComponentList(CNComponentPtr component) {
+    components.push_back(component);
 }
 
-void CNDynamicHierarchy::addToParent(CNComponentPtr view, CNMatcherPtr matcher) {
-    for(int i = 0; i < views.size(); i++)
-        if (matcher->matches(views[i]))
-            views[i]->add(view);
+void CNDynamicHierarchy::addToParent(CNComponentPtr component, CNMatcherPtr matcher) {
+    for(int i = 0; i < components.size(); i++)
+        if (matcher->matches(components[i]))
+            components[i]->add(component);
 }
 
-void CNDynamicHierarchy::removeFromViewList(CNComponentPtr view) {
-    views.erase(views.begin()+findPosition(view));
+void CNDynamicHierarchy::removeFromComponentList(CNComponentPtr component) {
+    components.erase(components.begin()+findPosition(component));
 }
 
-void CNDynamicHierarchy::removeFromParent(CNComponentPtr view) {
-    for(int i = 0; i < views.size(); i++)
-        if(views[i]->isParentOf(view))
-            views[i]->remove(view);
+void CNDynamicHierarchy::removeFromParent(CNComponentPtr component) {
+    for(int i = 0; i < components.size(); i++)
+        if(components[i]->isParentOf(component))
+            components[i]->remove(component);
 }
 
-bool CNDynamicHierarchy::isAlreadyLoaded(CNComponentPtr view) {
-    return findPosition(view) > -1;
+bool CNDynamicHierarchy::isAlreadyLoaded(CNComponentPtr component) {
+    return findPosition(component) > -1;
 }
 
-int CNDynamicHierarchy::findPosition(std::shared_ptr<CNComponent> view) {
-    for(int i = 0; i < views.size(); i++) {
-        if(views[i] == view)
-            return i;
-    }
+int CNDynamicHierarchy::findPosition(CNComponentPtr component) {
+    std::vector< std::shared_ptr<CNComponent> >::iterator it;
+    it = std::find(components.begin(), components.end(), component);
 
-    return -1;
+    return it == components.end() ? -1 : (int)(it - components.begin());
 }
 
