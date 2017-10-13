@@ -88,7 +88,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__LoadSecondViewNotMatching__S
     expectReceiverDidNotAddView(firstView, secondView, errorMessage);
 }
 
-TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewMatching__ThirdViewShouldBeAddedToSecondView) {
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatchingFirstView__LoadThirdViewMatching__ThirdViewShouldBeAddedToSecondView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewPtr firstView = makeCNFakeView();
     sut->load(firstView, makeNotMatchingCNMatcher());
@@ -102,7 +102,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     expectReceiverAddedView(secondView, thirdView, errorMessage);
 }
 
-TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewNotMatching__ThirdViewShouldNotBeAddedToSecondView) {
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatchingFirstView__LoadThirdViewNotMatching__ThirdViewShouldNotBeAddedToSecondView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewPtr firstView = makeCNFakeView();
     sut->load(firstView, makeNotMatchingCNMatcher());
@@ -116,7 +116,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     expectReceiverDidNotAddView(secondView, thirdView, errorMessage);
 }
 
-TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewMatching__ThirdViewShouldBeAddedToFirstView) {
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatchingFirstView__LoadThirdViewMatching__ThirdViewShouldBeAddedToFirstView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr firstView = makeCNViewSpy();
     sut->load(firstView, makeNotMatchingCNMatcher());
@@ -130,7 +130,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     expectReceiverAddedView(firstView, thirdView, errorMessage);
 }
 
-TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewNotMatching__ThirdViewShouldNotBeAddedToFirstView) {
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatchingFirstView__LoadThirdViewNotMatching__ThirdViewShouldNotBeAddedToFirstView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr firstView = makeCNViewSpy();
     sut->load(firstView, makeNotMatchingCNMatcher());
@@ -144,9 +144,9 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
     expectReceiverDidNotAddView(firstView, thirdView, errorMessage);
 }
 
-TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__LoadThirdViewMatchingFirstView__ThirdViewShouldNotBeAddedToSecondView) {
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatchingFirstView__LoadThirdViewMatchingFirstView__ThirdViewShouldNotBeAddedToSecondView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
-    CNViewPtr firstView = makeCNViewDummy();
+    CNViewPtr firstView = makeCNFakeView()  ;
     sut->load(firstView, makeNotMatchingCNMatcher());
     CNViewSpyPtr secondView = makeCNViewSpy();
     sut->load(secondView, makeCNFakeMatcher(firstView));
@@ -156,4 +156,12 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondViewMatching__Loa
 
     std::string errorMessage = getReceiverDidNotAddViewErrorMessage("SecondView", "ThirdView");
     expectReceiverDidNotAddView(secondView, thirdView, errorMessage);
+}
+
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstViewNotMatching_LoadedFirstViewNotMatching_ShouldThrowCNViewAlreadyLoadedException) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewPtr firstView = makeCNViewDummy();
+    sut->load(firstView, makeNotMatchingCNMatcher());
+
+    EXPECT_THROW(sut->load(firstView, makeNotMatchingCNMatcher()), CNViewAlreadyLoadedException);
 }

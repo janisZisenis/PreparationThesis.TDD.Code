@@ -3,8 +3,14 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 #include <CrossNative/CrossNative_EXPORT.h>
-#include <stack>
+
+class CNViewAlreadyLoadedException : public std::exception {
+    const char *what() const throw() override {
+        return std::string("The view was already loaded, views can't be loaded more than once!").c_str();
+    }
+};
 
 class CNView;
 class CNMatcher;
