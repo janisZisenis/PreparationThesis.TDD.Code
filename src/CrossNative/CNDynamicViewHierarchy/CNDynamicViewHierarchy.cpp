@@ -23,9 +23,7 @@ void CNDynamicViewHierarchy::load(CNViewPtr view, CNMatcherPtr matcher) {
 }
 
 void CNDynamicViewHierarchy::unload(CNViewPtr view) {
-    if(views[0]->isParentOf(view))
-        views[0]->remove(view);
-
-    if(views[1]->isParentOf(view))
-        views[1]->remove(view);
+    for(int i = 0; i < views.size(); i++)
+        if(views[i]->isParentOf(view))
+            views[i]->remove(view);
 }
