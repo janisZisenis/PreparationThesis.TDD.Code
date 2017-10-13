@@ -201,7 +201,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_FirstViewIsP
     expectReceiverRemovedView(firstView, secondView, errorMessage);
 }
 
-TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_FirstViewIsNotParent__UnloadSecondView__SecondViewShouldNotBeRemovedFromView) {
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_SecondViewHasNoParent__UnloadSecondView__SecondViewShouldNotBeRemovedFromView) {
     CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
     CNViewSpyPtr firstView = makeCNViewSpy();
     firstView->setIsParentOf(false);
@@ -220,7 +220,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_LoadedThirdV
     CNViewPtr firstView = makeCNFakeView();
     sut->load(firstView, makeNotMatchingCNMatcher());
     CNViewSpyPtr secondView = makeCNViewSpy();
-    secondView->setIsParentOf(true);
+    secondView->setIsParentOf(false);
     sut->load(secondView, makeCNFakeMatcher(firstView));
     CNViewPtr thirdView = makeCNViewDummy();
     sut->load(thirdView, makeCNFakeMatcher(secondView));
@@ -229,4 +229,20 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_LoadedThirdV
 
     std::string errorMessage = getReceiverRemovedViewErrorMessage("SecondView", "ThirdView");
     expectReceiverRemovedView(secondView, thirdView, errorMessage);
+}
+
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_LoadedThirdView_ThirdViewHasNoParent__Unload_ThirdView__ThirdViewShouldNotBeRemovedFromSecondView) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewPtr firstView = makeCNFakeView();
+    sut->load(firstView, makeNotMatchingCNMatcher());
+    CNViewSpyPtr secondView = makeCNViewSpy();
+    secondView->setIsParentOf(false);
+    sut->load(secondView, makeCNFakeMatcher(firstView));
+    CNViewPtr thirdView = makeCNViewDummy();
+    sut->load(thirdView, makeNotMatchingCNMatcher());
+
+    sut->unload(thirdView);
+
+    std::string errorMessage = getReceiverDidNotRemoveViewErrorMessage("SecondView", "ThirdView");
+    expectReceiverDidNotRemoveView(secondView, thirdView, errorMessage);
 }
