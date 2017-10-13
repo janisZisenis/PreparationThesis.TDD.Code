@@ -11,5 +11,5 @@ CNComposable::~CNComposable() {}
 CNComposable::CNComposable(CNComposerPtr composer) : composer(composer) {}
 
 void CNComposable::add(std::shared_ptr<CNComponent> component) {
-
+    composer->mount(component);
 }
