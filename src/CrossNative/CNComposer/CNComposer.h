@@ -1,0 +1,1 @@
+#ifndef CROSSNATIVE_COMPOSER_H#define CROSSNATIVE_COMPOSER_H#include <memory>class CNComponent;class CNComposer;typedef std::shared_ptr<CNComposer> CNComposerPtr;class CNComposer {public:    virtual  ~CNComposer() {}protected:    CNComposer() {}};#endif //CROSSNATIVE_COMPOSER_H
