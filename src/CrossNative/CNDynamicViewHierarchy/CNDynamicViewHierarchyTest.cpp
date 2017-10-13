@@ -299,3 +299,17 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_LoadedThirdV
     std::string errorMessage = getReceiverRemovedViewErrorMessage("FirstView", "SecondView");
     expectReceiverRemovedView(firstView, secondView, errorMessage);
 }
+
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_UnloadedSecondView__LoadSecondViewMatchingFirstView_ShouldAddSecondViewToFirstView) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewSpyPtr firstView = makeCNViewSpy();
+    sut->load(firstView, makeNotMatchingCNMatcher());
+    CNViewPtr secondView = makeCNViewDummy();
+    sut->load(secondView, makeNotMatchingCNMatcher());
+    sut->unload(secondView);
+
+    sut->load(secondView, makeCNFakeMatcher(firstView));
+
+    std::string errorMessage = getReceiverAddedViewErrorMessage("FirstView", "SecondView");
+    expectReceiverAddedView(firstView, secondView, errorMessage);
+}
