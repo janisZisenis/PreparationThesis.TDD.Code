@@ -55,6 +55,12 @@ protected:
 
         expectUnequals(actual, unexpected, errorMessage);
     }
+    virtual void expectReceiverRemovedView(CNViewSpyPtr receiver, CNViewPtr view, std::string errorMessage) {
+        CNViewPtr expected = view;
+        CNViewPtr actual = receiver->getRemovedView();
+
+        expectEquals(actual, expected, errorMessage);
+    }
 
     virtual std::string getReceiverAddedViewErrorMessage(std::string receiverName, std::string viewName) {
         return viewName + " should be added to " + receiverName + ", but it was not!";
@@ -62,6 +68,10 @@ protected:
     virtual std::string getReceiverDidNotAddViewErrorMessage(std::string receiverName, std::string viewName) {
         return viewName + " should not be added to " + receiverName + ", but it was!";
     }
+    virtual std::string getReceiverRemovedViewErrorMessage(std::string receiverName, std::string viewName) {
+        return viewName + " should be removed from " + receiverName + ", but it was not!";
+    }
+
 };
 
 TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView__LoadSecondViewMatching__SecondViewShouldBeAddedToFirstView) {
@@ -167,3 +177,17 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstViewNotMatching_LoadedFirstViewNot
     EXPECT_THROW(sut->load(firstView, makeNotMatchingCNMatcher()), CNViewAlreadyLoadedException) << errorMessage;
 }
 
+
+TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_FirstViewIsParent__UnloadSecondView__SecondViewShouldBeRemovedFromView) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+    CNViewSpyPtr firstView = makeCNViewSpy();
+    firstView->setIsParentOf(true);
+    sut->load(firstView, makeNotMatchingCNMatcher());
+    CNViewPtr secondView = makeCNViewDummy();
+    sut->load(secondView, makeCNFakeMatcher(firstView));
+
+    sut->unload(secondView);
+
+    std::string errorMessage = getReceiverRemovedViewErrorMessage("SecondView", "FirstView");
+    expectReceiverRemovedView(firstView, secondView, errorMessage);
+}

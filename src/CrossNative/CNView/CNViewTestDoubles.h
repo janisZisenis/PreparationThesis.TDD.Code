@@ -18,9 +18,28 @@ public:
     virtual void add(CNViewPtr view) override {};
 };
 
+class CNViewStub;
+typedef std::shared_ptr<CNViewStub> CNViewStubPtr;
+class CNViewStub : public CNViewDummy {
+public:
+    static CNViewStubPtr getNewInstance() {
+        return CNViewStubPtr(new CNViewStub());
+    }
+    virtual ~CNViewStub() {}
+protected:
+    CNViewStub() {}
+
+public:
+    virtual void setIsParentOf(bool isParent) {
+        this->isParent = isParent;
+    }
+private:
+    bool isParent = false;
+};
+
 class CNViewSpy;
 typedef std::shared_ptr<CNViewSpy> CNViewSpyPtr;
-class CNViewSpy : public CNView {
+class CNViewSpy : public CNViewStub {
 public:
     static CNViewSpyPtr getNewInstance() {
         return CNViewSpyPtr(new CNViewSpy());
@@ -37,8 +56,13 @@ public:
         return added;
     }
 
+    virtual CNViewPtr getRemovedView() {
+        return removed;
+    }
+
 private:
     CNViewPtr added;
+    CNViewPtr removed;
 };
 
 #endif //CROSSNATIVE_VIEW_H
