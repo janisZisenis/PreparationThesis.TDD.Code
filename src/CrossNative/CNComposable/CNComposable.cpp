@@ -15,5 +15,5 @@ void CNComposable::add(std::shared_ptr<CNComponent> component) {
 }
 
 void CNComposable::remove(std::shared_ptr<CNComponent> component) {
-
+    composer->dismount(component);
 }
