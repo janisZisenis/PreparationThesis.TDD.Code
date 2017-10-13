@@ -16,6 +16,7 @@ protected:
 
 public:
     virtual void add(CNViewPtr view) override {};
+    virtual void remove(CNViewPtr view) override {};
 };
 
 class CNViewStub;
@@ -56,6 +57,9 @@ public:
         return added;
     }
 
+    virtual void remove(CNViewPtr view) override {
+        removed = view;
+    }
     virtual CNViewPtr getRemovedView() {
         return removed;
     }

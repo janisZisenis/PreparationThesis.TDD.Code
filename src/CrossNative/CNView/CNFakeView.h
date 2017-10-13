@@ -19,6 +19,9 @@ public:
     virtual void add(CNViewPtr view) override {
         children.push_back(view);
     }
+    virtual void remove(CNViewPtr view) override {
+        children.erase(std::find(children.begin(), children.end(), view));
+    }
 private:
     std::vector<CNViewPtr> children;
 };

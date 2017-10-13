@@ -23,5 +23,5 @@ void CNDynamicViewHierarchy::load(CNViewPtr view, CNMatcherPtr matcher) {
 }
 
 void CNDynamicViewHierarchy::unload(CNViewPtr view) {
-
+    views[0]->remove(view);
 }
