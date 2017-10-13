@@ -163,5 +163,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstViewNotMatching_LoadedFirstViewNot
     CNViewPtr firstView = makeCNViewDummy();
     sut->load(firstView, makeNotMatchingCNMatcher());
 
-    EXPECT_THROW(sut->load(firstView, makeNotMatchingCNMatcher()), CNViewAlreadyLoadedException);
+    std::string errorMessage = "CNDynamicViewHierarchy should throw CNViewAlreadyLoadedException, but it did not!";
+    EXPECT_THROW(sut->load(firstView, makeNotMatchingCNMatcher()), CNViewAlreadyLoadedException) << errorMessage;
 }
+
