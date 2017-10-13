@@ -18,15 +18,19 @@ void CNComposable::add(std::shared_ptr<CNComponent> child) {
 void CNComposable::remove(std::shared_ptr<CNComponent> child) {
     composer->dismount(child);
 
-    std::vector< std::shared_ptr<CNComponent> >::iterator it;
-    it = std::find(children.begin(), children.end(), child);
-
-    if(it == children.end())
+    if(!isParentOf(child))
         throw CNChildNotFoundException();
 
-    children.erase(it);
+    children.erase(children.begin() + findPosition(child));
 }
 
 bool CNComposable::isParentOf(std::shared_ptr<CNComponent> component) {
-    return std::find(children.begin(), children.end(), component) != children.end();
+    return findPosition(component) > -1;
+}
+
+int CNComposable::findPosition(std::shared_ptr<CNComponent> component) {
+    std::vector< std::shared_ptr<CNComponent> >::iterator it;
+    it = std::find(children.begin(), children.end(), component);
+
+    return it == children.end() ? -1 : (int)(children.begin() - it);
 }
