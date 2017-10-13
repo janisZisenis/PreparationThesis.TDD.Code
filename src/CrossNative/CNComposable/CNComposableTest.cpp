@@ -21,6 +21,12 @@ protected:
         return CNComposerSpy::getNewInstance();
     }
 
+    virtual void expectIsParentOfComponent(CNComposablePtr sut, CNComponentPtr component) {
+        bool expected = sut->isParentOf(component);
+
+        std::string errorMessage = "CNComposable should be parent of component, but it is not!";
+        EXPECT_TRUE(expected) << errorMessage;
+    }
     virtual void expectComposerMountedChild(CNComposerSpyPtr composer, CNComponentPtr child) {
         CNComponentPtr expected = child;
         CNComponentPtr actual = composer->getMounted();
@@ -58,12 +64,12 @@ TEST_F(CNComposableTest, ChildAdded__RemoveChild__ComposerShouldHaveDismountedTh
     expectComposerDismountedChild(composer, child);
 }
 
-TEST_F(CNComposableTest, FreshInstance__RemoveChild__ShouldThrowCNChildNotFoundException) {
+TEST_F(CNComposableTest, FreshInstance__AddChild__SUTShouldBeNotParentOfChild) {
     CNComposerPtr composer = makeCNComposerDummy();
     CNComposablePtr sut = makeCNComposable(composer);
 
     CNComponentPtr child = makeCNComponentDummy();
+    sut->add(child);
 
-    std::string errorMessage = "CNComposable should throw CNChildNotFoundException, but it did not";
-    EXPECT_THROW(sut->remove(child), CNChildNotFoundException) << errorMessage;
+    expectIsParentOfComponent(sut, child);
 }
