@@ -28,9 +28,12 @@ protected:
         return CNFakeMatcher::getNewInstance(matchingView);
     }
     virtual CNMatcherStubPtr makeNotMatchingMatcher() {
-        CNMatcherStubPtr matcher = CNMatcherStub::getNewInstance();
+        CNMatcherStubPtr matcher = makeCNMatcherStub();
         matcher->setIsMatching(false);
         return matcher;
+    }
+    virtual CNMatcherStubPtr makeCNMatcherStub() {
+        return CNMatcherStub::getNewInstance();
     }
 
     virtual void expectEquals(CNViewPtr actual, CNViewPtr expected, std::string errorMessage) {
