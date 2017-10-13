@@ -25,6 +25,10 @@ void CNDynamicViewHierarchy::unload(CNViewPtr view) {
     unloadView(view);
 }
 
+void CNDynamicViewHierarchy::move(CNViewPtr view, CNMatcherPtr matcher) {
+
+}
+
 void CNDynamicViewHierarchy::loadView(CNViewPtr view, CNMatcherPtr matcher) {
     addToParent(view, matcher);
     addToViewList(view);
@@ -67,3 +71,4 @@ int CNDynamicViewHierarchy::findPosition(std::shared_ptr<CNView> view) {
 
     return -1;
 }
+

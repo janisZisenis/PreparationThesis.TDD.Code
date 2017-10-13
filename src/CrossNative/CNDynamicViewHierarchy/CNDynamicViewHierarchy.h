@@ -35,6 +35,7 @@ protected:
 public:
     virtual void load(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
     virtual void unload(std::shared_ptr<CNView> view);
+    virtual void move(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
 
 private:
     virtual void loadView(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
