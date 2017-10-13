@@ -8,19 +8,19 @@ typedef std::shared_ptr<CNFakeMatcher> CNFakeMatcherPtr;
 
 class CNFakeMatcher : public CNMatcher {
 public:
-    static CNFakeMatcherPtr getNewInstance(std::shared_ptr<CNView> matchingView) {
+    static CNFakeMatcherPtr getNewInstance(std::shared_ptr<CNComponent> matchingView) {
         return CNFakeMatcherPtr(new CNFakeMatcher(matchingView));
     }
     virtual ~CNFakeMatcher() {};
 protected:
-    CNFakeMatcher(std::shared_ptr<CNView> matchingView) : matchingView(matchingView) {};
+    CNFakeMatcher(std::shared_ptr<CNComponent> matchingView) : matchingView(matchingView) {};
 
 public:
-    virtual bool matches(std::shared_ptr<CNView> view) {
+    virtual bool matches(std::shared_ptr<CNComponent> view) {
         return view == matchingView;
     }
 private:
-    std::shared_ptr<CNView> matchingView;
+    std::shared_ptr<CNComponent> matchingView;
 };
 
 
