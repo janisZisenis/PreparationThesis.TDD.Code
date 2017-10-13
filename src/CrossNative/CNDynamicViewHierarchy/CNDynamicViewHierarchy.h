@@ -37,6 +37,17 @@ public:
     virtual void unload(std::shared_ptr<CNView> view);
 
 private:
+    virtual void loadView(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
+    virtual void unloadView(std::shared_ptr<CNView> view);
+
+    virtual void addToViewList(std::shared_ptr<CNView> view);
+    virtual void addToParent(std::shared_ptr<CNView> view, std::shared_ptr<CNMatcher> matcher);
+    virtual void removeFromViewList(std::shared_ptr<CNView> view);
+    virtual void removeFromParent(std::shared_ptr<CNView> view);
+
+    virtual bool isAlreadyLoaded(std::shared_ptr<CNView> view);
+    virtual int findPosition(std::shared_ptr<CNView> view);
+private:
     std::vector< std::shared_ptr<CNView> > views;
 };
 

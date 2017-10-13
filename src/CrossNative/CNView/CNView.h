@@ -16,6 +16,8 @@ public:
     virtual void add(CNViewPtr view) = 0;
     virtual void remove(CNViewPtr view) = 0;
     virtual bool isParentOf(CNViewPtr view) = 0;
+
+private:
 };
 
 
