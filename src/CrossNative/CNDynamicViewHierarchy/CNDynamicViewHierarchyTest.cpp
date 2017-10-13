@@ -246,3 +246,12 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_LoadedThirdV
     std::string errorMessage = getReceiverDidNotRemoveViewErrorMessage("SecondView", "ThirdView");
     expectReceiverDidNotRemoveView(secondView, thirdView, errorMessage);
 }
+
+TEST_F(CNDynamicViewHierarchyTest, FreshInstance__UnloadFirstView__ShouldThrowCNViewNotLoadedException) {
+    CNDynamicViewHierarchyPtr sut = makeCNDynamicViewHierarchy();
+
+    CNViewPtr firstView = makeCNViewDummy();
+
+    std::string errorMessage = "CNDynamicViewHierarchy should throw CNViewNotLoadedException, but it did not!";
+    EXPECT_THROW(sut->unload(firstView), CNViewNotLoadedException) << errorMessage;
+}

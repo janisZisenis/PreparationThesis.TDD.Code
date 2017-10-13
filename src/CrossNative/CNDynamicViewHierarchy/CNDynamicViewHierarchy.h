@@ -12,6 +12,12 @@ class CNViewAlreadyLoadedException : public std::exception {
     }
 };
 
+class CNViewNotLoadedException : public std::exception {
+    const char *what() const throw() override {
+        return std::string("The given view was not loaded before unloading!").c_str();
+    }
+};
+
 class CNView;
 class CNMatcher;
 
