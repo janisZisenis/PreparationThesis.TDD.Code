@@ -18,21 +18,39 @@ protected:
         return CNComposerSpy::getNewInstance();
     }
 
-    virtual void expectComposerMountedComponent(CNComposerSpyPtr composer, CNComponentPtr component) {
-        CNComponentPtr expected = component;
+    virtual void expectComposerMountedChild(CNComposerSpyPtr composer, CNComponentPtr child) {
+        CNComponentPtr expected = child;
         CNComponentPtr actual = composer->getMounted();
 
-        std::string errorMessage = "Composer should have mounted component, but it has not!";
+        std::string errorMessage = "Composer should have mounted child, but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
+    virtual void expectComposerDismountedChild(CNComposerSpyPtr composer, CNComponentPtr child) {
+        CNComponentPtr expected = child;
+        CNComponentPtr actual = composer->getDismounted();
+
+        std::string errorMessage = "Composer should have dismounted child, but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
 };
 
-TEST_F(CNComposableTest, FreshIntance__Add__ComposerShouldHaveMountedTheAddedComponent) {
+TEST_F(CNComposableTest, FreshIntance__AddChild__ComposerShouldHaveMountedTheAddedChild) {
     CNComposerSpyPtr composer = makeCNComposerSpy();
     CNComposablePtr sut = makeCNComposable(composer);
 
-    CNComponentPtr component = makeCNComponentDummy();
-    sut->add(component);
+    CNComponentPtr child = makeCNComponentDummy();
+    sut->add(child);
 
-    expectComposerMountedComponent(composer, component);
+    expectComposerMountedChild(composer, child);
+}
+
+TEST_F(CNComposableTest, ChildAdded__RemoveChild__ComposerShouldHaveDismountedTheRemovedChild) {
+    CNComposerSpyPtr composer = makeCNComposerSpy();
+    CNComposablePtr sut = makeCNComposable(composer);
+    CNComponentPtr child = makeCNComponentDummy();
+    sut->add(child);
+
+    sut->remove(child);
+
+    expectComposerDismountedChild(composer, child);
 }
