@@ -2,6 +2,13 @@
 #define CROSSNATIVE_COMPONENT_H
 
 #include <memory>
+#include <string>
+
+class CNChildNotFoundException : public std::exception {
+    const char *what() const throw() override {
+        return std::string("The removed component was not found in children!").c_str();
+    }
+};
 
 class CNComponent;
 typedef std::shared_ptr<CNComponent> CNComponentPtr;
