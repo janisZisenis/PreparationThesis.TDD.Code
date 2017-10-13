@@ -17,6 +17,9 @@ protected:
 public:
     virtual void add(CNViewPtr view) override {};
     virtual void remove(CNViewPtr view) override {};
+    virtual bool isParentOf(CNViewPtr view) override {
+        return false;
+    }
 };
 
 class CNViewStub;
@@ -33,6 +36,9 @@ protected:
 public:
     virtual void setIsParentOf(bool isParent) {
         this->isParent = isParent;
+    }
+    virtual bool isParentOf(CNViewPtr view) override {
+        return isParent;
     }
 private:
     bool isParent = false;

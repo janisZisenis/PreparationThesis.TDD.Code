@@ -22,6 +22,9 @@ public:
     virtual void remove(CNViewPtr view) override {
         children.erase(std::find(children.begin(), children.end(), view));
     }
+    virtual bool isParentOf(CNViewPtr view) override {
+        return std::find(children.begin(), children.end(), view) != children.end();
+    }
 private:
     std::vector<CNViewPtr> children;
 };
