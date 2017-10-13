@@ -220,7 +220,7 @@ TEST_F(CNDynamicViewHierarchyTest, LoadedFirstView_LoadedSecondView_LoadedThirdV
     CNViewPtr firstView = makeCNFakeView();
     sut->load(firstView, makeNotMatchingCNMatcher());
     CNViewSpyPtr secondView = makeCNViewSpy();
-    secondView->setIsParentOf(false);
+    secondView->setIsParentOf(true);
     sut->load(secondView, makeCNFakeMatcher(firstView));
     CNViewPtr thirdView = makeCNViewDummy();
     sut->load(thirdView, makeCNFakeMatcher(secondView));
