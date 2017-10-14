@@ -1,9 +1,10 @@
 #include "CNComposable.h"
 
 #include "CrossNative/CNComposer/CNComposer.h"
+#include "CrossNative/CNVisitable/CNVisitable.h"
 
-CNComposablePtr CNComposable::getNewInstance(CNComposerPtr composer) {
-    return CNComposablePtr(new CNComposable(composer));
+CNComposablePtr CNComposable::getNewInstance(CNVisitablePtr visitable, CNComposerPtr composer) {
+    return CNComposablePtr(new CNComposable(visitable, composer));
 }
 
 CNComposable::~CNComposable() {
@@ -12,7 +13,7 @@ CNComposable::~CNComposable() {
         composer->dismount(*it);
 }
 
-CNComposable::CNComposable(CNComposerPtr composer) : composer(composer) {}
+CNComposable::CNComposable(CNVisitablePtr visitable, CNComposerPtr composer) : composer(composer) {}
 
 void CNComposable::add(CNComponentPtr child) {
     mount(child);
@@ -29,6 +30,10 @@ void CNComposable::remove(CNComponentPtr child) {
 
 bool CNComposable::isParentOf(CNComponentPtr component) {
     return findPosition(component) > -1;
+}
+
+void CNComposable::accept(std::shared_ptr<CNVisitor> visitor) {
+
 }
 
 void CNComposable::addToChildren(CNComponentPtr child) {

@@ -3,11 +3,13 @@
 
 #include "CrossNative/CNComponent/CNComponentTestDoubles.h"
 #include "CrossNative/CNComposer/CNComposerTestDoubles.h"
+#include "CrossNative/CNVisitable/CNVisitableTestDoubles.h"
+#include "CrossNative/CNVisitor/CNVisitorTestDoubles.h"
 
 class CNComposableTest : public testing::Test {
 protected:
-    virtual CNComposablePtr makeCNComposable(CNComposerPtr composer) {
-        return CNComposable::getNewInstance(composer);
+    virtual CNComposablePtr makeCNComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
+        return CNComposable::getNewInstance(visitable, composer);
     }
 
     virtual CNComponentPtr makeCNComponentDummy() {
@@ -19,6 +21,17 @@ protected:
     }
     virtual CNComposerSpyPtr makeCNComposerSpy() {
         return CNComposerSpy::getNewInstance();
+    }
+
+    virtual CNVisitablePtr makeCNVisitableDummy() {
+        return CNVisitableDummy::getNewInstance();
+    }
+    virtual CNVisitableSpyPtr makeCNVisitableSpy() {
+        return CNVisitableSpy::getNewInstance();
+    }
+
+    virtual CNVisitorPtr makeCNVisitorDummy() {
+        return CNVisitorDummy::getNewInstance();
     }
 
     virtual void expectIsParentOfComponent(CNComposablePtr sut, CNComponentPtr component) {
@@ -48,11 +61,20 @@ protected:
         std::string errorMessage = "Composer should have dismounted child, but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
+
+    virtual void expectVisitableHasAcceptedVisitor(CNVisitableSpyPtr visitable, CNVisitorPtr visitor) {
+        CNVisitorPtr expected = visitable->getAccepted();
+        CNVisitorPtr actual = visitor;
+
+        std::string errorMessage = "The visitable should have accepted the visitor, but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
 };
 
 TEST_F(CNComposableTest, FreshIntance__AddChild__ComposerShouldMountedTheAddedChild) {
+    CNVisitablePtr visitable = makeCNVisitableDummy();
     CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComposablePtr sut = makeCNComposable(composer);
+    CNComposablePtr sut = makeCNComposable(visitable, composer);
 
     CNComponentPtr child = makeCNComponentDummy();
     sut->add(child);
@@ -61,8 +83,9 @@ TEST_F(CNComposableTest, FreshIntance__AddChild__ComposerShouldMountedTheAddedCh
 }
 
 TEST_F(CNComposableTest, FreshInstance__AddChild__SUTShouldBeParentOfChild) {
+    CNVisitablePtr visitable = makeCNVisitableDummy();
     CNComposerPtr composer = makeCNComposerDummy();
-    CNComposablePtr sut = makeCNComposable(composer);
+    CNComposablePtr sut = makeCNComposable(visitable, composer);
 
     CNComponentPtr child = makeCNComponentDummy();
     sut->add(child);
@@ -71,8 +94,9 @@ TEST_F(CNComposableTest, FreshInstance__AddChild__SUTShouldBeParentOfChild) {
 }
 
 TEST_F(CNComposableTest, ChildAdded__RemoveChild__ComposerShouldDismountTheRemovedChild) {
+    CNVisitablePtr visitable = makeCNVisitableDummy();
     CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComposablePtr sut = makeCNComposable(composer);
+    CNComposablePtr sut = makeCNComposable(visitable, composer);
     CNComponentPtr child = makeCNComponentDummy();
     sut->add(child);
 
@@ -82,8 +106,9 @@ TEST_F(CNComposableTest, ChildAdded__RemoveChild__ComposerShouldDismountTheRemov
 }
 
 TEST_F(CNComposableTest, ChildAdded__RemoveChild__SUTShouldNotBeParentOfChild) {
+    CNVisitablePtr visitable = makeCNVisitableDummy();
     CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComposablePtr sut = makeCNComposable(composer);
+    CNComposablePtr sut = makeCNComposable(visitable, composer);
     CNComponentPtr child = makeCNComponentDummy();
     sut->add(child);
 
@@ -93,8 +118,9 @@ TEST_F(CNComposableTest, ChildAdded__RemoveChild__SUTShouldNotBeParentOfChild) {
 }
 
 TEST_F(CNComposableTest, FreshInstance__RemoveChild__ShouldThrowCNChildNotFoundException) {
+    CNVisitablePtr visitable = makeCNVisitableDummy();
     CNComposerPtr composer = makeCNComposerDummy();
-    CNComposablePtr sut = makeCNComposable(composer);
+    CNComposablePtr sut = makeCNComposable(visitable, composer);
 
     CNComponentPtr child = makeCNComponentDummy();
 
@@ -103,8 +129,9 @@ TEST_F(CNComposableTest, FreshInstance__RemoveChild__ShouldThrowCNChildNotFoundE
 }
 
 TEST_F(CNComposableTest, TwoChildrenAdded__RemoveSecond__SUTShouldNotBeParentOfSecond) {
+    CNVisitablePtr visitable = makeCNVisitableDummy();
     CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComposablePtr sut = makeCNComposable(composer);
+    CNComposablePtr sut = makeCNComposable(visitable, composer);
     CNComponentPtr first = makeCNComponentDummy();
     sut->add(first);
     CNComponentPtr second= makeCNComponentDummy();
@@ -116,12 +143,25 @@ TEST_F(CNComposableTest, TwoChildrenAdded__RemoveSecond__SUTShouldNotBeParentOfS
 }
 
 TEST_F(CNComposableTest, ChildrenAdded__Destruction__ComposerShouldDismountTheChild) {
+    CNVisitablePtr visitable = makeCNVisitableDummy();
     CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComposablePtr sut = makeCNComposable(composer);
+    CNComposablePtr sut = makeCNComposable(visitable, composer);
     CNComponentPtr child = makeCNComponentDummy();
     sut->add(child);
 
     sut.reset();
 
     expectComposerDismountedChild(composer, child);
+}
+
+
+TEST_F(CNComposableTest, FreshInstance__Accept__VisitableShouldHaveAcceptedVisitor) {
+    CNVisitableSpyPtr visitable = makeCNVisitableSpy();
+    CNComposerPtr composer = makeCNComposerDummy();
+    CNComposablePtr sut = makeCNComposable(visitable, composer);
+
+    CNVisitorPtr visitor = makeCNVisitorDummy();
+    sut->accept(visitor);
+
+    expectVisitableHasAcceptedVisitor(visitable, visitor);
 }
