@@ -71,17 +71,9 @@ public:
         return removed;
     }
 
-    virtual void accept(CNVisitorPtr visitor) override {
-        accepted = visitor;
-    }
-    virtual CNVisitorPtr getAccepted() {
-        return accepted;
-    }
-
 private:
     CNComponentPtr added;
     CNComponentPtr removed;
-    CNVisitorPtr accepted;
 };
 
 #endif //CROSSNATIVE_COMPONENT_TESTDOUBLES_H

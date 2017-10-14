@@ -3,10 +3,22 @@
 
 #include "CNComponent.h"
 
+class CNFakeComponentVisitor;
+typedef std::shared_ptr<CNFakeComponentVisitor> CNFakeComponentVisitorPtr;
 class CNFakeComponent;
 typedef std::shared_ptr<CNFakeComponent> CNFakeComponentPtr;
 
-class CNFakeComponent : public CNComponent {
+class CNFakeComponentVisitor : public CNVisitor {
+public:
+    virtual ~CNFakeComponentVisitor() {}
+protected:
+    CNFakeComponentVisitor() {}
+
+public:
+    virtual void visit(CNFakeComponentPtr fakeComponent) = 0;
+};
+
+class CNFakeComponent : public CNComponent, public std::enable_shared_from_this<CNFakeComponent> {
 public:
     static CNFakeComponentPtr getNewInstance() {
         return CNFakeComponentPtr(new CNFakeComponent());
@@ -26,7 +38,16 @@ public:
         return std::find(children.begin(), children.end(), view) != children.end();
     }
 
-    virtual void accept(CNVisitorPtr visitor) override {}
+    virtual void accept(CNVisitorPtr visitor) override {
+        CNFakeComponentVisitorPtr v = std::dynamic_pointer_cast<CNFakeComponentVisitor>(visitor);
+        if(!v) throw CNVisitorMismatchException();
+        v->visit(me());
+    }
+private:
+    CNFakeComponentPtr me() {
+        return shared_from_this();
+    }
+
 private:
     std::vector<CNComponentPtr> children;
 };
