@@ -16,8 +16,8 @@ bool CNTypeMatcher::matches(CNVisitablePtr visitable) {
     try {
         visitable->accept(matching);
     } catch (CNVisitorMismatchException) {
-
+        return false;
     }
 
-    return false;
+    return true;
 }
