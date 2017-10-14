@@ -5,6 +5,7 @@
 
 class CNNullComposer;
 typedef std::shared_ptr<CNNullComposer> CNNullComposerPtr;
+
 class CNNullComposer : public CNComposer {
 public:
     static CNNullComposerPtr getNewInstance() {
@@ -16,8 +17,8 @@ protected:
     CNNullComposer() {}
 
 public:
-    virtual void mount(std::shared_ptr<CNComponent> component) override {}
-    virtual void dismount(std::shared_ptr<CNComponent> component) override {}
+    virtual void mount(std::shared_ptr<CNVisitable> visitable) override {}
+    virtual void dismount(std::shared_ptr<CNVisitable> visitable) override {}
 };
 
 #endif //CROSSNATIVE_NULLCOMPOSER_H

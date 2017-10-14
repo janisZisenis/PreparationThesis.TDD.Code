@@ -2,7 +2,7 @@
 #include "CNVisitingComposer.h"
 
 #include "CrossNative/CNVisitor/CNVisitorTestDoubles.h"
-#include "CrossNative/CNComponent/CNComponentTestDoubles.h"
+#include "CrossNative/CNVisitable/CNVisitableTestDoubles.h"
 
 class CNVisitingComposerTest : public testing::Test {
 protected:
@@ -12,38 +12,38 @@ protected:
     virtual CNVisitorDummyPtr makeCNVisitorDummy() {
         return CNVisitorDummy::getNewInstance();
     }
-    virtual CNComponentSpyPtr makeCNComponentSpy() {
-        return CNComponentSpy::getNewInstance();
+    virtual CNVisitableSpyPtr makeCNVisitableSpy() {
+        return CNVisitableSpy::getNewInstance();
     }
 
-    virtual void expectComponentHasAcceptedVisitor(CNComponentSpyPtr component, CNVisitorPtr visitor) {
-        CNVisitorPtr expected = component->getAccepted();
+    virtual void expectVisitableHasAcceptedVisitor(CNVisitableSpyPtr visitable, CNVisitorPtr visitor) {
+        CNVisitorPtr expected = visitable->getAccepted();
         CNVisitorPtr actual = visitor;
 
-        std::string errorMessage = "The component should have accepted the visitor, but it has not!";
+        std::string errorMessage = "The visitable should have accepted the visitor, but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
 };
 
 
-TEST_F(CNVisitingComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheMountingVisitor) {
+TEST_F(CNVisitingComposerTest, FreshInstance__Mount__VisitableShouldHaveAcceptedTheMountingVisitor) {
     CNVisitorDummyPtr mounting = makeCNVisitorDummy();
     CNVisitorDummyPtr dismounting = makeCNVisitorDummy();
     CNVisitingComposerPtr sut = makeCNVisitingComposer(mounting, dismounting);
 
-    CNComponentSpyPtr component = makeCNComponentSpy();
-    sut->mount(component);
+    CNVisitableSpyPtr visitable = makeCNVisitableSpy();
+    sut->mount(visitable);
 
-    expectComponentHasAcceptedVisitor(component, mounting);
+    expectVisitableHasAcceptedVisitor(visitable, mounting);
 }
 
-TEST_F(CNVisitingComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheDismountingVisitor) {
+TEST_F(CNVisitingComposerTest, FreshInstance__Mount__VisitableShouldHaveAcceptedTheDismountingVisitor) {
     CNVisitorDummyPtr mounting = makeCNVisitorDummy();
     CNVisitorDummyPtr dismounting = makeCNVisitorDummy();
     CNVisitingComposerPtr sut = makeCNVisitingComposer(mounting, dismounting);
 
-    CNComponentSpyPtr component = makeCNComponentSpy();
-    sut->dismount(component);
+    CNVisitableSpyPtr visitable = makeCNVisitableSpy();
+    sut->dismount(visitable);
 
-    expectComponentHasAcceptedVisitor(component, dismounting);
+    expectVisitableHasAcceptedVisitor(visitable, dismounting);
 }

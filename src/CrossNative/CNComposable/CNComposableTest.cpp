@@ -47,16 +47,16 @@ protected:
         EXPECT_FALSE(expected) << errorMessage;
     }
 
-    virtual void expectComposerMountedChild(CNComposerSpyPtr composer, CNComponentPtr child) {
-        CNComponentPtr expected = child;
-        CNComponentPtr actual = composer->getMounted();
+    virtual void expectComposerMountedChild(CNComposerSpyPtr composer, CNVisitablePtr child) {
+        CNVisitablePtr expected = child;
+        CNVisitablePtr actual = composer->getMounted();
 
         std::string errorMessage = "Composer should have mounted child, but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-    virtual void expectComposerDismountedChild(CNComposerSpyPtr composer, CNComponentPtr child) {
-        CNComponentPtr expected = child;
-        CNComponentPtr actual = composer->getDismounted();
+    virtual void expectComposerDismountedChild(CNComposerSpyPtr composer, CNVisitablePtr child) {
+        CNVisitablePtr expected = child;
+        CNVisitablePtr actual = composer->getDismounted();
 
         std::string errorMessage = "Composer should have dismounted child, but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;

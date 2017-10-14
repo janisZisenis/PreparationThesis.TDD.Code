@@ -11,10 +11,10 @@ CNVisitingComposer::~CNVisitingComposer() {}
 CNVisitingComposer::CNVisitingComposer(CNVisitorPtr mounting, CNVisitorPtr dismounting)
         : mounting(mounting), dismounting(dismounting) {}
 
-void CNVisitingComposer::mount(CNComponentPtr component) {
-    component->accept(mounting);
+void CNVisitingComposer::mount(CNVisitablePtr visitable) {
+    visitable->accept(mounting);
 }
 
-void CNVisitingComposer::dismount(CNComponentPtr component) {
-    component->accept(dismounting);
+void CNVisitingComposer::dismount(CNVisitablePtr visitable) {
+    visitable->accept(dismounting);
 }
