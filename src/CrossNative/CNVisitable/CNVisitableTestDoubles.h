@@ -43,4 +43,21 @@ private:
     CNVisitorPtr accepted;
 };
 
+class CNVisitableSaboteur;
+typedef std::shared_ptr<CNVisitableSaboteur> CNVisitableSaboteurPtr;
+class CNVisitableSaboteur : public CNVisitableDummy {
+public:
+    static CNVisitableSaboteurPtr getNewInstance() {
+        return CNVisitableSaboteurPtr(new CNVisitableSaboteur());
+    }
+    virtual ~CNVisitableSaboteur() {}
+protected:
+    CNVisitableSaboteur() {}
+
+public:
+    virtual void accept(CNVisitorPtr visitor) {
+        throw CNVisitorMismatchException();
+    }
+};
+
 #endif //CROSSNATIVE_VISITABLE_TESTDOUBLES_H

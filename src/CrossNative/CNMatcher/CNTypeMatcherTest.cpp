@@ -15,6 +15,9 @@ protected:
     virtual CNVisitableSpyPtr makeCNVisitableSpy() {
         return CNVisitableSpy::getNewInstance();
     }
+    virtual CNVisitablePtr makeCNVisitableSaboteur() {
+        return CNVisitableSaboteur::getNewInstance();
+    }
 
     virtual void expectVisitableHasAcceptedVisitor(CNVisitableSpyPtr visitable, CNVisitorPtr visitor) {
         CNVisitorPtr expected = visitable->getAccepted();
@@ -23,9 +26,15 @@ protected:
         std::string errorMessage = "The visitable should have accepted the visitor, but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
+    virtual void expectMatcherDoesNotMatchVisitable(CNTypeMatcherPtr sut, CNVisitablePtr visitable) {
+        bool actual = sut->matches(visitable);
+
+        std::string errorMessage = "CNTypeMatcher should not match the visitable, but it does!";
+        EXPECT_FALSE(actual) << errorMessage;
+    }
 };
 
-TEST_F(CNTypeMatcherTest, FreshInstance__Matches__VisitableShouldHaveAcceptedTheMatchingVisitor) {
+TEST_F(CNTypeMatcherTest, FreshInstance__Matches__VisitableShouldHaveAcceptedTheVisitor) {
     CNVisitorPtr matching = makeCNVisitorDummy();
     CNTypeMatcherPtr sut = makeCNTypeMatcher(matching);
 
@@ -34,3 +43,14 @@ TEST_F(CNTypeMatcherTest, FreshInstance__Matches__VisitableShouldHaveAcceptedThe
 
     expectVisitableHasAcceptedVisitor(visitable, matching);
 }
+
+TEST_F(CNTypeMatcherTest, FreshInstance__MatchesVisitableThrowingVisitorMismatchException__SUTShouldNotMatch) {
+    CNVisitorPtr matching = makeCNVisitorDummy();
+    CNTypeMatcherPtr sut = makeCNTypeMatcher(matching);
+
+    CNVisitablePtr visitable = makeCNVisitableSaboteur();
+
+    expectMatcherDoesNotMatchVisitable(sut, visitable);
+}
+
+

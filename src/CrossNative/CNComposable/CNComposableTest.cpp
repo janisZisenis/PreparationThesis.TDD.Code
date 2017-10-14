@@ -154,7 +154,6 @@ TEST_F(CNComposableTest, ChildrenAdded__Destruction__ComposerShouldDismountTheCh
     expectComposerDismountedChild(composer, child);
 }
 
-
 TEST_F(CNComposableTest, FreshInstance__Accept__VisitableShouldHaveAcceptedVisitor) {
     CNVisitableSpyPtr visitable = makeCNVisitableSpy();
     CNComposerPtr composer = makeCNComposerDummy();
