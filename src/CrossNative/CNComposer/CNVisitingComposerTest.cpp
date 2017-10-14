@@ -9,11 +9,9 @@ protected:
     virtual CNVisitingComposerPtr makeCNVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing) {
         return CNVisitingComposer::getNewInstance(composing, decomposing);
     }
-
     virtual CNVisitorDummyPtr makeCNVisitorDummy() {
         return CNVisitorDummy::getNewInstance();
     }
-
     virtual CNComponentSpyPtr makeCNComponentSpy() {
         return CNComponentSpy::getNewInstance();
     }
@@ -28,13 +26,24 @@ protected:
 };
 
 
-TEST_F(CNVisitingComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheComposingVisitor) {
-    CNVisitorDummyPtr composing = makeCNVisitorDummy();
-    CNVisitorDummyPtr decomposing = makeCNVisitorDummy();
-    CNVisitingComposerPtr sut = makeCNVisitingComposer(composing, decomposing);
+TEST_F(CNVisitingComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheMountingVisitor) {
+    CNVisitorDummyPtr mounting = makeCNVisitorDummy();
+    CNVisitorDummyPtr dismounting = makeCNVisitorDummy();
+    CNVisitingComposerPtr sut = makeCNVisitingComposer(mounting, dismounting);
 
     CNComponentSpyPtr component = makeCNComponentSpy();
     sut->mount(component);
 
-    expectComponentHasAcceptedVisitor(component, composing);
+    expectComponentHasAcceptedVisitor(component, mounting);
+}
+
+TEST_F(CNVisitingComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheDismountingVisitor) {
+    CNVisitorDummyPtr mounting = makeCNVisitorDummy();
+    CNVisitorDummyPtr dismounting = makeCNVisitorDummy();
+    CNVisitingComposerPtr sut = makeCNVisitingComposer(mounting, dismounting);
+
+    CNComponentSpyPtr component = makeCNComponentSpy();
+    sut->dismount(component);
+
+    expectComponentHasAcceptedVisitor(component, dismounting);
 }
