@@ -19,5 +19,5 @@ bool CNTypeMatcher::matches(CNVisitablePtr visitable) {
 
     }
 
-    return true;
+    return false;
 }
