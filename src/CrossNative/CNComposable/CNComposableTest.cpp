@@ -50,7 +50,7 @@ protected:
     }
 };
 
-TEST_F(CNComposableTest, FreshIntance__AddChild__ComposerShouldHaveMountedTheAddedChild) {
+TEST_F(CNComposableTest, FreshIntance__AddChild__ComposerShouldMountedTheAddedChild) {
     CNComposerSpyPtr composer = makeCNComposerSpy();
     CNComposablePtr sut = makeCNComposable(composer);
 
@@ -70,7 +70,7 @@ TEST_F(CNComposableTest, FreshInstance__AddChild__SUTShouldBeParentOfChild) {
     expectIsParentOfComponent(sut, child);
 }
 
-TEST_F(CNComposableTest, ChildAdded__RemoveChild__ComposerShouldHaveDismountedTheRemovedChild) {
+TEST_F(CNComposableTest, ChildAdded__RemoveChild__ComposerShouldDismountTheRemovedChild) {
     CNComposerSpyPtr composer = makeCNComposerSpy();
     CNComposablePtr sut = makeCNComposable(composer);
     CNComponentPtr child = makeCNComponentDummy();
@@ -92,6 +92,16 @@ TEST_F(CNComposableTest, ChildAdded__RemoveChild__SUTShouldNotBeParentOfChild) {
     expectIsNotParentOfComponent(sut, child);
 }
 
+TEST_F(CNComposableTest, FreshInstance__RemoveChild__ShouldThrowCNChildNotFoundException) {
+    CNComposerPtr composer = makeCNComposerDummy();
+    CNComposablePtr sut = makeCNComposable(composer);
+
+    CNComponentPtr child = makeCNComponentDummy();
+
+    std::string errorMessage = "CNComposable should throw CNChildNotFoundException, but it did not";
+    EXPECT_THROW(sut->remove(child), CNChildNotFoundException) << errorMessage;
+}
+
 TEST_F(CNComposableTest, TwoChildrenAdded__RemoveSecond__SUTShouldNotBeParentOfSecond) {
     CNComposerSpyPtr composer = makeCNComposerSpy();
     CNComposablePtr sut = makeCNComposable(composer);
@@ -105,12 +115,13 @@ TEST_F(CNComposableTest, TwoChildrenAdded__RemoveSecond__SUTShouldNotBeParentOfS
     expectIsNotParentOfComponent(sut, second);
 }
 
-TEST_F(CNComposableTest, FreshInstance__RemoveChild__ShouldThrowCNChildNotFoundException) {
-    CNComposerPtr composer = makeCNComposerDummy();
+TEST_F(CNComposableTest, ChildrenAdded__Destruction__ComposerShouldDismountTheChild) {
+    CNComposerSpyPtr composer = makeCNComposerSpy();
     CNComposablePtr sut = makeCNComposable(composer);
-
     CNComponentPtr child = makeCNComponentDummy();
+    sut->add(child);
 
-    std::string errorMessage = "CNComposable should throw CNChildNotFoundException, but it did not";
-    EXPECT_THROW(sut->remove(child), CNChildNotFoundException) << errorMessage;
+    sut.reset();
+
+    expectComposerDismountedChild(composer, child);
 }
