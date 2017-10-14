@@ -7,15 +7,15 @@
 
 class CNVisitor;
 
-class CNVisitingComposer;
-typedef std::shared_ptr<CNVisitingComposer> CNVisitingComposerPtr;
-class CrossNative_EXPORT CNVisitingComposer : public CNComposer {
+class CNTypeComposer;
+typedef std::shared_ptr<CNTypeComposer> CNTypeComposerPtr;
+class CrossNative_EXPORT CNTypeComposer : public CNComposer {
 public:
-    static CNVisitingComposerPtr getNewInstance(std::shared_ptr<CNVisitor> mounting, std::shared_ptr<CNVisitor> dismounting);
-    virtual ~CNVisitingComposer();
+    static CNTypeComposerPtr getNewInstance(std::shared_ptr<CNVisitor> mounting, std::shared_ptr<CNVisitor> dismounting);
+    virtual ~CNTypeComposer();
 
 protected:
-    CNVisitingComposer(std::shared_ptr<CNVisitor> mounting, std::shared_ptr<CNVisitor> dismounting);
+    CNTypeComposer(std::shared_ptr<CNVisitor> mounting, std::shared_ptr<CNVisitor> dismounting);
 
 public:
     virtual void mount(std::shared_ptr<CNComponent> component) override;
