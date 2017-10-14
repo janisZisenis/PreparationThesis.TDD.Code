@@ -33,7 +33,7 @@ bool CNComposable::isParentOf(CNComponentPtr component) {
     return findPosition(component) > -1;
 }
 
-void CNComposable::accept(std::shared_ptr<CNVisitor> visitor) {
+void CNComposable::accept(CNVisitorPtr visitor) {
     visitable->accept(visitor);
 }
 

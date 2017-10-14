@@ -20,7 +20,7 @@ public:
     virtual bool isParentOf(CNComponentPtr view) override {
         return false;
     }
-    virtual void accept(std::shared_ptr<CNVisitor> visitor) override {}
+    virtual void accept(CNVisitorPtr visitor) override {}
 };
 
 class CNComponentStub;
@@ -71,17 +71,17 @@ public:
         return removed;
     }
 
-    virtual void accept(std::shared_ptr<CNVisitor> visitor) override {
+    virtual void accept(CNVisitorPtr visitor) override {
         accepted = visitor;
     }
-    virtual std::shared_ptr<CNVisitor> getAccepted() {
+    virtual CNVisitorPtr getAccepted() {
         return accepted;
     }
 
 private:
     CNComponentPtr added;
     CNComponentPtr removed;
-    std::shared_ptr<CNVisitor> accepted;
+    CNVisitorPtr accepted;
 };
 
 #endif //CROSSNATIVE_COMPONENT_TESTDOUBLES_H
