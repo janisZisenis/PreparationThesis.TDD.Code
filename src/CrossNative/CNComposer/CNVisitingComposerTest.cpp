@@ -1,13 +1,13 @@
 #include "gmock/gmock.h"
-#include "CNTypeComposer.h"
+#include "CNVisitingComposer.h"
 
 #include "CrossNative/CNVisitor/CNVisitorTestDoubles.h"
 #include "CrossNative/CNComponent/CNComponentTestDoubles.h"
 
-class CNTypeComposerTest : public testing::Test {
+class CNVisitingComposerTest : public testing::Test {
 protected:
-    virtual CNTypeComposerPtr makeCNTypeComposer(CNVisitorPtr composing, CNVisitorPtr decomposing) {
-        return CNTypeComposer::getNewInstance(composing, decomposing);
+    virtual CNVisitingComposerPtr makeCNVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing) {
+        return CNVisitingComposer::getNewInstance(composing, decomposing);
     }
     virtual CNVisitorDummyPtr makeCNVisitorDummy() {
         return CNVisitorDummy::getNewInstance();
@@ -26,10 +26,10 @@ protected:
 };
 
 
-TEST_F(CNTypeComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheMountingVisitor) {
+TEST_F(CNVisitingComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheMountingVisitor) {
     CNVisitorDummyPtr mounting = makeCNVisitorDummy();
     CNVisitorDummyPtr dismounting = makeCNVisitorDummy();
-    CNTypeComposerPtr sut = makeCNTypeComposer(mounting, dismounting);
+    CNVisitingComposerPtr sut = makeCNVisitingComposer(mounting, dismounting);
 
     CNComponentSpyPtr component = makeCNComponentSpy();
     sut->mount(component);
@@ -37,10 +37,10 @@ TEST_F(CNTypeComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheM
     expectComponentHasAcceptedVisitor(component, mounting);
 }
 
-TEST_F(CNTypeComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheDismountingVisitor) {
+TEST_F(CNVisitingComposerTest, FreshInstance__Mount__ComponentShouldHaveAcceptedTheDismountingVisitor) {
     CNVisitorDummyPtr mounting = makeCNVisitorDummy();
     CNVisitorDummyPtr dismounting = makeCNVisitorDummy();
-    CNTypeComposerPtr sut = makeCNTypeComposer(mounting, dismounting);
+    CNVisitingComposerPtr sut = makeCNVisitingComposer(mounting, dismounting);
 
     CNComponentSpyPtr component = makeCNComponentSpy();
     sut->dismount(component);
