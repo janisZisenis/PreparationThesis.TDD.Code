@@ -13,7 +13,8 @@ CNComposable::~CNComposable() {
         composer->dismount(*it);
 }
 
-CNComposable::CNComposable(CNVisitablePtr visitable, CNComposerPtr composer) : composer(composer) {}
+CNComposable::CNComposable(CNVisitablePtr visitable, CNComposerPtr composer)
+        : visitable(visitable), composer(composer) {}
 
 void CNComposable::add(CNComponentPtr child) {
     mount(child);
@@ -33,7 +34,7 @@ bool CNComposable::isParentOf(CNComponentPtr component) {
 }
 
 void CNComposable::accept(std::shared_ptr<CNVisitor> visitor) {
-
+    visitable->accept(visitor);
 }
 
 void CNComposable::addToChildren(CNComponentPtr child) {
