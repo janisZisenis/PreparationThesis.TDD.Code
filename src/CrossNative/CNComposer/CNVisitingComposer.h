@@ -20,6 +20,9 @@ protected:
 public:
     virtual void mount(std::shared_ptr<CNComponent> component) override;
     virtual void dismount(std::shared_ptr<CNComponent> component) override;
+
+private:
+    std::shared_ptr<CNVisitor> composing;
 };
 
 #endif //CROSSNATIVE_VISITINGCOMPOSER_H

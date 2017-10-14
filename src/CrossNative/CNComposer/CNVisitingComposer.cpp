@@ -8,8 +8,11 @@ CNVisitingComposerPtr CNVisitingComposer::getNewInstance(CNVisitorPtr composing,
 
 CNVisitingComposer::~CNVisitingComposer() {}
 
-CNVisitingComposer::CNVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing){}
+CNVisitingComposer::CNVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing)
+        : composing(composing) {}
 
-void CNVisitingComposer::mount(CNComponentPtr component) {}
+void CNVisitingComposer::mount(CNComponentPtr component) {
+    component->accept(composing);
+}
 
 void CNVisitingComposer::dismount(CNComponentPtr component) {}
