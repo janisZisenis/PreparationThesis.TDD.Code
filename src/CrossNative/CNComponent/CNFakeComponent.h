@@ -25,6 +25,8 @@ public:
     virtual bool isParentOf(CNComponentPtr view) override {
         return std::find(children.begin(), children.end(), view) != children.end();
     }
+
+    virtual void accept(std::shared_ptr<CNVisitor> visitor) override {}
 private:
     std::vector<CNComponentPtr> children;
 };

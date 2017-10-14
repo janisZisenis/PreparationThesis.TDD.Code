@@ -10,6 +10,8 @@ class CNChildNotFoundException : public std::exception {
     }
 };
 
+class CNVisitor;
+
 class CNComponent;
 typedef std::shared_ptr<CNComponent> CNComponentPtr;
 
@@ -23,6 +25,7 @@ public:
     virtual void add(CNComponentPtr view) = 0;
     virtual void remove(CNComponentPtr view) = 0;
     virtual bool isParentOf(CNComponentPtr view) = 0;
+    virtual void accept(std::shared_ptr<CNVisitor> visitor) = 0;
 
 private:
 };
