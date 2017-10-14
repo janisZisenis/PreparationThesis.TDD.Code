@@ -16,7 +16,7 @@ protected:
     CNVisitableDummy() {}
 
 public:
-    virtual void accept(std::shared_ptr<CNVisitor> visitor) override {};
+    virtual void accept(CNVisitorPtr visitor) override {};
 };
 
 class CNVisitableSpy;
@@ -32,15 +32,15 @@ protected:
     CNVisitableSpy() {}
 
 public:
-    virtual void accept(std::shared_ptr<CNVisitor> visitor) override {
+    virtual void accept(CNVisitorPtr visitor) override {
         accepted = visitor;
     };
 
-    virtual std::shared_ptr<CNVisitor> getAccepted() {
+    virtual CNVisitorPtr getAccepted() {
         return accepted;
     }
 private:
-    std::shared_ptr<CNVisitor> accepted;
+    CNVisitorPtr accepted;
 };
 
 #endif //CROSSNATIVE_VISITABLE_TESTDOUBLES_H
