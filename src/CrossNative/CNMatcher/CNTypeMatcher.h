@@ -17,7 +17,7 @@ protected:
     CNTypeMatcher(std::shared_ptr<CNVisitor> matching);
 
 public:
-    virtual bool matches(std::shared_ptr<CNComponent> component) override;
+    virtual bool matches(std::shared_ptr<CNVisitable> visitable) override;
 
 private:
     std::shared_ptr<CNVisitor> matching;

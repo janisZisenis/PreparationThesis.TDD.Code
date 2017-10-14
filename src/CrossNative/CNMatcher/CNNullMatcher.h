@@ -16,7 +16,7 @@ protected:
     CNNullMatcher() {};
 
 public:
-    virtual bool matches(std::shared_ptr<CNComponent> component) {
+    virtual bool matches(std::shared_ptr<CNVisitable> visitable) {
         return false;
     }
 };

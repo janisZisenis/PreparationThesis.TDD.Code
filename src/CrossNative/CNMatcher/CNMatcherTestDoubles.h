@@ -15,7 +15,7 @@ protected:
     CNMatcherDummy() {};
 
 public:
-    virtual bool matches(std::shared_ptr<CNComponent> view) override {
+    virtual bool matches(std::shared_ptr<CNVisitable> visitable) override {
         return false;
     };
 };
@@ -32,7 +32,7 @@ protected:
     CNMatcherStub() {};
 
 public:
-    virtual bool matches(std::shared_ptr<CNComponent> view) override {
+    virtual bool matches(std::shared_ptr<CNVisitable> visitable) override {
         return isMatching;
     };
 

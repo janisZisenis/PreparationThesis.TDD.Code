@@ -3,7 +3,7 @@
 
 #include <memory>
 
-class CNComponent;
+class CNVisitable;
 
 class CNMatcher;
 typedef std::shared_ptr<CNMatcher> CNMatcherPtr;
@@ -15,7 +15,7 @@ protected:
     CNMatcher() {};
 
 public:
-    virtual bool matches(std::shared_ptr<CNComponent> view) = 0;
+    virtual bool matches(std::shared_ptr<CNVisitable> visitable) = 0;
 };
 
 
