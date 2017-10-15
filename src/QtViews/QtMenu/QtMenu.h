@@ -20,10 +20,20 @@ private:
 public:
     virtual QAction* getQAction();
 
+    virtual void addQAction(QAction* action);
+    virtual void removeQAction(QAction* action);
 private:
     virtual void initializeEmptyAction();
     virtual void initializeMenu();
     virtual void initializeAction();
+
+    virtual void addToMenu(QAction *action);
+    virtual void removeFromMenu(QAction *action);
+
+    virtual bool menuIsEmpty();
+    virtual bool menuContainsEmptyAction();
+    virtual void addEmptyActionToMenu();
+    virtual void removeEmptyActionFromMenu();
 
 private:
     QAction* action;
