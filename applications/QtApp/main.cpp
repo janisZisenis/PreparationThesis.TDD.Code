@@ -2,9 +2,9 @@
 #include <QMainWindow>
 #include <QMenuBar>
 
-#include "QtPropertiesExplorer/QtPropertiesExplorer.h"
-#include "QtSolutionExplorer/QtSolutionExplorer.h"
-#include "QtAction/QtAction.h"
+#include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
+#include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
+#include "QtViews/QtAction/QtAction.h"
 
 int main(int argc, char** argv) {
     QApplication a(argc, argv);

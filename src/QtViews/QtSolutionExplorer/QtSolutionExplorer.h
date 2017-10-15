@@ -1,7 +1,7 @@
 #ifndef QTLVICE_QTSOLUTIONEXPLORER_H
 #define QTLVICE_QTSOLUTIONEXPLORER_H
 
-#include <QObject.h>
+#include <qobject.h>
 #include "HierarchyIndex.h"
 
 class QItemSelection;
