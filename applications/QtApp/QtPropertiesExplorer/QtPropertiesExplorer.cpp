@@ -40,6 +40,6 @@ void QtPropertiesExplorer::displayProperties(QtPropertiesModel* model) {
     delete oldModel;
 }
 
-void *QtPropertiesExplorer::getGraphicRepresentation() {
+QWidget* QtPropertiesExplorer::getQWidget() {
     return tableView;
 }

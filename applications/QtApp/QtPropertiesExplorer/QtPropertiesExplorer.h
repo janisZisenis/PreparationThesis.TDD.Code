@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 
+class QWidget;
 class QTreeView;
 class QtPropertiesModel;
 
@@ -18,7 +19,7 @@ private:
     QtPropertiesExplorer();
 
 public:
-    virtual void* getGraphicRepresentation();
+    virtual QWidget* getQWidget();
 
     virtual std::string getTitle();
     virtual bool isVisible();
