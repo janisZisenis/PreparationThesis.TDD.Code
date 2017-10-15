@@ -31,6 +31,5 @@ int main(int argc, char** argv) {
     shell->addQWidget(solutionExplorer->getQWidget(), LEFT);
     shell->addQWidget(propertiesExplorer->getQWidget(), RIGHT);
 
-
     return a.exec();
 }
