@@ -56,3 +56,5 @@ sharedLibs()
 
 add_subdirectory(applications/CrossNative)
 add_subdirectory(applications/CrossNativeTest)
+
+add_subdirectory(applications/QtApp)
