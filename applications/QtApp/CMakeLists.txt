@@ -2,7 +2,7 @@ set(targetName QtApp)       #REQUIRED#
 
 set(linkDirectories "")
 set(libsToLink "")
-set(includeDirectories ${CMAKE_SOURCE_DIR}/src)
+set(includeDirectories ${CMAKE_SOURCE_DIR}/applications/QtApp)
 #glob files and save in MY_SRCS
 include(CMakePackage.cmake)
 
