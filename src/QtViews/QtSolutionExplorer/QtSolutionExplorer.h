@@ -31,8 +31,8 @@ public:
     virtual void removeIndex(const QModelIndex &index);
     virtual QModelIndex getSelectedIndex();
     virtual void insertItem(std::shared_ptr<QtSolutionItem> item, const QModelIndex &index, int childPos);
-private:
 
+private:
     QWidget* widget;
     QPushButton* deselectButton;
     QTreeView* treeView;
