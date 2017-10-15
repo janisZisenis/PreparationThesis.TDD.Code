@@ -22,7 +22,7 @@ std::string QtPropertiesExplorer::getTitle() {
     return tableView->windowTitle().toStdString();
 }
 
-void QtPropertiesExplorer::toggleGUIVisibility() {
+void QtPropertiesExplorer::toggleVisibility() {
     tableView->setVisible(!tableView->isVisible());
 }
 

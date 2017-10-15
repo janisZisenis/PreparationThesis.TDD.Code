@@ -6,6 +6,8 @@ set(includeDirectories ${CMAKE_SOURCE_DIR}/applications/QtApp)
 #glob files and save in MY_SRCS
 include(CMakePackage.cmake)
 
+set(CMAKE_AUTOMOC ON)
+
 buildExe(${targetName} "${MY_SRCS}" "${linkDirectories}" "${libsToLink}" "${includeDirectories}")
 
 target_compile_options(${targetName} PRIVATE -std=c++11)

@@ -23,11 +23,11 @@ public:
 
     virtual std::string getTitle();
     virtual bool isVisible();
+    virtual void toggleVisibility();
 
 private:
     virtual void displayProperties(QtPropertiesModel* model);
     virtual void displayEmptyProperties();
-    virtual void toggleGUIVisibility();
 
     QTreeView* tableView;
 };
