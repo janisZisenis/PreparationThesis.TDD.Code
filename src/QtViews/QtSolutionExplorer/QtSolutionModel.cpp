@@ -13,13 +13,13 @@ QVariant QtSolutionModel::headerData(int section, Qt::Orientation orientation, i
     return QVariant();
 }
 
-void QtSolutionModel::insertItem(QtSolutionItemPtr item, QModelIndex index, int childPos) {
+void QtSolutionModel::insertItem(QtSolutionItemPtr item, const QModelIndex &index, int childPos) {
     beginInsertRows(index, childPos, childPos);
     getItem(index)->insertChild(item, childPos);
     endInsertRows();
 }
 
-void QtSolutionModel::deleteIndex(QModelIndex index, int childPos) {
+void QtSolutionModel::deleteIndex(const QModelIndex &index, int childPos) {
     beginRemoveRows(index, childPos, childPos);
     getItem(index)->removeChild(childPos);
     endRemoveRows();
@@ -77,13 +77,4 @@ QVariant QtSolutionModel::getDataAt(QtSolutionItem *item, int role, int col) con
     }
 
     return QVariant();
-}
-
-QModelIndex QtSolutionModel::transformIndex(HierarchyIndex index) {
-    QModelIndex qIndex = QModelIndex();
-
-    for(int i = 0; i < index.depth(); i++)
-        qIndex = this->index(index[i], 0, qIndex);
-
-    return qIndex;
 }

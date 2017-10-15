@@ -1,5 +1,5 @@
-#ifndef QTAPP_QTACTION_H
-#define QTAPP_QTACTION_H
+#ifndef QTVIEWS_QTACTION_H
+#define QTVIEWS_QTACTION_H
 
 #include <QObject>
 
@@ -35,4 +35,4 @@ private slots:
     virtual void onTriggered(bool checked = false);
 };
 
-#endif //QTAPP_QTACTION_H
+#endif //QTVIEWS_QTACTION_H

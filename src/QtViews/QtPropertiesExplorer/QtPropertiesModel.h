@@ -1,5 +1,5 @@
-#ifndef QTAPP_QTPROPERTIESMODEL_H
-#define QTAPP_QTPROPERTIESMODEL_H
+#ifndef QTVIEWS_QTPROPERTIESMODEL_H
+#define QTVIEWS_QTPROPERTIESMODEL_H
 
 #include <QAbstractItemModel>
 #include <memory>
@@ -33,4 +33,4 @@ protected:
     std::shared_ptr<QtPropertiesItem> root;
 };
 
-#endif //QTAPP_QTPROPERTIESMODEL_H
+#endif //QTVIEWS_QTPROPERTIESMODEL_H

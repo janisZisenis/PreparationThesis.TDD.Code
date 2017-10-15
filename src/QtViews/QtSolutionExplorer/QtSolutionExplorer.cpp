@@ -48,7 +48,7 @@ void QtSolutionExplorer::toggleVisibility() {
     widget->setVisible(!widget->isVisible());
 }
 
-void QtSolutionExplorer::removeIndex(QModelIndex& index) {
+void QtSolutionExplorer::removeIndex(const QModelIndex &index) {
     treeView->setCurrentIndex(QModelIndex());
     solutionModel->deleteIndex(index.parent(), index.row());
 
@@ -59,7 +59,7 @@ QModelIndex QtSolutionExplorer::getSelectedIndex() {
     return treeView->currentIndex();
 }
 
-void QtSolutionExplorer::insertItem(std::shared_ptr<QtSolutionItem> item, QModelIndex index, int childPos) {
+void QtSolutionExplorer::insertItem(std::shared_ptr<QtSolutionItem> item, const QModelIndex &index, int childPos) {
     solutionModel->insertItem(item, index, childPos);
 }
 

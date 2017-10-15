@@ -1,5 +1,5 @@
-#ifndef QTAPP_QTPROPERTIESITEM_H
-#define QTAPP_QTPROPERTIESITEM_H
+#ifndef QTVIEWS_QTPROPERTIESITEM_H
+#define QTVIEWS_QTPROPERTIESITEM_H
 
 #include <memory>
 #include <vector>
@@ -69,4 +69,4 @@ private:
     std::string value;
 };
 
-#endif //QTAPP_QTPROPERTIESITEM_H
+#endif //QTVIEWS_QTPROPERTIESITEM_H

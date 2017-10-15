@@ -1,5 +1,5 @@
-#ifndef QTAPP_QTPROPERTIESEXPLORER_H
-#define QTAPP_QTPROPERTIESEXPLORER_H
+#ifndef QTVIEWS_QTPROPERTIESEXPLORER_H
+#define QTVIEWS_QTPROPERTIESEXPLORER_H
 
 #include <memory>
 #include <vector>
@@ -32,4 +32,4 @@ private:
     QTreeView* tableView;
 };
 
-#endif //QTAPP_QTPROPERTIESEXPLORER_H
+#endif //QTVIEWS_QTPROPERTIESEXPLORER_H
