@@ -11,6 +11,6 @@ CocoaShellComposingVisitor::~CocoaShellComposingVisitor() {}
 
 CocoaShellComposingVisitor::CocoaShellComposingVisitor(CocoaShellPtr shell) : shell(shell) {}
 
-void CocoaShellComposingVisitor::visit(CocoaSolutionExplorerPtr solutionExplorer) {
-    shell->addQWidget(solutionExplorer->getQWidget(), LEFT);
+void CocoaShellComposingVisitor::visit(CocoaPropertiesExplorerPtr propertiesExplorer) {
+    shell->addNSView(propertiesExplorer->getNSView(), LEFT);
 }

@@ -1,35 +1,30 @@
-#ifndef QTVIEWS_QTSHELLDECOMPOSINGVISITOR_H
-#define QTVIEWS_QTSHELLDECOMPOSINGVISITOR_H
+#ifndef COCOAVIEWS_COCOASHELLDECOMPOSINGVISITOR_H
+#define COCOAVIEWS_COCOASHELLDECOMPOSINGVISITOR_H
 
 #include "CrossNative/CNVisitor/CNVisitor.h"
 
-#include "QtViews/QtMenuBar/QtMenuBarVisitor.h"
-#include "QtViews/QtSolutionExplorer/QtSolutionExplorerVisitor.h"
-#include "QtViews/QtPropertiesExplorer/QtPropertiesExplorerVisitor.h"
+#include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorerVisitor.h"
 
-class QtShell;
+class CocoaShell;
 
-class QtShellDecomposingVisitor;
-typedef std::shared_ptr<QtShellDecomposingVisitor> QtShellDecomposingVisitorPtr;
+class CocoaShellDecomposingVisitor;
+typedef std::shared_ptr<CocoaShellDecomposingVisitor> CocoaShellDecomposingVisitorPtr;
 
-class QtShellDecomposingVisitor
+class CocoaShellDecomposingVisitor
         : public CNVisitor,
-          public QtMenuBarVisitor,
-          public QtSolutionExplorerVisitor,
-          public QtPropertiesExplorerVisitor {
+          public CocoaPropertiesExplorerVisitor {
 
 public:
-    static QtShellDecomposingVisitorPtr getNewInstance(std::shared_ptr<QtShell> shell);
-    virtual ~QtShellDecomposingVisitor();
+    static CocoaShellDecomposingVisitorPtr getNewInstance(std::shared_ptr<CocoaShell> shell);
+    virtual ~CocoaShellDecomposingVisitor();
 private:
-    QtShellDecomposingVisitor(std::shared_ptr<QtShell> shell);
-private:
-    std::shared_ptr<QtShell> shell;
+    CocoaShellDecomposingVisitor(std::shared_ptr<CocoaShell> shell);
 
 public:
-    void visit(std::shared_ptr<QtMenuBar> menuBar) override;
-    void visit(std::shared_ptr<QtSolutionExplorer> solutionExplorer) override;
-    void visit(std::shared_ptr<QtPropertiesExplorer> propertiesExplorer) override;
+    void visit(std::shared_ptr<CocoaPropertiesExplorer> propertiesExplorer) override;
+
+private:
+    std::shared_ptr<CocoaShell> shell;
 };
 
-#endif //QTVIEWS_QTSHELLDECOMPOSINGVISITOR_H
+#endif //COCOAVIEWS_COCOASHELLDECOMPOSINGVISITOR_H

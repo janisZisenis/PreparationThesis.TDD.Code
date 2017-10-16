@@ -1,4 +1,6 @@
 #include "CocoaShell.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include "CocoaShellVisitor.h"
 #import <AppKit/AppKit.h>
 
 CocoaShellPtr CocoaShell::getNewInstance() {
@@ -7,7 +9,7 @@ CocoaShellPtr CocoaShell::getNewInstance() {
 
 CocoaShell::~CocoaShell() {}
 
-CocoaShell::CocoaShell() {
+CocoaShell::CocoaShell() : acceptor(CNAcceptorImp<CocoaShellVisitor, CocoaShell>::getNewInstance()){
     initWindow();
     initComponents();
     composeWindow();
@@ -139,5 +141,13 @@ void CocoaShell::updateSideBarWidths() {
     [horizontalSplitter setPosition:getContentFrame().size.height-bottom ofDividerAtIndex:0];
     [verticalSplitter setPosition:left ofDividerAtIndex:0];
     [verticalSplitter setPosition:getContentFrame().size.width-right ofDividerAtIndex:1];
+}
+
+void CocoaShell::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
+
+CocoaShellPtr CocoaShell::me() {
+    return this->shared_from_this();
 }
 

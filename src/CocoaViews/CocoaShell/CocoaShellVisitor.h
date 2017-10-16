@@ -1,14 +1,16 @@
-#ifndef COCOAVIEWS_COCOASHELLNULLVISITOR_H
-#define COCOAVIEWS_COCOASHELLNULLVISITOR_H
+#ifndef COCOAVIEWS_COCOASHELLVISITOR_H
+#define COCOAVIEWS_COCOASHELLVISITOR_H
 
 #include "CocoaViews/CocoaShell/CocoaShellVisitor.h"
 
-class CocoaShellNullVisitor;
-typedef std::shared_ptr<CocoaShellNullVisitor> CocoaShellNullVisitorPtr;
+class CocoaShell;
 
-class CocoaShellNullVisitor : public CocoaShellVisitor {
+class CocoaShellVisitor;
+typedef std::shared_ptr<CocoaShellVisitor> CocoaShellVisitorPtr;
+
+class CocoaShellVisitor {
 public:
-    virtual void visit(std::shared_ptr<CocoaShell> cocoaShell) override {}
+    virtual void visit(std::shared_ptr<CocoaShell> cocoaShell) = 0;
 };
 
-#endif //COCOAVIEWS_COCOASHELLNULLVISITOR_H
+#endif //COCOAVIEWS_COCOASHELLVISITOR_H

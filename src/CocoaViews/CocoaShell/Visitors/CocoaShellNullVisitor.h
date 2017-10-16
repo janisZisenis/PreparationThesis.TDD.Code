@@ -1,23 +1,23 @@
-#ifndef QTVIEWS_QTSHELLNULLVISITOR_H
-#define QTVIEWS_QTSHELLNULLVISITOR_H
+#ifndef COCOAVIEWS_COCOASHELLNULLVISITOR_H
+#define COCOAVIEWS_COCOASHELLNULLVISITOR_H
 
-#include "QtViews/QtShell/QtShellVisitor.h"
+#include "CocoaViews/CocoaShell/CocoaShellVisitor.h"
 #include "CrossNative/CNVisitor/CNVisitor.h"
 
-class QtShellNullVisitor;
-typedef std::shared_ptr<QtShellNullVisitor> QtShellNullVisitorPtr;
+class CocoaShellNullVisitor;
+typedef std::shared_ptr<CocoaShellNullVisitor> CocoaShellNullVisitorPtr;
 
-class QtShellNullVisitor : public CNVisitor, public QtShellVisitor {
+class CocoaShellNullVisitor : public CNVisitor, public CocoaShellVisitor {
 public:
-    static QtShellNullVisitorPtr getNewInstance() {
-        return QtShellNullVisitorPtr(new QtShellNullVisitor());
+    static CocoaShellNullVisitorPtr getNewInstance() {
+        return CocoaShellNullVisitorPtr(new CocoaShellNullVisitor());
     }
-    virtual ~QtShellNullVisitor() {}
+    virtual ~CocoaShellNullVisitor() {}
 private:
-    QtShellNullVisitor() {}
+    CocoaShellNullVisitor() {}
 
 public:
-    virtual void visit(std::shared_ptr<QtShell> view) {}
+    virtual void visit(std::shared_ptr<CocoaShell> view) {}
 };
 
-#endif //QTVIEWS_QTSHELLNULLVISITOR_H
+#endif //COCOAVIEWS_COCOASHELLNULLVISITOR_H

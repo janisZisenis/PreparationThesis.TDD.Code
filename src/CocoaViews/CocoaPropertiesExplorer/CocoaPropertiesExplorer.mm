@@ -1,15 +1,20 @@
 #include "CocoaPropertiesExplorer.h"
+#include "CocoaPropertiesExplorerVisitor.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 #import <Cocoa/Cocoa.h>
+#include <CrossNative/CNVisitor/CNVisitor.h>
 #import "CocoaPropertiesModel.h"
 #import "CocoaPropertiesItem.h"
 
-CocoaPropertiesExplorerViewImpPtr CocoaPropertiesExplorer::getNewInstance()  {
-    return CocoaPropertiesExplorerViewImpPtr(new CocoaPropertiesExplorer());
+CocoaPropertiesExplorerPtr CocoaPropertiesExplorer::getNewInstance()  {
+    return CocoaPropertiesExplorerPtr(new CocoaPropertiesExplorer());
 }
 
 CocoaPropertiesExplorer::~CocoaPropertiesExplorer() {}
 
-CocoaPropertiesExplorer::CocoaPropertiesExplorer() : title("Properties Explorer") {
+CocoaPropertiesExplorer::CocoaPropertiesExplorer()
+        : acceptor(CNAcceptorImp<CocoaPropertiesExplorerVisitor, CocoaPropertiesExplorer>::getNewInstance()),
+          title("Properties Explorer") {
     tableView = [NSTableView new];
 
     NSTableColumn* propertyColumn = [[NSTableColumn alloc] initWithIdentifier:@"Property"];
@@ -66,5 +71,13 @@ void CocoaPropertiesExplorer::displayEmptyProperties() {
 
     [tableView setDataSource:viewDataSource];
     [tableView setDelegate:viewDataSource];
+}
+
+void CocoaPropertiesExplorer::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
+
+CocoaPropertiesExplorerPtr CocoaPropertiesExplorer::me() {
+    return this->shared_from_this();
 }
 

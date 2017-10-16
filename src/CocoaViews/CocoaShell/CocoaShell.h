@@ -2,10 +2,13 @@
 #define COCOAVIEWS_COCOASHELL_H
 
 #include <memory>
+#include <CrossNative/CNVisitable/CNVisitable.h>
 #include "CocoaViews/CocoaShell/CocoaShell.h"
 #include <Foundation/Foundation.h>
 
 enum CocoaShellPosition { LEFT, RIGHT, BOTTOM, CENTRAL };
+
+class CNAcceptor;
 
 @class NSView;
 @class NSToolbar;
@@ -17,7 +20,7 @@ enum CocoaShellPosition { LEFT, RIGHT, BOTTOM, CENTRAL };
 class CocoaShell;
 typedef std::shared_ptr<CocoaShell> CocoaShellPtr;
 
-class CocoaShell {
+class CocoaShell : public CNVisitable, public std::enable_shared_from_this<CocoaShell> {
 public:
     static CocoaShellPtr getNewInstance();
     virtual ~CocoaShell();
@@ -31,6 +34,8 @@ public:
     virtual void addNSToolbar(NSToolbar* nsToolbar);
     virtual void removeNSToolbar(NSToolbar* nsToolbar);
 
+    virtual void accept(CNVisitorPtr visitor) override;
+private:
     virtual void updateTab(NSView* nsView, CocoaShellPosition pos);
     virtual void removeTabFrom(NSTabView* tabView, NSView* tab);
     virtual void addTabTo(NSTabView* tabView, NSView* tab);
@@ -49,6 +54,11 @@ public:
     virtual void updateSideBarWidths();
 
 private:
+    CocoaShellPtr me();
+
+private:
+    std::shared_ptr<CNAcceptor> acceptor;
+
     NSWindow* window;
     NSSplitView* horizontalSplitter;
     NSSplitView* verticalSplitter;
