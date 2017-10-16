@@ -9,13 +9,13 @@ int main(int argc, char** argv) {
     QApplication a(argc, argv);
 
     QtViewComponentFactoryPtr componentFactory = QtViewComponentFactory::getNewInstance();
-    QtViewMatcherFactoryPtr machterFactory = QtViewMatcherFactory::getNewInstance();
+    QtViewMatcherFactoryPtr matcherFactory = QtViewMatcherFactory::getNewInstance();
 
     CNDynamicHierarchyPtr viewHierarchy = CNDynamicHierarchy::getNewInstance();
-    viewHierarchy->load(componentFactory->makeShellComponent(), machterFactory->makeTopLevelMatcher());
-    viewHierarchy->load(componentFactory->makeSolutionExplorerComponent(), machterFactory->makeShellTypeMatcher());
-    viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), machterFactory->makeShellTypeMatcher());
-    viewHierarchy->load(componentFactory->makeMenuBarComponent(), machterFactory->makeShellTypeMatcher());
+    viewHierarchy->load(componentFactory->makeShellComponent(), matcherFactory->makeTopLevelMatcher());
+    viewHierarchy->load(componentFactory->makeSolutionExplorerComponent(), matcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(componentFactory->makeMenuBarComponent(), matcherFactory->makeShellTypeMatcher());
 
     return a.exec();
 }
