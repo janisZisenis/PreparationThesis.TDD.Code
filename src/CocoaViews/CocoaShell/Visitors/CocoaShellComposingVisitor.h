@@ -3,6 +3,7 @@
 
 #include "CrossNative/CNVisitor/CNVisitor.h"
 
+#include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorerVisitor.h"
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorerVisitor.h"
 
 class CocoaShell;
@@ -12,7 +13,8 @@ typedef std::shared_ptr<CocoaShellComposingVisitor> CocoaShellComposingVisitorPt
 
 class CocoaShellComposingVisitor
         : public CNVisitor,
-          public CocoaPropertiesExplorerVisitor {
+          public CocoaPropertiesExplorerVisitor,
+          public CocoaSolutionExplorerVisitor {
 public:
     static CocoaShellComposingVisitorPtr getNewInstance(std::shared_ptr<CocoaShell> shell);
     virtual ~CocoaShellComposingVisitor();
@@ -20,6 +22,7 @@ private:
     CocoaShellComposingVisitor(std::shared_ptr<CocoaShell> shell);
 
 public:
+    void visit(std::shared_ptr<CocoaSolutionExplorer> solutionExplorer) override;
     void visit(std::shared_ptr<CocoaPropertiesExplorer> propertiesExplorer) override;
 
 private:

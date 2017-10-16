@@ -1,6 +1,7 @@
 #include "CocoaShellDecomposingVisitor.h"
 #include "CocoaViews/CocoaShell/CocoaShell.h"
 
+#include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
 
 CocoaShellDecomposingVisitorPtr CocoaShellDecomposingVisitor::getNewInstance(CocoaShellPtr shell) {
@@ -9,7 +10,12 @@ CocoaShellDecomposingVisitorPtr CocoaShellDecomposingVisitor::getNewInstance(Coc
 CocoaShellDecomposingVisitor::~CocoaShellDecomposingVisitor() {}
 CocoaShellDecomposingVisitor::CocoaShellDecomposingVisitor(CocoaShellPtr shell) : shell(shell) {}
 
-void CocoaShellDecomposingVisitor::visit(std::shared_ptr<CocoaPropertiesExplorer> propertiesExplorer) {
+void CocoaShellDecomposingVisitor::visit(CocoaSolutionExplorerPtr solutionExplorer) {
+    shell->removeNSView(solutionExplorer->getNSView(), LEFT);
+}
+
+void CocoaShellDecomposingVisitor::visit(CocoaPropertiesExplorerPtr propertiesExplorer) {
     shell->removeNSView(propertiesExplorer->getNSView(), RIGHT);
 }
+
 
