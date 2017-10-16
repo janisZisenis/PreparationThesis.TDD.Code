@@ -7,6 +7,7 @@
 #include "CocoaViews/CocoaShell/Visitors/CocoaShellComposingVisitor.h"
 #include "CocoaViews/CocoaShell/Visitors/CocoaShellDecomposingVisitor.h"
 
+#include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
 
 CocoaViewComponentFactoryPtr CocoaViewComponentFactory::getNewInstance() {
@@ -20,6 +21,13 @@ CNComponentPtr CocoaViewComponentFactory::makeShellComponent() {
     CNComposerPtr composer = makeVisitingComposer(CocoaShellComposingVisitor::getNewInstance(shell),
                                                   CocoaShellDecomposingVisitor::getNewInstance(shell));
     return makeComposable(shell, composer);
+}
+
+CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent() {
+    CocoaSolutionExplorerPtr solutionExplorer = CocoaSolutionExplorer::getNewInstance();
+    CNComposerPtr composer = CNNullComposer::getNewInstance();
+
+    return makeComposable(solutionExplorer, composer);
 }
 
 CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent() {
@@ -40,3 +48,4 @@ CNComposerPtr CocoaViewComponentFactory::makeVisitingComposer(CNVisitorPtr compo
 CNComposerPtr CocoaViewComponentFactory::makeNullComposer() {
     return CNNullComposer::getNewInstance();
 }
+

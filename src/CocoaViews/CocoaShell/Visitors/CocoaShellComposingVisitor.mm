@@ -13,7 +13,7 @@ CocoaShellComposingVisitor::~CocoaShellComposingVisitor() {}
 CocoaShellComposingVisitor::CocoaShellComposingVisitor(CocoaShellPtr shell) : shell(shell) {}
 
 void CocoaShellComposingVisitor::visit(CocoaSolutionExplorerPtr solutionExplorer) {
-    shell->addNSView(solutionExplorer->getNSView(), LEFT);
+    shell->addNSView(solutionExplorer->getNSView(), RIGHT);
 }
 
 void CocoaShellComposingVisitor::visit(CocoaPropertiesExplorerPtr propertiesExplorer) {

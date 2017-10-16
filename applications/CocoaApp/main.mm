@@ -14,6 +14,7 @@ int main(int argc, char** argv) {
 
     CNDynamicHierarchyPtr viewHierarchy = CNDynamicHierarchy::getNewInstance();
     viewHierarchy->load(componentFactory->makeShellComponent(), matcherFactory->makeTopLevelMatcher());
+    viewHierarchy->load(componentFactory->makeSolutionExplorerComponent(), matcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
 
     [application run];

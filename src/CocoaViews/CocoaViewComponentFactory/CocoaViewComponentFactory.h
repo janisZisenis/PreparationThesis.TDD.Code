@@ -20,6 +20,7 @@ private:
 
 public:
     virtual std::shared_ptr<CNComponent> makeShellComponent();
+    virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent();
     virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent();
 
 private:
