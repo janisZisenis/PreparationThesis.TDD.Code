@@ -1,4 +1,4 @@
-#include "QtViewComposableFactory.h"
+#include "QtViewComponentFactory.h"
 #include <CrossNative/CNComposable/CNComposable.h>
 #include <CrossNative/CNComposer/CNVisitingComposer.h>
 #include <CrossNative/CNComposer/CNNullComposer.h>
@@ -12,48 +12,48 @@
 
 #include "QtViews/QtMenuBar/QtMenuBar.h"
 
-QtViewComposableFactoryPtr QtViewComposableFactory::getNewInstance() {
-    return QtViewComposableFactoryPtr();
+QtViewComponentFactoryPtr QtViewComponentFactory::getNewInstance() {
+    return QtViewComponentFactoryPtr(new QtViewComponentFactory());
 }
-QtViewComposableFactory::~QtViewComposableFactory() {}
-QtViewComposableFactory::QtViewComposableFactory() {}
+QtViewComponentFactory::~QtViewComponentFactory() {}
+QtViewComponentFactory::QtViewComponentFactory() {}
 
-CNComposablePtr QtViewComposableFactory::makeShellComposable() {
+CNComponentPtr QtViewComponentFactory::makeShellComponent() {
     QtShellPtr shell = QtShell::getNewInstance();
     CNComposerPtr composer = makeVisitingComposer(QtShellComposingVisitor::getNewInstance(shell),
                                                   QtShellDecomposingVisitor::getNewInstance(shell));
     return makeComposable(shell, composer);
 }
 
-CNComposablePtr QtViewComposableFactory::makeSolutionExplorerComposable() {
+CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent() {
     QtSolutionExplorerPtr solutionExplorer = QtSolutionExplorer::getNewInstance();
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(solutionExplorer, composer);
 }
 
-CNComposablePtr QtViewComposableFactory::makePropertiesExplorerComposable() {
+CNComponentPtr QtViewComponentFactory::makePropertiesExplorerComponent() {
     QtPropertiesExplorerPtr propertiesExplorer = QtPropertiesExplorer::getNewInstance();
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(propertiesExplorer, composer);
 }
 
-CNComposablePtr QtViewComposableFactory::makeMenuBarComposable() {
+CNComponentPtr QtViewComponentFactory::makeMenuBarComponent() {
     QtMenuBarPtr menuBar = QtMenuBar::getNewInstance();
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(menuBar, composer);
 }
 
-CNComposablePtr QtViewComposableFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
+CNComponentPtr QtViewComponentFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
     return CNComposable::getNewInstance(visitable, composer);
 }
 
-CNComposerPtr QtViewComposableFactory::makeVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing) {
+CNComposerPtr QtViewComponentFactory::makeVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing) {
     return CNVisitingComposer::getNewInstance(composing, decomposing);
 }
 
-CNComposerPtr QtViewComposableFactory::makeNullComposer() {
+CNComposerPtr QtViewComponentFactory::makeNullComposer() {
     return CNNullComposer::getNewInstance();
 }
