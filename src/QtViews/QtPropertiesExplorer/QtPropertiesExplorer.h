@@ -2,7 +2,9 @@
 #define QTVIEWS_QTPROPERTIESEXPLORER_H
 
 #include <memory>
-#include <vector>
+#include <CrossNative/CNVisitable/CNVisitable.h>
+
+class CNAcceptor;
 
 class QWidget;
 class QTreeView;
@@ -11,7 +13,7 @@ class QtPropertiesModel;
 class QtPropertiesExplorer;
 typedef std::shared_ptr<QtPropertiesExplorer> QtPropertiesExplorerPtr;
 
-class QtPropertiesExplorer {
+class QtPropertiesExplorer : public CNVisitable, public std::enable_shared_from_this<QtPropertiesExplorer> {
 public:
     static QtPropertiesExplorerPtr getNewInstance();
     virtual ~QtPropertiesExplorer();
@@ -25,9 +27,16 @@ public:
     virtual bool isVisible();
     virtual void toggleVisibility();
 
-private:
+    void accept(CNVisitorPtr visitor) override;
+
     virtual void displayProperties(QtPropertiesModel* model);
     virtual void displayEmptyProperties();
+
+private:
+    QtPropertiesExplorerPtr me();
+
+private:
+    std::shared_ptr<CNAcceptor> acceptor;
 
     QTreeView* tableView;
 };

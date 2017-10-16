@@ -1,6 +1,8 @@
 #include "QtPropertiesExplorer.h"
 #include "QtPropertiesModel.h"
-#include <QTreeView>
+#include "QtPropertiesExplorerVisitor.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <QtWidgets>
 
 QtPropertiesExplorerPtr QtPropertiesExplorer::getNewInstance() {
     return QtPropertiesExplorerPtr(new QtPropertiesExplorer());
@@ -11,7 +13,8 @@ QtPropertiesExplorer::~QtPropertiesExplorer() {
 }
 
 QtPropertiesExplorer::QtPropertiesExplorer()
-        : tableView(new QTreeView()) {
+        : acceptor(CNAcceptorImp<QtPropertiesExplorerVisitor, QtPropertiesExplorer>::getNewInstance()),
+          tableView(new QTreeView()) {
     tableView->setWindowTitle("Properties Explorer");
 
     QtPropertiesModel* propertiesModel = new QtPropertiesModel();
@@ -30,6 +33,10 @@ bool QtPropertiesExplorer::isVisible() {
     return tableView->isVisible();
 }
 
+void QtPropertiesExplorer::accept(CNVisitorPtr visitor) {
+
+}
+
 void QtPropertiesExplorer::displayEmptyProperties() {
     tableView->setModel(new QtPropertiesModel());
 }
@@ -42,4 +49,8 @@ void QtPropertiesExplorer::displayProperties(QtPropertiesModel* model) {
 
 QWidget* QtPropertiesExplorer::getQWidget() {
     return tableView;
+}
+
+QtPropertiesExplorerPtr QtPropertiesExplorer::me() {
+    return this->shared_from_this();
 }
