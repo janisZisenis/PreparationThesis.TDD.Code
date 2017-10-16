@@ -13,6 +13,7 @@ if(APPLE)
 endif()
 
 target_compile_options(${targetName} PRIVATE -std=c++11)
+target_compile_options(${targetName} PUBLIC -fobjc-arc)
 
 #Specify the linking to 3rdParty libs
 include(3rdPartyLinking.cmake)

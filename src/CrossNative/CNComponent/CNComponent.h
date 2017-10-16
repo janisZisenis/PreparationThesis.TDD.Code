@@ -25,5 +25,4 @@ public:
     virtual bool isParentOf(CNComponentPtr view) = 0;
 };
 
-
 #endif //CROSSNATIVE_COMPONENT_H

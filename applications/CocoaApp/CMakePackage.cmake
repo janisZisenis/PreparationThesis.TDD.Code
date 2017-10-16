@@ -1,6 +1,6 @@
 #FILE ENDINGS
 resetFileEndingsToCollect()
-addCAndCPPFileTypes()
+addObjCAndObjCPPFileTypesToCollect()
 
 #GLOB SOURCE FILES IN MY_SRCS
 unset(MY_SRCS)
