@@ -56,7 +56,7 @@ protected:
 
 public:
     virtual void accept(CNVisitorPtr visitor) {
-        throw CNVisitorMismatchException();
+        throw CNVisitableVisitorMismatchException();
     }
 };
 

@@ -2,12 +2,7 @@
 #define CROSSNATIVE_ACCEPTOR_H
 
 #include <memory>
-
-class CNVisitableVisitorMismatchException : public std::exception {
-    const char *what() const throw() override {
-        return "CNVisitable and CNVisitor are mismatching!";
-    };
-};
+#include "CrossNative/CNVisitable/CNVisitableVisitorMismatchException.h"
 
 class CNVisitor;
 class CNVisitable;

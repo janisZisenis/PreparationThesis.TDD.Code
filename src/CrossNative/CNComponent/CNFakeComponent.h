@@ -40,7 +40,7 @@ public:
 
     virtual void accept(CNVisitorPtr visitor) override {
         CNFakeComponentVisitorPtr v = std::dynamic_pointer_cast<CNFakeComponentVisitor>(visitor);
-        if(!v) throw CNVisitorMismatchException();
+        if(!v) throw CNVisitableVisitorMismatchException();
         v->visit(me());
     }
 private:
