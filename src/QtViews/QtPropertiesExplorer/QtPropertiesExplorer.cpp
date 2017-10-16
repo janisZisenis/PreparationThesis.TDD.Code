@@ -34,7 +34,7 @@ bool QtPropertiesExplorer::isVisible() {
 }
 
 void QtPropertiesExplorer::accept(CNVisitorPtr visitor) {
-
+    acceptor->accept(visitor, me());
 }
 
 void QtPropertiesExplorer::displayEmptyProperties() {

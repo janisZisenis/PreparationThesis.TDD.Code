@@ -4,6 +4,7 @@
 #include "CrossNative/CNVisitor/CNVisitor.h"
 
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorerVisitor.h"
+#include "QtViews/QtPropertiesExplorer/QtPropertiesExplorerVisitor.h"
 
 class QtShell;
 
@@ -12,7 +13,8 @@ typedef std::shared_ptr<QtShellComposingVisitor> QtShellComposingVisitorPtr;
 
 class QtShellComposingVisitor
         : public CNVisitor,
-          public QtSolutionExplorerVisitor {
+          public QtSolutionExplorerVisitor,
+          public QtPropertiesExplorerVisitor {
 public:
     static QtShellComposingVisitorPtr getNewInstance(std::shared_ptr<QtShell> shell);
     virtual ~QtShellComposingVisitor();
@@ -21,6 +23,7 @@ private:
 
 public:
     void visit(std::shared_ptr<QtSolutionExplorer> solutionExplorer) override;
+    void visit(std::shared_ptr<QtPropertiesExplorer> propertiesExplorer) override;
 
 private:
     std::shared_ptr<QtShell> shell;

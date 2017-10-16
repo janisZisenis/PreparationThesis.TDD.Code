@@ -2,8 +2,9 @@
 #include "QtViews/QtShell/QtShell.h"
 
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
+#include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
 
-QtShellComposingVisitorPtr QtShellComposingVisitor::getNewInstance(std::shared_ptr<QtShell> shell) {
+QtShellComposingVisitorPtr QtShellComposingVisitor::getNewInstance(QtShellPtr shell) {
     return QtShellComposingVisitorPtr(new QtShellComposingVisitor(shell));
 }
 
@@ -13,4 +14,8 @@ QtShellComposingVisitor::QtShellComposingVisitor(QtShellPtr shell) : shell(shell
 
 void QtShellComposingVisitor::visit(QtSolutionExplorerPtr solutionExplorer) {
     shell->addQWidget(solutionExplorer->getQWidget(), LEFT);
+}
+
+void QtShellComposingVisitor::visit(QtPropertiesExplorerPtr propertiesExplorer) {
+    shell->addQWidget(propertiesExplorer->getQWidget(), RIGHT);
 }

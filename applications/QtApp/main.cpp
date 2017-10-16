@@ -45,6 +45,7 @@ int main(int argc, char** argv) {
     CNDynamicHierarchyPtr viewHierarchy = CNDynamicHierarchy::getNewInstance();
     viewHierarchy->load(CNComposable::getNewInstance(shell, CNVisitingComposer::getNewInstance(QtShellComposingVisitor::getNewInstance(shell), QtShellDecomposingVisitor::getNewInstance(shell))), CNNullMatcher::getNewInstance());
     viewHierarchy->load(CNComposable::getNewInstance(solutionExplorer, CNNullComposer::getNewInstance()), CNTypeMatcher::getNewInstance(QtShellNullVisitor::getNewInstance()));
+    viewHierarchy->load(CNComposable::getNewInstance(propertiesExplorer, CNNullComposer::getNewInstance()), CNTypeMatcher::getNewInstance(QtShellNullVisitor::getNewInstance()));
 
     return a.exec();
 }
