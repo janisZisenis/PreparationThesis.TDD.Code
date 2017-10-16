@@ -1,6 +1,6 @@
 #include <QApplication>
 
-#include "QtViews/QtViewComposableFactory/QtViewComponentFactory.h"
+#include "QtViews/QtViewComponentFactory/QtViewComponentFactory.h"
 #include "QtViews/QtViewMatcherFactory/QtViewMatcherFactory.h"
 
 #include <CrossNative/CNDynamicHierarchy/CNDynamicHierarchy.h>
