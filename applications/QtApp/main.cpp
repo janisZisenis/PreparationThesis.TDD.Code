@@ -16,23 +16,21 @@
 
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
-#include "QtViews/QtAction/QtAction.h"
 #include "QtViews/QtMenu/QtMenu.h"
+#include "QtViews/QtMenuBar/QtMenuBar.h"
+#include "QtViews/QtAction/QtAction.h"
 
 int main(int argc, char** argv) {
     QApplication a(argc, argv);
 
-    QtShellPtr shell = QtShell::getNewInstance();
-    QMenuBar* menuBar = new QMenuBar();
-    QtSolutionExplorerPtr solutionExplorer = QtSolutionExplorer::getNewInstance();
-    QtPropertiesExplorerPtr propertiesExplorer = QtPropertiesExplorer::getNewInstance();
-    QtMenuPtr menu = QtMenu::getNewInstance("HelloWorld!");
-    QtActionPtr helloAction = QtAction::getNewInstance();
-    QtActionPtr worldAction = QtAction::getNewInstance();
-
-    helloAction->setTitle("Hello");
-    worldAction->setTitle("World");
-
+//    QtMenuPtr menu = QtMenu::getNewInstance("HelloWorld!");
+//    QtActionPtr helloAction = QtAction::getNewInstance();
+//    QtActionPtr worldAction = QtAction::getNewInstance();
+//
+//    helloAction->setTitle("Hello");
+//    worldAction->setTitle("World");
+//    menuBar->getQMenuBar()->addAction(menu->getQAction());
+//
 //    menu->addQAction(helloAction->getQAction());
 //    menu->addQAction(worldAction->getQAction());
 //
@@ -42,10 +40,14 @@ int main(int argc, char** argv) {
 //    shell->addQWidget(solutionExplorer->getQWidget(), LEFT);
 //    shell->addQWidget(propertiesExplorer->getQWidget(), RIGHT);
 
+    QtShellPtr shell = QtShell::getNewInstance();
+    CNVisitingComposerPtr shellComposer = CNVisitingComposer::getNewInstance(QtShellComposingVisitor::getNewInstance(shell), QtShellDecomposingVisitor::getNewInstance(shell));
+
     CNDynamicHierarchyPtr viewHierarchy = CNDynamicHierarchy::getNewInstance();
-    viewHierarchy->load(CNComposable::getNewInstance(shell, CNVisitingComposer::getNewInstance(QtShellComposingVisitor::getNewInstance(shell), QtShellDecomposingVisitor::getNewInstance(shell))), CNNullMatcher::getNewInstance());
-    viewHierarchy->load(CNComposable::getNewInstance(solutionExplorer, CNNullComposer::getNewInstance()), CNTypeMatcher::getNewInstance(QtShellNullVisitor::getNewInstance()));
-    viewHierarchy->load(CNComposable::getNewInstance(propertiesExplorer, CNNullComposer::getNewInstance()), CNTypeMatcher::getNewInstance(QtShellNullVisitor::getNewInstance()));
+    viewHierarchy->load(CNComposable::getNewInstance(shell, shellComposer), CNNullMatcher::getNewInstance());
+    viewHierarchy->load(CNComposable::getNewInstance(QtSolutionExplorer::getNewInstance(), CNNullComposer::getNewInstance()), CNTypeMatcher::getNewInstance(QtShellNullVisitor::getNewInstance()));
+    viewHierarchy->load(CNComposable::getNewInstance(QtPropertiesExplorer::getNewInstance(), CNNullComposer::getNewInstance()), CNTypeMatcher::getNewInstance(QtShellNullVisitor::getNewInstance()));
+    viewHierarchy->load(CNComposable::getNewInstance(QtMenuBar::getNewInstance(), CNNullComposer::getNewInstance()), CNTypeMatcher::getNewInstance(QtShellNullVisitor::getNewInstance()));
 
     return a.exec();
 }

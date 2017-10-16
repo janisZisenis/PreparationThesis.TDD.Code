@@ -1,4 +1,6 @@
 #include "QtMenuBar.h"
+#include "QtMenuBarVisitor.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 
 #include <QMenuBar>
 
@@ -8,7 +10,9 @@ QtMenuBarPtr QtMenuBar::getNewInstance() {
 QtMenuBar::~QtMenuBar() {
     delete menuBar;
 }
-QtMenuBar::QtMenuBar() : menuBar(new QMenuBar()) {}
+QtMenuBar::QtMenuBar()
+        : acceptor(CNAcceptorImp<QtMenuBarVisitor, QtMenuBar>::getNewInstance()),
+          menuBar(new QMenuBar()) {}
 
 QMenuBar *QtMenuBar::getQMenuBar() {
     return this->menuBar;
@@ -21,3 +25,12 @@ void QtMenuBar::addQAction(QAction* qAction) {
 void QtMenuBar::removeQAction(QAction* qAction) {
     menuBar->removeAction(qAction);
 }
+
+void QtMenuBar::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
+
+QtMenuBarPtr QtMenuBar::me() {
+    return this->shared_from_this();
+}
+
