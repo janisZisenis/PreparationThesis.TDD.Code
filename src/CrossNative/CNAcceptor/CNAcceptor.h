@@ -13,7 +13,7 @@ class CNVisitor;
 class CNVisitable;
 
 class CNAcceptor;
-typedef std::shared_ptr<CNAcceptor> AcceptorPtr;
+typedef std::shared_ptr<CNAcceptor> CNAcceptorPtr;
 
 class CNAcceptor {
 public:

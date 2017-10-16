@@ -1,10 +1,11 @@
-#include <QWidget>
-#include <QTreeView>
-#include <QPushButton>
 #include "QtSolutionExplorer.h"
-#include "QtSolutionModel.h"
-#include <QVBoxLayout>
+#include "QtSolutionExplorerVisitor.h"
+#include <QtWidgets>
+
 #include "QtSolutionItem.h"
+#include "QtSolutionModel.h"
+
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 
 QtSolutionExplorerPtr QtSolutionExplorer::getNewInstance() {
     return QtSolutionExplorerPtr(new QtSolutionExplorer());
@@ -16,7 +17,8 @@ QtSolutionExplorer::~QtSolutionExplorer() {
 }
 
 QtSolutionExplorer::QtSolutionExplorer()
-        : treeView(new QTreeView()), deselectButton(new QPushButton("Clear Selection")), widget(new QWidget()),
+        : acceptor(CNAcceptorImp<QtSolutionExplorerVisitor, QtSolutionExplorer>::getNewInstance()),
+          treeView(new QTreeView()), deselectButton(new QPushButton("Clear Selection")), widget(new QWidget()),
           solutionModel(new QtSolutionModel()) {
     widget->setWindowTitle("Solution Explorer");
     treeView->setModel(solutionModel);
@@ -63,8 +65,18 @@ void QtSolutionExplorer::insertItem(std::shared_ptr<QtSolutionItem> item, const 
     solutionModel->insertItem(item, index, childPos);
 }
 
+void QtSolutionExplorer::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
+
+QtSolutionExplorerPtr QtSolutionExplorer::me() {
+    return this->shared_from_this();
+}
+
 void QtSolutionExplorer::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected) {}
 
 void QtSolutionExplorer::onDeselectClicked() {
     treeView->setCurrentIndex(QModelIndex());
 }
+
+

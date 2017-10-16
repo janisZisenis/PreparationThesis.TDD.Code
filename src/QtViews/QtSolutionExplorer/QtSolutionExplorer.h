@@ -2,6 +2,9 @@
 #define QTVIEWS_QTSOLUTIONEXPLORER_H
 
 #include <qobject.h>
+#include <CrossNative/CNVisitable/CNVisitable.h>
+
+class CNAcceptor;
 
 class QItemSelection;
 class QTreeView;
@@ -12,7 +15,7 @@ class QtSolutionItem;
 class QtSolutionExplorer;
 typedef std::shared_ptr<QtSolutionExplorer> QtSolutionExplorerPtr;
 
-class QtSolutionExplorer : public QObject {
+class QtSolutionExplorer : public QObject, public CNVisitable, public std::enable_shared_from_this<QtSolutionExplorer> {
 public:
     Q_OBJECT
 public:
@@ -32,7 +35,13 @@ public:
     virtual QModelIndex getSelectedIndex();
     virtual void insertItem(std::shared_ptr<QtSolutionItem> item, const QModelIndex &index, int childPos);
 
+    virtual void accept(CNVisitorPtr visitor) override;
 private:
+    QtSolutionExplorerPtr me();
+
+private:
+    std::shared_ptr<CNAcceptor> acceptor;
+
     QWidget* widget;
     QPushButton* deselectButton;
     QTreeView* treeView;

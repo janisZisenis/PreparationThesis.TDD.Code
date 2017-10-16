@@ -1,4 +1,6 @@
 #include "QtShell.h"
+#include "QtShellVisitor.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 
 #include <QtWidgets>
 
@@ -16,7 +18,7 @@ QtShell::~QtShell() {
 
     delete window;
 }
-QtShell::QtShell() {
+QtShell::QtShell() : acceptor(CNAcceptorImp<QtShellVisitor, QtShell>::getNewInstance()){
     initWindow();
     initComponents();
     composeWindow();
@@ -49,7 +51,7 @@ void QtShell::removeQMenuBar(QMenuBar* qMenuBar) {
 }
 
 void QtShell::accept(CNVisitorPtr visitor) {
-
+    acceptor->accept(visitor, me());
 }
 
 void QtShell::initWindow() {

@@ -6,6 +6,7 @@
 
 enum QtShellPosition { LEFT, RIGHT, BOTTOM, CENTRAL };
 
+class CNAcceptor;
 class QMainWindow;
 class QMenuBar;
 class QWidget;
@@ -54,6 +55,8 @@ private:
 
     QtShellPtr me();
 private:
+    std::shared_ptr<CNAcceptor> acceptor;
+
     QMainWindow* window;
     QSplitter* horizontalSplitter;
     QSplitter* verticalSplitter;
