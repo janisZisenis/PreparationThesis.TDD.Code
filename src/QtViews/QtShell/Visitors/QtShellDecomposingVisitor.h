@@ -3,6 +3,7 @@
 
 #include "CrossNative/CNVisitor/CNVisitor.h"
 
+#include "QtViews/QtMenuBar/QtMenuBarVisitor.h"
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorerVisitor.h"
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorerVisitor.h"
 
@@ -13,6 +14,7 @@ typedef std::shared_ptr<QtShellDecomposingVisitor> QtShellDecomposingVisitorPtr;
 
 class QtShellDecomposingVisitor
         : public CNVisitor,
+          public QtMenuBarVisitor,
           public QtSolutionExplorerVisitor,
           public QtPropertiesExplorerVisitor {
 
@@ -25,6 +27,7 @@ private:
     std::shared_ptr<QtShell> shell;
 
 public:
+    void visit(std::shared_ptr<QtMenuBar> menuBar) override;
     void visit(std::shared_ptr<QtSolutionExplorer> solutionExplorer) override;
     void visit(std::shared_ptr<QtPropertiesExplorer> propertiesExplorer) override;
 };
