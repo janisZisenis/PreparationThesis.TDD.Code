@@ -3,7 +3,10 @@
 
 #include <memory>
 #include <string>
+#include <CrossNative/CNVisitable/CNVisitable.h>
 #include "CocoaModelIndex.h"
+
+class CNAcceptor;
 
 @class NSScrollView;
 @class NSView;
@@ -14,7 +17,7 @@
 class CocoaSolutionExplorer;
 typedef std::shared_ptr<CocoaSolutionExplorer> CocoaSolutionExplorerPtr;
 
-class CocoaSolutionExplorer {
+class CocoaSolutionExplorer : public CNVisitable, public std::enable_shared_from_this<CocoaSolutionExplorer> {
 public:
     static CocoaSolutionExplorerPtr getNewInstance();
     virtual ~CocoaSolutionExplorer();
@@ -32,15 +35,20 @@ public:
     virtual CocoaModelIndex getSelectedIndex();
     virtual void insertItem(CocoaSolutionItem* item, const CocoaModelIndex &index, int childPos);
 
-private:
-    virtual void onSelectionChanged();
-private:
+    void accept(CNVisitorPtr visitor) override;
 
+private:
+    CocoaSolutionExplorerPtr me();
+private:
+    std::shared_ptr<CNAcceptor> acceptor;
     NSOutlineView* outlineView;
     NSScrollView* scrollView;
 
     CocoaSolutionModel* viewDataSource;
     std::string title;
+
+private:
+    virtual void onSelectionChanged();
 };
 
 #endif //COCOAVIEWS_COCOASOLUTIONEXPLORER_H

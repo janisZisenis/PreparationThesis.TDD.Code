@@ -1,4 +1,6 @@
 #include "CocoaSolutionExplorer.h"
+#include "CocoaSolutionExplorerVisitor.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 #import "CocoaSolutionModel.h"
 #import "CocoaSolutionItem.h"
 
@@ -7,7 +9,8 @@ CocoaSolutionExplorerPtr CocoaSolutionExplorer::getNewInstance()  {
 }
 CocoaSolutionExplorer::~CocoaSolutionExplorer() {}
 CocoaSolutionExplorer::CocoaSolutionExplorer()
-        : title("Solution Explorer") {
+        : acceptor(CNAcceptorImp<CocoaSolutionExplorerVisitor, CocoaSolutionExplorer>::getNewInstance()),
+          title("Solution Explorer") {
     outlineView = [NSOutlineView new];
     viewDataSource = [[CocoaSolutionModel alloc] initWithNSOutlineView:outlineView];
 
@@ -61,5 +64,13 @@ void CocoaSolutionExplorer::insertItem(CocoaSolutionItem* item, const CocoaModel
 }
 
 void CocoaSolutionExplorer::onSelectionChanged() {}
+
+void CocoaSolutionExplorer::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
+
+CocoaSolutionExplorerPtr CocoaSolutionExplorer::me() {
+    return this->shared_from_this();
+}
 
 
