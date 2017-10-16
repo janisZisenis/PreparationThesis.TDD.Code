@@ -15,7 +15,7 @@ CNMatcherPtr QtViewMatcherFactory::makeTopLevelMatcher() {
 }
 
 CNMatcherPtr QtViewMatcherFactory::makeShellTypeMatcher() {
-    CNVisitorPtr matchingVisitor = QtShellNullVisitor::getNewInstance();
+    CNVisitorPtr matchingVisitor = CocoaShellNullVisitor::getNewInstance();
     return makeCNTypeMatcher(matchingVisitor);
 }
 
