@@ -39,7 +39,7 @@ void CocoaSolutionExplorer::toggleVisibility() {
     [scrollView setHidden: !scrollView.isHidden];
 }
 
-void CocoaSolutionExplorer::removeIndex(CocoaModelIndex index) {
+void CocoaSolutionExplorer::removeIndex(const CocoaModelIndex &index) {
     [outlineView selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
     [viewDataSource removeItemAtParentIndex:index.parent() atChildPos:index.childPosition()];
     [outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:index.childPosition()] byExtendingSelection:NO];
@@ -56,7 +56,7 @@ CocoaModelIndex CocoaSolutionExplorer::getSelectedIndex() {
     return CocoaModelIndex(path);
 }
 
-void CocoaSolutionExplorer::insertItem(CocoaSolutionItem* item, CocoaModelIndex index, int childPos) {
+void CocoaSolutionExplorer::insertItem(CocoaSolutionItem* item, const CocoaModelIndex &index, int childPos) {
     [viewDataSource insertItem:item atParentIndex:index atChildPos:childPos];
 }
 

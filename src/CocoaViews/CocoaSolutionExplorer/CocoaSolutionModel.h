@@ -1,5 +1,5 @@
-#ifndef COCOALVICE_COCOASOLUTIONMODEL_H
-#define COCOALVICE_COCOASOLUTIONMODEL_H
+#ifndef COCOAVIEWS_COCOASOLUTIONMODEL_H
+#define COCOAVIEWS_COCOASOLUTIONMODEL_H
 
 #import <Cocoa/Cocoa.h>
 #include <memory>
@@ -19,9 +19,9 @@
 
 - (instancetype) initWithNSOutlineView:(NSOutlineView*)view;
 
--(void)insertItem:(CocoaSolutionItem*)item atParentIndex:(CocoaModelIndex)parentIndex atChildPos:(int)childPos;
+-(void)insertItem:(CocoaSolutionItem*)item atParentIndex:(const CocoaModelIndex&)parentIndex atChildPos:(int)childPos;
 
--(void)removeItemAtParentIndex:(CocoaModelIndex)parentIndex atChildPos:(int)childPos;
+-(void)removeItemAtParentIndex:(const CocoaModelIndex&)parentIndex atChildPos:(int)childPos;
 
 - (boost::signals2::signal<void()>&) selectionChanged;
 
@@ -37,4 +37,4 @@
 
 @end
 
-#endif //COCOALVICE_COCOASOLUTIONMODEL_H
+#endif //COCOAVIEWS_COCOASOLUTIONMODEL_H

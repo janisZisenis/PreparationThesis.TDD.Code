@@ -28,9 +28,9 @@ public:
     virtual bool isVisible();
     virtual void toggleVisibility();
 
-    virtual void removeIndex(CocoaModelIndex index);
+    virtual void removeIndex(const CocoaModelIndex &index);
     virtual CocoaModelIndex getSelectedIndex();
-    virtual void insertItem(CocoaSolutionItem* item, CocoaModelIndex index, int childPos);
+    virtual void insertItem(CocoaSolutionItem* item, const CocoaModelIndex &index, int childPos);
 
 private:
     virtual void onSelectionChanged();

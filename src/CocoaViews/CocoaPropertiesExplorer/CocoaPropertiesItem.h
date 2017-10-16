@@ -1,3 +1,6 @@
+#ifndef COCOALVIEWS_COCOAPROPERTIESITEM_H
+#define COCOALVIEWS_COCOAPROPERTIESITEM_H
+
 #import <Cocoa/Cocoa.h>
 #include <string>
 
@@ -12,3 +15,5 @@
 - (std::string) getValue;
 
 @end
+
+#endif //COCOALVIEWS_COCOAPROPERTIESITEM_H

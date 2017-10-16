@@ -10,27 +10,27 @@ public:
         childPath.push_back(childPos);
     }
 
-    CocoaModelIndex parent() {
+    CocoaModelIndex parent() const {
         std::vector<int> parentPath = childPath;
         parentPath.pop_back();
         return CocoaModelIndex(parentPath);
     }
 
-    bool isValid() {
+    bool isValid() const {
         return depth() > 0;
     }
 
-    int depth() {
+    int depth() const {
         return (int)childPath.size();
     }
-    int childPosition() {
+    int childPosition() const {
         return childPath.back();
     }
-    int operator[](int i) {
+    int operator[](int i) const {
         return childPath[i];
     }
 
-    bool operator==(CocoaModelIndex index) {
+    bool operator==(CocoaModelIndex index) const {
          if(depth() != index.depth()) return false;
 
         for(int i = 0; i < childPath.size(); i++) {

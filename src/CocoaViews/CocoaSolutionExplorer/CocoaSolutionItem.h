@@ -1,3 +1,6 @@
+#ifndef COCOAVIEWS_COCOASOLUTIONITEM_H
+#define COCOAVIEWS_COCOASOLUTIONITEM_H
+
 #import <Cocoa/Cocoa.h>
 #include <vector>
 
@@ -23,3 +26,5 @@
 - (NSInteger) getRow;
 
 @end
+
+#endif //COCOAVIEWS_COCOASOLUTIONMODEL_H

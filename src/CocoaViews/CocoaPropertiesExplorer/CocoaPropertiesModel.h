@@ -1,3 +1,6 @@
+#ifndef COCOALVIEWS_COCOAPROPERTIESMODEL_H
+#define COCOALVIEWS_COCOAPROPERTIESMODEL_H
+
 #import <Cocoa/Cocoa.h>
 #include <memory>
 
@@ -19,3 +22,5 @@ class CocoaPropertiesExplorer;
 - (void)addItem:(CocoaPropertiesItem*)item;
 
 @end
+
+#endif //COCOALVIEWS_COCOAPROPERTIESMODEL_H
