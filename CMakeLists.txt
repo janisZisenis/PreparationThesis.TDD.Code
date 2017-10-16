@@ -37,7 +37,7 @@ include(${CMAKE_SOURCE_DIR}/${cmakeMacroPath}/general/BuildTarget.cmake)
 include(${CMAKE_SOURCE_DIR}/${cmakeMacroPath}/general/BuildTargetUtilities.cmake)
 include(${CMAKE_SOURCE_DIR}/${cmakeMacroPath}/general/EndingsToCollect.cmake)
 include(${CMAKE_SOURCE_DIR}/${cmakeMacroPath}/general/FileUtilities.cmake)
-
+include(${CMAKE_SOURCE_DIR}/${cmakeMacroPath}/MacOSXBundle/MacOSXBundle.cmake)
 
 #############################################################
 ###                   GENERAL SETTINGS                    ###
@@ -59,3 +59,8 @@ add_subdirectory(applications/CrossNativeTest)
 
 add_subdirectory(applications/QtViews)
 add_subdirectory(applications/QtApp)
+
+if(APPLE)
+   add_subdirectory(applications/CocoaViews)
+   add_subdirectory(applications/CocoaApp)
+endif()

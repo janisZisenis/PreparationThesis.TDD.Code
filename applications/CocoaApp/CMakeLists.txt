@@ -1,7 +1,7 @@
-set(targetName QtApp)       #REQUIRED#
+set(targetName CocoaApp)       #REQUIRED#
 
 set(linkDirectories "")
-set(libsToLink CrossNative QtViews)
+set(libsToLink CrossNative CocoaViews)
 set(includeDirectories ${CMAKE_SOURCE_DIR}/src)
 #glob files and save in MY_SRCS
 include(CMakePackage.cmake)
