@@ -2,6 +2,7 @@
 #define QTVIEWS_QTSHELL_H
 
 #include <memory>
+#include <CrossNative/CNVisitable/CNVisitable.h>
 
 enum QtShellPosition { LEFT, RIGHT, BOTTOM, CENTRAL };
 
@@ -15,7 +16,7 @@ class QToolBar;
 class QtShell;
 typedef std::shared_ptr<QtShell> QtShellPtr;
 
-class QtShell {
+class QtShell : public CNVisitable, public std::enable_shared_from_this<QtShell> {
 public:
     static QtShellPtr getNewInstance();
     virtual ~QtShell();
@@ -32,6 +33,7 @@ public:
     virtual void addQToolBar(QToolBar* qToolBar);
     virtual void removeQToolBar(QToolBar* qToolBar);
 
+    void accept(CNVisitorPtr visitor) override;
 private:
     virtual void initWindow();
     virtual void initComponents();
@@ -49,6 +51,8 @@ private:
     virtual QTabWidget* getTabWidgetForPosition(QtShellPosition pos);
 
     virtual void updateSideBarWidths();
+
+    QtShellPtr me();
 private:
     QMainWindow* window;
     QSplitter* horizontalSplitter;

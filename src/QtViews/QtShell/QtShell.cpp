@@ -48,6 +48,10 @@ void QtShell::removeQMenuBar(QMenuBar* qMenuBar) {
     qMenuBar->setParent(nullptr);
 }
 
+void QtShell::accept(CNVisitorPtr visitor) {
+
+}
+
 void QtShell::initWindow() {
     window = new QMainWindow(); //57, 601, 1200, 1000
     window->setWindowTitle("Qt Window Title");
@@ -136,5 +140,9 @@ void QtShell::updateSideBarWidths() {
     vertSizes.push_back(window->width()-left-right);
     vertSizes.push_back(right);
     verticalSplitter->setSizes(vertSizes);
+}
+
+QtShellPtr QtShell::me() {
+    return this->shared_from_this();
 }
 

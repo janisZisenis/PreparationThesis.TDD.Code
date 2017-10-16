@@ -2,6 +2,11 @@
 #include <QMainWindow>
 #include <QMenuBar>
 
+#include <CrossNative/CNDynamicHierarchy/CNDynamicHierarchy.h>
+#include <CrossNative/CNComposable/CNComposable.h>
+#include <CrossNative/CNComposer/CNNullComposer.h>
+#include <CrossNative/CNMatcher/CNNullMatcher.h>
+
 #include "QtViews/QtShell/QtShell.h"
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
@@ -30,6 +35,9 @@ int main(int argc, char** argv) {
     shell->addQMenuBar(menuBar);
     shell->addQWidget(solutionExplorer->getQWidget(), LEFT);
     shell->addQWidget(propertiesExplorer->getQWidget(), RIGHT);
+
+    CNDynamicHierarchyPtr viewHierarchy = CNDynamicHierarchy::getNewInstance();
+    viewHierarchy->load(CNComposable::getNewInstance(shell, CNNullComposer::getNewInstance()), CNNullMatcher::getNewInstance());
 
     return a.exec();
 }
