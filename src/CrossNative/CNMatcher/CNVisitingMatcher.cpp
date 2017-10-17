@@ -13,5 +13,5 @@ CNVisitingMatcher::CNVisitingMatcher(std::shared_ptr<CNIdentifyingVisitor> ident
         : identifyingVisitor(identifyingVisitor) {}
 
 bool CNVisitingMatcher::matches(CNVisitablePtr visitable) {
-    return true;
+    return false;
 }
