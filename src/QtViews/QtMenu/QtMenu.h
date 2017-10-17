@@ -3,6 +3,9 @@
 
 #include <memory>
 #include <string>
+#include <CrossNative/CNVisitable/CNVisitable.h>
+
+class CNAcceptor;
 
 class QAction;
 class QMenu;
@@ -10,7 +13,7 @@ class QMenu;
 class QtMenu;
 typedef std::shared_ptr<QtMenu> QtMenuPtr;
 
-class QtMenu {
+class QtMenu : public CNVisitable, public std::enable_shared_from_this<QtMenu> {
 public:
     static QtMenuPtr getNewInstance(std::string title);
     virtual ~QtMenu();
@@ -22,6 +25,8 @@ public:
 
     virtual void addQAction(QAction* action);
     virtual void removeQAction(QAction* action);
+
+    virtual void accept(CNVisitorPtr visitor) override;
 private:
     virtual void initializeEmptyAction();
     virtual void initializeMenu();
@@ -35,7 +40,10 @@ private:
     virtual void addEmptyActionToMenu();
     virtual void removeEmptyActionFromMenu();
 
+    virtual QtMenuPtr me();
 private:
+    std::shared_ptr<CNAcceptor> acceptor;
+
     QAction* action;
     QMenu* menu;
 

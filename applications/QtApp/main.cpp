@@ -5,6 +5,10 @@
 
 #include <CrossNative/CNDynamicHierarchy/CNDynamicHierarchy.h>
 
+#include <CrossNative/CNComponent/CNComposable/CNComposable.h>
+#include <CrossNative/CNComposer/CNNullComposer.h>
+#include "QtViews/QtMenu/QtMenu.h"
+
 int main(int argc, char** argv) {
     QApplication a(argc, argv);
 
@@ -16,6 +20,12 @@ int main(int argc, char** argv) {
     viewHierarchy->load(componentFactory->makeSolutionExplorerComponent(), matcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(componentFactory->makeMenuBarComponent(), matcherFactory->makeShellTypeMatcher());
+
+    QtMenuPtr menu = QtMenu::getNewInstance("HelloWorld!");
+    CNComposerPtr menuComposer = CNNullComposer::getNewInstance();
+    CNComposablePtr menuComposable = CNComposable::getNewInstance(menu, menuComposer);
+
+    viewHierarchy->load(menuComposable, matcherFactory->makeShellTypeMatcher());
 
     return a.exec();
 }

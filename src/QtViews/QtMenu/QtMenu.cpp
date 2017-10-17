@@ -1,5 +1,6 @@
 #include "QtMenu.h"
-
+#include "QtMenuVisitor.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 #include <QAction>
 #include <QMenu>
 
@@ -14,7 +15,8 @@ QtMenu::~QtMenu() {
 }
 
 QtMenu::QtMenu(std::string title)
-        : emptyAction(new QAction("Empty")),
+        : acceptor(CNAcceptorImp<QtMenuVisitor, QtMenu>::getNewInstance()),
+          emptyAction(new QAction("Empty")),
           action(new QAction(QString::fromStdString(title))),
           menu(new QMenu(QString::fromStdString(title))) {
     initializeEmptyAction();
@@ -68,5 +70,13 @@ void QtMenu::addEmptyActionToMenu() {
 }
 void QtMenu::removeEmptyActionFromMenu() {
     menu->removeAction(emptyAction);
+}
+
+void QtMenu::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
+
+QtMenuPtr QtMenu::me() {
+    return this->shared_from_this();
 }
 
