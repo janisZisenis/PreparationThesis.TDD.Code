@@ -1,5 +1,5 @@
 #include "QtViewComponentFactory.h"
-#include <CrossNative/CNComponent/CNComposable.h>
+#include <CrossNative/CNComponent/CNComposable/CNComposable.h>
 #include <CrossNative/CNComposer/CNVisitingComposer/CNVisitingComposer.h>
 #include <CrossNative/CNComposer/CNNullComposer.h>
 
