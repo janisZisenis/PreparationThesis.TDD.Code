@@ -1,5 +1,5 @@
 #include "QtViewMatcherFactory.h"
-#include <CrossNative/CNMatcher/CNVisitingMatcher.h>
+#include <CrossNative/CNMatcher/CNVisitingMatcher/CNVisitingMatcher.h>
 #include <CrossNative/CNMatcher/CNNullMatcher.h>
 
 #include "QtViews/QtShell/Visitors/QtShellTypeIdentifyingVisitor.h"

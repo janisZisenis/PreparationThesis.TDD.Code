@@ -2,7 +2,7 @@
 #define CROSSNATIVE_VISITINGMATCHER_H
 
 #include <CrossNative/CrossNative_EXPORT.h>
-#include "CNMatcher.h"
+#include "CrossNative/CNMatcher/CNMatcher.h"
 
 class CNIdentifyingVisitor;
 

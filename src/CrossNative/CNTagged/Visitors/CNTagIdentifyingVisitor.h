@@ -3,7 +3,7 @@
 
 #include <CrossNative/CrossNative_EXPORT.h>
 #include <string>
-#include "CrossNative/CNMatcher/CNIdentifyingVisitor.h"
+#include "CrossNative/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitor.h"
 #include "CrossNative/CNTagged/CNTaggedVisitor.h"
 
 class CNTagIdentifyingVisitor;

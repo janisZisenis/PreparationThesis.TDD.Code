@@ -2,7 +2,7 @@
 #define COCOAVIEWS_COCOASHELLTYPEIDENTIFYINGVISITOR_H
 
 #include "CocoaViews/CocoaShell/CocoaShellVisitor.h"
-#include "CrossNative/CNMatcher/CNIdentifyingVisitor.h"
+#include "CrossNative/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitor.h"
 
 class CocoaShellTypeIdentifyingVisitor;
 typedef std::shared_ptr<CocoaShellTypeIdentifyingVisitor> CocoaShellTypeIdentifyingVisitorPtr;

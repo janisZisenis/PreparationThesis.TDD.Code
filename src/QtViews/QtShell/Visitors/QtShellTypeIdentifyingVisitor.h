@@ -2,7 +2,7 @@
 #define QTVIEWS_QTSHELLTYPEIDENTIFYINGVISITOR_H
 
 #include "QtViews/QtShell/QtShellVisitor.h"
-#include "CrossNative/CNMatcher/CNIdentifyingVisitor.h"
+#include "CrossNative/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitor.h"
 
 class QtShellTypeIdentifyingVisitor;
 typedef std::shared_ptr<QtShellTypeIdentifyingVisitor> QtShellTypeIdentifyingVisitorPtr;
