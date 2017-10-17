@@ -4,6 +4,7 @@
 
 #include <CrossNative/CNTagged/Visitors/CNTagIdentifyingVisitor.h>
 #include "QtViews/QtShell/Visitors/QtShellTypeIdentifyingVisitor.h"
+#include "QtViews/QtMenuBar/Visitors/QtMenuBarTypeIdentifyingVisitor.h"
 
 QtViewMatcherFactoryPtr QtViewMatcherFactory::getNewInstance() {
     return QtViewMatcherFactoryPtr(new QtViewMatcherFactory());
@@ -17,6 +18,11 @@ CNMatcherPtr QtViewMatcherFactory::makeTopLevelMatcher() {
 
 CNMatcherPtr QtViewMatcherFactory::makeShellTypeMatcher() {
     CNIdentifyingVisitorPtr identifying = QtShellTypeIdentifyingVisitor::getNewInstance();
+    return makeCNVisitingMatcher(identifying);
+}
+
+CNMatcherPtr QtViewMatcherFactory::makeMenuBarTypeMatcher() {
+    CNIdentifyingVisitorPtr identifying = QtMenuBarTypeIdentifyingVisitor::getNewInstance();
     return makeCNVisitingMatcher(identifying);
 }
 

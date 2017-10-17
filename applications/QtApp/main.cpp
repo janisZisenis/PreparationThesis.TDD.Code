@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
     CNComposerPtr menuComposer = CNNullComposer::getNewInstance();
     CNComposablePtr menuComposable = CNComposable::getNewInstance(menu, menuComposer);
 
-    viewHierarchy->load(menuComposable, matcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(menuComposable, matcherFactory->makeMenuBarTypeMatcher());
 
     return a.exec();
 }
