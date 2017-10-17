@@ -10,7 +10,7 @@ typedef std::shared_ptr<CocoaMenuVisitor> CocoaMenuVisitorPtr;
 
 class CocoaMenuVisitor {
 public:
-    virtual void visit(std::shared_ptr<CocoaMenu> view) = 0;
+    virtual void visit(std::shared_ptr<CocoaMenu> menu) = 0;
 };
 
 #endif //COCOAVIEWS_COCOAMENUVISITOR_H

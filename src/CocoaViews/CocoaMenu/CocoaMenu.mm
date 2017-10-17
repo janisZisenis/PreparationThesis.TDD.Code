@@ -9,7 +9,7 @@ CocoaMenuPtr CocoaMenu::getNewInstance(std::string title) {
 CocoaMenu::~CocoaMenu() {}
 CocoaMenu::CocoaMenu(std::string title)
         : acceptor(CNAcceptorImp<CocoaMenuVisitor, CocoaMenu>::getNewInstance()),
-          emptyMenuItem([[NSMenuItem alloc] initWithTitle:[NSString stringWithUTF8String:title.c_str()] action:(SEL)nil keyEquivalent:@""]),
+          emptyMenuItem([[NSMenuItem alloc] initWithTitle:@"Empty" action:(SEL)nil keyEquivalent:@""]),
           menuItem([[NSMenuItem alloc] initWithTitle:[NSString stringWithUTF8String:title.c_str()] action:(SEL)nil keyEquivalent:@""]),
           menu([[NSMenu alloc] initWithTitle:[NSString stringWithUTF8String:title.c_str()]]) {
     initializeEmptyMenuItem();
@@ -57,8 +57,7 @@ bool CocoaMenu::menuIsEmpty() {
     return [menu.itemArray count] == 0;
 }
 bool CocoaMenu::menuContainsEmptyMenuItem() {
-    return false;
-//    return menu->actions().contains(emptyAction);
+    return [menu.itemArray containsObject:emptyMenuItem];
 }
 void CocoaMenu::addEmptyMenuItemToMenu() {
     [menu addItem: emptyMenuItem];
@@ -68,7 +67,7 @@ void CocoaMenu::removeEmptyMenuItemFromMenu() {
 }
 
 void CocoaMenu::accept(CNVisitorPtr visitor) {
-//    acceptor->accept(visitor, me());
+    acceptor->accept(visitor, me());
 }
 
 CocoaMenuPtr CocoaMenu::me() {

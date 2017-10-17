@@ -3,18 +3,24 @@
 
 #include "CrossNative/CNVisitor/CNVisitor.h"
 
+#include "CocoaViews/CocoaMenu/CocoaMenuVisitor.h"
+
 class CocoaMenuBar;
 
 class CocoaMenuBarComposingVisitor;
 typedef std::shared_ptr<CocoaMenuBarComposingVisitor> CocoaMenuBarComposingVisitorPtr;
 
 class CocoaMenuBarComposingVisitor
-        : public CNVisitor {
+        : public CNVisitor,
+          public CocoaMenuVisitor {
 public:
     static CocoaMenuBarComposingVisitorPtr getNewInstance(std::shared_ptr<CocoaMenuBar> menBar);
     virtual ~CocoaMenuBarComposingVisitor();
 private:
     CocoaMenuBarComposingVisitor(std::shared_ptr<CocoaMenuBar> menuBar);
+
+public:
+    void visit(std::shared_ptr<CocoaMenu> menu) override;
 
 private:
     std::shared_ptr<CocoaMenuBar> menuBar;
