@@ -3,14 +3,32 @@
 
 #include <string>
 #include <CrossNative/CrossNative_EXPORT.h>
-#include "CNMatcher.h"
-
-class CNVisitor;
+#include <CrossNative/CNTagged/CNTaggedVisitor.h>
+#include <CrossNative/CNVisitor/CNVisitor.h>
+#include "CrossNative/CNMatcher/CNMatcher.h"
 
 class CNTagMatcher;
 typedef std::shared_ptr<CNTagMatcher> CNTagMatcherPtr;
 
 class CrossNative_EXPORT CNTagMatcher : public CNMatcher {
+private:
+    class CNTagIdentifier;
+    typedef std::shared_ptr<CNTagIdentifier> CNTagIdentifierPtr;
+    class CNTagIdentifier : public CNVisitor, public CNTaggedVisitor {
+    public:
+        static CNTagIdentifierPtr getNewInstance();
+        virtual ~CNTagIdentifier();
+    private:
+        CNTagIdentifier();
+
+    public:
+        virtual void visit(std::shared_ptr<CNTagged> tagged) override;
+        virtual std::string getIdentifiedTag();
+
+    private:
+        std::string identifiedTag;
+    };
+
 public:
     static CNTagMatcherPtr getNewInstance(std::string tag);
     virtual ~CNTagMatcher();

@@ -15,7 +15,7 @@ CNTypeMatcher::CNTypeMatcher(std::shared_ptr<CNVisitor> matching)
 bool CNTypeMatcher::matches(CNVisitablePtr visitable) {
     try {
         visitable->accept(typeIdentifier);
-    } catch (CNVisitableVisitorMismatchException) {
+    } catch (CNVisitableVisitorMismatchException &e) {
         return false;
     }
 

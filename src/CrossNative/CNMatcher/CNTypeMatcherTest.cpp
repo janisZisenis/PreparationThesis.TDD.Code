@@ -53,7 +53,7 @@ TEST_F(CNTypeMatcherTest, FreshInstance__Matches__VisitableShouldHaveAcceptedThe
     expectVisitableHasAcceptedVisitor(visitable, matching);
 }
 
-TEST_F(CNTypeMatcherTest, FreshInstance__MatchesVisitableThrowingVisitorMismatchException__SUTShouldNotMatch) {
+TEST_F(CNTypeMatcherTest, FreshInstance__MatchesVisitableSaboteur__SUTShouldNotMatch) {
     CNVisitorPtr matching = makeCNVisitorDummy();
     CNTypeMatcherPtr sut = makeCNTypeMatcher(matching);
 

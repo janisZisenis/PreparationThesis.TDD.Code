@@ -2,6 +2,7 @@
 #include "CNTagMatcher.h"
 
 #include "CrossNative/CNTagged/CNFakeTagged.h"
+#include "CrossNative/CNVisitable/CNVisitableTestDoubles.h"
 
 
 class CNTagMatcherTest : public testing::Test {
@@ -9,22 +10,23 @@ protected:
     virtual CNTagMatcherPtr makeCNTagMatcher(std::string tag) {
         return CNTagMatcher::getNewInstance(tag);
     }
-
+    virtual CNVisitablePtr makeCNVisitableSaboteur() {
+        return CNVisitableSaboteur::getNewInstance();
+    }
     virtual CNTaggedPtr makeCNFakeTagged(std::string tag) {
         return CNFakeTagged::getNewInstance(tag);
     }
 
-    virtual void expectMatcherMatchesTagged(CNTagMatcherPtr sut, CNTaggedPtr tagged) {
-        bool actual = sut->matches(tagged);
+    virtual void expectMatcherMatchesVisitable(CNTagMatcherPtr sut, CNVisitablePtr visitable) {
+        bool actual = sut->matches(visitable);
 
-        std::string errorMessage = "CNTagMatcher should match the tagged, but it does not!";
+        std::string errorMessage = "CNTagMatcher should match the visitable, but it does not!";
         EXPECT_TRUE(actual) << errorMessage;
     }
+    virtual void expectMatcherDoesNotMatchVisitable(CNTagMatcherPtr sut, CNVisitablePtr visitable) {
+        bool actual = sut->matches(visitable);
 
-    virtual void expectMatcherDoesNotMatchTagged(CNTagMatcherPtr sut, CNTaggedPtr tagged) {
-        bool actual = sut->matches(tagged);
-
-        std::string errorMessage = "CNTagMatcher should not match the tagged, but it does!";
+        std::string errorMessage = "CNTagMatcher should not match the visitable, but it does!";
         EXPECT_FALSE(actual) << errorMessage;
     }
 };
@@ -34,7 +36,7 @@ TEST_F(CNTagMatcherTest, FreshInstance__TaggedWithSameTag__MatcherShouldMatchThe
 
     CNTaggedPtr tagged = makeCNFakeTagged("theTag");
 
-    expectMatcherMatchesTagged(sut, tagged);
+    expectMatcherMatchesVisitable(sut, tagged);
 }
 
 TEST_F(CNTagMatcherTest, FreshInstance__TaggedWithDifferentTag__MatcherShouldNotMatchTheTagged) {
@@ -42,7 +44,15 @@ TEST_F(CNTagMatcherTest, FreshInstance__TaggedWithDifferentTag__MatcherShouldNot
 
     CNTaggedPtr tagged = makeCNFakeTagged("differentTag");
 
-    expectMatcherDoesNotMatchTagged(sut, tagged);
+    expectMatcherDoesNotMatchVisitable(sut, tagged);
+}
+
+TEST_F(CNTagMatcherTest, FreshInstance__MatchesWithVisitableSaboteur__MatcherShouldNotMatchTheTagged) {
+    CNTagMatcherPtr sut = makeCNTagMatcher("theTag");
+
+    CNVisitablePtr visitable = makeCNVisitableSaboteur();
+
+    expectMatcherDoesNotMatchVisitable(sut, visitable);
 }
 
 
