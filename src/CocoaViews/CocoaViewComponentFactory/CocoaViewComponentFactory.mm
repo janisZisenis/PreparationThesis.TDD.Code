@@ -1,5 +1,5 @@
 #include "CocoaViewComponentFactory.h"
-#include <CrossNative/CNComposable/CNComposable.h>
+#include <CrossNative/CNComponent/CNComposable.h>
 #include <CrossNative/CNComposer/CNVisitingComposer.h>
 #include <CrossNative/CNComposer/CNNullComposer.h>
 
