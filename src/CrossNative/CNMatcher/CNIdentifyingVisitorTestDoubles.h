@@ -42,7 +42,7 @@ public:
     }
 
 private:
-    identified = false;
+    bool identified = false;
 };
 
 #endif //CROSSNATIVE_IDENTIFYINGVISITOR_TESTDOUBLES_H
