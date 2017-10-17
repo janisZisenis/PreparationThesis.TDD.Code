@@ -19,13 +19,13 @@ public:
     virtual std::string getTag() override {
         return std::string();
     }
-    virtual void accept(VisitorPtr visitor) override {}
+    virtual void accept(CNVisitorPtr visitor) override {}
 };
 
 class CNTaggedStub;
 typedef std::shared_ptr<CNTaggedStub> CNTaggedStubPtr;
 
-class CNTaggedStub : public CNTagged {
+class CNTaggedStub : public CNTaggedDummy {
 public:
     static CNTaggedStubPtr getNewInstance() {
         return CNTaggedStubPtr(new CNTaggedStub());
