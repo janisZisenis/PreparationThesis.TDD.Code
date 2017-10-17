@@ -19,6 +19,9 @@ protected:
     virtual CNVisitablePtr makeCNVisitableDummy() {
         return CNVisitableDummy::getNewInstance();
     }
+    virtual CNVisitablePtr makeCNVisitableSaboteur() {
+        return CNVisitableSaboteur::getNewInstance();
+    }
     virtual CNVisitableSpyPtr makeCNVisitableSpy() {
         return CNVisitableSpy::getNewInstance();
     }
@@ -53,6 +56,15 @@ TEST_F(CNVisitingMatcherTest, FreshInstance__MatchesVisitable__VisitableShouldHa
     sut->matches(visitable);
 
     expectVisitableHasAcceptedVisitor(visitable, visitor);
+}
+
+TEST_F(CNVisitingMatcherTest, FreshInstance__MatchesVisitableSaboteur__MatcherShouldNotMatchTheVisitable) {
+    CNIdentifyingVisitorPtr visitor = makeCNIdentifyingVisitorDummy();
+    CNVisitingMatcherPtr sut = makeCNVistingMatcher(visitor);
+
+    CNVisitablePtr visitable = makeCNVisitableSaboteur();
+
+    expectMatcherDoesNotMatchVisitable(sut, visitable);
 }
 
 TEST_F(CNVisitingMatcherTest, FreshInstance__VisitorDoesNotIdentifyVisitable__MatcherShouldNotMatchVisitable) {
