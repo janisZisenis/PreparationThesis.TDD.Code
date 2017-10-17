@@ -1,6 +1,6 @@
 #include "CNVisitingMatcher.h"
+#include "CNIdentifyingVisitor.h"
 #include "CrossNative/CNVisitable/CNVisitable.h"
-#include "CrossNative/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitor.h"
 
 CNVisitingMatcherPtr CNVisitingMatcher::getNewInstance(CNIdentifyingVisitorPtr identifyingVisitor) {
     return CNVisitingMatcherPtr(new CNVisitingMatcher(identifyingVisitor));

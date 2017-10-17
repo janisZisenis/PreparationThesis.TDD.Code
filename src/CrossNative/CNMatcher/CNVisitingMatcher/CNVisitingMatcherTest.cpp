@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 #include "CNVisitingMatcher.h"
 
-#include "CrossNative/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitorTestDoubles.h"
+#include "CNIdentifyingVisitorTestDoubles.h"
 #include "CrossNative/CNVisitable/CNVisitableTestDoubles.h"
 
 
