@@ -4,20 +4,20 @@
 #include "QtViews/QtShell/QtShellVisitor.h"
 #include "CrossNative/CNVisitor/CNVisitor.h"
 
-class CocoaShellNullVisitor;
-typedef std::shared_ptr<CocoaShellNullVisitor> QtShellNullVisitorPtr;
+class QtShellNullVisitor;
+typedef std::shared_ptr<QtShellNullVisitor> QtShellNullVisitorPtr;
 
-class CocoaShellNullVisitor : public CNVisitor, public QtShellVisitor {
+class QtShellNullVisitor : public CNVisitor, public QtShellVisitor {
 public:
     static QtShellNullVisitorPtr getNewInstance() {
-        return QtShellNullVisitorPtr(new CocoaShellNullVisitor());
+        return QtShellNullVisitorPtr(new QtShellNullVisitor());
     }
-    virtual ~CocoaShellNullVisitor() {}
+    virtual ~QtShellNullVisitor() {}
 private:
-    CocoaShellNullVisitor() {}
+    QtShellNullVisitor() {}
 
 public:
-    virtual void visit(std::shared_ptr<QtShell> view) {}
+    virtual void visit(std::shared_ptr<QtShell> qtShell) {}
 };
 
 #endif //QTVIEWS_QTSHELLNULLVISITOR_H
