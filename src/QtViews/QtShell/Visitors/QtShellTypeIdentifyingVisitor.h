@@ -17,7 +17,7 @@ private:
     QtShellTypeIdentifyingVisitor() {}
 
 public:
-    virtual void visit(std::shared_ptr<QtShell> qtShell) {}
+    virtual void visit(std::shared_ptr<QtShell> qtShell) override {}
     bool hasIdentified() override {
         return true;
     }

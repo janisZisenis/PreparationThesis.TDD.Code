@@ -1,8 +1,8 @@
 #include "QtViewMatcherFactory.h"
-#include <CrossNative/CNMatcher/CNTypeMatcher.h>
+#include <CrossNative/CNMatcher/CNVisitingMatcher.h>
 #include <CrossNative/CNMatcher/CNNullMatcher.h>
 
-#include "QtViews/QtShell/Visitors/QtShellNullVisitor.h"
+#include "QtViews/QtShell/Visitors/QtShellTypeIdentifyingVisitor.h"
 
 QtViewMatcherFactoryPtr QtViewMatcherFactory::getNewInstance() {
     return QtViewMatcherFactoryPtr(new QtViewMatcherFactory());
@@ -15,14 +15,14 @@ CNMatcherPtr QtViewMatcherFactory::makeTopLevelMatcher() {
 }
 
 CNMatcherPtr QtViewMatcherFactory::makeShellTypeMatcher() {
-    CNVisitorPtr matchingVisitor = CocoaShellNullVisitor::getNewInstance();
-    return makeCNTypeMatcher(matchingVisitor);
+    CNIdentifyingVisitorPtr identifying = QtShellTypeIdentifyingVisitor::getNewInstance();
+    return makeCNVisitingMatcher(identifying);
 }
 
 CNMatcherPtr QtViewMatcherFactory::makeCNNullMatcher() {
     return CNNullMatcher::getNewInstance();
 }
 
-CNMatcherPtr QtViewMatcherFactory::makeCNTypeMatcher(CNVisitorPtr matchingVisitor) {
-    return CNTypeMatcher::getNewInstance(matchingVisitor);
+CNMatcherPtr QtViewMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifying) {
+    return CNVisitingMatcher::getNewInstance(identifying);
 }
