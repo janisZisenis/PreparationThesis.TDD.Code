@@ -20,6 +20,12 @@ protected:
         return CNVisitableDummy::getNewInstance();
     }
 
+    virtual void expectMatcherMatchesVisitable(CNVisitingMatcherPtr sut, CNVisitablePtr visitable) {
+        bool actual = sut->matches(visitable);
+
+        std::string errorMessage = "CNMatcher should match the CNVisitable, but it does not!";
+        EXPECT_TRUE(actual) << errorMessage;
+    }
     virtual void expectMatcherDoesNotMatchVisitable(CNVisitingMatcherPtr sut, CNVisitablePtr visitable) {
         bool actual = sut->matches(visitable);
 
@@ -36,4 +42,14 @@ TEST_F(CNVisitingMatcherTest, FreshInstance__VisitorDoesNotIdentifyVisitable__Ma
     CNVisitablePtr visitable = makeCNVisitableDummy();
 
     expectMatcherDoesNotMatchVisitable(sut, visitable);
+}
+
+TEST_F(CNVisitingMatcherTest, FreshInstance__VisitorIdentifiesVisitable__MatcherShouldMatchVisitable) {
+    CNIdentifyingVisitorStubPtr visitor = makeCNIdentifyingVisitorStub();
+    visitor->setIdentified(true);
+    CNVisitingMatcherPtr sut = makeCNVistingMatcher(visitor);
+
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+
+    expectMatcherMatchesVisitable(sut, visitable);
 }
