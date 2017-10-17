@@ -28,3 +28,4 @@ TEST_F(CNTagIdentifyingVisitorTest, FreshInstance__VisitTaggedWithTheSameTag__Sh
 
     expectHasIdentified(sut);
 }
+
