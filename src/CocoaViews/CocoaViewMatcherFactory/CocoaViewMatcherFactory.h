@@ -4,7 +4,7 @@
 #include <memory>
 
 class CNMatcher;
-class CNVisitor;
+class CNIdentifyingVisitor;
 
 class CocoaViewMatcherFactory;
 typedef std::shared_ptr<CocoaViewMatcherFactory> CocoaViewMatcherFactoryPtr;
@@ -21,7 +21,7 @@ public:
     virtual std::shared_ptr<CNMatcher> makeShellTypeMatcher();
 private:
     virtual std::shared_ptr<CNMatcher> makeCNNullMatcher();
-    virtual std::shared_ptr<CNMatcher> makeCNTypeMatcher(std::shared_ptr<CNVisitor> matchingVisitor);
+    virtual std::shared_ptr<CNMatcher> makeCNVisitingMatcher(std::shared_ptr<CNIdentifyingVisitor> identifying);
 };
 
 #endif //COCOAVIEWS_COCOAVIEWMATCHERFACTORY_H

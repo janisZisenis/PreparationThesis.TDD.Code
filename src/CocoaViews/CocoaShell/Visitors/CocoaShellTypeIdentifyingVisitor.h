@@ -17,7 +17,7 @@ private:
     CocoaShellTypeIdentifyingVisitor() {}
 
 public:
-    virtual void visit(std::shared_ptr<CocoaShell> CocoaShell) {}
+    virtual void visit(std::shared_ptr<CocoaShell> CocoaShell) override {}
     bool hasIdentified() override {
         return true;
     }

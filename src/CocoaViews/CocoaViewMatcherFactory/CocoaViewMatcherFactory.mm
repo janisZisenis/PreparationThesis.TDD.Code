@@ -1,8 +1,8 @@
 #include "CocoaViewMatcherFactory.h"
-#include <CrossNative/CNMatcher/CNTypeMatcher.h>
+#include <CrossNative/CNMatcher/CNVisitingMatcher.h>
 #include <CrossNative/CNMatcher/CNNullMatcher.h>
 
-#include "CocoaViews/CocoaShell/Visitors/CocoaShellNullVisitor.h"
+#include "CocoaViews/CocoaShell/Visitors/CocoaShellTypeIdentifyingVisitor.h"
 
 CocoaViewMatcherFactoryPtr CocoaViewMatcherFactory::getNewInstance() {
     return CocoaViewMatcherFactoryPtr(new CocoaViewMatcherFactory());
@@ -15,14 +15,14 @@ CNMatcherPtr CocoaViewMatcherFactory::makeTopLevelMatcher() {
 }
 
 CNMatcherPtr CocoaViewMatcherFactory::makeShellTypeMatcher() {
-    CNVisitorPtr matchingVisitor = CocoaShellNullVisitor::getNewInstance();
-    return makeCNTypeMatcher(matchingVisitor);
+    CNIdentifyingVisitorPtr identifying = CocoaShellTypeIdentifyingVisitor::getNewInstance();
+    return makeCNVisitingMatcher(identifying);
 }
 
 CNMatcherPtr CocoaViewMatcherFactory::makeCNNullMatcher() {
     return CNNullMatcher::getNewInstance();
 }
 
-CNMatcherPtr CocoaViewMatcherFactory::makeCNTypeMatcher(CNVisitorPtr matchingVisitor) {
-    return CNTypeMatcher::getNewInstance(matchingVisitor);
+CNMatcherPtr CocoaViewMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifying) {
+    return CNVisitingMatcher::getNewInstance(identifying);
 }
