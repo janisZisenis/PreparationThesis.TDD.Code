@@ -1,6 +1,6 @@
 #include "CocoaViewComponentFactory.h"
 #include <CrossNative/CNComponent/CNComposable.h>
-#include <CrossNative/CNComposer/CNVisitingComposer.h>
+#include <CrossNative/CNComposer/CNVisitingComposer/CNVisitingComposer.h>
 #include <CrossNative/CNComposer/CNNullComposer.h>
 
 #include "CocoaViews/CocoaShell/CocoaShell.h"

@@ -1,6 +1,6 @@
 #include "QtViewComponentFactory.h"
 #include <CrossNative/CNComponent/CNComposable.h>
-#include <CrossNative/CNComposer/CNVisitingComposer.h>
+#include <CrossNative/CNComposer/CNVisitingComposer/CNVisitingComposer.h>
 #include <CrossNative/CNComposer/CNNullComposer.h>
 
 #include "QtViews/QtShell/QtShell.h"

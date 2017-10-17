@@ -2,7 +2,7 @@
 #define CROSSNATIVE_VISITINGCOMPOSER_H
 
 #include <CrossNative/CrossNative_EXPORT.h>
-#include "CNComposer.h"
+#include "CrossNative/CNComposer/CNComposer.h"
 
 class CNVisitor;
 
