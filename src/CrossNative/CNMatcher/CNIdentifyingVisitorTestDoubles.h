@@ -40,7 +40,6 @@ public:
     virtual bool hasIdentified() override {
         return identified;
     }
-
 private:
     bool identified = false;
 };

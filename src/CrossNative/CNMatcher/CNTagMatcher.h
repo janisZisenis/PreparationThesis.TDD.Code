@@ -4,7 +4,7 @@
 #include <string>
 #include <CrossNative/CrossNative_EXPORT.h>
 #include <CrossNative/CNTagged/CNTaggedVisitor.h>
-#include <CrossNative/CNVisitor/CNVisitor.h>
+#include "CNIdentifyingVisitor.h"
 #include "CrossNative/CNMatcher/CNMatcher.h"
 
 class CNTagMatcher;
@@ -14,19 +14,20 @@ class CrossNative_EXPORT CNTagMatcher : public CNMatcher {
 private:
     class CNTagIdentifier;
     typedef std::shared_ptr<CNTagIdentifier> CNTagIdentifierPtr;
-    class CNTagIdentifier : public CNVisitor, public CNTaggedVisitor {
+    class CNTagIdentifier : public CNIdentifyingVisitor, public CNTaggedVisitor {
     public:
-        static CNTagIdentifierPtr getNewInstance();
+        static CNTagIdentifierPtr getNewInstance(std::string tag);
         virtual ~CNTagIdentifier();
     private:
-        CNTagIdentifier();
+        CNTagIdentifier(std::string tag);
 
     public:
         virtual void visit(std::shared_ptr<CNTagged> tagged) override;
-        virtual std::string getIdentifiedTag();
+        virtual bool hasIdentified() override;
 
     private:
         std::string identifiedTag;
+        std::string tag;
     };
 
 public:
@@ -40,6 +41,7 @@ public:
 
 private:
     std::string tag;
+    CNIdentifyingVisitorPtr visitor;
 };
 
 #endif //CROSSNATIVE_TAGMATCHER_H
