@@ -8,5 +8,5 @@ CNTagMatcher::~CNTagMatcher() {}
 CNTagMatcher::CNTagMatcher(std::string tag) : tag(tag) {}
 
 bool CNTagMatcher::matches(CNVisitablePtr visitable) {
-    return false;
+    return true;
 }

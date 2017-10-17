@@ -21,12 +21,28 @@ protected:
         EXPECT_TRUE(actual) << errorMessage;
     }
 
+    virtual void expectMatcherDoesNotMatchTagged(CNTagMatcherPtr sut, CNTaggedPtr tagged) {
+        bool actual = sut->matches(tagged);
+
+        std::string errorMessage = "CNTagMatcher should not match the tagged, but it does!";
+        EXPECT_FALSE(actual) << errorMessage;
+    }
 };
+
+TEST_F(CNTagMatcherTest, FreshInstance__TaggedWithSameTag__MatcherShouldMatchTheTagged) {
+    CNTagMatcherPtr sut = makeCNTagMatcher("theTag");
+
+    CNTaggedPtr tagged = makeCNFakeTagged("theTag");
+
+    expectMatcherMatchesTagged(sut, tagged);
+}
 
 TEST_F(CNTagMatcherTest, FreshInstance__TaggedWithDifferentTag__MatcherShouldNotMatchTheTagged) {
     CNTagMatcherPtr sut = makeCNTagMatcher("theTag");
 
     CNTaggedPtr tagged = makeCNFakeTagged("differentTag");
 
-    expectMatcherMatchesTagged(sut, tagged);
+    expectMatcherDoesNotMatchTagged(sut, tagged);
 }
+
+
