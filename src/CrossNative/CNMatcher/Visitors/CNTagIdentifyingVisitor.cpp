@@ -8,7 +8,9 @@ CNTagIdentifyingVisitor::~CNTagIdentifyingVisitor() {}
 CNTagIdentifyingVisitor::CNTagIdentifyingVisitor(std::string tag) : expectedTag(tag) {}
 
 bool CNTagIdentifyingVisitor::hasIdentified() {
-    return true;
+    return actualTag == expectedTag;
 }
 
-void CNTagIdentifyingVisitor::visit(CNTaggedPtr tagged) {}
+void CNTagIdentifyingVisitor::visit(CNTaggedPtr tagged) {
+    actualTag = tagged->getTag();
+}
