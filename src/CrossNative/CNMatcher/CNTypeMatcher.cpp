@@ -1,8 +1,8 @@
 #include "CNTypeMatcher.h"
 #include "CrossNative/CNVisitable/CNVisitable.h"
 
-CNTypeMatcherPtr CNTypeMatcher::getNewInstance(std::shared_ptr<CNVisitor> matching) {
-    return CNTypeMatcherPtr(new CNTypeMatcher(matching));
+CNTypeMatcherPtr CNTypeMatcher::getNewInstance(std::shared_ptr<CNVisitor> typeIdentifier) {
+    return CNTypeMatcherPtr(new CNTypeMatcher(typeIdentifier));
 }
 
 CNTypeMatcher::~CNTypeMatcher() {
@@ -10,11 +10,11 @@ CNTypeMatcher::~CNTypeMatcher() {
 }
 
 CNTypeMatcher::CNTypeMatcher(std::shared_ptr<CNVisitor> matching)
-        : matching(matching) {}
+        : typeIdentifier(matching) {}
 
 bool CNTypeMatcher::matches(CNVisitablePtr visitable) {
     try {
-        visitable->accept(matching);
+        visitable->accept(typeIdentifier);
     } catch (CNVisitableVisitorMismatchException) {
         return false;
     }
