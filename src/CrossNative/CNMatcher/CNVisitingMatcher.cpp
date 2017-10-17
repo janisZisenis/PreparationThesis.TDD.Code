@@ -1,7 +1,8 @@
 #include "CNVisitingMatcher.h"
 #include "CrossNative/CNVisitable/CNVisitable.h"
+#include "CNIdentifyingVisitor.h"
 
-CNVisitingMatcherPtr CNVisitingMatcher::getNewInstance(std::shared_ptr<CNIdentifyingVisitor> identifyingVisitor) {
+CNVisitingMatcherPtr CNVisitingMatcher::getNewInstance(CNIdentifyingVisitorPtr identifyingVisitor) {
     return CNVisitingMatcherPtr(new CNVisitingMatcher(identifyingVisitor));
 }
 
@@ -9,9 +10,9 @@ CNVisitingMatcher::~CNVisitingMatcher() {
 
 }
 
-CNVisitingMatcher::CNVisitingMatcher(std::shared_ptr<CNIdentifyingVisitor> identifyingVisitor)
+CNVisitingMatcher::CNVisitingMatcher(CNIdentifyingVisitorPtr identifyingVisitor)
         : identifyingVisitor(identifyingVisitor) {}
 
 bool CNVisitingMatcher::matches(CNVisitablePtr visitable) {
-    return false;
+    return identifyingVisitor->hasIdentified();
 }
