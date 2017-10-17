@@ -22,7 +22,6 @@ QtMenu::QtMenu(std::string title)
     initializeEmptyAction();
     initializeMenu();
     initializeAction();
-
 }
 
 QAction* QtMenu::getQAction() {
@@ -46,7 +45,7 @@ void QtMenu::initializeAction() {
     action->setMenu(menu);
 }
 void QtMenu::initializeMenu() {
-    menu->addAction(emptyAction);
+    addEmptyActionToMenu();
 }
 void QtMenu::initializeEmptyAction() {
     emptyAction->setDisabled(true);
@@ -69,7 +68,7 @@ void QtMenu::addEmptyActionToMenu() {
     menu->addAction(emptyAction);
 }
 void QtMenu::removeEmptyActionFromMenu() {
-    menu->removeAction(emptyAction);
+    removeFromMenu(emptyAction);
 }
 
 void QtMenu::accept(CNVisitorPtr visitor) {
