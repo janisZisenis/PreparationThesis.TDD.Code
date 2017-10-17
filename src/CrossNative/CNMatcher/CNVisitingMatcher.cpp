@@ -14,6 +14,11 @@ CNVisitingMatcher::CNVisitingMatcher(CNIdentifyingVisitorPtr identifyingVisitor)
         : identifyingVisitor(identifyingVisitor) {}
 
 bool CNVisitingMatcher::matches(CNVisitablePtr visitable) {
-    visitable->accept(identifyingVisitor);
+    try {
+        visitable->accept(identifyingVisitor);
+    } catch(CNVisitableVisitorMismatchException &e) {
+        return false;
+    }
+
     return identifyingVisitor->hasIdentified();
 }
