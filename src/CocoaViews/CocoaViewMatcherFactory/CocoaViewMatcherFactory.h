@@ -19,6 +19,7 @@ private:
 public:
     virtual std::shared_ptr<CNMatcher> makeTopLevelMatcher();
     virtual std::shared_ptr<CNMatcher> makeShellTypeMatcher();
+    virtual std::shared_ptr<CNMatcher> makeMenuBarTypeMatcher();
 private:
     virtual std::shared_ptr<CNMatcher> makeCNNullMatcher();
     virtual std::shared_ptr<CNMatcher> makeCNVisitingMatcher(std::shared_ptr<CNIdentifyingVisitor> identifying);

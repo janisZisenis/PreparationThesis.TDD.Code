@@ -7,9 +7,12 @@
 #include "CocoaViews/CocoaShell/Visitors/CocoaShellComposingVisitor.h"
 #include "CocoaViews/CocoaShell/Visitors/CocoaShellDecomposingVisitor.h"
 
+#include "CocoaViews/CocoaMenuBar/CocoaMenuBar.h"
+#include "CocoaViews/CocoaMenuBar/Visitors/CocoaMenuBarComposingVisitor.h"
+#include "CocoaViews/CocoaMenuBar/Visitors/CocoaMenuBarDecomposingVisitor.h"
+
 #include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
-#include "CocoaViews/CocoaMenuBar/CocoaMenuBar.h"
 
 CocoaViewComponentFactoryPtr CocoaViewComponentFactory::getNewInstance() {
     return CocoaViewComponentFactoryPtr(new CocoaViewComponentFactory());
@@ -24,6 +27,14 @@ CNComponentPtr CocoaViewComponentFactory::makeShellComponent() {
     return makeComposable(shell, composer);
 }
 
+CNComponentPtr CocoaViewComponentFactory::makeMenuBarComponent() {
+    CocoaMenuBarPtr menuBar = CocoaMenuBar::getNewInstance();
+    CNComposerPtr composer = makeVisitingComposer(CocoaMenuBarComposingVisitor::getNewInstance(menuBar),
+                                                  CocoaMenuBarDecomposingVisitor::getNewInstance(menuBar));
+
+    return makeComposable(menuBar, composer);
+}
+
 CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent() {
     CocoaSolutionExplorerPtr solutionExplorer = CocoaSolutionExplorer::getNewInstance();
     CNComposerPtr composer = CNNullComposer::getNewInstance();
@@ -36,13 +47,6 @@ CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent() {
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(propertiesExplorer, composer);
-}
-
-CNComponentPtr CocoaViewComponentFactory::makeMenuBarComponent() {
-    CocoaMenuBarPtr menuBar = CocoaMenuBar::getNewInstance();
-    CNComposerPtr composer = CNNullComposer::getNewInstance();
-
-    return makeComposable(menuBar, composer);
 }
 
 CNComponentPtr CocoaViewComponentFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {

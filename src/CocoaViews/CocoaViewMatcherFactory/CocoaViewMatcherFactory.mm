@@ -3,6 +3,7 @@
 #include <CrossNative/CNMatcher/CNNullMatcher.h>
 
 #include "CocoaViews/CocoaShell/Visitors/CocoaShellTypeIdentifyingVisitor.h"
+#include "CocoaViews/CocoaMenuBar/Visitors/CocoaMenuBarTypeIdentifyingVisitor.h"
 
 CocoaViewMatcherFactoryPtr CocoaViewMatcherFactory::getNewInstance() {
     return CocoaViewMatcherFactoryPtr(new CocoaViewMatcherFactory());
@@ -25,4 +26,9 @@ CNMatcherPtr CocoaViewMatcherFactory::makeCNNullMatcher() {
 
 CNMatcherPtr CocoaViewMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifying) {
     return CNVisitingMatcher::getNewInstance(identifying);
+}
+
+CNMatcherPtr CocoaViewMatcherFactory::makeMenuBarTypeMatcher() {
+    CNIdentifyingVisitorPtr identifying = CocoaMenuBarTypeIdentifyingVisitor::getNewInstance();
+    return makeCNVisitingMatcher(identifying);
 }
