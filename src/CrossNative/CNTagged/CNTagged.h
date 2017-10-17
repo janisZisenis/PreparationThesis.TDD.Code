@@ -1,12 +1,13 @@
 #ifndef CROSSNATIVE_TAGGED_H
 #define CROSSNATIVE_TAGGED_H
 
+#include <CrossNative/CNVisitable/CNVisitable.h>
 #include <string>
 
 class CNTagged;
 typedef std::shared_ptr<CNTagged> CNTaggedPtr;
 
-class CNTagged {
+class CNTagged : public CNVisitable {
 public:
     virtual ~CNTagged() {}
 protected:

@@ -19,6 +19,7 @@ public:
     virtual std::string getTag() override {
         return std::string();
     }
+    virtual void accept(VisitorPtr visitor) override {}
 };
 
 class CNTaggedStub;

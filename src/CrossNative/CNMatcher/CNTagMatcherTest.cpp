@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 #include "CNTagMatcher.h"
 
-#include "CrossNative/CNVisitable/CNVisitableTestDoubles.h"
+#include "CrossNative/CNTagged/CNFakeTagged.h"
 
 
 class CNTagMatcherTest : public testing::Test {
@@ -10,22 +10,23 @@ protected:
         return CNTagMatcher::getNewInstance(tag);
     }
 
-    virtual CNVisitablePtr makeCNVisitableDummy() {
-        return CNVisitableDummy::getNewInstance();
+    virtual CNTaggedPtr makeCNFakeTagged(std::string tag) {
+        return CNFakeTagged::getNewInstance(tag);
     }
 
-    virtual void expectMatcherDoesNotMatchVisitable(CNTagMatcherPtr sut, CNVisitablePtr visitable) {
-        bool actual = sut->matches(visitable);
+    virtual void expectMatcherMatchesTagged(CNTagMatcherPtr sut, CNTaggedPtr tagged) {
+        bool actual = sut->matches(tagged);
 
-        std::string errorMessage = "CNTagMatcher should not match the visitable, but it does!";
-        EXPECT_FALSE(actual) << errorMessage;
+        std::string errorMessage = "CNTagMatcher should match the tagged, but it does not!";
+        EXPECT_TRUE(actual) << errorMessage;
     }
+
 };
 
-TEST_F(CNTagMatcherTest, FreshInstance) {
+TEST_F(CNTagMatcherTest, FreshInstance__TaggedWithDifferentTag__MatcherShouldNotMatchTheTagged) {
     CNTagMatcherPtr sut = makeCNTagMatcher("theTag");
 
-    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNTaggedPtr tagged = makeCNFakeTagged("differentTag");
 
-    expectMatcherDoesNotMatchVisitable(sut, visitable);
+    expectMatcherMatchesTagged(sut, tagged);
 }
