@@ -3,18 +3,24 @@
 
 #include "CrossNative/CNVisitor/CNVisitor.h"
 
+#include "QtViews/QtMenu/QtMenuVisitor.h"
+
 class QtMenuBar;
 
 class QtMenuBarComposingVisitor;
 typedef std::shared_ptr<QtMenuBarComposingVisitor> QtMenuBarComposingVisitorPtr;
 
 class QtMenuBarComposingVisitor
-        : public CNVisitor{
+        : public CNVisitor,
+          public QtMenuVisitor {
 public:
     static QtMenuBarComposingVisitorPtr getNewInstance(std::shared_ptr<QtMenuBar> menBar);
     virtual ~QtMenuBarComposingVisitor();
 private:
     QtMenuBarComposingVisitor(std::shared_ptr<QtMenuBar> menuBar);
+
+public:
+    void visit(std::shared_ptr<QtMenu> menu) override;
 
 private:
     std::shared_ptr<QtMenuBar> menuBar;
