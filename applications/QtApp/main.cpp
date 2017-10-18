@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     viewHierarchy->load(componentFactory->makeMenuBarComponent(), matcherFactory->makeShellTypeMatcher());
 
     viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent(), matcherFactory->makeMenuBarTypeMatcher());
-    viewHierarchy->load(componentFactory->makeExampleActionComponent(), matcherFactory->makeTagMatcher("hello-world-menu"));
+//    viewHierarchy->load(componentFactory->makeExampleActionComponent(), matcherFactory->makeTagMatcher("hello-world-menu"));
 
     return a.exec();
 }

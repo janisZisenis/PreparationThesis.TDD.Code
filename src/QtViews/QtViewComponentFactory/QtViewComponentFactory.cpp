@@ -52,13 +52,19 @@ CNComponentPtr QtViewComponentFactory::makePropertiesExplorerComponent() {
 }
 
 CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent() {
+    QtMenuPtr menu = QtMenu::getNewInstance("HelloWorld!");
+    CNComposerPtr composer = CNNullComposer::getNewInstance();
+
+    return makeComposable(menu, composer);
+}
+
+CNComponentPtr QtViewComponentFactory::makeExampleActionComponent() {
     QtActionPtr action = QtAction::getNewInstance();
-    action->setTitle("Example!");
+    action->setTitle("Example");
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(action, composer);
 }
-
 
 CNComponentPtr QtViewComponentFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
     return CNComposable::getNewInstance(visitable, composer);
@@ -70,8 +76,4 @@ CNComposerPtr QtViewComponentFactory::makeVisitingComposer(CNVisitorPtr composin
 
 CNComposerPtr QtViewComponentFactory::makeNullComposer() {
     return CNNullComposer::getNewInstance();
-}
-
-std::shared_ptr<CNComponent> QtViewComponentFactory::makeExampleActionComponent() {
-    return std::shared_ptr<CNComponent>();
 }
