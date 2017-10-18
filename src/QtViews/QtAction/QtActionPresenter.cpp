@@ -27,5 +27,5 @@ void QtActionPresenter::accept(CNVisitorPtr visitor) {
 }
 
 void QtActionPresenter::onAction() {
-
+    action->execute();
 }
