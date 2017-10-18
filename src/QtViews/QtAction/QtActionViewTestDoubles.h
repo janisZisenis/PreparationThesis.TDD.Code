@@ -17,6 +17,7 @@ protected:
 public:
     virtual void setAccessibility(bool newAccessibility) override {}
     virtual void setState(CBActionStates newState) override {}
+    virtual void setTitle(std::string title) override {}
 };
 
 class QtActionViewSpy;
@@ -45,9 +46,16 @@ public:
         return newState;
     }
 
+    virtual void setTitle(std::string newTitle) override {
+        this->newTitle = newTitle;
+    }
+    virtual std::string getNewTitle() {
+        return newTitle;
+    }
 private:
     bool newAccessbility = false;
     CBActionStates newState = OFF;
+    std::string newTitle = std::string();
 };
 
 #endif //QTVIEWS_QTACTIONVIEW_TESTDOUBLES_H

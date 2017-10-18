@@ -33,6 +33,12 @@ protected:
         std::string errorMessage = "The QtActionViews state should be set to ON, but it was not!";
         EXPECT_THAT(actual, testing::Eq(ON)) << errorMessage;
     }
+    virtual void expectTitleWasSetTo(std::string expected, QtActionViewSpyPtr view) {
+        std::string actual = view->getNewTitle();
+
+        std::string errorMessage = "The QtActionViews title should be set to \"" + expected + "\" , but it was not!";
+        EXPECT_THAT(actual, testing::StrEq(expected)) << errorMessage;
+    }
 
 };
 
@@ -56,4 +62,15 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceStateON__Should
     sut->update();
 
     expectStateWasSetToON(view);
+}
+
+TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceTitle__ShouldSetQtActionViewTitle) {
+    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setTitle("ThisIsMyTitle");
+    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance);
+
+    sut->update();
+
+    expectTitleWasSetTo("ThisIsMyTitle", view);
 }
