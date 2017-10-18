@@ -5,10 +5,6 @@
 
 #include <CrossNative/CNDynamicHierarchy/CNDynamicHierarchy.h>
 
-#include <CrossNative/CNComponent/CNComposable/CNComposable.h>
-#include <CrossNative/CNComposer/CNNullComposer.h>
-#include "QtViews/QtMenu/QtMenu.h"
-
 int main(int argc, char** argv) {
     QApplication a(argc, argv);
 

@@ -5,10 +5,6 @@
 
 #include <CrossNative/CNDynamicHierarchy/CNDynamicHierarchy.h>
 
-#include <CrossNative/CNComponent/CNComposable/CNComposable.h>
-#include <CrossNative/CNComposer/CNNullComposer.h>
-#include <CocoaViews/CocoaMenu/CocoaMenu.h>
-
 int main(int argc, char** argv) {
     NSApplication* application = [NSApplication sharedApplication];
     [application activateIgnoringOtherApps:true];
@@ -22,6 +18,7 @@ int main(int argc, char** argv) {
     viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(componentFactory->makeMenuBarComponent(), matcherFactory->makeTopLevelMatcher());
     viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent("hello-world-menu"), matcherFactory->makeMenuBarTypeMatcher());
+    viewHierarchy->load(componentFactory->makeExampleMenuItemComponent(), matcherFactory->makeTagMatcher("hello-world-menu"));
 
     [application run];
     return 0;
