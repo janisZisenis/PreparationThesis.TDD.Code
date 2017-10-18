@@ -21,8 +21,9 @@ int main(int argc, char** argv) {
     viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(componentFactory->makeMenuBarComponent(), matcherFactory->makeShellTypeMatcher());
 
-    viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent(), matcherFactory->makeMenuBarTypeMatcher());
-//    viewHierarchy->load(componentFactory->makeExampleActionComponent(), matcherFactory->makeTagMatcher("hello-world-menu"));
+    viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent("hello-world-menu"), matcherFactory->makeMenuBarTypeMatcher());
+    viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent("hello-world-submenu"), matcherFactory->makeTagMatcher("hello-world-menu"));
+    viewHierarchy->load(componentFactory->makeExampleActionComponent(), matcherFactory->makeTagMatcher("hello-world-submenu"));
 
     return a.exec();
 }

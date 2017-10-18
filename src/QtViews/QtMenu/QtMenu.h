@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossNative/CNTagged/CNTagged.h>
 
 class CNAcceptor;
 
@@ -13,7 +13,7 @@ class QMenu;
 class QtMenu;
 typedef std::shared_ptr<QtMenu> QtMenuPtr;
 
-class QtMenu : public CNVisitable, public std::enable_shared_from_this<QtMenu> {
+class QtMenu : public CNTagged, public std::enable_shared_from_this<QtMenu> {
 public:
     static QtMenuPtr getNewInstance(std::string title);
     virtual ~QtMenu();
@@ -27,6 +27,8 @@ public:
     virtual void removeQAction(QAction* action);
 
     virtual void accept(CNVisitorPtr visitor) override;
+    virtual void setTag(std::string tag);
+    virtual std::string getTag() override;
 private:
     virtual void initializeEmptyAction();
     virtual void initializeMenu();
@@ -42,7 +44,9 @@ private:
 
     virtual QtMenuPtr me();
 private:
-    std::shared_ptr<CNAcceptor> acceptor;
+    std::shared_ptr<CNAcceptor> typeAcceptor;
+    std::shared_ptr<CNAcceptor> tagAcceptor;
+    std::string tag;
 
     QAction* action;
     QMenu* menu;

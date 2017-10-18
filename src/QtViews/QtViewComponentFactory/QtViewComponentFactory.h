@@ -23,7 +23,7 @@ public:
     virtual std::shared_ptr<CNComponent> makeMenuBarComponent();
     virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent();
     virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent();
-    virtual std::shared_ptr<CNComponent> makeHelloWorldMenuComponent();
+    virtual std::shared_ptr<CNComponent> makeHelloWorldMenuComponent(std::string tag);
     virtual std::shared_ptr<CNComponent> makeExampleActionComponent();
 
 private:

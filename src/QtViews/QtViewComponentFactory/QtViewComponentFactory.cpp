@@ -11,9 +11,12 @@
 #include "QtViews/QtMenuBar/Visitors/QtMenuBarComposingVisitor.h"
 #include "QtViews/QtMenuBar/Visitors/QtMenuBarDecomposingVisitor.h"
 
+#include "QtViews/QtMenu/QtMenu.h"
+#include "QtViews/QtMenu/Visitors/QtMenuComposingVisitor.h"
+#include "QtViews/QtMenu/Visitors/QtMenuDecomposingVisitor.h"
+
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
-#include "QtViews/QtMenu/QtMenu.h"
 #include "QtViews/QtAction/QtAction.h"
 
 QtViewComponentFactoryPtr QtViewComponentFactory::getNewInstance() {
@@ -51,9 +54,11 @@ CNComponentPtr QtViewComponentFactory::makePropertiesExplorerComponent() {
     return makeComposable(propertiesExplorer, composer);
 }
 
-CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent() {
+CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent(std::string tag) {
     QtMenuPtr menu = QtMenu::getNewInstance("HelloWorld!");
-    CNComposerPtr composer = CNNullComposer::getNewInstance();
+    menu->setTag(tag);
+    CNComposerPtr composer = makeVisitingComposer(QtMenuComposingVisitor::getNewInstance(menu),
+                                                  QtMenuDecomposingVisitor::getNewInstance(menu));
 
     return makeComposable(menu, composer);
 }
