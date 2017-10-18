@@ -1,12 +1,15 @@
 #include "QtActionPresenter.h"
 #include "QtActionView.h"
+#include <CodeBase/CBTransActionAppearance/CBTransActionAppearance.h>
 
-QtActionPresenterPtr QtMenuPresenter::getNewInstance(QtActionViewPtr menuView) {
-    return QtActionPresenterPtr(new QtMenuPresenter(menuView));
+QtActionPresenterPtr QtActionPresenter::getNewInstance(QtActionViewPtr actionView, CBTransActionAppearancePtr appearance) {
+    return QtActionPresenterPtr(new QtActionPresenter(actionView, appearance));
 }
-QtMenuPresenter::~QtMenuPresenter() {}
-QtMenuPresenter::QtMenuPresenter(QtActionViewPtr menuView) : menuView(menuView) {}
+QtActionPresenter::~QtActionPresenter() {}
+QtActionPresenter::QtActionPresenter(QtActionViewPtr actionView, CBTransActionAppearancePtr appearance)
+        : actionView(actionView),
+          appearance(appearance) {}
 
-void QtMenuPresenter::update() {
+void QtActionPresenter::update() {
 
 }
