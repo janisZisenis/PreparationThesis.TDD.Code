@@ -1,5 +1,7 @@
 #include "QtAction.h"
+#include "QtActionVisitor.h"
 #include <QAction>
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 
 QtActionPtr QtAction::getNewInstance() {
     return QtActionPtr(new QtAction());
@@ -9,7 +11,9 @@ QtAction::~QtAction() {
     delete action;
 }
 
-QtAction::QtAction() : action (new QAction()) {
+QtAction::QtAction()
+        : acceptor(CNAcceptorImp<QtActionVisitor, QtAction>::getNewInstance()),
+          action (new QAction()) {
     connectToAction();
 }
 
@@ -38,10 +42,18 @@ void QtAction::setChecked(bool checked) {
     action->setChecked(checked);
 }
 
+void QtAction::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
+
 void QtAction::onChanged() {}
 void QtAction::onHovered() {}
 void QtAction::onToggled(bool checked) {}
 void QtAction::onTriggered(bool checked) {}
+
+QtActionPtr QtAction::me() {
+    return this->shared_from_this();
+}
 
 
 

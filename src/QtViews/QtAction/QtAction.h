@@ -1,14 +1,17 @@
 #ifndef QTVIEWS_QTACTION_H
 #define QTVIEWS_QTACTION_H
 
+#include <CrossNative/CNVisitable/CNVisitable.h>
 #include <QObject>
+
+class CNAcceptor;
 
 class QAction;
 
 class QtAction;
 typedef std::shared_ptr<QtAction> QtActionPtr;
 
-class QtAction : public QObject {
+class QtAction : public QObject, public CNVisitable, public std::enable_shared_from_this<QtAction> {
     Q_OBJECT
 public:
     static QtActionPtr getNewInstance();
@@ -22,10 +25,15 @@ public:
     virtual void setTitle(std::string newTitle);
     virtual void setAccessibility(bool newAccessibility);
     virtual void setChecked(bool checked);
+
+    virtual void accept(CNVisitorPtr visitor) override;
 private:
     virtual void connectToAction();
 
+    QtActionPtr me();
 private:
+    std::shared_ptr<CNAcceptor> acceptor;
+
     QAction* action;
 
 private slots:

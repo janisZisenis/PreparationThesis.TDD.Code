@@ -13,6 +13,8 @@
 
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
+#include "QtViews/QtMenu/QtMenu.h"
+#include "QtViews/QtAction/QtAction.h"
 
 QtViewComponentFactoryPtr QtViewComponentFactory::getNewInstance() {
     return QtViewComponentFactoryPtr(new QtViewComponentFactory());
@@ -49,6 +51,15 @@ CNComponentPtr QtViewComponentFactory::makePropertiesExplorerComponent() {
     return makeComposable(propertiesExplorer, composer);
 }
 
+CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent() {
+    QtActionPtr action = QtAction::getNewInstance();
+    action->setTitle("Example!");
+    CNComposerPtr composer = CNNullComposer::getNewInstance();
+
+    return makeComposable(action, composer);
+}
+
+
 CNComponentPtr QtViewComponentFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
     return CNComposable::getNewInstance(visitable, composer);
 }
@@ -59,4 +70,8 @@ CNComposerPtr QtViewComponentFactory::makeVisitingComposer(CNVisitorPtr composin
 
 CNComposerPtr QtViewComponentFactory::makeNullComposer() {
     return CNNullComposer::getNewInstance();
+}
+
+std::shared_ptr<CNComponent> QtViewComponentFactory::makeExampleActionComponent() {
+    return std::shared_ptr<CNComponent>();
 }

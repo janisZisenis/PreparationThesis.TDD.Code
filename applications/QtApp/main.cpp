@@ -21,11 +21,8 @@ int main(int argc, char** argv) {
     viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(componentFactory->makeMenuBarComponent(), matcherFactory->makeShellTypeMatcher());
 
-    QtMenuPtr menu = QtMenu::getNewInstance("HelloWorld!");
-    CNComposerPtr menuComposer = CNNullComposer::getNewInstance();
-    CNComposablePtr menuComposable = CNComposable::getNewInstance(menu, menuComposer);
-
-    viewHierarchy->load(menuComposable, matcherFactory->makeMenuBarTypeMatcher());
+    viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent(), matcherFactory->makeMenuBarTypeMatcher());
+    viewHierarchy->load(componentFactory->makeExampleActionComponent(), matcherFactory->makeTagMatcher("hello-world-menu"));
 
     return a.exec();
 }

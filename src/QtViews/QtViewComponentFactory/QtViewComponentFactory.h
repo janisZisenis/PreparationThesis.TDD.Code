@@ -23,6 +23,8 @@ public:
     virtual std::shared_ptr<CNComponent> makeMenuBarComponent();
     virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent();
     virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent();
+    virtual std::shared_ptr<CNComponent> makeHelloWorldMenuComponent();
+    virtual std::shared_ptr<CNComponent> makeExampleActionComponent();
 
 private:
     virtual std::shared_ptr<CNComponent> makeComposable(std::shared_ptr<CNVisitable> visitable, std::shared_ptr<CNComposer> composer);
