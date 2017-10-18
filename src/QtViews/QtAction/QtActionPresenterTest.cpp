@@ -27,6 +27,13 @@ protected:
         std::string errorMessage = "The QtActionViews accessibility should be set to true, but it was not";
         EXPECT_TRUE(actual) << errorMessage;
     }
+    virtual void expectStateWasSetToON(QtActionViewSpyPtr view) {
+        CBActionStates actual = view->getNewState();
+
+        std::string errorMessage = "The QtActionViews state should be set to ON, but it was not!";
+        EXPECT_THAT(actual, testing::Eq(ON)) << errorMessage;
+    }
+
 };
 
 TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__ShouldSetQtActionsAccessibilityToTrue) {
@@ -38,4 +45,15 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__Sho
     sut->update();
 
     expectAccessibilityWasSetToTrue(view);
+}
+
+TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceStateON__ShouldSetQtActionViewStateON) {
+    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setState(ON);
+    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance);
+
+    sut->update();
+
+    expectStateWasSetToON(view);
 }

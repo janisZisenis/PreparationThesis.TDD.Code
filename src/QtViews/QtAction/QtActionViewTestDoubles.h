@@ -13,6 +13,10 @@ public:
     virtual ~QtActionViewDummy() {}
 protected:
     QtActionViewDummy() {}
+
+public:
+    virtual void setAccessibility(bool newAccessibility) override {}
+    virtual void setState(CBActionStates newState) override {}
 };
 
 class QtActionViewSpy;
@@ -27,12 +31,23 @@ protected:
     QtActionViewSpy() {}
 
 public:
+    virtual void setAccessibility(bool newAccessibility) override {
+        this->newAccessbility = newAccessibility;
+    }
     virtual bool getNewAccessibility() {
         return newAccessbility;
     }
 
+    virtual void setState(CBActionStates newState) override {
+        this->newState = newState;
+    }
+    virtual CBActionStates getNewState() {
+        return newState;
+    }
+
 private:
     bool newAccessbility = false;
+    CBActionStates newState = OFF;
 };
 
 #endif //QTVIEWS_QTACTIONVIEW_TESTDOUBLES_H
