@@ -15,3 +15,7 @@ void QtActionPresenter::update() {
     actionView->setState(appearance->getState());
     actionView->setTitle(appearance->getTitle());
 }
+
+void QtActionPresenter::accept(CNVisitorPtr visitor) {
+
+}

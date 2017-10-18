@@ -2,6 +2,8 @@
 #include "QtActionPresenter.h"
 #include "QtActionViewTestDoubles.h"
 #include <CodeBase/CBTransActionAppearance/CBTransActionAppearanceTestDoubles.h>
+#include <CrossNative/CNVisitable/CNVisitableTestDoubles.h>
+#include <CrossNative/CNVisitor/CNVisitorTestDoubles.h>
 
 class QtActionPresenterTest : public testing::Test {
 protected:
@@ -9,14 +11,17 @@ protected:
         return QtActionPresenter::getNewInstance(actionView, appearance);
     }
 
-    virtual QtActionViewPtr makeQtActionViewDummy() {
-        return QtActionViewDummy::getNewInstance();
-    }
-
     virtual QtActionViewSpyPtr makeQtActionViewSpy() {
         return QtActionViewSpy::getNewInstance();
     }
 
+    virtual CNVisitorPtr makeCNVisitorDummy() {
+        return CNVisitorDummy::getNewInstance();
+    }
+
+    virtual CBTransActionAppearancePtr makeCBTransActionAppearanceDummy() {
+        return CBTransActionAppearanceDummy::getNewInstance();
+    }
     virtual CBTransActionAppearanceStubPtr makeCBTransActionAppearanceStub() {
         return CBTransActionAppearanceStub::getNewInstance();
     }
@@ -33,14 +38,33 @@ protected:
         std::string errorMessage = "The QtActionViews state should be set to ON, but it was not!";
         EXPECT_THAT(actual, testing::Eq(ON)) << errorMessage;
     }
-    virtual void expectTitleWasSetTo(std::string expected, QtActionViewSpyPtr view) {
+    virtual void expectTitleWasSetTo(std::string title, QtActionViewSpyPtr view) {
+        std::string expected = title;
         std::string actual = view->getNewTitle();
 
         std::string errorMessage = "The QtActionViews title should be set to \"" + expected + "\" , but it was not!";
         EXPECT_THAT(actual, testing::StrEq(expected)) << errorMessage;
     }
+    virtual void expectQtActionViewHasAcceptedVisitor(QtActionViewSpyPtr view, CNVisitorPtr visitor) {
+        CNVisitorPtr expected = visitor;
+        CNVisitorPtr actual = view->getAccepted();
+
+        std::string errorMessage = "The QtActionView should have accepted the CNVisitor but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
 
 };
+
+TEST_F(QtActionPresenterTest, FreshInstance__Accept__QtActionViewShouldHaveAcceptedTheVisitor) {
+    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    CBTransActionAppearancePtr appearance = makeCBTransActionAppearanceDummy();
+    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance);
+
+    CNVisitorPtr visitor = makeCNVisitorDummy();
+    sut->accept(visitor);
+
+    expectQtActionViewHasAcceptedVisitor(view, visitor);
+}
 
 TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__ShouldSetQtActionsAccessibilityToTrue) {
     QtActionViewSpyPtr view = makeQtActionViewSpy();

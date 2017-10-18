@@ -18,6 +18,7 @@ public:
     virtual void setAccessibility(bool newAccessibility) override {}
     virtual void setState(CBActionStates newState) override {}
     virtual void setTitle(std::string title) override {}
+    virtual void accept(CNVisitorPtr visitor) override {}
 };
 
 class QtActionViewSpy;
@@ -52,10 +53,19 @@ public:
     virtual std::string getNewTitle() {
         return newTitle;
     }
+
+    virtual void accept(CNVisitorPtr visitor) override {
+        accepted = visitor;
+    }
+    virtual CNVisitorPtr getAccepted() {
+        return accepted;
+    }
+
 private:
     bool newAccessbility = false;
     CBActionStates newState = OFF;
     std::string newTitle = std::string();
+    CNVisitorPtr accepted;
 };
 
 #endif //QTVIEWS_QTACTIONVIEW_TESTDOUBLES_H

@@ -1,13 +1,13 @@
 #ifndef QTVIEWS_QTACTIONVIEW_H
 #define QTVIEWS_QTACTIONVIEW_H
 
-#include <memory>
 #include <CodeBase/CBTransActionAppearance/CBActionState.h>
+#include <CrossNative/CNVisitable/CNVisitable.h>
 
 class QtActionView;
 typedef std::shared_ptr<QtActionView> QtActionViewPtr;
 
-class QtActionView {
+class QtActionView : public virtual CNVisitable {
 public:
     virtual ~QtActionView() {}
 protected:
