@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossNative/CNTagged/CNTagged.h>
 
 class CNAcceptor;
 
@@ -13,7 +13,7 @@ class CNAcceptor;
 class CocoaMenu;
 typedef std::shared_ptr<CocoaMenu> CocoaMenuPtr;
 
-class CocoaMenu : public CNVisitable, public std::enable_shared_from_this<CocoaMenu> {
+class CocoaMenu : public CNTagged, public std::enable_shared_from_this<CocoaMenu> {
 public:
     static CocoaMenuPtr getNewInstance(std::string title);
     virtual ~CocoaMenu();
@@ -27,6 +27,10 @@ public:
     virtual void removeNSMenuItem(NSMenuItem* menuItem);
 
     virtual void accept(CNVisitorPtr visitor) override;
+
+    virtual std::string getTag() override;
+    virtual void setTag(std::string tag);
+
 private:
     virtual void initializeEmptyMenuItem();
     virtual void initializeMenu();
@@ -44,7 +48,9 @@ private:
     CocoaMenuPtr me();
 
 private:
-    std::shared_ptr<CNAcceptor> acceptor;
+    std::shared_ptr<CNAcceptor> typeAcceptor;
+    std::shared_ptr<CNAcceptor> tagAcceptor;
+    std::string tag;
 
     NSMenuItem* menuItem;
     NSMenu* menu;

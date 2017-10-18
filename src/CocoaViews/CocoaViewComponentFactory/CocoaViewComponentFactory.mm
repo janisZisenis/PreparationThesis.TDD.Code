@@ -11,6 +11,10 @@
 #include "CocoaViews/CocoaMenuBar/Visitors/CocoaMenuBarComposingVisitor.h"
 #include "CocoaViews/CocoaMenuBar/Visitors/CocoaMenuBarDecomposingVisitor.h"
 
+#include "CocoaViews/CocoaMenu/CocoaMenu.h"
+#include "CocoaViews/CocoaMenu/Visitors/CocoaMenuComposingVisitor.h"
+#include "CocoaViews/CocoaMenu/Visitors/CocoaMenuDecomposingVisitor.h"
+
 #include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
 
@@ -49,6 +53,15 @@ CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent() {
     return makeComposable(propertiesExplorer, composer);
 }
 
+CNComponentPtr CocoaViewComponentFactory::makeHelloWorldMenuComponent(std::string tag) {
+    CocoaMenuPtr menu = CocoaMenu::getNewInstance("HelloWorld!");
+    menu->setTag(tag);
+    CNComposerPtr composer = makeVisitingComposer(CocoaMenuComposingVisitor::getNewInstance(menu),
+                                                  CocoaMenuDecomposingVisitor::getNewInstance(menu));
+
+    return makeComposable(menu, composer);
+}
+
 CNComponentPtr CocoaViewComponentFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
     return CNComposable::getNewInstance(visitable, composer);
 }
@@ -60,5 +73,4 @@ CNComposerPtr CocoaViewComponentFactory::makeVisitingComposer(CNVisitorPtr compo
 CNComposerPtr CocoaViewComponentFactory::makeNullComposer() {
     return CNNullComposer::getNewInstance();
 }
-
 

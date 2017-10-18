@@ -17,16 +17,11 @@ int main(int argc, char** argv) {
     CocoaViewMatcherFactoryPtr matcherFactory = CocoaViewMatcherFactory::getNewInstance();
 
     CNDynamicHierarchyPtr viewHierarchy = CNDynamicHierarchy::getNewInstance();
-//    viewHierarchy->load(componentFactory->makeShellComponent(), matcherFactory->makeTopLevelMatcher());
-//    viewHierarchy->load(componentFactory->makeSolutionExplorerComponent(), matcherFactory->makeShellTypeMatcher());
-//    viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(componentFactory->makeShellComponent(), matcherFactory->makeTopLevelMatcher());
+    viewHierarchy->load(componentFactory->makeSolutionExplorerComponent(), matcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(componentFactory->makeMenuBarComponent(), matcherFactory->makeTopLevelMatcher());
-
-    CocoaMenuPtr menu = CocoaMenu::getNewInstance("HelloWorld!");
-    CNComposerPtr menuComposer = CNNullComposer::getNewInstance();
-    CNComposablePtr menuComposable = CNComposable::getNewInstance(menu, menuComposer);
-
-    viewHierarchy->load(menuComposable, matcherFactory->makeMenuBarTypeMatcher());
+    viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent("hello-world-menu"), matcherFactory->makeMenuBarTypeMatcher());
 
     [application run];
     return 0;
