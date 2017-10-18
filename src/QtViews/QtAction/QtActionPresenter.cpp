@@ -13,4 +13,5 @@ QtActionPresenter::QtActionPresenter(QtActionViewPtr actionView, CBTransActionAp
 void QtActionPresenter::update() {
     actionView->setAccessibility(appearance->isAccessible());
     actionView->setState(appearance->getState());
+    actionView->setTitle(appearance->getTitle());
 }
