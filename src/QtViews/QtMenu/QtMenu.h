@@ -1,5 +1,5 @@
-#ifndef QTVIEW_QTMENUIMP_H
-#define QTVIEW_QTMENUIMP_H
+#ifndef QTVIEWS_QTMENU_H
+#define QTVIEWS_QTMENU_H
 
 #include <memory>
 #include <string>
@@ -50,6 +50,4 @@ private:
     QAction* emptyAction;
 };
 
-
-
-#endif //QTVIEW_QTMENUIMP_H
+#endif //QTVIEWS_QTMENU_H
