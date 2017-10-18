@@ -17,6 +17,7 @@
 
 #include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
+#include "CocoaViews/CocoaMenuItem/CocoaMenuItem.h"
 
 CocoaViewComponentFactoryPtr CocoaViewComponentFactory::getNewInstance() {
     return CocoaViewComponentFactoryPtr(new CocoaViewComponentFactory());
@@ -62,6 +63,14 @@ CNComponentPtr CocoaViewComponentFactory::makeHelloWorldMenuComponent(std::strin
     return makeComposable(menu, composer);
 }
 
+CNComponentPtr CocoaViewComponentFactory::makeExampleMenuItemComponent() {
+    CocoaMenuItemPtr menuItem = CocoaMenuItem::getNewInstance();
+    menuItem->setTitle("Example");
+    CNComposerPtr composer = CNNullComposer::getNewInstance();
+
+    return makeComposable(menuItem, composer);
+}
+
 CNComponentPtr CocoaViewComponentFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
     return CNComposable::getNewInstance(visitable, composer);
 }
@@ -73,4 +82,3 @@ CNComposerPtr CocoaViewComponentFactory::makeVisitingComposer(CNVisitorPtr compo
 CNComposerPtr CocoaViewComponentFactory::makeNullComposer() {
     return CNNullComposer::getNewInstance();
 }
-

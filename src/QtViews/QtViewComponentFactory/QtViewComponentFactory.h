@@ -2,6 +2,7 @@
 #define QTVIEWS_QTVIEWCOMPONENTFACTORY_H
 
 #include <memory>
+#include <string>
 
 class CNComponent;
 class CNVisitable;

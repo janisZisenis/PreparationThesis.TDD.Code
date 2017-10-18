@@ -1,4 +1,6 @@
 #include "CocoaMenuItem.h"
+#include "CocoaMenuItemVisitor.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 #import <Cocoa/Cocoa.h>
 #import "CocoaViews/CocoaActionListener/CocoaActionListener.h"
 
@@ -7,18 +9,14 @@ CocoaMenuItemPtr CocoaMenuItem::getNewInstance() {
 }
 CocoaMenuItem::~CocoaMenuItem() {}
 CocoaMenuItem::CocoaMenuItem()
-        : menuItem([NSMenuItem new]),
+        : acceptor(CNAcceptorImp<CocoaMenuItemVisitor, CocoaMenuItem>::getNewInstance()),
+          menuItem([NSMenuItem new]),
           clickedAction([[CocoaActionListener alloc] initWithTarget:this]) {
     connectToMenuItem();
 }
 
 NSMenuItem *CocoaMenuItem::getNSMenuItem() {
     return menuItem;
-}
-
-void CocoaMenuItem::connectToMenuItem() {
-    [menuItem setAction:@selector(listen:)];
-    [menuItem setTarget:clickedAction];
 }
 
 void CocoaMenuItem::setTitle(std::string newTitle) {
@@ -33,4 +31,20 @@ void CocoaMenuItem::setChecked(bool newAccessibility) {
     [menuItem setEnabled:newAccessibility];
 }
 
+
+void CocoaMenuItem::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
+
+void CocoaMenuItem::connectToMenuItem() {
+    [menuItem setAction:@selector(listen:)];
+    [menuItem setTarget:clickedAction];
+}
+
+
 void CocoaMenuItem::onAction(NSObject *object, CocoaActionListener *action) {}
+
+CocoaMenuItemPtr CocoaMenuItem::me() {
+    return this->shared_from_this();
+}
+
