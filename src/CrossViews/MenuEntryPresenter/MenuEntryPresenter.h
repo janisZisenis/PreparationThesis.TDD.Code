@@ -30,6 +30,7 @@ public:
 
 private:
     virtual void updateState();
+    virtual void updateAccessibility();
 
 private:
     std::shared_ptr<MenuEntryView> actionView;

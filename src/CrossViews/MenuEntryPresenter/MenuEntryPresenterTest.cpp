@@ -189,7 +189,6 @@ TEST_F(MenuEntryPresenterTest, FreshInstance__onAction__ShouldExecuteTransAction
 }
 
 
-
 TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceStateON__ShouldCheckTheMenuEntry) {
     CBTransActionPtr action = makeCBTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();

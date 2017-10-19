@@ -17,7 +17,7 @@ MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr actionView,
           action(action) {
     update();
     updateState();
-    actionView->enable();
+    updateAccessibility();
 }
 
 void MenuEntryPresenter::update() {
@@ -37,4 +37,8 @@ void MenuEntryPresenter::onAction() {
 
 void MenuEntryPresenter::updateState() {
     appearance->getState() == ON ? actionView->check() : actionView->uncheck();
+}
+
+void MenuEntryPresenter::updateAccessibility() {
+    appearance->isAccessible() ? actionView->enable() : actionView->disable();
 }
