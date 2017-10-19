@@ -4,6 +4,8 @@
 #include <CodeBase/CBObserver/CBObserver.h>
 #include <CrossNative/CNVisitable/CNVisitable.h>
 
+#include "HierarchyIndex.h"
+
 class SolutionExplorerView;
 
 class SolutionExplorerPresenter;
@@ -19,6 +21,7 @@ private:
 public:
     virtual void accept(CNVisitorPtr visitor) override;
 
+    virtual void onRemove(const HierarchyIndex& index);
 private:
     std::shared_ptr<SolutionExplorerView> view;
 };

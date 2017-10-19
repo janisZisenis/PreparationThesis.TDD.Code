@@ -10,3 +10,7 @@ SolutionExplorerPresenter::SolutionExplorerPresenter(SolutionExplorerViewPtr vie
 void SolutionExplorerPresenter::accept(CNVisitorPtr visitor) {
     view->accept(visitor);
 }
+
+void SolutionExplorerPresenter::onRemove(const HierarchyIndex &index) {
+
+}

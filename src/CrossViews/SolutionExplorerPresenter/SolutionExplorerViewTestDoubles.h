@@ -37,7 +37,12 @@ public:
         return accepted;
     }
 
+    virtual HierarchyIndex getRemoved() {
+        return removed;
+    }
+
 private:
+    HierarchyIndex removed;
     CNVisitorPtr accepted;
 };
 
