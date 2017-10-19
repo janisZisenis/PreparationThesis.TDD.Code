@@ -16,12 +16,10 @@ MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr actionView,
           appearance(appearance),
           action(action) {
     update();
-    updateState();
-    updateAccessibility();
-    updateTitle();
 }
 
 void MenuEntryPresenter::update() {
+    updateTitle();
     updateState();
     updateAccessibility();
 }
