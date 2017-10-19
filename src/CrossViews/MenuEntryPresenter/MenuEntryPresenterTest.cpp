@@ -197,3 +197,16 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceWithTitle__ShouldSet
 
     expectTitleWasSetTo("Title", view);
 }
+
+TEST_F(MenuEntryPresenterTest, FreshInstance_WithAppearanceWithTitle__UpdateWithAppearanceWithNewTitle__ShouldSetNewTitleToMenuEntryView) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setTitle("Title");
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
+
+    appearance->setTitle("NewTitle");
+    sut->update();
+
+    expectTitleWasSetTo("NewTitle", view);
+}
