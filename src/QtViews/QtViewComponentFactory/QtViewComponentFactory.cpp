@@ -19,7 +19,7 @@
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
 
 #include <CodeBaseImp/CBFixedActionAppearance/CBFixedAppearance.h>
-#include "QtViews/QtAction/QtActionPresenter.h"
+#include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
 #include "QtViews/QtAction/QtAction.h"
 #include <CodeBase/CBTransAction/CBNullTransAction.h>
 
@@ -71,7 +71,7 @@ CNComponentPtr QtViewComponentFactory::makeExampleActionComponent() {
     QtActionPtr view = QtAction::getNewInstance();
     CBFixedAppearancePtr appearance = CBFixedAppearance::getNewInstance(true, OFF, "Example");
     CBNullTransActionPtr action = CBNullTransAction::getNewInstance();
-    QtActionPresenterPtr presenter = QtActionPresenter::getNewInstance(view, appearance, action);
+    MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(presenter, composer);
