@@ -16,7 +16,7 @@ MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr actionView,
           appearance(appearance),
           action(action) {
     update();
-    appearance->getState() == ON ? actionView->check() : actionView->uncheck();
+    updateState();
 }
 
 void MenuEntryPresenter::update() {
@@ -31,4 +31,8 @@ void MenuEntryPresenter::accept(CNVisitorPtr visitor) {
 
 void MenuEntryPresenter::onAction() {
     action->execute();
+}
+
+void MenuEntryPresenter::updateState() {
+    appearance->getState() == ON ? actionView->check() : actionView->uncheck();
 }

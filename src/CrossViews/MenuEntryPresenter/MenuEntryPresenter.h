@@ -29,6 +29,9 @@ public:
     virtual void onAction();
 
 private:
+    virtual void updateState();
+
+private:
     std::shared_ptr<MenuEntryView> actionView;
     std::shared_ptr<CBTransActionAppearance> appearance;
     std::shared_ptr<CBTransAction> action;

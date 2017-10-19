@@ -195,3 +195,16 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAppearanceStateOFF__ShouldU
 
     expectWasUnchecked(view);
 }
+
+TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAppearanceStateOFF_UpdateWithAppearanceStateON__ShouldCheckTheMenuEntry) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setState(OFF);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
+
+    appearance->setState(ON);
+    sut->update();
+
+    expectWasChecked(view);
+}
