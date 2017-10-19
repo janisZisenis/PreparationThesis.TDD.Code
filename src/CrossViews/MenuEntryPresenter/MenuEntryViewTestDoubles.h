@@ -21,6 +21,7 @@ public:
     virtual void accept(CNVisitorPtr visitor) override {}
 
     virtual void check() override {}
+    virtual void uncheck() override {}
 };
 
 class MenuEntryViewSpy;
@@ -70,8 +71,17 @@ public:
         return checked;
     }
 
+    virtual void uncheck() override {
+        unchecked = true;
+    }
+    virtual bool wasUnchecked() {
+        return unchecked;
+    }
+
+
 private:
     bool checked = false;
+    bool unchecked = false;
 
     bool newAccessbility = false;
     CBActionStates newState = OFF;

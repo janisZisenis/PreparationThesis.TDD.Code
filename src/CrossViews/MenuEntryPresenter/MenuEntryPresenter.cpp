@@ -16,6 +16,7 @@ MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr actionView,
           appearance(appearance),
           action(action) {
     update();
+    actionView->check();
 }
 
 void MenuEntryPresenter::update() {

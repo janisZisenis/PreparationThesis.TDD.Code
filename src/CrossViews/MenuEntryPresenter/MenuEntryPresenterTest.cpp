@@ -75,6 +75,12 @@ protected:
         std::string errorMessage = "MenuEntryView should be checked, but it was not!";
         EXPECT_TRUE(actual) << errorMessage;
     }
+    virtual void expectWasUnchecked(MenuEntryViewSpyPtr view) {
+        bool actual = view->wasUnchecked();
+
+        std::string errorMessage = "MenuEntryView should be unchecked, but it was not!";
+        EXPECT_TRUE(actual) << errorMessage;
+    }
 };
 
 TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__MenuEntryViewShouldHaveAcceptedTheVisitor) {
@@ -170,14 +176,22 @@ TEST_F(MenuEntryPresenterTest, FreshInstance__onAction__ShouldExecuteTransAction
 
 
 
-TEST_F(MenuEntryPresenterTest, OnConstruction_WithAccessibleAppearance__ShouldCheckTheMenuEntry) {
+TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceStateON__ShouldCheckTheMenuEntry) {
     CBTransActionPtr action = makeCBTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    appearance->setIsAccessible(true);
+    appearance->setState(ON);
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
-    sut->update();
-
     expectWasChecked(view);
+}
+
+TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAppearanceStateOFF__ShouldUncheckTheMenuEntry) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setState(OFF);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
+
+    expectWasUnchecked(view);
 }

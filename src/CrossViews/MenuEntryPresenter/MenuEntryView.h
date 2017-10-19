@@ -19,6 +19,7 @@ public:
     virtual void setTitle(std::string newTitle) = 0;
 
     virtual void check() = 0;
+    virtual void uncheck() = 0;
 };
 
 #endif //CROSSVIEWS_MENUENTRYVIEW_H
