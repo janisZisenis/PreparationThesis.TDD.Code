@@ -19,6 +19,8 @@ public:
     virtual void setState(CBActionStates newState) override {}
     virtual void setTitle(std::string title) override {}
     virtual void accept(CNVisitorPtr visitor) override {}
+
+    virtual void check() override {}
 };
 
 class MenuEntryViewSpy;
@@ -61,7 +63,16 @@ public:
         return accepted;
     }
 
+    virtual void check() override {
+        checked = true;
+    }
+    virtual bool wasChecked() {
+        return checked;
+    }
+
 private:
+    bool checked = false;
+
     bool newAccessbility = false;
     CBActionStates newState = OFF;
     std::string newTitle = std::string();

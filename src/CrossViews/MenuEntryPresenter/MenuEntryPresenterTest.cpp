@@ -68,6 +68,13 @@ protected:
         std::string errorMessage = "CBTransAction should be executed, but it was not!";
         EXPECT_TRUE(actual);
     }
+
+    virtual void expectWasChecked(MenuEntryViewSpyPtr view) {
+        bool actual = view->wasChecked();
+
+        std::string errorMessage = "MenuEntryView should be checked, but it was not!";
+        EXPECT_TRUE(actual) << errorMessage;
+    }
 };
 
 TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__MenuEntryViewShouldHaveAcceptedTheVisitor) {
@@ -159,4 +166,18 @@ TEST_F(MenuEntryPresenterTest, FreshInstance__onAction__ShouldExecuteTransAction
     sut->onAction();
 
     expectCBTransActionWasExecuted(action);
+}
+
+
+
+TEST_F(MenuEntryPresenterTest, OnConstruction_WithAccessibleAppearance__ShouldCheckTheMenuEntry) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setIsAccessible(true);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
+
+    sut->update();
+
+    expectWasChecked(view);
 }

@@ -17,6 +17,8 @@ public:
     virtual void setAccessibility(bool newAccessibility) = 0;
     virtual void setState(CBActionStates newState) = 0;
     virtual void setTitle(std::string newTitle) = 0;
+
+    virtual void check() = 0;
 };
 
 #endif //CROSSVIEWS_MENUENTRYVIEW_H
