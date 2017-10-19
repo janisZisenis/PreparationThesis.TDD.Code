@@ -17,7 +17,11 @@
 
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
+
+#include <CodeBaseImp/CBFixedActionAppearance/CBFixedAppearance.h>
+#include "QtViews/QtAction/QtActionPresenter.h"
 #include "QtViews/QtAction/QtAction.h"
+#include <CodeBase/CBTransAction/CBNullTransAction.h>
 
 QtViewComponentFactoryPtr QtViewComponentFactory::getNewInstance() {
     return QtViewComponentFactoryPtr(new QtViewComponentFactory());
@@ -64,11 +68,13 @@ CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent(std::string t
 }
 
 CNComponentPtr QtViewComponentFactory::makeExampleActionComponent() {
-    QtActionPtr action = QtAction::getNewInstance();
-    action->setTitle("Example");
+    QtActionPtr view = QtAction::getNewInstance();
+    CBFixedAppearancePtr appearance = CBFixedAppearance::getNewInstance(true, OFF, "Example");
+    CBNullTransActionPtr action = CBNullTransAction::getNewInstance();
+    QtActionPresenterPtr presenter = QtActionPresenter::getNewInstance(view, appearance, action);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
-    return makeComposable(action, composer);
+    return makeComposable(presenter, composer);
 }
 
 CNComponentPtr QtViewComponentFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {

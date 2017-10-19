@@ -55,5 +55,9 @@ QtActionPtr QtAction::me() {
     return this->shared_from_this();
 }
 
+void QtAction::setState(CBActionStates newState) {
+    newState == ON ? setChecked(true): setChecked(false);
+}
+
 
 

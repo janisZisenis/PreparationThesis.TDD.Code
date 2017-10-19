@@ -82,16 +82,38 @@ TEST_F(QtActionPresenterTest, FreshInstance__Accept__QtActionViewShouldHaveAccep
     expectQtActionViewHasAcceptedVisitor(view, visitor);
 }
 
-TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__ShouldSetQtActionsAccessibilityToTrue) {
+TEST_F(QtActionPresenterTest, OnConstruction_WithAccessibleAppreance__ShouldSetQtActionAccessibilityToTrue) {
     CBTransActionPtr action = makeCBTransActionDummy();
     QtActionViewSpyPtr view = makeQtActionViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setIsAccessible(true);
     QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
 
+    expectAccessibilityWasSetToTrue(view);
+}
+
+TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__ShouldSetQtActionsAccessibilityToTrue) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+
+    appearance->setIsAccessible(true);
     sut->update();
 
     expectAccessibilityWasSetToTrue(view);
+}
+
+TEST_F(QtActionPresenterTest, OnConstruction_WithAppearanceStateON__ShouldSetQtActionViewStateON) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setState(ON);
+    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+
+    sut->update();
+
+    expectStateWasSetToON(view);
 }
 
 TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceStateON__ShouldSetQtActionViewStateON) {
@@ -100,8 +122,6 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceStateON__Should
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setState(ON);
     QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
-
-    sut->update();
 
     expectStateWasSetToON(view);
 }
