@@ -3,16 +3,16 @@
 #include <CodeBase/CBTransActionAppearance/CBTransActionAppearance.h>
 #include <CodeBase/CBTransAction/CBTransAction.h>
 
-MenuEntryPresenterPtr MenuEntryPresenter::getNewInstance(MenuEntryViewPtr actionView,
+MenuEntryPresenterPtr MenuEntryPresenter::getNewInstance(MenuEntryViewPtr view,
                                                        CBTransActionAppearancePtr appearance,
                                                        CBTransActionPtr action) {
-    return MenuEntryPresenterPtr(new MenuEntryPresenter(actionView, appearance, action));
+    return MenuEntryPresenterPtr(new MenuEntryPresenter(view, appearance, action));
 }
 MenuEntryPresenter::~MenuEntryPresenter() {}
-MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr actionView,
+MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr view,
                                      CBTransActionAppearancePtr appearance,
                                      CBTransActionPtr action)
-        : actionView(actionView),
+        : view(view),
           appearance(appearance),
           action(action) {
     update();
@@ -25,7 +25,7 @@ void MenuEntryPresenter::update() {
 }
 
 void MenuEntryPresenter::accept(CNVisitorPtr visitor) {
-    actionView->accept(visitor);
+    view->accept(visitor);
 }
 
 void MenuEntryPresenter::onAction() {
@@ -33,13 +33,13 @@ void MenuEntryPresenter::onAction() {
 }
 
 void MenuEntryPresenter::updateState() {
-    appearance->getState() == ON ? actionView->check() : actionView->uncheck();
+    appearance->getState() == ON ? view->check() : view->uncheck();
 }
 
 void MenuEntryPresenter::updateAccessibility() {
-    appearance->isAccessible() ? actionView->enable() : actionView->disable();
+    appearance->isAccessible() ? view->enable() : view->disable();
 }
 
 void MenuEntryPresenter::updateTitle() {
-    actionView->setTitle(appearance->getTitle());
+    view->setTitle(appearance->getTitle());
 }

@@ -13,12 +13,12 @@ typedef std::shared_ptr<MenuEntryPresenter> MenuEntryPresenterPtr;
 
 class MenuEntryPresenter : public CBObserver, public virtual CNVisitable {
 public:
-    static MenuEntryPresenterPtr getNewInstance(std::shared_ptr<MenuEntryView> actionView,
+    static MenuEntryPresenterPtr getNewInstance(std::shared_ptr<MenuEntryView> view,
                                                std::shared_ptr<CBTransActionAppearance> appearance,
                                                std::shared_ptr<CBTransAction> action);
     virtual ~MenuEntryPresenter();
 private:
-    MenuEntryPresenter(std::shared_ptr<MenuEntryView> actionView,
+    MenuEntryPresenter(std::shared_ptr<MenuEntryView> view,
                       std::shared_ptr<CBTransActionAppearance> appearance,
                       std::shared_ptr<CBTransAction> action);
 
@@ -34,7 +34,7 @@ private:
     virtual void updateAccessibility();
 
 private:
-    std::shared_ptr<MenuEntryView> actionView;
+    std::shared_ptr<MenuEntryView> view;
     std::shared_ptr<CBTransActionAppearance> appearance;
     std::shared_ptr<CBTransAction> action;
 };

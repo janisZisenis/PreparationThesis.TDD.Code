@@ -8,10 +8,10 @@
 
 class MenuEntryPresenterTest : public testing::Test {
 protected:
-    virtual MenuEntryPresenterPtr makeMenuEntryPresenter(MenuEntryViewPtr actionView,
+    virtual MenuEntryPresenterPtr makeMenuEntryPresenter(MenuEntryViewPtr view,
                                                        CBTransActionAppearancePtr appearance,
                                                        CBTransActionPtr action) {
-        return MenuEntryPresenter::getNewInstance(actionView, appearance, action);
+        return MenuEntryPresenter::getNewInstance(view, appearance, action);
     }
 
     virtual MenuEntryViewSpyPtr makeMenuEntryViewSpy() {
