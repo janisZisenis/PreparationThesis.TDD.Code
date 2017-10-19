@@ -22,6 +22,7 @@ public:
     virtual void uncheck() = 0;
 
     virtual void enable() = 0;
+    virtual void disable() = 0;
 };
 
 #endif //CROSSVIEWS_MENUENTRYVIEW_H

@@ -88,6 +88,12 @@ protected:
         std::string errorMessage = "MenuEntryView should be enabled, but it was not!";
         EXPECT_TRUE(actual) << errorMessage;
     }
+    virtual void expectWasDisabled(MenuEntryViewSpyPtr view) {
+        bool actual = view->wasDisabled();
+
+        std::string errorMessage = "MenuEntryView should be disabled, but it was not!";
+        EXPECT_TRUE(actual) << errorMessage;
+    }
 
 };
 
@@ -225,4 +231,14 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithAccessibleAppearance__ShouldEn
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     expectWasEnabled(view);
+}
+
+TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAccessibleAppearance__ShouldDisableTheMenuEntry) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setIsAccessible(false);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
+
+    expectWasDisabled(view);
 }
