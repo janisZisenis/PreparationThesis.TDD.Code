@@ -1,18 +1,18 @@
 #ifndef CROSSVIEWS_MENUENTRYVIEW_TESTDOUBLES_H
 #define CROSSVIEWS_MENUENTRYVIEW_TESTDOUBLES_H
 
-#include "QtActionView.h"
+#include "MenuEntryView.h"
 
-class QtActionViewDummy;
-typedef std::shared_ptr<QtActionViewDummy> QtActionViewDummyPtr;
-class QtActionViewDummy : public QtActionView {
+class MenuEntryViewDummy;
+typedef std::shared_ptr<MenuEntryViewDummy> MenuEntryViewDummyPtr;
+class MenuEntryViewDummy : public MenuEntryView {
 public:
-    static QtActionViewDummyPtr getNewInstance() {
-        return QtActionViewDummyPtr(new QtActionViewDummy());
+    static MenuEntryViewDummyPtr getNewInstance() {
+        return MenuEntryViewDummyPtr(new MenuEntryViewDummy());
     }
-    virtual ~QtActionViewDummy() {}
+    virtual ~MenuEntryViewDummy() {}
 protected:
-    QtActionViewDummy() {}
+    MenuEntryViewDummy() {}
 
 public:
     virtual void setAccessibility(bool newAccessibility) override {}
@@ -21,16 +21,16 @@ public:
     virtual void accept(CNVisitorPtr visitor) override {}
 };
 
-class QtActionViewSpy;
-typedef std::shared_ptr<QtActionViewSpy> QtActionViewSpyPtr;
-class QtActionViewSpy : public QtActionView {
+class MenuEntryViewSpy;
+typedef std::shared_ptr<MenuEntryViewSpy> MenuEntryViewSpyPtr;
+class MenuEntryViewSpy : public MenuEntryView {
 public:
-    static QtActionViewSpyPtr getNewInstance() {
-        return QtActionViewSpyPtr(new QtActionViewSpy());
+    static MenuEntryViewSpyPtr getNewInstance() {
+        return MenuEntryViewSpyPtr(new MenuEntryViewSpy());
     }
-    virtual ~QtActionViewSpy() {}
+    virtual ~MenuEntryViewSpy() {}
 protected:
-    QtActionViewSpy() {}
+    MenuEntryViewSpy() {}
 
 public:
     virtual void setAccessibility(bool newAccessibility) override {

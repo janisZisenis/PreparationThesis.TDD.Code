@@ -1,21 +1,21 @@
 #include <gmock/gmock.h>
-#include "QtActionPresenter.h"
-#include "QtActionViewTestDoubles.h"
+#include "MenuEntryPresenter.h"
+#include "MenuEntryViewTestDoubles.h"
 #include <CodeBase/CBTransActionAppearance/CBTransActionAppearanceTestDoubles.h>
 #include <CrossNative/CNVisitable/CNVisitableTestDoubles.h>
 #include <CrossNative/CNVisitor/CNVisitorTestDoubles.h>
 #include <CodeBase/CBTransAction/CBTransActionMocks.h>
 
-class QtActionPresenterTest : public testing::Test {
+class MenuEntryPresenterTest : public testing::Test {
 protected:
-    virtual QtActionPresenterPtr makeQtActionPresenter(QtActionViewPtr actionView,
+    virtual MenuEntryPresenterPtr makeMenuEntryPresenter(MenuEntryViewPtr actionView,
                                                        CBTransActionAppearancePtr appearance,
                                                        CBTransActionPtr action) {
-        return QtActionPresenter::getNewInstance(actionView, appearance, action);
+        return MenuEntryPresenter::getNewInstance(actionView, appearance, action);
     }
 
-    virtual QtActionViewSpyPtr makeQtActionViewSpy() {
-        return QtActionViewSpy::getNewInstance();
+    virtual MenuEntryViewSpyPtr makeMenuEntryViewSpy() {
+        return MenuEntryViewSpy::getNewInstance();
     }
 
     virtual CNVisitorPtr makeCNVisitorDummy() {
@@ -36,30 +36,30 @@ protected:
         return CBTransActionSpy::getNewInstance();
     }
 
-    virtual void expectAccessibilityWasSetToTrue(QtActionViewSpyPtr view) {
+    virtual void expectAccessibilityWasSetToTrue(MenuEntryViewSpyPtr view) {
         bool actual = view->getNewAccessibility();
 
-        std::string errorMessage = "The QtActionViews accessibility should be set to true, but it was not";
+        std::string errorMessage = "The MenuEntryViews accessibility should be set to true, but it was not";
         EXPECT_TRUE(actual) << errorMessage;
     }
-    virtual void expectStateWasSetToON(QtActionViewSpyPtr view) {
+    virtual void expectStateWasSetToON(MenuEntryViewSpyPtr view) {
         CBActionStates actual = view->getNewState();
 
-        std::string errorMessage = "The QtActionViews state should be set to ON, but it was not!";
+        std::string errorMessage = "The MenuEntryViews state should be set to ON, but it was not!";
         EXPECT_THAT(actual, testing::Eq(ON)) << errorMessage;
     }
-    virtual void expectTitleWasSetTo(std::string title, QtActionViewSpyPtr view) {
+    virtual void expectTitleWasSetTo(std::string title, MenuEntryViewSpyPtr view) {
         std::string expected = title;
         std::string actual = view->getNewTitle();
 
-        std::string errorMessage = "The QtActionViews title should be set to \"" + expected + "\" , but it was not!";
+        std::string errorMessage = "The MenuEntryViews title should be set to \"" + expected + "\" , but it was not!";
         EXPECT_THAT(actual, testing::StrEq(expected)) << errorMessage;
     }
-    virtual void expectQtActionViewHasAcceptedVisitor(QtActionViewSpyPtr view, CNVisitorPtr visitor) {
+    virtual void expectMenuEntryViewHasAcceptedVisitor(MenuEntryViewSpyPtr view, CNVisitorPtr visitor) {
         CNVisitorPtr expected = visitor;
         CNVisitorPtr actual = view->getAccepted();
 
-        std::string errorMessage = "The QtActionView should have accepted the CNVisitor but it has not!";
+        std::string errorMessage = "The MenuEntryView should have accepted the CNVisitor but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
     virtual void expectCBTransActionWasExecuted(CBTransActionSpyPtr transAction) {
@@ -70,34 +70,34 @@ protected:
     }
 };
 
-TEST_F(QtActionPresenterTest, FreshInstance__Accept__QtActionViewShouldHaveAcceptedTheVisitor) {
+TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__MenuEntryViewShouldHaveAcceptedTheVisitor) {
     CBTransActionPtr action = makeCBTransActionDummy();
-    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearancePtr appearance = makeCBTransActionAppearanceDummy();
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     CNVisitorPtr visitor = makeCNVisitorDummy();
     sut->accept(visitor);
 
-    expectQtActionViewHasAcceptedVisitor(view, visitor);
+    expectMenuEntryViewHasAcceptedVisitor(view, visitor);
 }
 
 
-TEST_F(QtActionPresenterTest, OnConstruction_WithAccessibleAppreance__ShouldSetQtActionAccessibilityToTrue) {
+TEST_F(MenuEntryPresenterTest, OnConstruction_WithAccessibleAppreance__ShouldSetMenuEntryAccessibilityToTrue) {
     CBTransActionPtr action = makeCBTransActionDummy();
-    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setIsAccessible(true);
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     expectAccessibilityWasSetToTrue(view);
 }
 
-TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__ShouldSetQtActionsAccessibilityToTrue) {
+TEST_F(MenuEntryPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__ShouldSetMenuEntrysAccessibilityToTrue) {
     CBTransActionPtr action = makeCBTransActionDummy();
-    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     appearance->setIsAccessible(true);
     sut->update();
@@ -105,21 +105,21 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__Sho
     expectAccessibilityWasSetToTrue(view);
 }
 
-TEST_F(QtActionPresenterTest, OnConstruction_WithAppearanceStateON__ShouldSetQtActionViewStateON) {
+TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceStateON__ShouldSetMenuEntryViewStateON) {
     CBTransActionPtr action = makeCBTransActionDummy();
-    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setState(ON);
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     expectStateWasSetToON(view);
 }
 
-TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceStateON__ShouldSetQtActionViewStateON) {
+TEST_F(MenuEntryPresenterTest, FreshInstance__UpdateWithAppearanceStateON__ShouldSetMenuEntryViewStateON) {
     CBTransActionPtr action = makeCBTransActionDummy();
-    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     appearance->setState(ON);
     sut->update();
@@ -127,21 +127,21 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceStateON__Should
     expectStateWasSetToON(view);
 }
 
-TEST_F(QtActionPresenterTest, OnConstruction_WithAppearanceTitle__ShouldSetQtActionViewTitle) {
+TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceTitle__ShouldSetMenuEntryViewTitle) {
     CBTransActionPtr action = makeCBTransActionDummy();
-    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setTitle("ThisIsMyTitle");
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     expectTitleWasSetTo("ThisIsMyTitle", view);
 }
 
-TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceTitle__ShouldSetQtActionViewTitle) {
+TEST_F(MenuEntryPresenterTest, FreshInstance__UpdateWithAppearanceTitle__ShouldSetMenuEntryViewTitle) {
     CBTransActionPtr action = makeCBTransActionDummy();
-    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     appearance->setTitle("ThisIsMyTitle");
     sut->update();
@@ -150,11 +150,11 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceTitle__ShouldSe
 }
 
 
-TEST_F(QtActionPresenterTest, FreshInstance__onAction__ShouldExecuteTransAction) {
+TEST_F(MenuEntryPresenterTest, FreshInstance__onAction__ShouldExecuteTransAction) {
     CBTransActionSpyPtr action = makeCBTransActionSpy();
-    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     sut->onAction();
 
