@@ -23,6 +23,7 @@ void MenuEntryPresenter::update() {
     actionView->setAccessibility(appearance->isAccessible());
     actionView->setState(appearance->getState());
     actionView->setTitle(appearance->getTitle());
+    updateState();
 }
 
 void MenuEntryPresenter::accept(CNVisitorPtr visitor) {
