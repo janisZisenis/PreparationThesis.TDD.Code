@@ -15,8 +15,7 @@ QtActionPresenter::QtActionPresenter(QtActionViewPtr actionView,
         : actionView(actionView),
           appearance(appearance),
           action(action) {
-    actionView->setAccessibility(appearance->isAccessible());
-    actionView->setState(appearance->getState());
+    update();
 }
 
 void QtActionPresenter::update() {

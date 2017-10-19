@@ -131,10 +131,8 @@ TEST_F(QtActionPresenterTest, OnConstruction_WithAppearanceTitle__ShouldSetQtAct
     CBTransActionPtr action = makeCBTransActionDummy();
     QtActionViewSpyPtr view = makeQtActionViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
-
     appearance->setTitle("ThisIsMyTitle");
-    sut->update();
+    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
 
     expectTitleWasSetTo("ThisIsMyTitle", view);
 }
@@ -143,8 +141,10 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceTitle__ShouldSe
     CBTransActionPtr action = makeCBTransActionDummy();
     QtActionViewSpyPtr view = makeQtActionViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    appearance->setTitle("ThisIsMyTitle");
     QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+
+    appearance->setTitle("ThisIsMyTitle");
+    sut->update();
 
     expectTitleWasSetTo("ThisIsMyTitle", view);
 }
