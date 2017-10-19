@@ -209,7 +209,7 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAppearanceStateOFF__ShouldU
     expectWasUnchecked(view);
 }
 
-TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAppearanceStateOFF_UpdateWithAppearanceStateON__ShouldCheckTheMenuEntry) {
+TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAppearanceStateOFF__UpdateWithAppearanceStateON__ShouldCheckTheMenuEntry) {
     CBTransActionPtr action = makeCBTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
@@ -241,3 +241,17 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAccessibleAppearance__Shoul
 
     expectWasDisabled(view);
 }
+
+TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAccessibleAppearance__UpdateWithAccessibleAppearance__ShouldEnableTheMenuEntry) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setIsAccessible(false);
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
+
+    appearance->setIsAccessible(true);
+    sut->update();
+
+    expectWasEnabled(view);
+}
+
