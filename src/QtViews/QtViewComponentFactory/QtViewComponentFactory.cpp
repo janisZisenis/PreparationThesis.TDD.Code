@@ -69,7 +69,7 @@ CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent(std::string t
 
 CNComponentPtr QtViewComponentFactory::makeExampleActionComponent() {
     QtActionPtr view = QtAction::getNewInstance();
-    CBFixedAppearancePtr appearance = CBFixedAppearance::getNewInstance(true, OFF, "Example");
+    CBFixedAppearancePtr appearance = CBFixedAppearance::getNewInstance(false, OFF, "Example");
     CBNullTransActionPtr action = CBNullTransAction::getNewInstance();
     MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
     CNComposerPtr composer = CNNullComposer::getNewInstance();

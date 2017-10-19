@@ -31,19 +31,19 @@ void CocoaMenuItem::uncheck() {
 }
 
 void CocoaMenuItem::enable() {
-    setEnabled(true);
+    setMenuEnabled(true);
 }
 
 void CocoaMenuItem::disable() {
-    setEnabled(false);
+    setMenuEnabled(false);
 }
 
 void CocoaMenuItem::setState(const NSControlStateValue state) {
     [menuItem setState:state];
 }
 
-void CocoaMenuItem::setEnabled(bool enabled) {
-    [menuItem setEnabled:enabled];
+void CocoaMenuItem::setMenuEnabled(bool enabled) {
+    [menuItem setEnabled:NO];
 }
 
 void CocoaMenuItem::connectToMenuItem() {

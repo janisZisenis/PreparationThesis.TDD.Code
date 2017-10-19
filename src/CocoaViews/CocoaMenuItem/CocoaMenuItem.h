@@ -8,6 +8,8 @@
 
 class CNAcceptor;
 
+@class NSMenuItem;
+
 class CocoaMenuItem;
 typedef std::shared_ptr<CocoaMenuItem> CocoaMenuItemPtr;
 
@@ -32,7 +34,7 @@ public:
 private:
     virtual void connectToMenuItem();
     virtual void setState(const NSControlStateValue state);
-    virtual void setEnabled(bool enabled);
+    virtual void setMenuEnabled(bool enabled);
 
     CocoaMenuItemPtr me();
 

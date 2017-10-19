@@ -36,6 +36,8 @@ private:
     virtual void initializeMenu();
     virtual void initializeMenuItem();
 
+    virtual void disableAutoEnableMenuItems();
+
     virtual void addToMenu(NSMenuItem *menuItem);
     virtual void removeFromMenu(NSMenuItem *menuItem);
 

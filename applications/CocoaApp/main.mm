@@ -18,7 +18,8 @@ int main(int argc, char** argv) {
     viewHierarchy->load(componentFactory->makePropertiesExplorerComponent(), matcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(componentFactory->makeMenuBarComponent(), matcherFactory->makeTopLevelMatcher());
     viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent("hello-world-menu"), matcherFactory->makeMenuBarTypeMatcher());
-    viewHierarchy->load(componentFactory->makeExampleMenuItemComponent(), matcherFactory->makeTagMatcher("hello-world-menu"));
+    viewHierarchy->load(componentFactory->makeHelloWorldMenuComponent("hello-world-submenu"), matcherFactory->makeTagMatcher("hello-world-menu"));
+    viewHierarchy->load(componentFactory->makeExampleMenuItemComponent(), matcherFactory->makeTagMatcher("hello-world-submenu"));
 
     [application run];
     return 0;

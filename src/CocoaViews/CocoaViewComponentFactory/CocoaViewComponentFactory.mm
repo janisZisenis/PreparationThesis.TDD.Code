@@ -69,7 +69,7 @@ CNComponentPtr CocoaViewComponentFactory::makeHelloWorldMenuComponent(std::strin
 
 CNComponentPtr CocoaViewComponentFactory::makeExampleMenuItemComponent() {
     CocoaMenuItemPtr menuItem = CocoaMenuItem::getNewInstance();
-    CBFixedAppearancePtr appearance = CBFixedAppearance::getNewInstance(true, OFF, "Example");
+    CBFixedAppearancePtr appearance = CBFixedAppearance::getNewInstance(false, OFF, "Example");
     CBNullTransActionPtr action = CBNullTransAction::getNewInstance();
     MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(menuItem, appearance, action);
 

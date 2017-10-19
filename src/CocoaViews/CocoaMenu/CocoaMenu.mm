@@ -42,6 +42,7 @@ void CocoaMenu::initializeMenuItem() {
     [menuItem setSubmenu: menu];
 }
 void CocoaMenu::initializeMenu() {
+    disableAutoEnableMenuItems();
     addEmptyMenuItemToMenu();
 }
 void CocoaMenu::initializeEmptyMenuItem() {
@@ -84,6 +85,10 @@ void CocoaMenu::setTag(std::string tag) {
 
 CocoaMenuPtr CocoaMenu::me() {
     return this->shared_from_this();
+}
+
+void CocoaMenu::disableAutoEnableMenuItems() {
+    [menu setAutoenablesItems: NO];
 }
 
 
