@@ -50,19 +50,20 @@ void QtSolutionExplorer::toggleVisibility() {
     widget->setVisible(!widget->isVisible());
 }
 
-void QtSolutionExplorer::removeIndex(const QModelIndex &index) {
+void QtSolutionExplorer::removeIndex(const HierarchyIndex &index) {
+    QModelIndex qIndex = solutionModel->transformToQModelIndex(index);
     treeView->setCurrentIndex(QModelIndex());
-    solutionModel->deleteIndex(index.parent(), index.row());
+    solutionModel->deleteIndex(qIndex.parent(), qIndex.row());
 
-    treeView->setCurrentIndex(index);
+    treeView->setCurrentIndex(qIndex);
 }
 
-QModelIndex QtSolutionExplorer::getSelectedIndex() {
-    return treeView->currentIndex();
+HierarchyIndex QtSolutionExplorer::getSelectedIndex() {
+    return solutionModel->transformToHierarchyIndex(treeView->currentIndex());
 }
 
-void QtSolutionExplorer::insertItem(std::shared_ptr<QtSolutionItem> item, const QModelIndex &index, int childPos) {
-    solutionModel->insertItem(item, index, childPos);
+void QtSolutionExplorer::insertItem(CNVisitablePtr visitable, const HierarchyIndex &index, int childPos) {
+    solutionModel->insertItem(makeItem(visitable), solutionModel->transformToQModelIndex(index), childPos);
 }
 
 void QtSolutionExplorer::accept(CNVisitorPtr visitor) {
@@ -77,6 +78,10 @@ void QtSolutionExplorer::onSelectionChanged(const QItemSelection &selected, cons
 
 void QtSolutionExplorer::onDeselectClicked() {
     treeView->setCurrentIndex(QModelIndex());
+}
+
+QtSolutionItemPtr QtSolutionExplorer::makeItem(CNVisitablePtr visitable) {
+    return nullptr;
 }
 
 

@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <QAbstractItemModel>
+#include <CrossViews/SolutionExplorerPresenter/HierarchyIndex.h>
 
 class QtSolutionItem;
 
@@ -22,7 +23,11 @@ public:
     virtual QModelIndex index(int row, int column, const QModelIndex &parent) const Q_DECL_OVERRIDE;
 
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const Q_DECL_OVERRIDE;
-protected:
+
+    virtual QModelIndex transformToQModelIndex(const HierarchyIndex &index);
+    virtual HierarchyIndex transformToHierarchyIndex(const QModelIndex &index);
+
+private:
     virtual QVariant getDataAt(QtSolutionItem* item, int role, int col) const;
 
     virtual QtSolutionItem* getItem(const QModelIndex &index) const;
@@ -30,7 +35,7 @@ protected:
     QtSolutionItem* getParentItem(QtSolutionItem* child) const;
     QModelIndex getIndex(std::shared_ptr<QtSolutionItem> item);
 
-protected:
+private:
     std::shared_ptr<QtSolutionItem> root;
 };
 

@@ -1,3 +1,4 @@
+#include <CrossNative/CNVisitable/CNVisitable.h>
 #include "QtSolutionModel.h"
 #include "QtSolutionItem.h"
 
@@ -77,4 +78,26 @@ QVariant QtSolutionModel::getDataAt(QtSolutionItem *item, int role, int col) con
     }
 
     return QVariant();
+}
+
+QModelIndex QtSolutionModel::transformToQModelIndex(const HierarchyIndex &index) {
+    QModelIndex qIndex = QModelIndex();
+
+    for(int i = 0; i < index.depth(); i++)
+        qIndex = this->index(index[i], 0, qIndex);
+
+    return qIndex;
+}
+
+HierarchyIndex QtSolutionModel::transformToHierarchyIndex(const QModelIndex &index) {
+    if(!index.isValid()) return HierarchyIndex();
+
+    QtSolutionItem* item = static_cast<QtSolutionItem*>(index.internalPointer());
+
+    std::vector<int> path;
+    while(item->getParent().get() != nullptr) {
+        path.insert(path.begin(), item->getRow());
+        item = item->getParent().get();
+    }
+    return HierarchyIndex(path);
 }
