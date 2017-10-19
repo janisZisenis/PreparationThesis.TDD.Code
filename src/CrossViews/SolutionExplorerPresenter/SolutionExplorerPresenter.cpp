@@ -1,11 +1,16 @@
 #include "SolutionExplorerPresenter.h"
 #include "SolutionExplorerView.h"
+#include "SelectionModel.h"
 
-SolutionExplorerPresenterPtr SolutionExplorerPresenter::getNewInstance(SolutionExplorerViewPtr view) {
-    return SolutionExplorerPresenterPtr(new SolutionExplorerPresenter(view));
+SolutionExplorerPresenterPtr SolutionExplorerPresenter::getNewInstance(SolutionExplorerViewPtr view,
+                                                                       SelectionModelPtr selectionModel) {
+    return SolutionExplorerPresenterPtr(new SolutionExplorerPresenter(view, selectionModel));
 }
 SolutionExplorerPresenter::~SolutionExplorerPresenter() {}
-SolutionExplorerPresenter::SolutionExplorerPresenter(SolutionExplorerViewPtr view) : view(view){}
+SolutionExplorerPresenter::SolutionExplorerPresenter(SolutionExplorerViewPtr view,
+                                                     SelectionModelPtr selectionModel)
+        : view(view),
+          selectionModel(selectionModel){}
 
 void SolutionExplorerPresenter::accept(CNVisitorPtr visitor) {
     view->accept(visitor);
@@ -17,4 +22,8 @@ void SolutionExplorerPresenter::onRemove(const HierarchyIndex &index) {
 
 void SolutionExplorerPresenter::onInsert(CNVisitablePtr visitable, const HierarchyIndex &index, int childPos) {
     view->insertItem(visitable, index, childPos);
+}
+
+void SolutionExplorerPresenter::onSelectionChanged() {
+    selectionModel->setSelectedIndex(view->getSelectedIndex());
 }

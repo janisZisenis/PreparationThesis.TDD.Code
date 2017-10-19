@@ -16,6 +16,10 @@ protected:
     SolutionExplorerViewMock() {}
 
 public:
+    virtual HierarchyIndex getSelectedIndex() override {
+        return HierarchyIndex();
+    };
+
     virtual void removeIndex(const HierarchyIndex& index) override {}
     virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) override {
         actualVisitable = visitable;

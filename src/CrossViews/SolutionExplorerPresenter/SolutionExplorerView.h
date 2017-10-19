@@ -18,6 +18,7 @@ protected:
 public:
     virtual void removeIndex(const HierarchyIndex& index) = 0;
     virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) = 0;
+    virtual HierarchyIndex getSelectedIndex() = 0;
 };
 
 #endif //CROSSVIEWS_SOLUTIONEXPLORERVIEW_H

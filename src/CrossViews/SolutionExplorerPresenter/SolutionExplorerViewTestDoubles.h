@@ -18,11 +18,36 @@ public:
     void accept(CNVisitorPtr visitor) override {}
     virtual void removeIndex(const HierarchyIndex& index) override {}
     virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) override {}
+    virtual HierarchyIndex getSelectedIndex() override {
+        return HierarchyIndex();
+    };
+};
+
+class SolutionExplorerViewStub;
+typedef std::shared_ptr<SolutionExplorerViewStub> SolutionExplorerViewStubPtr;
+class SolutionExplorerViewStub : public SolutionExplorerViewDummy {
+public:
+    static SolutionExplorerViewStubPtr getNewInstance() {
+        return SolutionExplorerViewStubPtr(new SolutionExplorerViewStub());
+    }
+    virtual ~SolutionExplorerViewStub() {}
+protected:
+    SolutionExplorerViewStub() {}
+
+public:
+    virtual void setSelectedIndex(const HierarchyIndex& selected) {
+        this->selected = selected;
+    }
+    virtual HierarchyIndex getSelectedIndex() override {
+        return selected;
+    };
+private:
+    HierarchyIndex selected;
 };
 
 class SolutionExplorerViewSpy;
 typedef std::shared_ptr<SolutionExplorerViewSpy> SolutionExplorerViewSpyPtr;
-class SolutionExplorerViewSpy : public SolutionExplorerViewDummy {
+class SolutionExplorerViewSpy : public SolutionExplorerViewStub {
 public:
     static SolutionExplorerViewSpyPtr getNewInstance() {
         return SolutionExplorerViewSpyPtr(new SolutionExplorerViewSpy());
