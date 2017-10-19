@@ -111,8 +111,6 @@ TEST_F(QtActionPresenterTest, OnConstruction_WithAppearanceStateON__ShouldSetQtA
     appearance->setState(ON);
     QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
 
-    sut->update();
-
     expectStateWasSetToON(view);
 }
 
@@ -120,8 +118,10 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceStateON__Should
     CBTransActionPtr action = makeCBTransActionDummy();
     QtActionViewSpyPtr view = makeQtActionViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    appearance->setState(ON);
     QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+
+    appearance->setState(ON);
+    sut->update();
 
     expectStateWasSetToON(view);
 }
