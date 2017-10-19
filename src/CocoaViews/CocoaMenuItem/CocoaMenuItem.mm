@@ -1,7 +1,6 @@
 #include "CocoaMenuItem.h"
 #include "CocoaMenuItemVisitor.h"
 #include <CrossNative/CNAcceptor/CNAcceptorImp.h>
-#import <Cocoa/Cocoa.h>
 #import "CocoaViews/CocoaActionListener/CocoaActionListener.h"
 
 CocoaMenuItemPtr CocoaMenuItem::getNewInstance() {
@@ -23,17 +22,28 @@ void CocoaMenuItem::setTitle(std::string newTitle) {
     menuItem.title = [NSString stringWithUTF8String:newTitle.c_str()];
 }
 
-void CocoaMenuItem::setAccessibility(bool newAccessibility) {
-    newAccessibility ? [menuItem setState:NSOnState] : [menuItem setState:NSOffState];
+void CocoaMenuItem::check() {
+    setState(NSOnState);
 }
 
-void CocoaMenuItem::setChecked(bool newAccessibility) {
-    [menuItem setEnabled:newAccessibility];
+void CocoaMenuItem::uncheck() {
+    setState(NSOffState);
 }
 
+void CocoaMenuItem::enable() {
+    setEnabled(true);
+}
 
-void CocoaMenuItem::accept(CNVisitorPtr visitor) {
-    acceptor->accept(visitor, me());
+void CocoaMenuItem::disable() {
+    setEnabled(false);
+}
+
+void CocoaMenuItem::setState(const NSControlStateValue state) {
+    [menuItem setState:state];
+}
+
+void CocoaMenuItem::setEnabled(bool enabled) {
+    [menuItem setEnabled:enabled];
 }
 
 void CocoaMenuItem::connectToMenuItem() {
@@ -41,10 +51,12 @@ void CocoaMenuItem::connectToMenuItem() {
     [menuItem setTarget:clickedAction];
 }
 
-
-void CocoaMenuItem::onAction(NSObject *object, CocoaActionListener *action) {}
+void CocoaMenuItem::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
+}
 
 CocoaMenuItemPtr CocoaMenuItem::me() {
     return this->shared_from_this();
 }
 
+void CocoaMenuItem::onAction(NSObject *object, CocoaActionListener *action) {}

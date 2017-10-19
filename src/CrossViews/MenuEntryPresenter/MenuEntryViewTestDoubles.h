@@ -15,8 +15,6 @@ protected:
     MenuEntryViewDummy() {}
 
 public:
-    virtual void setAccessibility(bool newAccessibility) override {}
-    virtual void setState(CBActionStates newState) override {}
     virtual void setTitle(std::string title) override {}
     virtual void accept(CNVisitorPtr visitor) override {}
 
@@ -39,20 +37,6 @@ protected:
     MenuEntryViewSpy() {}
 
 public:
-    virtual void setAccessibility(bool newAccessibility) override {
-        this->newAccessbility = newAccessibility;
-    }
-    virtual bool getNewAccessibility() {
-        return newAccessbility;
-    }
-
-    virtual void setState(CBActionStates newState) override {
-        this->newState = newState;
-    }
-    virtual CBActionStates getNewState() {
-        return newState;
-    }
-
     virtual void setTitle(std::string newTitle) override {
         this->newTitle = newTitle;
     }

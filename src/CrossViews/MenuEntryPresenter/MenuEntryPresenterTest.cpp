@@ -36,18 +36,6 @@ protected:
         return CBTransActionSpy::getNewInstance();
     }
 
-    virtual void expectAccessibilityWasSetToTrue(MenuEntryViewSpyPtr view) {
-        bool actual = view->getNewAccessibility();
-
-        std::string errorMessage = "The MenuEntryViews accessibility should be set to true, but it was not";
-        EXPECT_TRUE(actual) << errorMessage;
-    }
-    virtual void expectStateWasSetToON(MenuEntryViewSpyPtr view) {
-        CBActionStates actual = view->getNewState();
-
-        std::string errorMessage = "The MenuEntryViews state should be set to ON, but it was not!";
-        EXPECT_THAT(actual, testing::Eq(ON)) << errorMessage;
-    }
     virtual void expectTitleWasSetTo(std::string title, MenuEntryViewSpyPtr view) {
         std::string expected = title;
         std::string actual = view->getNewTitle();

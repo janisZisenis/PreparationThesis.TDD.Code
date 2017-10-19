@@ -17,6 +17,10 @@
 
 #include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
+
+#include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
+#include <CodeBaseImp/CBFixedActionAppearance/CBFixedAppearance.h>
+#include <CodeBase/CBTransAction/CBNullTransAction.h>
 #include "CocoaViews/CocoaMenuItem/CocoaMenuItem.h"
 
 CocoaViewComponentFactoryPtr CocoaViewComponentFactory::getNewInstance() {
@@ -65,7 +69,10 @@ CNComponentPtr CocoaViewComponentFactory::makeHelloWorldMenuComponent(std::strin
 
 CNComponentPtr CocoaViewComponentFactory::makeExampleMenuItemComponent() {
     CocoaMenuItemPtr menuItem = CocoaMenuItem::getNewInstance();
-    menuItem->setTitle("Example");
+    CBFixedAppearancePtr appearance = CBFixedAppearance::getNewInstance(true, OFF, "Example");
+    CBNullTransActionPtr action = CBNullTransAction::getNewInstance();
+    MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(menuItem, appearance, action);
+
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(menuItem, composer);
