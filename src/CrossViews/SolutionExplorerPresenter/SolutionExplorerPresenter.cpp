@@ -7,4 +7,6 @@ SolutionExplorerPresenterPtr SolutionExplorerPresenter::getNewInstance(SolutionE
 SolutionExplorerPresenter::~SolutionExplorerPresenter() {}
 SolutionExplorerPresenter::SolutionExplorerPresenter(SolutionExplorerViewPtr view) : view(view){}
 
-void SolutionExplorerPresenter::accept(CNVisitorPtr visitor) {}
+void SolutionExplorerPresenter::accept(CNVisitorPtr visitor) {
+    view->accept(visitor);
+}
