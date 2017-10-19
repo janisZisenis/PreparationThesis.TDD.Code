@@ -15,7 +15,10 @@
 #include "CocoaViews/CocoaMenu/Visitors/CocoaMenuComposingVisitor.h"
 #include "CocoaViews/CocoaMenu/Visitors/CocoaMenuDecomposingVisitor.h"
 
+#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
+#include <CrossViews/SolutionExplorerPresenter/SelectionModelImp.h>
 #include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
+
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
 
 #include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
@@ -45,10 +48,12 @@ CNComponentPtr CocoaViewComponentFactory::makeMenuBarComponent() {
 }
 
 CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent() {
-    CocoaSolutionExplorerPtr solutionExplorer = CocoaSolutionExplorer::getNewInstance();
+    CocoaSolutionExplorerPtr view = CocoaSolutionExplorer::getNewInstance();
+    SelectionModelImpPtr selectionModel = SelectionModelImp::getNewInstance();
+    SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
-    return makeComposable(solutionExplorer, composer);
+    return makeComposable(presenter, composer);
 }
 
 CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent() {
