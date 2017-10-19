@@ -1,7 +1,9 @@
 #include <gmock/gmock.h>
 #include "SolutionExplorerPresenter.h"
 #include "SolutionExplorerViewTestDoubles.h"
+#include "SolutionExplorerViewMock.h"
 #include <CrossNative/CNVisitor/CNVisitorTestDoubles.h>
+#include <CrossNative/CNVisitable/CNVisitableTestDoubles.h>
 
 class SolutionExplorerPresenterTest : public testing::Test {
 protected:
@@ -12,9 +14,15 @@ protected:
     virtual SolutionExplorerViewSpyPtr makeSolutionExplorerViewSpy() {
         return SolutionExplorerViewSpy::getNewInstance();
     }
+    virtual SolutionExplorerViewMockPtr makeSolutionExplorerViewMock() {
+        return SolutionExplorerViewMock::getNewInstance();
+    }
 
     virtual CNVisitorPtr makeCNVisitorDummy() {
         return CNVisitorDummy::getNewInstance();
+    }
+    virtual CNVisitablePtr makeCNVisitableDummy() {
+        return CNVisitableDummy::getNewInstance();
     }
 
     virtual void expectSolutionExplorerViewHasAcceptedVisitor(SolutionExplorerViewSpyPtr view, CNVisitorPtr visitor) {
@@ -28,28 +36,10 @@ protected:
         HierarchyIndex expected = index;
         HierarchyIndex actual = view->getRemoved();
 
-        std::string errorMessage = "SolutionExplorerView should have removed the index " + toString(expected)
-                                   + ". Instead it has removed the index " + toString(actual) + "!";
+        std::string errorMessage = "SolutionExplorerView should have removed the index " + expected.toString()
+                                   + ". Instead it has removed the index " + actual.toString() + "!";
 
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
-    }
-
-    virtual std::string toString(const HierarchyIndex& index) {
-        std::string s = "{";
-
-        if(!index.isValid()) {
-            s += "invalid";
-        } else {
-            for (int i = 0; i < index.depth(); i++) {
-                s += std::to_string(index[i]);
-                if(i != index.depth() - 1)
-                    s+= "; ";
-            }
-        }
-
-        s += "}";
-
-        return s;
     }
 
 };
@@ -71,4 +61,15 @@ TEST_F(SolutionExplorerPresenterTest, FreshInstance__onRemove__ShouldRemoveIndex
     sut->onRemove(HierarchyIndex({1,2,3}));
 
     expectedSolutionExplorerHasRemovedIndex(view, HierarchyIndex({1,2,3}));
+}
+
+TEST_F(SolutionExplorerPresenterTest, FreshInstance__onInserted__ShouldAddVisitableToSolutionExplorerAtParentIndexAtChildPosition) {
+    SolutionExplorerViewMockPtr view = makeSolutionExplorerViewMock();
+    SolutionExplorerPresenterPtr sut = makeSolutionExplorerPresenter(view);
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    view->expectCalledInsertItem(visitable, HierarchyIndex({1,2,3}), 4);
+
+    sut->onInsert(visitable, HierarchyIndex({1,2,3}), 4);
+
+    view->verify();
 }

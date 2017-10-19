@@ -40,6 +40,24 @@ public:
         return true;
     }
 
+    std::string toString() const {
+        std::string s = "{";
+
+        if(!isValid()) {
+            s += "invalid";
+        } else {
+            for (int i = 0; i < depth(); i++) {
+                s += std::to_string(childPath[i]);
+                if(i != depth() - 1)
+                    s+= "; ";
+            }
+        }
+
+        s += "}";
+
+        return s;
+    }
+
 private:
     std::vector<int> childPath;
 };

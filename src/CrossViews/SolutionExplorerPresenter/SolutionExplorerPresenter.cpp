@@ -14,3 +14,7 @@ void SolutionExplorerPresenter::accept(CNVisitorPtr visitor) {
 void SolutionExplorerPresenter::onRemove(const HierarchyIndex &index) {
     view->removeIndex(index);
 }
+
+void SolutionExplorerPresenter::onInsert(CNVisitablePtr visitable, const HierarchyIndex &index, int childPos) {
+
+}
