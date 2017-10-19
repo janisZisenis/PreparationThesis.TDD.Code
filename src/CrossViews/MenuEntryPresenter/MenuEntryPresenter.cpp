@@ -17,6 +17,7 @@ MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr actionView,
           action(action) {
     update();
     updateState();
+    actionView->enable();
 }
 
 void MenuEntryPresenter::update() {
