@@ -12,5 +12,5 @@ void SolutionExplorerPresenter::accept(CNVisitorPtr visitor) {
 }
 
 void SolutionExplorerPresenter::onRemove(const HierarchyIndex &index) {
-
+    view->removeIndex(index);
 }

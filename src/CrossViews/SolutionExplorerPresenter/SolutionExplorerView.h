@@ -14,6 +14,9 @@ public:
 
 protected:
     SolutionExplorerView() {}
+
+public:
+    virtual void removeIndex(const HierarchyIndex& index) = 0;
 };
 
 #endif //CROSSVIEWS_SOLUTIONEXPLORERVIEW_H

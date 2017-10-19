@@ -16,6 +16,7 @@ protected:
 
 public:
     void accept(CNVisitorPtr visitor) override {}
+    virtual void removeIndex(const HierarchyIndex& index) override {}
 };
 
 class SolutionExplorerViewSpy;
@@ -37,7 +38,10 @@ public:
         return accepted;
     }
 
-    virtual HierarchyIndex getRemoved() {
+    virtual void removeIndex(const HierarchyIndex& index) override {
+        removed = index;
+;    }
+    virtual const HierarchyIndex& getRemoved() {
         return removed;
     }
 
