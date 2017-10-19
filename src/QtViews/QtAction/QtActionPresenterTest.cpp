@@ -82,6 +82,7 @@ TEST_F(QtActionPresenterTest, FreshInstance__Accept__QtActionViewShouldHaveAccep
     expectQtActionViewHasAcceptedVisitor(view, visitor);
 }
 
+
 TEST_F(QtActionPresenterTest, OnConstruction_WithAccessibleAppreance__ShouldSetQtActionAccessibilityToTrue) {
     CBTransActionPtr action = makeCBTransActionDummy();
     QtActionViewSpyPtr view = makeQtActionViewSpy();
@@ -126,6 +127,18 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceStateON__Should
     expectStateWasSetToON(view);
 }
 
+TEST_F(QtActionPresenterTest, OnConstruction_WithAppearanceTitle__ShouldSetQtActionViewTitle) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    QtActionViewSpyPtr view = makeQtActionViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
+
+    appearance->setTitle("ThisIsMyTitle");
+    sut->update();
+
+    expectTitleWasSetTo("ThisIsMyTitle", view);
+}
+
 TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceTitle__ShouldSetQtActionViewTitle) {
     CBTransActionPtr action = makeCBTransActionDummy();
     QtActionViewSpyPtr view = makeQtActionViewSpy();
@@ -133,10 +146,9 @@ TEST_F(QtActionPresenterTest, FreshInstance__UpdateWithAppearanceTitle__ShouldSe
     appearance->setTitle("ThisIsMyTitle");
     QtActionPresenterPtr sut = makeQtActionPresenter(view, appearance, action);
 
-    sut->update();
-
     expectTitleWasSetTo("ThisIsMyTitle", view);
 }
+
 
 TEST_F(QtActionPresenterTest, FreshInstance__onAction__ShouldExecuteTransAction) {
     CBTransActionSpyPtr action = makeCBTransActionSpy();
