@@ -15,7 +15,10 @@
 #include "QtViews/QtMenu/Visitors/QtMenuComposingVisitor.h"
 #include "QtViews/QtMenu/Visitors/QtMenuDecomposingVisitor.h"
 
+#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
+#include <CrossViews/SolutionExplorerPresenter/SelectionModelImp.h>
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
+
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
 
 #include <CodeBaseImp/CBFixedActionAppearance/CBFixedAppearance.h>
@@ -37,10 +40,12 @@ CNComponentPtr QtViewComponentFactory::makeShellComponent() {
 }
 
 CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent() {
-    QtSolutionExplorerPtr solutionExplorer = QtSolutionExplorer::getNewInstance();
+    QtSolutionExplorerPtr view = QtSolutionExplorer::getNewInstance();
+    SelectionModelImpPtr selectionModel = SelectionModelImp::getNewInstance();
+    SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
-    return makeComposable(solutionExplorer, composer);
+    return makeComposable(presenter, composer);
 }
 
 CNComponentPtr QtViewComponentFactory::makeMenuBarComponent() {

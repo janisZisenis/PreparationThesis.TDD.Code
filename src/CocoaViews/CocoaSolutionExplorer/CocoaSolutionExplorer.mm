@@ -42,13 +42,13 @@ void CocoaSolutionExplorer::toggleVisibility() {
     [scrollView setHidden: !scrollView.isHidden];
 }
 
-void CocoaSolutionExplorer::removeIndex(const CocoaModelIndex &index) {
+void CocoaSolutionExplorer::removeIndex(const HierarchyIndex &index) {
     [outlineView selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
     [viewDataSource removeItemAtParentIndex:index.parent() atChildPos:index.childPosition()];
     [outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:index.childPosition()] byExtendingSelection:NO];
 }
 
-CocoaModelIndex CocoaSolutionExplorer::getSelectedIndex() {
+HierarchyIndex CocoaSolutionExplorer::getSelectedIndex() {
     CocoaSolutionItem* item = [outlineView itemAtRow:[outlineView selectedRow]];
 
     std::vector<int> path;
@@ -56,11 +56,11 @@ CocoaModelIndex CocoaSolutionExplorer::getSelectedIndex() {
         path.insert(path.begin(), [item getRow]);
         item = [item getParent];
     }
-    return CocoaModelIndex(path);
+    return HierarchyIndex(path);
 }
 
-void CocoaSolutionExplorer::insertItem(CocoaSolutionItem* item, const CocoaModelIndex &index, int childPos) {
-    [viewDataSource insertItem:item atParentIndex:index atChildPos:childPos];
+void CocoaSolutionExplorer::insertItem(CNVisitablePtr visitable, const HierarchyIndex &index, int childPos) {
+    [viewDataSource insertItem:makeItem(visitable) atParentIndex:index atChildPos:childPos];
 }
 
 void CocoaSolutionExplorer::onSelectionChanged() {}
@@ -71,6 +71,11 @@ void CocoaSolutionExplorer::accept(CNVisitorPtr visitor) {
 
 CocoaSolutionExplorerPtr CocoaSolutionExplorer::me() {
     return this->shared_from_this();
+}
+
+CocoaSolutionItem *CocoaSolutionExplorer::makeItem(CNVisitablePtr visitable) {
+    throw std::logic_error("Function not yet implemented");
+    return nullptr;
 }
 
 

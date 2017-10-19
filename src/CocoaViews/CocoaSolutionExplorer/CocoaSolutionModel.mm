@@ -28,7 +28,7 @@ self = [super init];
     return self;
 }
 
--(void)insertItem:(CocoaSolutionItem*)item atParentIndex:(const CocoaModelIndex&)parentIndex atChildPos:(int)childPos{
+-(void)insertItem:(CocoaSolutionItem*)item atParentIndex:(const HierarchyIndex&)parentIndex atChildPos:(int)childPos{
     CocoaSolutionItem* parent = root;
     for(int i = 0; i < parentIndex.depth(); i++) {
         parent = [root getChildAt:parentIndex[i]];
@@ -38,7 +38,7 @@ self = [super init];
     [_view reloadData];
 }
 
--(void)removeItemAtParentIndex:(const CocoaModelIndex&)parentIndex atChildPos:(int)childPos {
+-(void)removeItemAtParentIndex:(const HierarchyIndex&)parentIndex atChildPos:(int)childPos {
     CocoaSolutionItem* parent = root;
     for(int i = 0; i < parentIndex.depth(); i++) {
         parent = [root getChildAt:parentIndex[i]];

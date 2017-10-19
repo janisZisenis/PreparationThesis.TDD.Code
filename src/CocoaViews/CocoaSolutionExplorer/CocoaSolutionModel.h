@@ -4,7 +4,7 @@
 #import <Cocoa/Cocoa.h>
 #include <memory>
 #include <boost/signals2/signal.hpp>
-#include "CocoaModelIndex.h"
+#include <CrossViews/SolutionExplorerPresenter/HierarchyIndex.h>
 
 @class CocoaSolutionItem;
 @class NSOutlineView;
@@ -19,9 +19,9 @@
 
 - (instancetype) initWithNSOutlineView:(NSOutlineView*)view;
 
--(void)insertItem:(CocoaSolutionItem*)item atParentIndex:(const CocoaModelIndex&)parentIndex atChildPos:(int)childPos;
+-(void)insertItem:(CocoaSolutionItem*)item atParentIndex:(const HierarchyIndex&)parentIndex atChildPos:(int)childPos;
 
--(void)removeItemAtParentIndex:(const CocoaModelIndex&)parentIndex atChildPos:(int)childPos;
+-(void)removeItemAtParentIndex:(const HierarchyIndex&)parentIndex atChildPos:(int)childPos;
 
 - (boost::signals2::signal<void()>&) selectionChanged;
 

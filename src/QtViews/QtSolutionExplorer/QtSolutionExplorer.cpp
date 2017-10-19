@@ -81,6 +81,7 @@ void QtSolutionExplorer::onDeselectClicked() {
 }
 
 QtSolutionItemPtr QtSolutionExplorer::makeItem(CNVisitablePtr visitable) {
+    throw std::logic_error("Function not yet implemented");
     return nullptr;
 }
 
