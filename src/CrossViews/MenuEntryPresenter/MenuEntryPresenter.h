@@ -29,6 +29,7 @@ public:
     virtual void onAction();
 
 private:
+    virtual void updateTitle();
     virtual void updateState();
     virtual void updateAccessibility();
 

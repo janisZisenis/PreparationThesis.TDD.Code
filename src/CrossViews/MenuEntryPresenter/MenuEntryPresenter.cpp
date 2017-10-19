@@ -18,6 +18,7 @@ MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr actionView,
     update();
     updateState();
     updateAccessibility();
+    updateTitle();
 }
 
 void MenuEntryPresenter::update() {
@@ -39,4 +40,8 @@ void MenuEntryPresenter::updateState() {
 
 void MenuEntryPresenter::updateAccessibility() {
     appearance->isAccessible() ? actionView->enable() : actionView->disable();
+}
+
+void MenuEntryPresenter::updateTitle() {
+    actionView->setTitle(appearance->getTitle());
 }
