@@ -22,6 +22,8 @@ public:
 
     virtual void check() override {}
     virtual void uncheck() override {}
+
+    virtual void enable() override {}
 };
 
 class MenuEntryViewSpy;
@@ -78,10 +80,19 @@ public:
         return unchecked;
     }
 
+    virtual void enable() override {
+        enabled = true;
+    }
+    virtual bool wasEnabled() {
+        return enabled;
+    }
+
 
 private:
     bool checked = false;
     bool unchecked = false;
+
+    bool enabled = false;
 
     bool newAccessbility = false;
     CBActionStates newState = OFF;
