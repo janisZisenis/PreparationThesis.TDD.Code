@@ -17,6 +17,11 @@ protected:
 
 public:
     virtual void removeIndex(const HierarchyIndex& index) override {}
+    virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) override {
+        actualVisitable = visitable;
+        actualParent = parent;
+        actualChildPos = childPos;
+    }
     virtual void accept(CNVisitorPtr visitor) override {}
 
     virtual void expectCalledInsertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) {

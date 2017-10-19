@@ -17,11 +17,12 @@ protected:
 public:
     void accept(CNVisitorPtr visitor) override {}
     virtual void removeIndex(const HierarchyIndex& index) override {}
+    virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) override {}
 };
 
 class SolutionExplorerViewSpy;
 typedef std::shared_ptr<SolutionExplorerViewSpy> SolutionExplorerViewSpyPtr;
-class SolutionExplorerViewSpy : public SolutionExplorerView {
+class SolutionExplorerViewSpy : public SolutionExplorerViewDummy {
 public:
     static SolutionExplorerViewSpyPtr getNewInstance() {
         return SolutionExplorerViewSpyPtr(new SolutionExplorerViewSpy());

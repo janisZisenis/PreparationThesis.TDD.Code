@@ -66,9 +66,9 @@ TEST_F(SolutionExplorerPresenterTest, FreshInstance__onRemove__ShouldRemoveIndex
 TEST_F(SolutionExplorerPresenterTest, FreshInstance__onInserted__ShouldAddVisitableToSolutionExplorerAtParentIndexAtChildPosition) {
     SolutionExplorerViewMockPtr view = makeSolutionExplorerViewMock();
     SolutionExplorerPresenterPtr sut = makeSolutionExplorerPresenter(view);
+
     CNVisitablePtr visitable = makeCNVisitableDummy();
     view->expectCalledInsertItem(visitable, HierarchyIndex({1,2,3}), 4);
-
     sut->onInsert(visitable, HierarchyIndex({1,2,3}), 4);
 
     view->verify();
