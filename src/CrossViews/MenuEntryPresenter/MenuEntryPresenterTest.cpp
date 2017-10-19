@@ -110,73 +110,6 @@ TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__MenuEntryViewShouldHaveAcc
 }
 
 
-TEST_F(MenuEntryPresenterTest, OnConstruction_WithAccessibleAppreance__ShouldSetMenuEntryAccessibilityToTrue) {
-    CBTransActionPtr action = makeCBTransActionDummy();
-    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    appearance->setIsAccessible(true);
-    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
-
-    expectAccessibilityWasSetToTrue(view);
-}
-
-TEST_F(MenuEntryPresenterTest, FreshInstance__UpdateWithAccessibleAppearance__ShouldSetMenuEntrysAccessibilityToTrue) {
-    CBTransActionPtr action = makeCBTransActionDummy();
-    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
-
-    appearance->setIsAccessible(true);
-    sut->update();
-
-    expectAccessibilityWasSetToTrue(view);
-}
-
-TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceStateON__ShouldSetMenuEntryViewStateON) {
-    CBTransActionPtr action = makeCBTransActionDummy();
-    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    appearance->setState(ON);
-    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
-
-    expectStateWasSetToON(view);
-}
-
-TEST_F(MenuEntryPresenterTest, FreshInstance__UpdateWithAppearanceStateON__ShouldSetMenuEntryViewStateON) {
-    CBTransActionPtr action = makeCBTransActionDummy();
-    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
-
-    appearance->setState(ON);
-    sut->update();
-
-    expectStateWasSetToON(view);
-}
-
-TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceTitle__ShouldSetMenuEntryViewTitle) {
-    CBTransActionPtr action = makeCBTransActionDummy();
-    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    appearance->setTitle("ThisIsMyTitle");
-    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
-
-    expectTitleWasSetTo("ThisIsMyTitle", view);
-}
-
-TEST_F(MenuEntryPresenterTest, FreshInstance__UpdateWithAppearanceTitle__ShouldSetMenuEntryViewTitle) {
-    CBTransActionPtr action = makeCBTransActionDummy();
-    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
-    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
-
-    appearance->setTitle("ThisIsMyTitle");
-    sut->update();
-
-    expectTitleWasSetTo("ThisIsMyTitle", view);
-}
-
-
 TEST_F(MenuEntryPresenterTest, FreshInstance__onAction__ShouldExecuteTransAction) {
     CBTransActionSpyPtr action = makeCBTransActionSpy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
@@ -255,3 +188,12 @@ TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAccessibleAppearance__Update
     expectWasEnabled(view);
 }
 
+TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceWithTitle__ShouldSetTitleToMenuEntryView) {
+    CBTransActionPtr action = makeCBTransActionDummy();
+    MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
+    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    appearance->setTitle("Title");
+    MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
+
+    expectTitleWasSetTo("Title", view);
+}
