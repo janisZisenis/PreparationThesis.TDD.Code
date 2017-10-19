@@ -61,7 +61,6 @@ add_subdirectory(applications/CrossViewsTest)
 add_subdirectory(applications/CrossViews)
 
 add_subdirectory(applications/QtViews)
-add_subdirectory(applications/QtViewsTest)
 add_subdirectory(applications/QtApp)
 
 if(APPLE)
