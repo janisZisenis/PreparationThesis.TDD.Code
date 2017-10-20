@@ -12,13 +12,29 @@ protected:
         return CNHierarchyNodeDummy::getNewInstance();
     }
 
-    virtual void expectHierarchyNodeIsParentOf(CNComposableHierarchyNodePtr parent, CNHierarchyNodePtr child) {
+    virtual void expectIsParentOf(CNComposableHierarchyNodePtr parent,
+                                  CNHierarchyNodePtr child) {
         bool actual = parent->isParentOf(child);
 
         std::string errorMessage = "CNComposableHierarchyNode should be parent of CNHierarchyNode, but it is not!";
         EXPECT_TRUE(actual) << errorMessage;
     }
+    virtual void expectIsNotParentOf(CNComposableHierarchyNodePtr parent,
+                                     CNHierarchyNodePtr child) {
+        bool actual = parent->isParentOf(child);
+
+        std::string errorMessage = "CNComposableHierarchyNode should not be parent of CNHierarchyNode, but it is!";
+        EXPECT_FALSE(actual) << errorMessage;
+    }
 };
+
+TEST_F(CNComposableHierarchyNodeTest, FreshInstance__ShouldNotBeParentOfCNHierarchyNode) {
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+
+    CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
+
+    expectIsParentOf(sut, first);
+}
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Add__ShouldBeParentOfAddedCNHierarchyNode) {
     CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
@@ -26,7 +42,7 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Add__ShouldBeParentOfAddedC
     CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
     sut->add(first);
 
-    expectHierarchyNodeIsParentOf(sut, first);
+    expectIsNotParentOf(sut, first);
 }
 
 //TEST(CNHierarchyNodeTest, testInsert_InsertsComponentAtChildPosition) {
