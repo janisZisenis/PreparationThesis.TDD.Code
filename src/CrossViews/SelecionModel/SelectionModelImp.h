@@ -20,6 +20,14 @@ public:
         selected = index;
     }
 
+    const HierarchyIndex getSelectedIndex() override {
+        return selected;
+    }
+
+    bool hasSelection() override {
+        return selected.isValid();
+    }
+
 private:
     HierarchyIndex selected;
 };
