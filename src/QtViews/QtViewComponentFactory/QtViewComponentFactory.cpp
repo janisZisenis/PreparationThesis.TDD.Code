@@ -16,10 +16,10 @@
 #include "QtViews/QtMenu/Visitors/QtMenuDecomposingVisitor.h"
 
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
-#include <CrossViews/SelecionModel/SelectionModelImp.h>
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
 
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
+#include <CrossViews/PropertiesExplorerPresenter/PropertiesExplorerPresenter.h>
 
 #include <CodeBaseImp/CBFixedActionAppearance/CBFixedAppearance.h>
 #include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
@@ -39,9 +39,8 @@ CNComponentPtr QtViewComponentFactory::makeShellComponent() {
     return makeComposable(shell, composer);
 }
 
-CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent() {
+CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent(std::shared_ptr<SelectionModel> selectionModel) {
     QtSolutionExplorerPtr view = QtSolutionExplorer::getNewInstance();
-    SelectionModelImpPtr selectionModel = SelectionModelImp::getNewInstance();
     SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
@@ -56,11 +55,13 @@ CNComponentPtr QtViewComponentFactory::makeMenuBarComponent() {
     return makeComposable(menuBar, composer);
 }
 
-CNComponentPtr QtViewComponentFactory::makePropertiesExplorerComponent() {
-    QtPropertiesExplorerPtr propertiesExplorer = QtPropertiesExplorer::getNewInstance();
+CNComponentPtr QtViewComponentFactory::makePropertiesExplorerComponent(std::shared_ptr<SelectionModel> selectionModel,
+                                                                       std::shared_ptr<HierarchicModelAccess> modelAccess) {
+    QtPropertiesExplorerPtr view = QtPropertiesExplorer::getNewInstance();
+    PropertiesExplorerPresenterPtr presenter = PropertiesExplorerPresenter::getNewInstance(view, modelAccess, selectionModel);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
-    return makeComposable(propertiesExplorer, composer);
+    return makeComposable(presenter, composer);
 }
 
 CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent(std::string tag) {

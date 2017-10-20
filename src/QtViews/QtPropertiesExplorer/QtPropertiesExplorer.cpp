@@ -41,9 +41,9 @@ void QtPropertiesExplorer::displayEmptyProperties() {
     tableView->setModel(new QtPropertiesModel());
 }
 
-void QtPropertiesExplorer::displayProperties(QtPropertiesModel* model) {
+void QtPropertiesExplorer::displayPropertiesFor(CNVisitablePtr visitable) {
     QAbstractItemModel* oldModel = tableView->model();
-    tableView->setModel(model);
+    tableView->setModel(makePropertiesModel(visitable));
     delete oldModel;
 }
 
@@ -53,4 +53,9 @@ QWidget* QtPropertiesExplorer::getQWidget() {
 
 QtPropertiesExplorerPtr QtPropertiesExplorer::me() {
     return this->shared_from_this();
+}
+
+QtPropertiesModel *QtPropertiesExplorer::makePropertiesModel(CNVisitablePtr visitable) {
+    throw std::logic_error("Function not yet implemented");
+    return nullptr;
 }
