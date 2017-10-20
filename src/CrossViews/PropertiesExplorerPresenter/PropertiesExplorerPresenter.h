@@ -25,6 +25,11 @@ private:
 public:
     virtual void accept(CNVisitorPtr visitor) override;
     virtual void update() override;
+
+private:
+    virtual void clearProperties();
+    virtual void setProperties();
+
 private:
     std::shared_ptr<PropertiesExplorerView> view;
     std::shared_ptr<HierarchicModelAccess> modelAccess;
