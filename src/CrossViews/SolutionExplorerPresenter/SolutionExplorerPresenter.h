@@ -1,7 +1,6 @@
 #ifndef CROSSVIEWS_SOLUTIONEXPLORERPRESENTER_H
 #define CROSSVIEWS_SOLUTIONEXPLORERPRESENTER_H
 
-#include <CodeBase/CBObserver/CBObserver.h>
 #include <CrossNative/CNVisitable/CNVisitable.h>
 #include "HierarchicModelListener.h"
 
