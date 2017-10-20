@@ -8,6 +8,10 @@ CNHierarchy::~CNHierarchy() {}
 CNHierarchy::CNHierarchy() {}
 
 void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {
+    if(this->node) {
+        this->node->add(node);
+    }
+
     this->node = node;
 }
 void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {}
