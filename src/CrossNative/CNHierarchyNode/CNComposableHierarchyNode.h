@@ -27,6 +27,7 @@ private:
     virtual bool isValidInsertingPosition(int childPos);
     virtual bool isValidChildPosition(int childPos);
     virtual void addToChildren(CNHierarchyNodePtr node);
+    virtual void insertToChildren(CNHierarchyNodePtr node, int childPos);
     virtual void removeFromChildren(int childPos);
     virtual int findPosition(CNHierarchyNodePtr node);
 
