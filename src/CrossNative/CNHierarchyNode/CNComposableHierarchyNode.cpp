@@ -11,6 +11,9 @@ void CNComposableHierarchyNode::add(CNHierarchyNodePtr node) {
 }
 
 void CNComposableHierarchyNode::remove(CNHierarchyNodePtr node) {
+    if(!isParentOf(node))
+        throw CNChildNotFoundException();
+
     children.erase(std::find(children.begin(), children.end(), node));
 }
 
