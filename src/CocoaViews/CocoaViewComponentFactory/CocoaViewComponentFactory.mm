@@ -16,9 +16,9 @@
 #include "CocoaViews/CocoaMenu/Visitors/CocoaMenuDecomposingVisitor.h"
 
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
-#include <CrossViews/SelecionModel/SelectionModelImp.h>
 #include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 
+#include <CrossViews/PropertiesExplorerPresenter/PropertiesExplorerPresenter.h>
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
 
 #include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
@@ -47,20 +47,21 @@ CNComponentPtr CocoaViewComponentFactory::makeMenuBarComponent() {
     return makeComposable(menuBar, composer);
 }
 
-CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent() {
+CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent(std::shared_ptr<SelectionModel> selectionModel) {
     CocoaSolutionExplorerPtr view = CocoaSolutionExplorer::getNewInstance();
-    SelectionModelImpPtr selectionModel = SelectionModelImp::getNewInstance();
     SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(presenter, composer);
 }
 
-CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent() {
-    CocoaPropertiesExplorerPtr propertiesExplorer = CocoaPropertiesExplorer::getNewInstance();
+CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent(std::shared_ptr<SelectionModel> selectionModel,
+                                                                          std::shared_ptr<HierarchicModelAccess> modelAccess) {
+    CocoaPropertiesExplorerPtr view = CocoaPropertiesExplorer::getNewInstance();
+    PropertiesExplorerPresenterPtr presenter = PropertiesExplorerPresenter::getNewInstance(view, modelAccess, selectionModel);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
-    return makeComposable(propertiesExplorer, composer);
+    return makeComposable(presenter, composer);
 }
 
 CNComponentPtr CocoaViewComponentFactory::makeHelloWorldMenuComponent(std::string tag) {

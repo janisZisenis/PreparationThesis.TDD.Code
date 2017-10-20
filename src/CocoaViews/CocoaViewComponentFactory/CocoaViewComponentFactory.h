@@ -8,6 +8,8 @@ class CNComponent;
 class CNVisitable;
 class CNComposer;
 class CNVisitor;
+class SelectionModel;
+class HierarchicModelAccess;
 
 class CocoaViewComponentFactory;
 typedef std::shared_ptr<CocoaViewComponentFactory> CocoaViewComponentFactoryPtr;
@@ -21,8 +23,9 @@ private:
 
 public:
     virtual std::shared_ptr<CNComponent> makeShellComponent();
-    virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent();
-    virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent();
+    virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent(std::shared_ptr<SelectionModel> selectionModel);
+    virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent(std::shared_ptr<SelectionModel>,
+                                                                         std::shared_ptr<HierarchicModelAccess> modelAccess);
     virtual std::shared_ptr<CNComponent> makeMenuBarComponent();
     virtual std::shared_ptr<CNComponent> makeHelloWorldMenuComponent(std::string tag);
     virtual std::shared_ptr<CNComponent> makeExampleMenuItemComponent();

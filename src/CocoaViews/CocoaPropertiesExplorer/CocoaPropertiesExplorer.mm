@@ -53,11 +53,11 @@ void CocoaPropertiesExplorer::toggleGUIVisibility() {
     [scrollView setHidden: !scrollView.isHidden];
 }
 
-void CocoaPropertiesExplorer::displayProperties(CocoaPropertiesModel* model) {
+void CocoaPropertiesExplorer::displayPropertiesFor(CNVisitablePtr visitable) {
     [tableView setDataSource:nil];
     [tableView setDelegate:nil];
 
-    viewDataSource = model;
+    viewDataSource = makePropertiesModel(visitable);
 
     [tableView setDataSource:viewDataSource];
     [tableView setDelegate:viewDataSource];
@@ -79,5 +79,10 @@ void CocoaPropertiesExplorer::accept(CNVisitorPtr visitor) {
 
 CocoaPropertiesExplorerPtr CocoaPropertiesExplorer::me() {
     return this->shared_from_this();
+}
+
+CocoaPropertiesModel *CocoaPropertiesExplorer::makePropertiesModel(CNVisitablePtr visitable) {
+    throw std::logic_error("Function not yet implemented");
+    return nullptr;
 }
 

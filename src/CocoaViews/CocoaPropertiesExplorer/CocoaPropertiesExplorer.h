@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include "CrossViews/PropertiesExplorerPresenter/PropertiesExplorerView.h"
 
 class CNAcceptor;
 
@@ -15,7 +15,7 @@ class CNAcceptor;
 class CocoaPropertiesExplorer;
 typedef std::shared_ptr<CocoaPropertiesExplorer> CocoaPropertiesExplorerPtr;
 
-class CocoaPropertiesExplorer : public CNVisitable, public std::enable_shared_from_this<CocoaPropertiesExplorer> {
+class CocoaPropertiesExplorer : public PropertiesExplorerView, public std::enable_shared_from_this<CocoaPropertiesExplorer> {
 public:
     static CocoaPropertiesExplorerPtr getNewInstance();
     virtual ~CocoaPropertiesExplorer();
@@ -29,12 +29,14 @@ public:
     virtual bool isVisible();
     virtual void toggleGUIVisibility();
 
-    virtual void displayProperties(CocoaPropertiesModel* model);
-    virtual void displayEmptyProperties();
+    virtual void displayPropertiesFor(CNVisitablePtr visitable) override;
+    virtual void displayEmptyProperties() override;
 
     virtual void accept(CNVisitorPtr visitor) override;
 
 private:
+    virtual CocoaPropertiesModel* makePropertiesModel(CNVisitablePtr visitable);
+
     CocoaPropertiesExplorerPtr me();
 
 private:
