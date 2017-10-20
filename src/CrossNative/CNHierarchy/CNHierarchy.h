@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "CNHierarchyNode.h"
+#include "CrossNative/CNHierarchyNode/CNComposableHierarchyNode.h"
 #include "CNHierarchyIndex.h"
 
 #include "CrossNative/CNIterator/Iterators/CNLevelOrderIterator.h"
