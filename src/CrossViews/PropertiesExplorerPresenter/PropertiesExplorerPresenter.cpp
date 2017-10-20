@@ -19,14 +19,14 @@ void PropertiesExplorerPresenter::accept(CNVisitorPtr visitor) {
 }
 
 void PropertiesExplorerPresenter::update() {
-    selectionModel->hasSelection() ? setProperties() : clearProperties();
+    selectionModel->hasSelection() ? displayProperties() : clearProperties();
 }
 
 void PropertiesExplorerPresenter::clearProperties() {
     view->displayEmptyProperties();
 }
 
-void PropertiesExplorerPresenter::setProperties() {
+void PropertiesExplorerPresenter::displayProperties() {
     HierarchyIndex selectedIndex = selectionModel->getSelectedIndex();
     CNVisitablePtr selectedVisitable = modelAccess->retrieve(selectedIndex);
     view->displayPropertiesFor(selectedVisitable);

@@ -28,7 +28,7 @@ public:
 
 private:
     virtual void clearProperties();
-    virtual void setProperties();
+    virtual void displayProperties();
 
 private:
     std::shared_ptr<PropertiesExplorerView> view;

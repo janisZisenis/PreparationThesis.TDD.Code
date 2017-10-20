@@ -18,9 +18,6 @@ protected:
     virtual PropertiesExplorerViewSpyPtr makePropertiesExplorerViewSpy() {
         return PropertiesExplorerViewSpy::getNewInstance();
     }
-    virtual PropertiesExplorerViewPtr makePropertiesExplorerViewDummy() {
-        return PropertiesExplorerViewDummy::getNewInstance();
-    }
     virtual HierarchicModelAccessSpyPtr makeHierarchicModelAccessSpy() {
         return HierarchicModelAccessSpy::getNewInstance();
     }
@@ -36,7 +33,6 @@ protected:
     virtual CNVisitorPtr makeCNVisitorDummy() {
         return CNVisitorDummy::getNewInstance();
     }
-
     virtual CNVisitablePtr makeCNVisitableDummy() {
         return CNVisitableDummy::getNewInstance();
     }
@@ -85,12 +81,11 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__Accept__ShouldPassTheVisi
 TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSelection__ShouldRetrieveTheSelectedIndexFromHierarchicModelAccess) {
     PropertiesExplorerViewSpyPtr view = makePropertiesExplorerViewSpy();
     HierarchicModelAccessSpyPtr hierarchicModelAccess = makeHierarchicModelAccessSpy();
-    SelectionModelPtr selectionModel = makeFakeSelectionModel();
-    PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
-
-    selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
+    SelectionModelPtr selectionModel = makeFakeSelectionModel();
+    selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
+    PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
 
     sut->update();
 
@@ -100,12 +95,11 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSe
 TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSelection__ShouldTriggerPropertiesExplorerViewToDisplayPropertiesForTheRetrieved) {
     PropertiesExplorerViewSpyPtr view = makePropertiesExplorerViewSpy();
     HierarchicModelAccessSpyPtr hierarchicModelAccess = makeHierarchicModelAccessSpy();
-    SelectionModelPtr selectionModel = makeFakeSelectionModel();
-    PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
-
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
+    SelectionModelPtr selectionModel = makeFakeSelectionModel();
     selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
+    PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
 
     sut->update();
 
@@ -115,12 +109,11 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSe
 TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasNoSelection__ShouldTriggerPropertiesExplorerViewToDisplayEmptyProperties) {
     PropertiesExplorerViewSpyPtr view = makePropertiesExplorerViewSpy();
     HierarchicModelAccessSpyPtr hierarchicModelAccess = makeHierarchicModelAccessSpy();
-    SelectionModelPtr selectionModel = makeFakeSelectionModel();
-    PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
-
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
+    SelectionModelPtr selectionModel = makeFakeSelectionModel();
     selectionModel->setSelectedIndex(HierarchyIndex());
+    PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
 
     sut->update();
 
