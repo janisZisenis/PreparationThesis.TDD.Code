@@ -85,7 +85,7 @@ protected:
 
 };
 
-TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__MenuEntryViewShouldHaveAcceptedTheVisitor) {
+TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToMenuEntryView) {
     CBTransActionPtr action = makeCBTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearancePtr appearance = makeCBTransActionAppearanceDummy();

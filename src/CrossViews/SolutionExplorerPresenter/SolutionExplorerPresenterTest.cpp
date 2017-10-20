@@ -25,8 +25,8 @@ protected:
     virtual SelectionModelPtr makeSelectionModelDummy() {
         return SelectionModelDummy::getNewInstance();
     }
-    virtual SelectionModelSpyPtr makeSelectionModelSpy() {
-        return SelectionModelSpy::getNewInstance();
+    virtual SelectionModelStubPtr makeSelectionModelStub() {
+        return SelectionModelStub::getNewInstance();
     }
 
     virtual CNVisitorPtr makeCNVisitorDummy() {
@@ -52,7 +52,7 @@ protected:
 
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-    virtual void expectSelectionModelReceivedIndex(SelectionModelSpyPtr selectionModel, const HierarchyIndex& index) {
+    virtual void expectSelectionModelReceivedIndex(SelectionModelStubPtr selectionModel, const HierarchyIndex& index) {
         HierarchyIndex expected = index;
         HierarchyIndex actual = selectionModel->getSelectedIndex();
 
@@ -62,7 +62,7 @@ protected:
 
 };
 
-TEST_F(SolutionExplorerPresenterTest, FreshInstance__Accept__SolutionExplorerViewShouldHaveAcceptedTheVisitor) {
+TEST_F(SolutionExplorerPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToSolutionExplorerView) {
     SolutionExplorerViewSpyPtr view = makeSolutionExplorerViewSpy();
     SelectionModelPtr selectionModel = makeSelectionModelDummy();
     SolutionExplorerPresenterPtr sut = makeSolutionExplorerPresenter(view, selectionModel);
@@ -99,7 +99,7 @@ TEST_F(SolutionExplorerPresenterTest, FreshInstance__onInserted__ShouldAddVisita
 TEST_F(SolutionExplorerPresenterTest, FreshInstance__onSelectionChanged__ShouldSetTheSelectedIndexToThSelectionModel) {
     SolutionExplorerViewStubPtr view = makeSolutionExplorerViewStub();
     view->setSelectedIndex(HierarchyIndex({1,2,3}));
-    SelectionModelSpyPtr selectionModel = makeSelectionModelSpy();
+    SelectionModelStubPtr selectionModel = makeSelectionModelStub();
     SolutionExplorerPresenterPtr sut = makeSolutionExplorerPresenter(view, selectionModel);
 
     sut->onSelectionChanged();

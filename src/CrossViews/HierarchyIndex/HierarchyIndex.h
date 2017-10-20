@@ -48,8 +48,8 @@ public:
         } else {
             for (int i = 0; i < depth(); i++) {
                 s += std::to_string(childPath[i]);
-                if(i != depth() - 1)
-                    s+= "; ";
+                if(i < depth() - 1)
+                    s+= ", ";
             }
         }
 

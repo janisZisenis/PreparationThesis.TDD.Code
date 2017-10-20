@@ -19,17 +19,17 @@ public:
     virtual void setSelectedIndex(const HierarchyIndex& index) override {}
 };
 
-class SelectionModelSpy;
-typedef std::shared_ptr<SelectionModelSpy> SelectionModelSpyPtr;
+class SelectionModelStub;
+typedef std::shared_ptr<SelectionModelStub> SelectionModelStubPtr;
 
-class SelectionModelSpy : public SelectionModelDummy {
+class SelectionModelStub : public SelectionModelDummy {
 public:
-    static SelectionModelSpyPtr getNewInstance() {
-        return SelectionModelSpyPtr(new SelectionModelSpy());
+    static SelectionModelStubPtr getNewInstance() {
+        return SelectionModelStubPtr(new SelectionModelStub());
     }
-    virtual ~SelectionModelSpy() {};
+    virtual ~SelectionModelStub() {};
 protected:
-    SelectionModelSpy() {};
+    SelectionModelStub() {};
 
 public:
     virtual void setSelectedIndex(const HierarchyIndex& index) override {

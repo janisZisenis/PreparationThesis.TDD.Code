@@ -1,15 +1,14 @@
 #ifndef CROSSVIEWS_HIERARCHICMODELACCESS_TESTDOUBLES_H
 #define CROSSVIEWS_HIERARCHICMODELACCESS_TESTDOUBLES_H
 
-#include <memory>
 #include "HierarchicModelAccess.h"
 
 class HierarchicModelAccessDummy;
 typedef std::shared_ptr<HierarchicModelAccessDummy> HierarchicModelAccessDummyPtr;
-class HierarchicModelAccessDummy {
+class HierarchicModelAccessDummy : public HierarchicModelAccess {
 public:
     static HierarchicModelAccessDummyPtr getNewInstance() {
-        return HierarchicModelAccessDummyPtr(HierarchicModelAccessDummy());
+        return HierarchicModelAccessDummyPtr(new HierarchicModelAccessDummy());
     }
     virtual ~HierarchicModelAccessDummy() {};
 protected:
@@ -23,10 +22,10 @@ public:
 
 class HierarchicModelAccessStub;
 typedef std::shared_ptr<HierarchicModelAccessStub> HierarchicModelAccessStubPtr;
-class HierarchicModelAccessStub {
+class HierarchicModelAccessStub : public HierarchicModelAccessDummy {
 public:
     static HierarchicModelAccessStubPtr getNewInstance() {
-        return HierarchicModelAccessStubPtr(HierarchicModelAccessStub());
+        return HierarchicModelAccessStubPtr(new HierarchicModelAccessStub());
     }
     virtual ~HierarchicModelAccessStub() {};
 protected:
@@ -46,10 +45,10 @@ private:
 
 class HierarchicModelAccessSpy;
 typedef std::shared_ptr<HierarchicModelAccessSpy> HierarchicModelAccessSpyPtr;
-class HierarchicModelAccessSpy {
+class HierarchicModelAccessSpy : public HierarchicModelAccessStub {
 public:
     static HierarchicModelAccessSpyPtr getNewInstance() {
-        return HierarchicModelAccessSpyPtr(HierarchicModelAccessSpy());
+        return HierarchicModelAccessSpyPtr(new HierarchicModelAccessSpy());
     }
     virtual ~HierarchicModelAccessSpy() {};
 protected:
