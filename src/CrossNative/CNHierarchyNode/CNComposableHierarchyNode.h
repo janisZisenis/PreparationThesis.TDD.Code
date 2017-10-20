@@ -17,6 +17,7 @@ protected:
 public:
     virtual bool isParentOf(CNHierarchyNodePtr node) override;
     virtual int getChildCount() override;
+    virtual CNHierarchyNodePtr getChild(int childPosition) override;
 
     virtual void add(std::shared_ptr<CNHierarchyNode> node) override;
     virtual void remove(std::shared_ptr<CNHierarchyNode> node) override;

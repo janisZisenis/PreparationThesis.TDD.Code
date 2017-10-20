@@ -26,14 +26,21 @@ protected:
         std::string errorMessage = "CNComposableHierarchyNode should not be parent of CNHierarchyNode, but it is!";
         EXPECT_FALSE(actual) << errorMessage;
     }
-
     virtual void expectHasChildCount(CNComposableHierarchyNodePtr sut, int childCount) {
         int expected = childCount;
         int actual = sut->getChildCount();
 
         std::string errorMessage = "The CNComposableHierarchyNode should have child count"
                                    + std::to_string(expected) + ". Instead it has " + std::to_string(actual) + "!";
-        EXPECT_THAT(actual, testing::Eq(expected));
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
+    virtual void expectHasChildAtPosition(CNComposableHierarchyNodePtr sut, CNHierarchyNodePtr child ,int childCount) {
+        CNHierarchyNodePtr expected = child;
+        CNHierarchyNodePtr actual = sut->getChild(childCount);
+
+        std::string errorMessage = "The CNComposableHierarchyNode should have the child at position "
+                                   + std::to_string(childCount) + ", but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
 };
 
@@ -102,6 +109,18 @@ TEST_F(CNComposableHierarchyNodeTest, AddedTwoCNHierarchyNodes_InsertedOneCNHier
 
     expectHasChildCount(sut, 2);
 }
+
+TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Add__ShouldKeepTheSecondCNHierarchyNodeAtChildPosition1) {
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
+    sut->add(first);
+
+    CNHierarchyNodePtr second = makeCNHierarchyNodeDummy();
+    sut->add(second);
+
+    expectHasChildAtPosition(sut, second, 1);
+}
+
 
 //TEST(CNHierarchyNodeTest, testInsert_InsertsComponentAtChildPosition) {
 //    CNHierarchyNodePtr<TMock> sut = CNHierarchyNode<TMock>::getNewInstance(TMock::getNewInstance());

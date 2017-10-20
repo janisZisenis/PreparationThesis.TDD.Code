@@ -21,7 +21,10 @@ public:
     }
     virtual int getChildCount() override {
         return 0;
-    };
+    }
+    virtual CNHierarchyNodePtr getChild(int childPosition) override {
+        return 0;
+    }
 
     virtual void add(std::shared_ptr<CNHierarchyNode> node) override {}
     virtual void remove(std::shared_ptr<CNHierarchyNode> node) override {}

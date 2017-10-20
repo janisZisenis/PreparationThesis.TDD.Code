@@ -31,3 +31,7 @@ bool CNComposableHierarchyNode::isParentOf(CNHierarchyNodePtr node) {
 int CNComposableHierarchyNode::getChildCount() {
     return (int)children.size();
 }
+
+CNHierarchyNodePtr CNComposableHierarchyNode::getChild(int childPosition) {
+    return nullptr;
+}
