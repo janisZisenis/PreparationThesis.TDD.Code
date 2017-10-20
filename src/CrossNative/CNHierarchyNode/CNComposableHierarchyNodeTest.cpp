@@ -30,17 +30,26 @@ protected:
         int expected = childCount;
         int actual = sut->getChildCount();
 
-        std::string errorMessage = "The CNComposableHierarchyNode should have child count"
+        std::string errorMessage = "The CNComposableHierarchyNode should have child count "
                                    + std::to_string(expected) + ". Instead it has " + std::to_string(actual) + "!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-    virtual void expectHasChildAtPosition(CNComposableHierarchyNodePtr sut, CNHierarchyNodePtr child ,int childCount) {
+    virtual void expectHasChildAtPosition(CNComposableHierarchyNodePtr sut, CNHierarchyNodePtr child ,int childPos) {
         CNHierarchyNodePtr expected = child;
-        CNHierarchyNodePtr actual = sut->getChild(childCount);
+        CNHierarchyNodePtr actual = sut->getChild(childPos);
+
+        assertIsValidChildPosition(sut, childPos);
 
         std::string errorMessage = "The CNComposableHierarchyNode should have the child at position "
-                                   + std::to_string(childCount) + ", but it has not!";
+                                   + std::to_string(childPos) + ", but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
+    virtual void assertIsValidChildPosition(CNComposableHierarchyNodePtr sut, int childPos) {
+        int expected = childPos;
+        int actual = sut->getChildCount();
+
+        std::string errorMessage = "CNComposableHierarchyNode should have a valid child position of " + std::to_string(childPos) + ", but it has not!";
+        ASSERT_THAT(actual, testing::Ge(expected)) << errorMessage;
     }
 };
 
@@ -120,7 +129,6 @@ TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Add__ShouldKeepTheSe
 
     expectHasChildAtPosition(sut, second, 1);
 }
-
 
 //TEST(CNHierarchyNodeTest, testInsert_InsertsComponentAtChildPosition) {
 //    CNHierarchyNodePtr<TMock> sut = CNHierarchyNode<TMock>::getNewInstance(TMock::getNewInstance());
