@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 #include "CNHierarchy.h"
 #include "CrossNative/CNHierarchyNode/CNHierarchyNodeTestDoubles.h"
+#include "CrossNative/CNHierarchyNode/CNFakeHierarchyNode.h"
 
 class CNHierarchyTest : public testing::Test {
 protected:
@@ -10,6 +11,9 @@ protected:
 
     virtual CNHierarchyNodePtr makeCNHierarchyNodeDummy() {
         return CNHierarchyNodeDummy::getNewInstance();
+    }
+    virtual CNHierarchyNodePtr makeCNFakeHierarchyNode() {
+        return CNFakeHierarchyNode::getNewInstance();
     }
     virtual CNHierarchyNodeSpyPtr makeCNHierarchyNodeSpy() {
         return CNHierarchyNodeSpy::getNewInstance();
@@ -54,7 +58,7 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddSecondWithInde
 
 TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddSecondWithIndex_0__ShouldStoreFirstAtIndex_0) {
     CNHierarchyPtr sut = CNHierarchy::getNewInstance();
-    CNHierarchyNodeSpyPtr first = makeCNHierarchyNodeSpy();
+    CNHierarchyNodePtr first = makeCNFakeHierarchyNode();
     sut->add(first, CNHierarchyIndex());
 
     CNHierarchyNodePtr second = makeCNHierarchyNodeDummy();
@@ -65,7 +69,7 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddSecondWithInde
 
 TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddSecondWithIndex_0__ShouldStoreSecondAtIndex_0_1) {
     CNHierarchyPtr sut = CNHierarchy::getNewInstance();
-    CNHierarchyNodeSpyPtr first = makeCNHierarchyNodeSpy();
+    CNHierarchyNodePtr first = makeCNFakeHierarchyNode();
     sut->add(first, CNHierarchyIndex());
 
     CNHierarchyNodePtr second = makeCNHierarchyNodeDummy();
