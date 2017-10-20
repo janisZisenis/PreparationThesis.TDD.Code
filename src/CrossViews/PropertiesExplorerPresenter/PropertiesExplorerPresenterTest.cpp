@@ -89,6 +89,7 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSe
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
     selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
+    selectionModel->setHasSelection(true);
 
     sut->update();
 
@@ -103,6 +104,7 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSe
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
     selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
+    selectionModel->setHasSelection(true);
 
     sut->update();
 

@@ -19,5 +19,8 @@ void PropertiesExplorerPresenter::accept(CNVisitorPtr visitor) {
 }
 
 void PropertiesExplorerPresenter::update() {
-    view->displayPropertiesFor(modelAccess->retrieve(selectionModel->getSelectedIndex()));
+    if(selectionModel->hasSelection())
+        view->displayPropertiesFor(modelAccess->retrieve(selectionModel->getSelectedIndex()));
+    else
+        view->displayEmptyProperties();
 }
