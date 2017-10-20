@@ -10,7 +10,7 @@
 #include "CrossNative/CNIterator/Iterators/CNPostOrderIterator.h"
 #include "CrossNative/CNIterator/Iterators/CNPreOrderIterator.h"
 
-#include "CNInvalidInsertingPositionException.h"
+#include "CrossNative/CNHierarchyNode/CNInvalidInsertingPositionException.h"
 #include "CNInvalidChildPositionException.h"
 #include "CrossNative/CNComponent/CNChildNotFoundException.h"
 #include "CNIndexOutOfBoundsException.h"

@@ -61,7 +61,7 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Remove__ShouldThrowCNChildN
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
 
     std::string errorMessage = "CNComposableHierarchyNode should throw CNChildNotFoundException, but it did not!";
-    EXPECT_THROW(sut->remove(node),CNChildNotFoundException);
+    EXPECT_THROW(sut->remove(node), CNChildNotFoundException);
 }
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__InsertWithChildPos0__ShouldBeParentOfCNHierarchyNode) {
@@ -71,6 +71,16 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__InsertWithChildPos0__Should
     sut->insert(node, 0);
 
     expectIsParentOf(sut, node);
+}
+
+TEST_F(CNComposableHierarchyNodeTest, FreshInstance__InsertWithChildPos1__ShouldThrowCNInvalidInsertingPositionException) {
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->insert(node, 1);
+
+    std::string errorMessage = "CNComposableHierarchyNode should throw CNInvalidInsertingPositionException, but it did not!";
+    EXPECT_THROW(sut->remove(node), CNInvalidInsertingPositionException);
 }
 
 //TEST(CNHierarchyNodeTest, testInsert_InsertsComponentAtChildPosition) {
