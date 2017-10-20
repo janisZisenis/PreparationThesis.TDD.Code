@@ -67,7 +67,7 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex__AddSecondWithIndex_0__Should
     expectHasCNHierarchyNodeAtIndex(sut, second, CNHierarchyIndex({0, 0}));
 }
 
-TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex__AddedSecondWithIndex_0__AddThirdWithIndex_0__ShouldStoreThirdAtIndex_0_1) {
+TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithIndex_0__AddThirdWithIndex_0__ShouldStoreThirdAtIndex_0_1) {
     CNHierarchyPtr sut = CNHierarchy::getNewInstance();
     CNHierarchyNodePtr first = makeCNFakeHierarchyNode();
     sut->add(first, CNHierarchyIndex());
@@ -80,7 +80,7 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex__AddedSecondWithIndex_0__AddT
     expectHasCNHierarchyNodeAtIndex(sut, third, CNHierarchyIndex({0, 1}));
 }
 
-TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex__AddedSecondWithIndex_0__AddThirdWithIndex_0_0__SecondShouldHaveAddedThird) {
+TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithIndex_0__AddThirdWithIndex_0_0__SecondShouldHaveAddedThird) {
     CNHierarchyPtr sut = CNHierarchy::getNewInstance();
     CNHierarchyNodePtr first = makeCNFakeHierarchyNode();
     sut->add(first, CNHierarchyIndex());
@@ -128,6 +128,21 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex__AddSecondWithInvalidIndex__A
     sut->add(third, CNHierarchyIndex({1}));
 
     expectHasCNHierarchyNodeAtIndex(sut, third, CNHierarchyIndex({1, 0}));
+}
+
+TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithIndex_0_AddedThirdWithIndex_0__AddFourthWithIndex_0_1__ThirdShouldHaveAddedFourth) {
+    CNHierarchyPtr sut = CNHierarchy::getNewInstance();
+    CNHierarchyNodePtr first = makeCNFakeHierarchyNode();
+    sut->add(first, CNHierarchyIndex());
+    CNHierarchyNodePtr second = makeCNFakeHierarchyNode();
+    sut->add(second, CNHierarchyIndex({0}));
+    CNHierarchyNodeSpyPtr third = makeCNHierarchyNodeSpy();
+    sut->add(third, CNHierarchyIndex({0}));
+
+    CNHierarchyNodePtr fourth = makeCNHierarchyNodeDummy();
+    sut->add(fourth, CNHierarchyIndex({0, 1}));
+
+    expectReceiverAddedCNHierarchyNode(third, fourth);
 }
 
 //TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddedSecondWithIndex_0__AddThirdWithIndex_0_0__SecondShouldHaveAddedThird) {

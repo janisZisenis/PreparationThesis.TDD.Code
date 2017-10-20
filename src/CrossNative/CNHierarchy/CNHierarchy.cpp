@@ -10,13 +10,15 @@ CNHierarchy::CNHierarchy() {}
 void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {
     if(!parentIndex.isValid()) {
         nodes.push_back(node);
-    } else {
-        if (parentIndex.depth() == 1)
-            nodes[parentIndex[0]]->add(node);
-        else if(parentIndex.depth() == 2)
-            nodes[0]->getChild(0)->add(node);
+        return;
     }
+
+    if (parentIndex.depth() == 1)
+        nodes[parentIndex[0]]->add(node);
+    else if(parentIndex.depth() == 2)
+        nodes[0]->getChild(0)->add(node);
 }
+
 void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {}
 
 void CNHierarchy::insert(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex, int childPos) {
