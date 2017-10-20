@@ -130,6 +130,17 @@ TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Add__ShouldKeepTheSe
     expectHasChildAtPosition(sut, second, 1);
 }
 
+TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__InsertWithChildPosition0__ShouldKeepTheSecondCNHierarchyNodeAtChildPosition0) {
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
+    sut->add(first);
+
+    CNHierarchyNodePtr second = makeCNHierarchyNodeDummy();
+    sut->insert(second, 0);
+
+    expectHasChildAtPosition(sut, second, 0);
+}
+
 TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__GetChildWithChildPosition1__ShouldThrowCNInvalidChildPositionException) {
     CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
     CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
