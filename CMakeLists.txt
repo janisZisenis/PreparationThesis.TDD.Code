@@ -67,3 +67,5 @@ if(APPLE)
    add_subdirectory(applications/CocoaViews)
    add_subdirectory(applications/CocoaApp)
 endif()
+
+add_subdirectory(applications/AllTest)
