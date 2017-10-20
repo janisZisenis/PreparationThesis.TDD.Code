@@ -11,7 +11,7 @@ void CNComposableHierarchyNode::add(CNHierarchyNodePtr node) {
 }
 
 void CNComposableHierarchyNode::remove(CNHierarchyNodePtr node) {
-
+    children.erase(std::find(children.begin(), children.end(), node));
 }
 
 void CNComposableHierarchyNode::insert(CNHierarchyNodePtr node, int childPos) {
