@@ -29,7 +29,8 @@ public:
 private:
     
 private:
-    std::shared_ptr<CNHierarchyNode> node;
+    std::shared_ptr<CNHierarchyNode> first;
+    std::shared_ptr<CNHierarchyNode> second;
 };
 
 #endif //CROSSNATIVE_HIERARCHY_H
