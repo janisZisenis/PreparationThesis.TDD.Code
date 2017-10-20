@@ -16,7 +16,7 @@ protected:
     HierarchicModelAccess() {};
 
 public:
-    virtual std::shared_ptr<CNVisitable> retrieve(HierarchyIndex index) = 0;
+    virtual std::shared_ptr<CNVisitable> retrieve(const HierarchyIndex& index) = 0;
 };
 
 #endif //CROSSVIEWS_HIERARCHICMODELACCESS_H
