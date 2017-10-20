@@ -16,7 +16,6 @@ protected:
 
 public:
     void accept(CNVisitorPtr visitor) override {}
-    };
 };
 
 class PropertiesExplorerViewSpy;
@@ -29,5 +28,16 @@ public:
     virtual ~PropertiesExplorerViewSpy() {}
 protected:
     PropertiesExplorerViewSpy() {}
+
+public:
+    virtual void accept(CNVisitorPtr visitor) override {
+        accepted = visitor;
+    }
+    virtual CNVisitorPtr getAccepted() {
+        return accepted;
+    }
+private:
+    CNVisitorPtr accepted;
 };
+
 #endif //CROSSVIEWS_PROPERTIESEXPLORERVIEW_TESTDOUBLES_H
