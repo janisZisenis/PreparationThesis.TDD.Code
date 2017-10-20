@@ -16,6 +16,7 @@ protected:
 
 public:
     virtual void displayPropertiesFor(CNVisitablePtr visitable) = 0;
+    virtual void displayEmptyProperties() = 0;
 };
 
 #endif //CROSSVIEWS_PROPERTIESEXPLORERVIEW_H

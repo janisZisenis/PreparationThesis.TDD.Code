@@ -16,6 +16,7 @@ protected:
 
 public:
     virtual void displayPropertiesFor(CNVisitablePtr visitable) override {}
+    virtual void displayEmptyProperties() override {}
     void accept(CNVisitorPtr visitor) override {}
 };
 
@@ -38,6 +39,14 @@ public:
         return displayed;
     }
 
+    virtual void displayEmptyProperties() override {
+        displaysEmptyProperties = true;
+    }
+    virtual bool getDisplaysEmptyProperties() {
+        return displaysEmptyProperties;
+    }
+
+
     virtual void accept(CNVisitorPtr visitor) override {
         accepted = visitor;
     }
@@ -47,6 +56,7 @@ public:
 private:
     CNVisitorPtr accepted;
     CNVisitablePtr displayed;
+    bool displaysEmptyProperties = false;
 };
 
 #endif //CROSSVIEWS_PROPERTIESEXPLORERVIEW_TESTDOUBLES_H

@@ -61,6 +61,12 @@ protected:
         std::string errorMessage = "The PropertiesExplorerView should display the properties for the visitable, but it does not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
+    virtual void expectDisplaysEmptyProperties(PropertiesExplorerViewSpyPtr view) {
+        bool actual = view->getDisplaysEmptyProperties();
+
+        std::string errorMessage = "The PropertiesExplorerView should display empty properties, but it does not!";
+        EXPECT_TRUE(actual) << errorMessage;
+    }
 };
 
 TEST_F(PropertiesExplorerPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToPropertiesExplorerView) {
@@ -75,10 +81,10 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__Accept__ShouldPassTheVisi
     expectPropertiesExplorerViewHasAcceptedVisitor(view, visitor);
 }
 
-TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateWithValidIndex__ShouldRetrieveTheSelectedIndexFromHierarchicModelAccess) {
+TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSelection__ShouldRetrieveTheSelectedIndexFromHierarchicModelAccess) {
     PropertiesExplorerViewSpyPtr view = makePropertiesExplorerViewSpy();
     HierarchicModelAccessSpyPtr hierarchicModelAccess = makeHierarchicModelAccessSpy();
-    SelectionModelPtr selectionModel = makeSelectionModelStub();
+    SelectionModelStubPtr selectionModel = makeSelectionModelStub();
     PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
@@ -89,10 +95,10 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateWithValidIndex__Sho
     expectRetrievedIndexWas(HierarchyIndex({1, 2, 3}), hierarchicModelAccess);
 }
 
-TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateWithValidIndex__ShouldTriggerPropertiesExplorerViewToDisplayPropertiesForTheRetrieved) {
+TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSelection__ShouldTriggerPropertiesExplorerViewToDisplayPropertiesForTheRetrieved) {
     PropertiesExplorerViewSpyPtr view = makePropertiesExplorerViewSpy();
     HierarchicModelAccessSpyPtr hierarchicModelAccess = makeHierarchicModelAccessSpy();
-    SelectionModelPtr selectionModel = makeSelectionModelStub();
+    SelectionModelStubPtr selectionModel = makeSelectionModelStub();
     PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
@@ -101,4 +107,18 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateWithValidIndex__Sho
     sut->update();
 
     expectPropertiesExplorerDisplaysPropertiesFor(visitable, view);
+}
+
+TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasNoSelection__ShouldTriggerPropertiesExplorerViewToDisplayEmptyProperties) {
+    PropertiesExplorerViewSpyPtr view = makePropertiesExplorerViewSpy();
+    HierarchicModelAccessSpyPtr hierarchicModelAccess = makeHierarchicModelAccessSpy();
+    SelectionModelStubPtr selectionModel = makeSelectionModelStub();
+    PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    hierarchicModelAccess->setRetrieved(visitable);
+    selectionModel->setHasSelection(false);
+
+    sut->update();
+
+    expectDisplaysEmptyProperties(view);
 }
