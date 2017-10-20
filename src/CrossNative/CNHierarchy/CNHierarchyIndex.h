@@ -2,6 +2,7 @@
 #define CROSSNATIVE_HIERARCHYINDEX_H
 
 #include <vector>
+#include <string>
 
 class CNHierarchyIndex {
 public:

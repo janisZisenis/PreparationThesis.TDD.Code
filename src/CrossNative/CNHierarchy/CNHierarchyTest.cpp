@@ -1,7 +1,35 @@
-//#include <gmock/gmock.h>
-//#include "CNHierarchy.h"
-//#include "CCore/Component/ChildManagedComposite/TMock.h"
-//
+#include <gmock/gmock.h>
+#include "CNHierarchy.h"
+#include "CrossNative/CNHierarchyNode/CNHierarchyNodeTestDoubles.h"
+
+class CNHierarchyTest : public testing::Test {
+protected:
+    virtual CNHierarchyPtr makeCNHierarchy() {
+        return CNHierarchy::getNewInstance();
+    }
+
+    virtual CNHierarchyNodePtr makeCNHierarchyNodeDummy() {
+        return CNHierarchyNodeDummy::getNewInstance();
+    }
+
+    virtual void expectHasCNHierarchyNodeAtIndex(CNHierarchyPtr sut, CNHierarchyNodePtr node, const CNHierarchyIndex& index) {
+        CNHierarchyNodePtr actual = sut->retrieve(index);
+        CNHierarchyNodePtr expected = node;
+
+        std::string errorMessage = "CNHierarchy should have the CNHierarchyNode at index " + index.toString() + ", but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
+};
+
+TEST_F(CNHierarchyTest, FreshInstance__AddWithInvalidCNHierarchyIndex_ShouldStoreCNHierarchyNodeAtIndex_0) {
+    CNHierarchyPtr sut = CNHierarchy::getNewInstance();
+
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->add(node, CNHierarchyIndex());
+
+    expectHasCNHierarchyNodeAtIndex(sut, node, CNHierarchyIndex({0}));
+}
+
 //TEST(CNHierarchyTest, testAdd_ShouldSetTheContentAtTheLastPositionOfTheParent) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
@@ -32,7 +60,7 @@
 //    int firstChildCount = sut->getChildCountFor(firstIndex);
 //    EXPECT_THAT(sut->retrieve(CCore::HierarchyIndex(firstIndex, firstChildCount - 1)), firstZeroth);
 //}
-//
+
 //TEST(CNHierarchyTest, testRemoveContent_ShouldRemoveTheGivenContentFromTheParent) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
@@ -61,7 +89,7 @@
 //    ASSERT_THAT(sut->getChildCountFor(zerothIndex), 1);
 //    EXPECT_THAT(sut->retrieve(CCore::HierarchyIndex(zerothIndex, 0)), zerothFirst);
 //}
-//
+
 //TEST(CNHierarchyTest, testInsert_ShouldSetTheContentAtGivenChildPositionOfTheParent) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
@@ -89,7 +117,7 @@
 //
 //    EXPECT_THAT(sut->retrieve(CCore::HierarchyIndex(firstIndex, 0)), firstZeroth);
 //}
-//
+
 //TEST(CNHierarchyTest, testRemoveChildPos_ShouldRemoveTheGivenChildPosFromTheParent) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
@@ -117,7 +145,7 @@
 //    ASSERT_THAT(sut->getChildCountFor(invalidIndex), 1);
 //    EXPECT_THAT(sut->retrieve(CCore::HierarchyIndex(invalidIndex, 0)), zeroth);
 //}
-//
+
 //TEST(CNHierarchyTest, testAddRemove_ShouldThrowIndexOutOfBoundsExceptionIfParentIndexIsOutOfBounds) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
@@ -125,7 +153,7 @@
 //    EXPECT_THROW(sut->add(TMock::getNewInstance(), outOfBoundsIndex), IndexOutOfBoundsException);
 //    EXPECT_THROW(sut->remove(TMock::getNewInstance(), outOfBoundsIndex), IndexOutOfBoundsException);
 //}
-//
+
 //TEST(CNHierarchyTest, testInsertRemove_ShouldThrowIndexOutOfBoundsExceptionIfParentIndexIsOutOfBounds) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
@@ -134,226 +162,24 @@
 //    EXPECT_THROW(sut->insert(TMock::getNewInstance(), outOfBoundsIndex, childPos), IndexOutOfBoundsException);
 //    EXPECT_THROW(sut->remove(outOfBoundsIndex, childPos), IndexOutOfBoundsException);
 //}
-//
+
 //TEST(CNHierarchyTest, testGetChildCountForIndexWithIndexOutOfBounds_ShouldThrowIndexOutOfBoundsException) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
 //    HierarchyIndex outOfBoundsIndex({1, 6, 88, 99});
 //    EXPECT_THROW(sut->getChildCountFor(outOfBoundsIndex), IndexOutOfBoundsException);
 //}
-//
+
 //TEST(CNHierarchyTest, testRetrieveWithIndexOutOfBounds_ShouldThrowIndexOutOfBoundsException) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
 //    HierarchyIndex outOfBoundsIndex({1, 6, 88, 99});
 //    EXPECT_THROW(sut->retrieve(outOfBoundsIndex), IndexOutOfBoundsException);
 //}
-//
+
 //TEST(CNHierarchyTest, testRetrieveWithInvalidIndex_ShouldThrowIndexOutOfBoundsException) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
 //
 //    HierarchyIndex invalidIndex;
 //    EXPECT_THROW(sut->retrieve(invalidIndex), IndexOutOfBoundsException);
 //}
-//
-//
-//
-//
-//TEST(CNHierarchyTest, testBeginPreOrder_ReturnsIterator_WhichIteratesTheHierarchyContent_InPreOrder) {
-//    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
-//
-//    HierarchyIndex invalidIndex;
-//
-//    TMockPtr zeroth = TMock::getNewInstance();
-//    HierarchyIndex zerothIndex({0});
-//
-//    TMockPtr first = TMock::getNewInstance();
-//    HierarchyIndex firstIndex({1});
-//
-//    TMockPtr second = TMock::getNewInstance();
-//    HierarchyIndex secondIndex({2});
-//
-//    TMockPtr zerothZeroth = TMock::getNewInstance();
-//    TMockPtr zerothFirst = TMock::getNewInstance();
-//    TMockPtr firstZeroth = TMock::getNewInstance();
-//    TMockPtr firstFirst = TMock::getNewInstance();
-//    TMockPtr secondZeroth = TMock::getNewInstance();
-//    TMockPtr secondFirst = TMock::getNewInstance();
-//
-//    sut->add(zeroth, invalidIndex);
-//    sut->add(first, invalidIndex);
-//    sut->add(second, invalidIndex);
-//    sut->add(zerothZeroth, zerothIndex);
-//    sut->add(zerothFirst, zerothIndex);
-//    sut->add(firstZeroth, firstIndex);
-//    sut->add(firstFirst, firstIndex);
-//    sut->add(secondZeroth, secondIndex);
-//    sut->add(secondFirst, secondIndex);
-//
-//    IteratorPtr<TMock> it = sut->begin();
-//    EXPECT_THAT(it->current(), zeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), zerothZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), zerothFirst);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), first);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), firstZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), firstFirst);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), second);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), secondZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), secondFirst);
-//
-//    it->next();
-//    EXPECT_TRUE(it->isDone());
-//    EXPECT_THROW(it->current(), IteratorOutOfBoundsException);
-//
-//    it->next();
-//    EXPECT_TRUE(it->isDone());
-//}
-//
-//TEST(CNHierarchyTest, testBeginPostOrder_ReturnsIterator_WhichIteratesTheHierarchyContent_InPostOrder) {
-//    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
-//
-//    HierarchyIndex invalidIndex;
-//
-//    TMockPtr zeroth = TMock::getNewInstance();
-//    HierarchyIndex zerothIndex({0});
-//
-//    TMockPtr first = TMock::getNewInstance();
-//    HierarchyIndex firstIndex({1});
-//
-//    TMockPtr second = TMock::getNewInstance();
-//    HierarchyIndex secondIndex({2});
-//
-//    TMockPtr zerothZeroth = TMock::getNewInstance();
-//    TMockPtr zerothFirst = TMock::getNewInstance();
-//    TMockPtr firstZeroth = TMock::getNewInstance();
-//    TMockPtr firstFirst = TMock::getNewInstance();
-//    TMockPtr secondZeroth = TMock::getNewInstance();
-//    TMockPtr secondFirst = TMock::getNewInstance();
-//
-//    sut->add(zeroth, invalidIndex);
-//    sut->add(first, invalidIndex);
-//    sut->add(second, invalidIndex);
-//    sut->add(zerothZeroth, zerothIndex);
-//    sut->add(zerothFirst, zerothIndex);
-//    sut->add(firstZeroth, firstIndex);
-//    sut->add(firstFirst, firstIndex);
-//    sut->add(secondZeroth, secondIndex);
-//    sut->add(secondFirst, secondIndex);
-//
-//    IteratorPtr<TMock> it = sut->begin(PostOrder);
-//    EXPECT_THAT(it->current(), zerothZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), zerothFirst);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), zeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), firstZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), firstFirst);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), first);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), secondZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), secondFirst);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), second);
-//
-//    it->next();
-//    EXPECT_TRUE(it->isDone());
-//    EXPECT_THROW(it->current(), IteratorOutOfBoundsException);
-//
-//    it->next();
-//    EXPECT_TRUE(it->isDone());
-//}
-//
-//TEST(CNHierarchyTest, testBeginLevelOrder_ReturnsIterator_WhichIteratesTheHierarchyContent_InLevelOrder) {
-//    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
-//
-//    HierarchyIndex invalidIndex;
-//
-//    TMockPtr zeroth = TMock::getNewInstance();
-//    HierarchyIndex zerothIndex({0});
-//
-//    TMockPtr first = TMock::getNewInstance();
-//    HierarchyIndex firstIndex({1});
-//
-//    TMockPtr second = TMock::getNewInstance();
-//    HierarchyIndex secondIndex({2});
-//
-//    TMockPtr zerothZeroth = TMock::getNewInstance();
-//    TMockPtr zerothFirst = TMock::getNewInstance();
-//    TMockPtr firstZeroth = TMock::getNewInstance();
-//    TMockPtr firstFirst = TMock::getNewInstance();
-//    TMockPtr secondZeroth = TMock::getNewInstance();
-//    TMockPtr secondFirst = TMock::getNewInstance();
-//
-//    sut->add(zeroth, invalidIndex);
-//    sut->add(first, invalidIndex);
-//    sut->add(second, invalidIndex);
-//    sut->add(zerothZeroth, zerothIndex);
-//    sut->add(zerothFirst, zerothIndex);
-//    sut->add(firstZeroth, firstIndex);
-//    sut->add(firstFirst, firstIndex);
-//    sut->add(secondZeroth, secondIndex);
-//    sut->add(secondFirst, secondIndex);
-//
-//    IteratorPtr<TMock> it = sut->begin(LevelOrder);
-//    EXPECT_THAT(it->current(), zeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), first);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), second);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), zerothZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), zerothFirst);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), firstZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), firstFirst);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), secondZeroth);
-//
-//    it->next();
-//    EXPECT_THAT(it->current(), secondFirst);
-//
-//    it->next();
-//    EXPECT_TRUE(it->isDone());
-//    EXPECT_THROW(it->current(), IteratorOutOfBoundsException);
-//
-//    it->next();
-//    EXPECT_TRUE(it->isDone());
-//}
-//
