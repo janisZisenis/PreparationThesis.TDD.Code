@@ -55,6 +55,15 @@ TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Remove__ShouldNotBeP
     expectIsNotParentOf(sut, node);
 }
 
+TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Remove__ShouldThrowCNChildNotFoundException) {
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+
+    std::string errorMessage = "CNComposableHierarchyNode should throw CNChildNotFoundException, but it did not!";
+    EXPECT_THROW(sut->remove(node),CNChildNotFoundException);
+}
+
 //TEST(CNHierarchyNodeTest, testInsert_InsertsComponentAtChildPosition) {
 //    CNHierarchyNodePtr<TMock> sut = CNHierarchyNode<TMock>::getNewInstance(TMock::getNewInstance());
 //

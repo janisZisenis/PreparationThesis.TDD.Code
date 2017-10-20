@@ -2,6 +2,7 @@
 #define CROSSNATIVE_HIERARCHYNODE_H
 
 #include <memory>
+#include "CrossNative/CNComponent/CNChildNotFoundException.h"
 
 class CNHierarchyNode;
 typedef std::shared_ptr<CNHierarchyNode> CNHierarchyNodePtr;
