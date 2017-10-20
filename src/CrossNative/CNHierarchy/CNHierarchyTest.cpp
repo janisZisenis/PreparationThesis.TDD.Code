@@ -45,17 +45,17 @@ TEST_F(CNHierarchyTest, FreshInstance__AddWithInvalidIndex_ShouldStoreCNHierarch
     expectHasCNHierarchyNodeAtIndex(sut, node, CNHierarchyIndex({0}));
 }
 
-//TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddSecondWithIndex_0__FirstShouldHaveAddedSecond) {
-//    CNHierarchyPtr sut = CNHierarchy::getNewInstance();
-//    CNHierarchyNodeSpyPtr first = makeCNHierarchyNodeSpy();
-//    sut->add(first, CNHierarchyIndex());
-//
-//    CNHierarchyNodePtr second = makeCNHierarchyNodeDummy();
-//    sut->add(second, CNHierarchyIndex({0}));
-//
-//    expectReceiverAddedCNHierarchyNode(first, second);
-//}
-//
+TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddSecondWithIndex_0__FirstShouldHaveAddedSecond) {
+    CNHierarchyPtr sut = CNHierarchy::getNewInstance();
+    CNHierarchyNodeSpyPtr first = makeCNHierarchyNodeSpy();
+    sut->add(first, CNHierarchyIndex());
+
+    CNHierarchyNodePtr second = makeCNHierarchyNodeDummy();
+    sut->add(second, CNHierarchyIndex({0}));
+
+    expectReceiverAddedCNHierarchyNode(first, second);
+}
+
 //TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddSecondWithIndex_0__ShouldStoreFirstAtIndex_0) {
 //    CNHierarchyPtr sut = CNHierarchy::getNewInstance();
 //    CNHierarchyNodePtr first = makeCNFakeHierarchyNode();
