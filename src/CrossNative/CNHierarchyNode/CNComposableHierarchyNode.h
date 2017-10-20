@@ -17,13 +17,21 @@ protected:
 public:
     virtual bool isParentOf(CNHierarchyNodePtr node) override;
     virtual int getChildCount() override;
-    virtual CNHierarchyNodePtr getChild(int childPosition) override;
+    virtual CNHierarchyNodePtr getChild(int childPos) override;
 
     virtual void add(std::shared_ptr<CNHierarchyNode> node) override;
     virtual void remove(std::shared_ptr<CNHierarchyNode> node) override;
     virtual void insert(std::shared_ptr<CNHierarchyNode> node, int childPos) override;
 
 private:
+    virtual bool isValidInsertingPosition(int childPos);
+    virtual bool isValidChildPosition(int childPos);
+    virtual void addToChildren(CNHierarchyNodePtr node);
+    virtual void removeFromChildren(int childPos);
+    virtual int findPosition(CNHierarchyNodePtr node);
+
+private:
+
     std::vector<CNHierarchyNodePtr> children;
 };
 
