@@ -25,34 +25,4 @@ public:
     }
 };
 
-class SelectionModelStub;
-typedef std::shared_ptr<SelectionModelStub> SelectionModelStubPtr;
-class SelectionModelStub : public SelectionModelDummy {
-public:
-    static SelectionModelStubPtr getNewInstance() {
-        return SelectionModelStubPtr(new SelectionModelStub());
-    }
-    virtual ~SelectionModelStub() {};
-protected:
-    SelectionModelStub() {};
-
-public:
-    virtual void setSelectedIndex(const HierarchyIndex& index) override {
-        selected = index;
-    }
-    virtual const HierarchyIndex getSelectedIndex() override {
-        return selected;
-    }
-
-    virtual void setHasSelection(bool hasValidSelection) {
-        this->hasValidSelection = hasValidSelection;
-    }
-    virtual bool hasSelection() override {
-        return hasValidSelection;
-    }
-private:
-    HierarchyIndex selected;
-    bool hasValidSelection;
-};
-
 #endif //CROSSVIEWS_SELECTIONMODEL_TESTDOUBLES_H

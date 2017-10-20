@@ -3,6 +3,7 @@
 #include "SolutionExplorerViewTestDoubles.h"
 #include "SolutionExplorerViewMock.h"
 #include "CrossViews/SelecionModel/SelectionModelTestDoubles.h"
+#include "CrossViews/SelecionModel/FakeSelectionModel.h"
 #include <CrossNative/CNVisitor/CNVisitorTestDoubles.h>
 #include <CrossNative/CNVisitable/CNVisitableTestDoubles.h>
 
@@ -25,8 +26,8 @@ protected:
     virtual SelectionModelPtr makeSelectionModelDummy() {
         return SelectionModelDummy::getNewInstance();
     }
-    virtual SelectionModelStubPtr makeSelectionModelStub() {
-        return SelectionModelStub::getNewInstance();
+    virtual SelectionModelPtr makeFakeSelectionModel() {
+        return FakeSelectionModel::getNewInstance();
     }
 
     virtual CNVisitorPtr makeCNVisitorDummy() {
@@ -52,14 +53,13 @@ protected:
 
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-    virtual void expectSelectionModelReceivedIndex(SelectionModelStubPtr selectionModel, const HierarchyIndex& index) {
+    virtual void expectSelectionHasSelectedIndex(SelectionModelPtr selectionModel, const HierarchyIndex &index) {
         HierarchyIndex expected = index;
         HierarchyIndex actual = selectionModel->getSelectedIndex();
 
         std::string errorMessage = "The SelectionModel should have received the index " + expected.toString() + ", but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-
 };
 
 TEST_F(SolutionExplorerPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToSolutionExplorerView) {
@@ -99,10 +99,10 @@ TEST_F(SolutionExplorerPresenterTest, FreshInstance__onInserted__ShouldAddVisita
 TEST_F(SolutionExplorerPresenterTest, FreshInstance__onSelectionChanged__ShouldSetTheSelectedIndexToThSelectionModel) {
     SolutionExplorerViewStubPtr view = makeSolutionExplorerViewStub();
     view->setSelectedIndex(HierarchyIndex({1,2,3}));
-    SelectionModelStubPtr selectionModel = makeSelectionModelStub();
+    SelectionModelPtr selectionModel = makeFakeSelectionModel();
     SolutionExplorerPresenterPtr sut = makeSolutionExplorerPresenter(view, selectionModel);
 
     sut->onSelectionChanged();
 
-    expectSelectionModelReceivedIndex(selectionModel, HierarchyIndex({1,2,3}));
+    expectSelectionHasSelectedIndex(selectionModel, HierarchyIndex({1, 2, 3}));
 }

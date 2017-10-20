@@ -30,9 +30,6 @@ protected:
     virtual SelectionModelPtr makeSelectionModelDummy() {
         return SelectionModelDummy::getNewInstance();
     }
-    virtual SelectionModelStubPtr makeSelectionModelStub() {
-        return SelectionModelStub::getNewInstance();
-    }
     virtual SelectionModelPtr makeFakeSelectionModel() {
         return FakeSelectionModel::getNewInstance();
     }
