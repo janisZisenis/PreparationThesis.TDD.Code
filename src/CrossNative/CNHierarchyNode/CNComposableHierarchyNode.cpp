@@ -22,7 +22,7 @@ void CNComposableHierarchyNode::insert(CNHierarchyNodePtr node, int childPos) {
     if(!isValidInsertingPosition(childPos))
         throw CNInvalidInsertingPositionException();
 
-    addToChildren(node);
+    children.insert(children.begin()+ childPos, node);
 }
 
 bool CNComposableHierarchyNode::isParentOf(CNHierarchyNodePtr node) {
