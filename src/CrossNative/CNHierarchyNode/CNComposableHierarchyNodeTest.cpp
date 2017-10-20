@@ -45,6 +45,16 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Add__ShouldBeParentOfAddedC
     expectIsParentOf(sut, node);
 }
 
+TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Remove__ShouldNotBeParentOfRemovedCNHierarchyNodeAnymore) {
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->add(node);
+
+    sut->remove(node);
+
+    expectIsNotParentOf(sut, node);
+}
+
 //TEST(CNHierarchyNodeTest, testInsert_InsertsComponentAtChildPosition) {
 //    CNHierarchyNodePtr<TMock> sut = CNHierarchyNode<TMock>::getNewInstance(TMock::getNewInstance());
 //
