@@ -26,11 +26,9 @@ public:
 
     virtual int getChildCountFor(CNHierarchyIndex index);
     virtual std::shared_ptr<CNHierarchyNode> retrieve(CNHierarchyIndex index);
-private:
-    
+
 private:
     std::shared_ptr<CNHierarchyNode> first;
-    std::shared_ptr<CNHierarchyNode> second;
 };
 
 #endif //CROSSNATIVE_HIERARCHY_H
