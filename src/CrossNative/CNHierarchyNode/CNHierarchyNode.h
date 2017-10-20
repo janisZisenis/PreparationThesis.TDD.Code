@@ -4,6 +4,7 @@
 #include <memory>
 #include "CrossNative/CNComponent/CNChildNotFoundException.h"
 #include "CNInvalidInsertingPositionException.h"
+#include "CNInvalidChildPositionException.h"
 
 class CNHierarchyNode;
 typedef std::shared_ptr<CNHierarchyNode> CNHierarchyNodePtr;

@@ -1,4 +1,5 @@
 #include "CNComposableHierarchyNode.h"
+#include "CNInvalidChildPositionException.h"
 
 CNComposableHierarchyNodePtr CNComposableHierarchyNode::getNewInstance()  {
     return CNComposableHierarchyNodePtr(new CNComposableHierarchyNode());
@@ -33,5 +34,7 @@ int CNComposableHierarchyNode::getChildCount() {
 }
 
 CNHierarchyNodePtr CNComposableHierarchyNode::getChild(int childPosition) {
-    return children[childPosition];
+    if(childPosition < children.size())
+        return children[childPosition];
+    return nullptr;
 }
