@@ -77,10 +77,9 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__InsertWithChildPos1__Should
     CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
 
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
-    sut->insert(node, 1);
 
     std::string errorMessage = "CNComposableHierarchyNode should throw CNInvalidInsertingPositionException, but it did not!";
-    EXPECT_THROW(sut->remove(node), CNInvalidInsertingPositionException);
+    EXPECT_THROW(sut->insert(node, 1), CNInvalidInsertingPositionException);
 }
 
 //TEST(CNHierarchyNodeTest, testInsert_InsertsComponentAtChildPosition) {
