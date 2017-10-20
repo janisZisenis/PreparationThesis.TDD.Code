@@ -7,10 +7,12 @@ CNHierarchyPtr CNHierarchy::getNewInstance()  {
 CNHierarchy::~CNHierarchy() {}
 CNHierarchy::CNHierarchy() {}
 
-void CNHierarchy::add(CNHierarchyNodePtr component, CNHierarchyIndex parentIndex) {}
-void CNHierarchy::remove(CNHierarchyNodePtr component, CNHierarchyIndex parentIndex) {}
+void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {
+    this->node = node;
+}
+void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {}
 
-void CNHierarchy::insert(CNHierarchyNodePtr component, CNHierarchyIndex parentIndex, int childPos) {
+void CNHierarchy::insert(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex, int childPos) {
 
 }
 
@@ -23,9 +25,6 @@ int CNHierarchy::getChildCountFor(CNHierarchyIndex index) {
 }
 
 CNHierarchyNodePtr CNHierarchy::retrieve(CNHierarchyIndex index) {
-    return CNHierarchyNodePtr();
+    return node;
 }
 
-CNHierarchyNodePtr CNHierarchy::findComponent(CNHierarchyIndex index) {
-    return CNHierarchyNodePtr();
-}

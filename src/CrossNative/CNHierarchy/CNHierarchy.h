@@ -18,16 +18,18 @@ protected:
     CNHierarchy();
 
 public:
-    virtual void add(std::shared_ptr<CNHierarchyNode> component, CNHierarchyIndex parentIndex);
-    virtual void remove(std::shared_ptr<CNHierarchyNode> component, CNHierarchyIndex parentIndex);
+    virtual void add(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex);
+    virtual void remove(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex);
 
-    virtual void insert(std::shared_ptr<CNHierarchyNode> component, CNHierarchyIndex parentIndex, int childPos);
+    virtual void insert(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex, int childPos);
     virtual void remove(CNHierarchyIndex parentIndex, int childPos);
 
     virtual int getChildCountFor(CNHierarchyIndex index);
     virtual std::shared_ptr<CNHierarchyNode> retrieve(CNHierarchyIndex index);
 private:
-    virtual std::shared_ptr<CNHierarchyNode> findComponent(CNHierarchyIndex index);
+    
+private:
+    std::shared_ptr<CNHierarchyNode> node;
 };
 
 #endif //CROSSNATIVE_HIERARCHY_H
