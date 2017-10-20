@@ -36,5 +36,6 @@ int CNComposableHierarchyNode::getChildCount() {
 CNHierarchyNodePtr CNComposableHierarchyNode::getChild(int childPosition) {
     if(childPosition < children.size())
         return children[childPosition];
-    return nullptr;
+
+    throw CNInvalidChildPositionException();
 }
