@@ -15,6 +15,7 @@ protected:
 
 public:
     virtual void setSelectedIndex(const HierarchyIndex& index) = 0;
+    virtual const HierarchyIndex getSelectedIndex() = 0;
 };
 
 #endif //CROSSVIEWS_SELECTIONMODEL_H

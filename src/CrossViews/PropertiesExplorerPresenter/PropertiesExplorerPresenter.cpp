@@ -19,5 +19,5 @@ void PropertiesExplorerPresenter::accept(CNVisitorPtr visitor) {
 }
 
 void PropertiesExplorerPresenter::update() {
-
+    modelAccess->retrieve(selectionModel->getSelectedIndex());
 }

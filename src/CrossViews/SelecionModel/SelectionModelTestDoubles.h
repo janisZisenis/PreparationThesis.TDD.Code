@@ -17,6 +17,9 @@ protected:
 
 public:
     virtual void setSelectedIndex(const HierarchyIndex& index) override {}
+    virtual const HierarchyIndex getSelectedIndex() override  {
+        return HierarchyIndex();
+    }
 };
 
 class SelectionModelStub;
@@ -36,7 +39,7 @@ public:
         selected = index;
     }
 
-    virtual const HierarchyIndex& getSelectedIndex() {
+    virtual const HierarchyIndex getSelectedIndex() override {
         return selected;
     }
 
