@@ -2,7 +2,7 @@
 #define CROSSVIEWS_HIERARCHICMODELLISTENER_H
 
 #include <memory>
-#include "HierarchyIndex.h"
+#include "CrossViews/HierarchyIndex/HierarchyIndex.h"
 
 class CNVisitable;
 

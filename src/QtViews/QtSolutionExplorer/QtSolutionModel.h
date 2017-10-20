@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <QAbstractItemModel>
-#include <CrossViews/SolutionExplorerPresenter/HierarchyIndex.h>
+#include <CrossViews/HierarchyIndex/HierarchyIndex.h>
 
 class QtSolutionItem;
 

@@ -4,7 +4,7 @@
 #import <Cocoa/Cocoa.h>
 #include <memory>
 #include <boost/signals2/signal.hpp>
-#include <CrossViews/SolutionExplorerPresenter/HierarchyIndex.h>
+#include <CrossViews/HierarchyIndex/HierarchyIndex.h>
 
 @class CocoaSolutionItem;
 @class NSOutlineView;

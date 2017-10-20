@@ -2,7 +2,7 @@
 #include "SolutionExplorerPresenter.h"
 #include "SolutionExplorerViewTestDoubles.h"
 #include "SolutionExplorerViewMock.h"
-#include "SelectionModelTestDoubles.h"
+#include "CrossViews/SelecionModel/SelectionModelTestDoubles.h"
 #include <CrossNative/CNVisitor/CNVisitorTestDoubles.h>
 #include <CrossNative/CNVisitable/CNVisitableTestDoubles.h>
 

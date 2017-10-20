@@ -3,7 +3,7 @@
 
 #include <CodeBase/CBTransActionAppearance/CBActionState.h>
 #include <CrossNative/CNVisitable/CNVisitable.h>
-#include "HierarchyIndex.h"
+#include "CrossViews/HierarchyIndex/HierarchyIndex.h"
 
 class SolutionExplorerView;
 typedef std::shared_ptr<SolutionExplorerView> SolutionExplorerViewPtr;

@@ -16,7 +16,7 @@
 #include "CocoaViews/CocoaMenu/Visitors/CocoaMenuDecomposingVisitor.h"
 
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
-#include <CrossViews/SolutionExplorerPresenter/SelectionModelImp.h>
+#include <CrossViews/SelecionModel/SelectionModelImp.h>
 #include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 
 #include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"

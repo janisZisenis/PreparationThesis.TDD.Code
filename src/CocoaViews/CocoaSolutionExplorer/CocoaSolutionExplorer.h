@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerView.h>
-#include <CrossViews/SolutionExplorerPresenter/HierarchyIndex.h>
+#include <CrossViews/HierarchyIndex/HierarchyIndex.h>
 
 class CNAcceptor;
 

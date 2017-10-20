@@ -16,7 +16,7 @@
 #include "QtViews/QtMenu/Visitors/QtMenuDecomposingVisitor.h"
 
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
-#include <CrossViews/SolutionExplorerPresenter/SelectionModelImp.h>
+#include <CrossViews/SelecionModel/SelectionModelImp.h>
 #include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
 
 #include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
