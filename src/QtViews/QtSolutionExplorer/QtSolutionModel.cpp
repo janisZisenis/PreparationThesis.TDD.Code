@@ -80,7 +80,7 @@ QVariant QtSolutionModel::getDataAt(QtSolutionItem *item, int role, int col) con
     return QVariant();
 }
 
-QModelIndex QtSolutionModel::transformToQModelIndex(const HierarchyIndex &index) {
+QModelIndex QtSolutionModel::transformToQModelIndex(const CNHierarchyIndex &index) {
     QModelIndex qIndex = QModelIndex();
 
     for(int i = 0; i < index.depth(); i++)
@@ -89,8 +89,8 @@ QModelIndex QtSolutionModel::transformToQModelIndex(const HierarchyIndex &index)
     return qIndex;
 }
 
-HierarchyIndex QtSolutionModel::transformToHierarchyIndex(const QModelIndex &index) {
-    if(!index.isValid()) return HierarchyIndex();
+CNHierarchyIndex QtSolutionModel::transformToHierarchyIndex(const QModelIndex &index) {
+    if(!index.isValid()) return CNHierarchyIndex();
 
     QtSolutionItem* item = static_cast<QtSolutionItem*>(index.internalPointer());
 
@@ -99,5 +99,5 @@ HierarchyIndex QtSolutionModel::transformToHierarchyIndex(const QModelIndex &ind
         path.insert(path.begin(), item->getRow());
         item = item->getParent().get();
     }
-    return HierarchyIndex(path);
+    return CNHierarchyIndex(path);
 }

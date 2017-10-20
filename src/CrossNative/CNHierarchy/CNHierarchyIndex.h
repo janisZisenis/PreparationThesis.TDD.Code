@@ -1,19 +1,19 @@
-#ifndef CROSSVIEWS_HIERARCHYINDEX_H
-#define CROSSVIEWS_HIERARCHYINDEX_H
+#ifndef CROSSNATIVE_HIERARCHYINDEX_H
+#define CROSSNATIVE_HIERARCHYINDEX_H
 
 #include <vector>
 
-class HierarchyIndex {
+class CNHierarchyIndex {
 public:
-    HierarchyIndex(std::vector<int> child = std::vector<int>()) : childPath(child) {}
-    HierarchyIndex(HierarchyIndex parent, int childPos) : childPath(parent.childPath) {
+    CNHierarchyIndex(std::vector<int> child = std::vector<int>()) : childPath(child) {}
+    CNHierarchyIndex(CNHierarchyIndex parent, int childPos) : childPath(parent.childPath) {
         childPath.push_back(childPos);
     }
 
-    HierarchyIndex parent() const {
+    CNHierarchyIndex parent() const {
         std::vector<int> parentPath = childPath;
         parentPath.pop_back();
-        return HierarchyIndex(parentPath);
+        return CNHierarchyIndex(parentPath);
     }
 
     bool isValid() const {
@@ -30,7 +30,7 @@ public:
         return childPath[i];
     }
 
-    bool operator==(HierarchyIndex index) const {
+    bool operator==(CNHierarchyIndex index) const {
          if(depth() != index.depth()) return false;
 
         for(int i = 0; i < childPath.size(); i++) {
@@ -62,4 +62,4 @@ private:
     std::vector<int> childPath;
 };
 
-#endif //CROSSVIEWS_HIERARCHYINDEX_H
+#endif //CROSSNATIVE_HIERARCHYINDEX_H

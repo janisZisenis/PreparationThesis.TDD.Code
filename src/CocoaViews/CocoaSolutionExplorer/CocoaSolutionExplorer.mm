@@ -42,13 +42,13 @@ void CocoaSolutionExplorer::toggleVisibility() {
     [scrollView setHidden: !scrollView.isHidden];
 }
 
-void CocoaSolutionExplorer::removeIndex(const HierarchyIndex &index) {
+void CocoaSolutionExplorer::removeIndex(const CNHierarchyIndex &index) {
     [outlineView selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
     [viewDataSource removeItemAtParentIndex:index.parent() atChildPos:index.childPosition()];
     [outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:index.childPosition()] byExtendingSelection:NO];
 }
 
-HierarchyIndex CocoaSolutionExplorer::getSelectedIndex() {
+CNHierarchyIndex CocoaSolutionExplorer::getSelectedIndex() {
     CocoaSolutionItem* item = [outlineView itemAtRow:[outlineView selectedRow]];
 
     std::vector<int> path;
@@ -56,10 +56,10 @@ HierarchyIndex CocoaSolutionExplorer::getSelectedIndex() {
         path.insert(path.begin(), [item getRow]);
         item = [item getParent];
     }
-    return HierarchyIndex(path);
+    return CNHierarchyIndex(path);
 }
 
-void CocoaSolutionExplorer::insertItem(CNVisitablePtr visitable, const HierarchyIndex &index, int childPos) {
+void CocoaSolutionExplorer::insertItem(CNVisitablePtr visitable, const CNHierarchyIndex &index, int childPos) {
     [viewDataSource insertItem:makeItem(visitable) atParentIndex:index atChildPos:childPos];
 }
 

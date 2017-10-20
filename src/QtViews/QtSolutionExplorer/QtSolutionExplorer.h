@@ -31,9 +31,9 @@ public:
     virtual bool isVisible();
     void toggleVisibility();
 
-    virtual void removeIndex(const HierarchyIndex &index) override;
-    virtual HierarchyIndex getSelectedIndex() override;
-    virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex &index, int childPos) override;
+    virtual void removeIndex(const CNHierarchyIndex &index) override;
+    virtual CNHierarchyIndex getSelectedIndex() override;
+    virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex &index, int childPos) override;
 
     virtual void accept(CNVisitorPtr visitor) override;
 private:

@@ -22,8 +22,8 @@ private:
 public:
     virtual void accept(CNVisitorPtr visitor) override;
 
-    virtual void onRemove(const HierarchyIndex& index) override;
-    virtual void onInsert(CNVisitablePtr visitable, const HierarchyIndex& index, int childPos) override;
+    virtual void onRemove(const CNHierarchyIndex& index) override;
+    virtual void onInsert(CNVisitablePtr visitable, const CNHierarchyIndex& index, int childPos) override;
 
     virtual void onSelectionChanged();
 private:

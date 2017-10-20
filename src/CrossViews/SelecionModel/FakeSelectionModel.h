@@ -16,11 +16,11 @@ protected:
     FakeSelectionModel() {};
 
 public:
-    virtual void setSelectedIndex(const HierarchyIndex& index) override {
+    virtual void setSelectedIndex(const CNHierarchyIndex& index) override {
         selected = index;
     }
 
-    const HierarchyIndex getSelectedIndex() override {
+    const CNHierarchyIndex getSelectedIndex() override {
         return selected;
     }
 
@@ -29,7 +29,7 @@ public:
     }
 
 private:
-    HierarchyIndex selected;
+    CNHierarchyIndex selected;
 };
 
 #endif //CROSSVIEWS_FAKESELECTIONMODEL_H

@@ -50,7 +50,7 @@ void QtSolutionExplorer::toggleVisibility() {
     widget->setVisible(!widget->isVisible());
 }
 
-void QtSolutionExplorer::removeIndex(const HierarchyIndex &index) {
+void QtSolutionExplorer::removeIndex(const CNHierarchyIndex &index) {
     QModelIndex qIndex = solutionModel->transformToQModelIndex(index);
     treeView->setCurrentIndex(QModelIndex());
     solutionModel->deleteIndex(qIndex.parent(), qIndex.row());
@@ -58,11 +58,11 @@ void QtSolutionExplorer::removeIndex(const HierarchyIndex &index) {
     treeView->setCurrentIndex(qIndex);
 }
 
-HierarchyIndex QtSolutionExplorer::getSelectedIndex() {
+CNHierarchyIndex QtSolutionExplorer::getSelectedIndex() {
     return solutionModel->transformToHierarchyIndex(treeView->currentIndex());
 }
 
-void QtSolutionExplorer::insertItem(CNVisitablePtr visitable, const HierarchyIndex &index, int childPos) {
+void QtSolutionExplorer::insertItem(CNVisitablePtr visitable, const CNHierarchyIndex &index, int childPos) {
     solutionModel->insertItem(makeItem(visitable), solutionModel->transformToQModelIndex(index), childPos);
 }
 

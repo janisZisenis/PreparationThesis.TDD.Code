@@ -44,18 +44,18 @@ protected:
         std::string errorMessage = "The SolutionExplorerView should have accepted the CNVisitor but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-    virtual void expectedSolutionExplorerHasRemovedIndex(SolutionExplorerViewSpyPtr view, const HierarchyIndex& index) {
-        HierarchyIndex expected = index;
-        HierarchyIndex actual = view->getRemoved();
+    virtual void expectedSolutionExplorerHasRemovedIndex(SolutionExplorerViewSpyPtr view, const CNHierarchyIndex& index) {
+        CNHierarchyIndex expected = index;
+        CNHierarchyIndex actual = view->getRemoved();
 
         std::string errorMessage = "SolutionExplorerView should have removed the index " + expected.toString()
                                    + ". Instead it has removed the index " + actual.toString() + "!";
 
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-    virtual void expectSelectionHasSelectedIndex(SelectionModelPtr selectionModel, const HierarchyIndex &index) {
-        HierarchyIndex expected = index;
-        HierarchyIndex actual = selectionModel->getSelectedIndex();
+    virtual void expectSelectionHasSelectedIndex(SelectionModelPtr selectionModel, const CNHierarchyIndex &index) {
+        CNHierarchyIndex expected = index;
+        CNHierarchyIndex actual = selectionModel->getSelectedIndex();
 
         std::string errorMessage = "The SelectionModel should have received the index " + expected.toString() + ", but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
@@ -78,9 +78,9 @@ TEST_F(SolutionExplorerPresenterTest, FreshInstance__onRemove__ShouldRemoveIndex
     SelectionModelPtr selectionModel = makeSelectionModelDummy();
     SolutionExplorerPresenterPtr sut = makeSolutionExplorerPresenter(view, selectionModel);
 
-    sut->onRemove(HierarchyIndex({1,2,3}));
+    sut->onRemove(CNHierarchyIndex({1,2,3}));
 
-    expectedSolutionExplorerHasRemovedIndex(view, HierarchyIndex({1,2,3}));
+    expectedSolutionExplorerHasRemovedIndex(view, CNHierarchyIndex({1,2,3}));
 }
 
 TEST_F(SolutionExplorerPresenterTest, FreshInstance__onInserted__ShouldAddVisitableToSolutionExplorerAtParentIndexAtChildPosition) {
@@ -90,19 +90,19 @@ TEST_F(SolutionExplorerPresenterTest, FreshInstance__onInserted__ShouldAddVisita
 
 
     CNVisitablePtr visitable = makeCNVisitableDummy();
-    view->expectCalledInsertItem(visitable, HierarchyIndex({1,2,3}), 4);
-    sut->onInsert(visitable, HierarchyIndex({1,2,3}), 4);
+    view->expectCalledInsertItem(visitable, CNHierarchyIndex({1,2,3}), 4);
+    sut->onInsert(visitable, CNHierarchyIndex({1,2,3}), 4);
 
     view->verify();
 }
 
 TEST_F(SolutionExplorerPresenterTest, FreshInstance__onSelectionChanged__ShouldSetTheSelectedIndexToThSelectionModel) {
     SolutionExplorerViewStubPtr view = makeSolutionExplorerViewStub();
-    view->setSelectedIndex(HierarchyIndex({1,2,3}));
+    view->setSelectedIndex(CNHierarchyIndex({1,2,3}));
     SelectionModelPtr selectionModel = makeFakeSelectionModel();
     SolutionExplorerPresenterPtr sut = makeSolutionExplorerPresenter(view, selectionModel);
 
     sut->onSelectionChanged();
 
-    expectSelectionHasSelectedIndex(selectionModel, HierarchyIndex({1, 2, 3}));
+    expectSelectionHasSelectedIndex(selectionModel, CNHierarchyIndex({1, 2, 3}));
 }

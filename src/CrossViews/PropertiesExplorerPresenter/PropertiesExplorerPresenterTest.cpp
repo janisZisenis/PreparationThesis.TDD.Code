@@ -44,9 +44,9 @@ protected:
         std::string errorMessage = "The PropertiesExplorerView should have accepted the CNVisitor but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-    virtual void expectRetrievedIndexWas(const HierarchyIndex& index, HierarchicModelAccessSpyPtr modelAccess) {
-        HierarchyIndex expected = index;
-        HierarchyIndex actual = modelAccess->getRetrievedIndex();
+    virtual void expectRetrievedIndexWas(const CNHierarchyIndex& index, HierarchicModelAccessSpyPtr modelAccess) {
+        CNHierarchyIndex expected = index;
+        CNHierarchyIndex actual = modelAccess->getRetrievedIndex();
 
         std::string errorMessage = "The retrieved index should be " + expected.toString() + ". Instead it is " + actual.toString() + "!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
@@ -84,12 +84,12 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSe
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
     SelectionModelPtr selectionModel = makeFakeSelectionModel();
-    selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
+    selectionModel->setSelectedIndex(CNHierarchyIndex({1, 2, 3}));
     PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
 
     sut->update();
 
-    expectRetrievedIndexWas(HierarchyIndex({1, 2, 3}), hierarchicModelAccess);
+    expectRetrievedIndexWas(CNHierarchyIndex({1, 2, 3}), hierarchicModelAccess);
 }
 
 TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSelection__ShouldTriggerPropertiesExplorerViewToDisplayPropertiesForTheRetrieved) {
@@ -98,7 +98,7 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasSe
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
     SelectionModelPtr selectionModel = makeFakeSelectionModel();
-    selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
+    selectionModel->setSelectedIndex(CNHierarchyIndex({1, 2, 3}));
     PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
 
     sut->update();
@@ -112,7 +112,7 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateSelectionModelHasNo
     CNVisitablePtr visitable = makeCNVisitableDummy();
     hierarchicModelAccess->setRetrieved(visitable);
     SelectionModelPtr selectionModel = makeFakeSelectionModel();
-    selectionModel->setSelectedIndex(HierarchyIndex());
+    selectionModel->setSelectedIndex(CNHierarchyIndex());
     PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
 
     sut->update();

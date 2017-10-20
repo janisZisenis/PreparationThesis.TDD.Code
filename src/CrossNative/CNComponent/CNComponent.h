@@ -3,12 +3,7 @@
 
 #include <string>
 #include "CrossNative/CNVisitable/CNVisitable.h"
-
-class CNChildNotFoundException : public std::exception {
-    const char *what() const throw() override {
-        return std::string("The removed component was not found in children!").c_str();
-    }
-};
+#include "CNChildNotFoundException.h"
 
 class CNComponent;
 typedef std::shared_ptr<CNComponent> CNComponentPtr;

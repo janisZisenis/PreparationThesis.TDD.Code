@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerView.h>
-#include <CrossViews/HierarchyIndex/HierarchyIndex.h>
+#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
 
 class CNAcceptor;
 
@@ -31,9 +31,9 @@ public:
     virtual bool isVisible();
     virtual void toggleVisibility();
 
-    virtual void removeIndex(const HierarchyIndex &index) override;
-    virtual HierarchyIndex getSelectedIndex() override;
-    virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex &index, int childPos) override;
+    virtual void removeIndex(const CNHierarchyIndex &index) override;
+    virtual CNHierarchyIndex getSelectedIndex() override;
+    virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex &index, int childPos) override;
 
     void accept(CNVisitorPtr visitor) override;
 

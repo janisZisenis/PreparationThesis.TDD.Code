@@ -27,7 +27,7 @@ void PropertiesExplorerPresenter::clearProperties() {
 }
 
 void PropertiesExplorerPresenter::displayProperties() {
-    HierarchyIndex selectedIndex = selectionModel->getSelectedIndex();
+    CNHierarchyIndex selectedIndex = selectionModel->getSelectedIndex();
     CNVisitablePtr selectedVisitable = modelAccess->retrieve(selectedIndex);
     view->displayPropertiesFor(selectedVisitable);
 }

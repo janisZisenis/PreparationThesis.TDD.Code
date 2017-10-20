@@ -16,9 +16,9 @@ protected:
     SelectionModelDummy() {};
 
 public:
-    virtual void setSelectedIndex(const HierarchyIndex &index) override {}
-    virtual const HierarchyIndex getSelectedIndex() override {
-        return HierarchyIndex();
+    virtual void setSelectedIndex(const CNHierarchyIndex &index) override {}
+    virtual const CNHierarchyIndex getSelectedIndex() override {
+        return CNHierarchyIndex();
     }
     virtual bool hasSelection() override {
         return false;

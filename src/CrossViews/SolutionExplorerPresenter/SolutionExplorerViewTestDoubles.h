@@ -16,10 +16,10 @@ protected:
 
 public:
     void accept(CNVisitorPtr visitor) override {}
-    virtual void removeIndex(const HierarchyIndex& index) override {}
-    virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) override {}
-    virtual HierarchyIndex getSelectedIndex() override {
-        return HierarchyIndex();
+    virtual void removeIndex(const CNHierarchyIndex& index) override {}
+    virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex& parent, int childPos) override {}
+    virtual CNHierarchyIndex getSelectedIndex() override {
+        return CNHierarchyIndex();
     };
 };
 
@@ -35,14 +35,14 @@ protected:
     SolutionExplorerViewStub() {}
 
 public:
-    virtual void setSelectedIndex(const HierarchyIndex& selected) {
+    virtual void setSelectedIndex(const CNHierarchyIndex& selected) {
         this->selected = selected;
     }
-    virtual HierarchyIndex getSelectedIndex() override {
+    virtual CNHierarchyIndex getSelectedIndex() override {
         return selected;
     };
 private:
-    HierarchyIndex selected;
+    CNHierarchyIndex selected;
 };
 
 class SolutionExplorerViewSpy;
@@ -64,15 +64,15 @@ public:
         return accepted;
     }
 
-    virtual void removeIndex(const HierarchyIndex& index) override {
+    virtual void removeIndex(const CNHierarchyIndex& index) override {
         removed = index;
 ;    }
-    virtual const HierarchyIndex& getRemoved() {
+    virtual const CNHierarchyIndex& getRemoved() {
         return removed;
     }
 
 private:
-    HierarchyIndex removed;
+    CNHierarchyIndex removed;
     CNVisitorPtr accepted;
 };
 

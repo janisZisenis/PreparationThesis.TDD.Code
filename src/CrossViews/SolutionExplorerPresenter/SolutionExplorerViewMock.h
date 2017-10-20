@@ -16,19 +16,19 @@ protected:
     SolutionExplorerViewMock() {}
 
 public:
-    virtual HierarchyIndex getSelectedIndex() override {
-        return HierarchyIndex();
+    virtual CNHierarchyIndex getSelectedIndex() override {
+        return CNHierarchyIndex();
     };
 
-    virtual void removeIndex(const HierarchyIndex& index) override {}
-    virtual void insertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) override {
+    virtual void removeIndex(const CNHierarchyIndex& index) override {}
+    virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex& parent, int childPos) override {
         actualVisitable = visitable;
         actualParent = parent;
         actualChildPos = childPos;
     }
     virtual void accept(CNVisitorPtr visitor) override {}
 
-    virtual void expectCalledInsertItem(CNVisitablePtr visitable, const HierarchyIndex& parent, int childPos) {
+    virtual void expectCalledInsertItem(CNVisitablePtr visitable, const CNHierarchyIndex& parent, int childPos) {
         expectedVisitable = visitable;
         expectedParent = parent;
         expectedChildPos = childPos ;
@@ -63,11 +63,11 @@ private:
 
 private:
     CNVisitablePtr expectedVisitable;
-    HierarchyIndex expectedParent;
+    CNHierarchyIndex expectedParent;
     int expectedChildPos;
 
     CNVisitablePtr actualVisitable;
-    HierarchyIndex actualParent;
+    CNHierarchyIndex actualParent;
     int actualChildPos;
 };
 

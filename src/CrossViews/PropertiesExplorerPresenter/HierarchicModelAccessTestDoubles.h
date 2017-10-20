@@ -15,7 +15,7 @@ protected:
     HierarchicModelAccessDummy() {};
 
 public:
-    virtual std::shared_ptr<CNVisitable> retrieve(const HierarchyIndex& index) {
+    virtual std::shared_ptr<CNVisitable> retrieve(const CNHierarchyIndex& index) {
         return nullptr;
     }
 };
@@ -35,7 +35,7 @@ public:
     virtual void setRetrieved(std::shared_ptr<CNVisitable> retrieved) {
         this->retrieved = retrieved;
     }
-    virtual std::shared_ptr<CNVisitable> retrieve(const HierarchyIndex& index) {
+    virtual std::shared_ptr<CNVisitable> retrieve(const CNHierarchyIndex& index) {
         return retrieved;
     }
 
@@ -55,16 +55,16 @@ protected:
     HierarchicModelAccessSpy() {};
 
 public:
-    virtual std::shared_ptr<CNVisitable> retrieve(const HierarchyIndex& index) {
+    virtual std::shared_ptr<CNVisitable> retrieve(const CNHierarchyIndex& index) {
         retrievedIndex = index;
         return HierarchicModelAccessStub::retrieve(index);
     }
 
-    virtual HierarchyIndex getRetrievedIndex() {
+    virtual CNHierarchyIndex getRetrievedIndex() {
         return retrievedIndex;
     }
 private:
-    HierarchyIndex retrievedIndex;
+    CNHierarchyIndex retrievedIndex;
 };
 
 #endif //CROSSVIEWS_HIERARCHICMODELACCESS_TESTDOUBLES_H

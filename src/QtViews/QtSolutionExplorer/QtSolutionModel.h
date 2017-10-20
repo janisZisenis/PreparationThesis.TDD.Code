@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <QAbstractItemModel>
-#include <CrossViews/HierarchyIndex/HierarchyIndex.h>
+#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
 
 class QtSolutionItem;
 
@@ -24,8 +24,8 @@ public:
 
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const Q_DECL_OVERRIDE;
 
-    virtual QModelIndex transformToQModelIndex(const HierarchyIndex &index);
-    virtual HierarchyIndex transformToHierarchyIndex(const QModelIndex &index);
+    virtual QModelIndex transformToQModelIndex(const CNHierarchyIndex &index);
+    virtual CNHierarchyIndex transformToHierarchyIndex(const QModelIndex &index);
 
 private:
     virtual QVariant getDataAt(QtSolutionItem* item, int role, int col) const;

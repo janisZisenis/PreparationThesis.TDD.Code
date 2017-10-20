@@ -2,7 +2,7 @@
 #define CROSSVIEWS_HIERARCHICMODELLISTENER_H
 
 #include <memory>
-#include "CrossViews/HierarchyIndex/HierarchyIndex.h"
+#include "CrossNative/CNHierarchy/CNHierarchyIndex.h"
 
 class CNVisitable;
 
@@ -16,8 +16,8 @@ protected:
     HierarchicModelListener() {};
 
 public:
-    virtual void onRemove(const HierarchyIndex& index) = 0;
-    virtual void onInsert(std::shared_ptr<CNVisitable> visitable, const HierarchyIndex& parent, int childPos) = 0;
+    virtual void onRemove(const CNHierarchyIndex& index) = 0;
+    virtual void onInsert(std::shared_ptr<CNVisitable> visitable, const CNHierarchyIndex& parent, int childPos) = 0;
 };
 
 #endif //CROSSVIEWS_HIERARCHICMODELLISTENER_H

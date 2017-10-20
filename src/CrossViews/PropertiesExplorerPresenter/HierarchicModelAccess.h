@@ -2,7 +2,7 @@
 #define CROSSVIEWS_HIERARCHICMODELACCESS_H
 
 #include <memory>
-#include "CrossViews/HierarchyIndex/HierarchyIndex.h"
+#include "CrossNative/CNHierarchy/CNHierarchyIndex.h"
 
 class CNVisitable;
 
@@ -16,7 +16,7 @@ protected:
     HierarchicModelAccess() {};
 
 public:
-    virtual std::shared_ptr<CNVisitable> retrieve(const HierarchyIndex& index) = 0;
+    virtual std::shared_ptr<CNVisitable> retrieve(const CNHierarchyIndex& index) = 0;
 };
 
 #endif //CROSSVIEWS_HIERARCHICMODELACCESS_H
