@@ -15,7 +15,8 @@ protected:
     CNComposableHierarchyNode();
 
 public:
-    virtual bool isParentOf(CNHierarchyNodePtr node) override ;
+    virtual bool isParentOf(CNHierarchyNodePtr node) override;
+    virtual int getChildCount() override;
 
     virtual void add(std::shared_ptr<CNHierarchyNode> node) override;
     virtual void remove(std::shared_ptr<CNHierarchyNode> node) override;

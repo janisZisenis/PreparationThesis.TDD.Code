@@ -27,3 +27,7 @@ void CNComposableHierarchyNode::insert(CNHierarchyNodePtr node, int childPos) {
 bool CNComposableHierarchyNode::isParentOf(CNHierarchyNodePtr node) {
     return std::find(children.begin(), children.end(), node) != children.end();
 }
+
+int CNComposableHierarchyNode::getChildCount() {
+    return 0;
+}

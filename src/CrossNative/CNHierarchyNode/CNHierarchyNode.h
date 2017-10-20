@@ -16,6 +16,7 @@ protected:
 
 public:
     virtual bool isParentOf(CNHierarchyNodePtr node) = 0;
+    virtual int getChildCount() = 0;
 
     virtual void add(CNHierarchyNodePtr node) = 0;
     virtual void remove(CNHierarchyNodePtr node) = 0;
