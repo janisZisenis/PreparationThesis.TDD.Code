@@ -28,6 +28,7 @@ public:
     virtual std::shared_ptr<CNHierarchyNode> retrieve(CNHierarchyIndex index);
 
 private:
+    std::shared_ptr<CNHierarchyNode> root;
     std::vector< std::shared_ptr<CNHierarchyNode> > nodes;
 };
 

@@ -1,22 +1,15 @@
 #include "CNHierarchy.h"
 #include "CrossNative/CNHierarchyNode/CNHierarchyNode.h"
+#include "CrossNative/CNHierarchyNode/CNComposableHierarchyNode.h"
 
 CNHierarchyPtr CNHierarchy::getNewInstance()  {
     return CNHierarchyPtr(new CNHierarchy());
 }
 CNHierarchy::~CNHierarchy() {}
-CNHierarchy::CNHierarchy() {}
+CNHierarchy::CNHierarchy() : root(CNComposableHierarchyNode::getNewInstance()) {}
 
 void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {
-    if(!parentIndex.isValid()) {
-        nodes.push_back(node);
-        return;
-    }
-
-    if (parentIndex.depth() == 1)
-        nodes[parentIndex[0]]->add(node);
-    else if(parentIndex.depth() == 2)
-        nodes[parentIndex[0]]->getChild(parentIndex[1])->add(node);
+    parentIndex.isValid() ? retrieve(parentIndex)->add(node) : root->add(node);
 }
 
 void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {}
@@ -30,12 +23,11 @@ void CNHierarchy::remove(CNHierarchyIndex parentIndex, int childPos) {
 }
 
 CNHierarchyNodePtr CNHierarchy::retrieve(CNHierarchyIndex index) {
-    if(index.depth() == 1)
-        return nodes[index[0]];
+    CNHierarchyNodePtr retrieved = root;
 
-    if(index.depth() == 2)
-        return nodes[index[0]]->getChild(index[1]);
+    for(int i = 0; i < index.depth(); i++)
+        retrieved = retrieved->getChild(index[i]);
 
-    return nodes[index[0]]->getChild(index[1])->getChild(index[2]);
+    return retrieved;
 }
 
