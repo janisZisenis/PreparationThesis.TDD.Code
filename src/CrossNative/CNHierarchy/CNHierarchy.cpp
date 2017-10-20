@@ -12,7 +12,7 @@ void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {
         nodes.push_back(node);
     } else {
         if (parentIndex.depth() == 1)
-            nodes[0]->add(node);
+            nodes[parentIndex[0]]->add(node);
         else if(parentIndex.depth() == 2)
             nodes[0]->getChild(0)->add(node);
     }
@@ -27,14 +27,13 @@ void CNHierarchy::remove(CNHierarchyIndex parentIndex, int childPos) {
 
 }
 
-int CNHierarchy::getChildCountFor(CNHierarchyIndex index) {
-    return 0;
-}
-
 CNHierarchyNodePtr CNHierarchy::retrieve(CNHierarchyIndex index) {
     if(index.depth() == 1)
         return nodes[index[0]];
 
-    return nodes[0]->getChild(index[1]);
+    if(index[1] < nodes[0]->getChildCount())
+        return nodes[0]->getChild(index[1]);
+
+    return nullptr;
 }
 

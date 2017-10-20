@@ -25,7 +25,6 @@ public:
     virtual void insert(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex, int childPos);
     virtual void remove(CNHierarchyIndex parentIndex, int childPos);
 
-    virtual int getChildCountFor(CNHierarchyIndex index);
     virtual std::shared_ptr<CNHierarchyNode> retrieve(CNHierarchyIndex index);
 
 private:
