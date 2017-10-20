@@ -6,4 +6,6 @@ PropertiesExplorerPresenterPtr PropertiesExplorerPresenter::getNewInstance(Prope
 }
 PropertiesExplorerPresenter::~PropertiesExplorerPresenter() {}
 PropertiesExplorerPresenter::PropertiesExplorerPresenter(PropertiesExplorerViewPtr view) : view(view) {}
-void PropertiesExplorerPresenter::accept(CNVisitorPtr visitor) {}
+void PropertiesExplorerPresenter::accept(CNVisitorPtr visitor) {
+    view->accept(visitor);
+}
