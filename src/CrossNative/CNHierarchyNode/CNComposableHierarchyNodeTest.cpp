@@ -31,18 +31,18 @@ protected:
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__ShouldNotBeParentOfCNHierarchyNode) {
     CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
 
-    CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
 
-    expectIsParentOf(sut, first);
+    expectIsNotParentOf(sut, node);
 }
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Add__ShouldBeParentOfAddedCNHierarchyNode) {
     CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
 
-    CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
-    sut->add(first);
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->add(node);
 
-    expectIsNotParentOf(sut, first);
+    expectIsParentOf(sut, node);
 }
 
 //TEST(CNHierarchyNodeTest, testInsert_InsertsComponentAtChildPosition) {

@@ -2,6 +2,7 @@
 #define CROSSNATIVE_COMPOSABLEHIERARCHYNODE_H
 
 #include "CNHierarchyNode.h"
+#include <vector>
 
 class CNComposableHierarchyNode;
 typedef std::shared_ptr<CNComposableHierarchyNode> CNComposableHierarchyNodePtr;
@@ -19,6 +20,9 @@ public:
     virtual void add(std::shared_ptr<CNHierarchyNode> node) override;
     virtual void remove(std::shared_ptr<CNHierarchyNode> node) override;
     virtual void insert(std::shared_ptr<CNHierarchyNode> node, int childPos) override;
+
+private:
+    std::vector<CNHierarchyNodePtr> children;
 };
 
 #endif //CROSSNATIVE_COMPOSABLEHIERARCHYNODE_H
