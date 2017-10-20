@@ -11,6 +11,9 @@ protected:
     virtual CNHierarchyNodePtr makeCNHierarchyNodeDummy() {
         return CNHierarchyNodeDummy::getNewInstance();
     }
+    virtual CNHierarchyNodeSpyPtr makeCNHierarchyNodeSpy() {
+        return CNHierarchyNodeSpy::getNewInstance();
+    }
 
     virtual void expectHasCNHierarchyNodeAtIndex(CNHierarchyPtr sut, CNHierarchyNodePtr node, const CNHierarchyIndex& index) {
         CNHierarchyNodePtr actual = sut->retrieve(index);
@@ -19,9 +22,17 @@ protected:
         std::string errorMessage = "CNHierarchy should have the CNHierarchyNode at index " + index.toString() + ", but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
+
+    virtual void expectReceiverAddedCNHierarchyNode(CNHierarchyNodeSpyPtr receiver, CNHierarchyNodePtr node) {
+        CNHierarchyNodePtr expected = node;
+        CNHierarchyNodePtr actual = receiver->getAdded();
+
+        std::string errorMessage = "CNHierarchyNode should have added the CNHierarchyNode as child, but it has not";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
 };
 
-TEST_F(CNHierarchyTest, FreshInstance__AddWithInvalidCNHierarchyIndex_ShouldStoreCNHierarchyNodeAtIndex_0) {
+TEST_F(CNHierarchyTest, FreshInstance__AddWithInvalidIndex_ShouldStoreCNHierarchyNodeAtIndex_0) {
     CNHierarchyPtr sut = CNHierarchy::getNewInstance();
 
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
@@ -29,6 +40,27 @@ TEST_F(CNHierarchyTest, FreshInstance__AddWithInvalidCNHierarchyIndex_ShouldStor
 
     expectHasCNHierarchyNodeAtIndex(sut, node, CNHierarchyIndex({0}));
 }
+
+TEST_F(CNHierarchyTest, AddedFirstWithInvalidCNHierarchyIndex__AddSecondWithIndex_0__FirstShouldHaveAddedSecond) {
+    CNHierarchyPtr sut = CNHierarchy::getNewInstance();
+    CNHierarchyNodeSpyPtr first = makeCNHierarchyNodeSpy();
+    sut->add(first, CNHierarchyIndex());
+
+    CNHierarchyNodePtr second = makeCNHierarchyNodeDummy();
+    sut->add(second, CNHierarchyIndex({0}));
+
+    expectReceiverAddedCNHierarchyNode(first, second);
+}
+
+//TEST_F(CNHierarchyTest, AddedWithInvalidIndex__AddWithInvalidCNHierarchyIndex_ShouldStoreTheSecondCNHierarchyNodeAtIndex_1) {
+//    CNHierarchyPtr sut = CNHierarchy::getNewInstance();
+//    sut->add(makeCNHierarchyNodeDummy(), CNHierarchyIndex());
+//
+//    CNHierarchyNodePtr second = makeCNHierarchyNodeDummy();
+//    sut->add(second, CNHierarchyIndex());
+//
+//    expectHasCNHierarchyNodeAtIndex(sut, second, CNHierarchyIndex({1}));
+//}
 
 //TEST(CNHierarchyTest, testAdd_ShouldSetTheContentAtTheLastPositionOfTheParent) {
 //    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();

@@ -26,9 +26,33 @@ public:
         return 0;
     }
 
-    virtual void add(std::shared_ptr<CNHierarchyNode> node) override {}
-    virtual void remove(std::shared_ptr<CNHierarchyNode> node) override {}
-    virtual void insert(std::shared_ptr<CNHierarchyNode> node, int childPos) override {}
+    virtual void add(CNHierarchyNodePtr node) override {}
+    virtual void remove(CNHierarchyNodePtr node) override {}
+    virtual void insert(CNHierarchyNodePtr node, int childPos) override {}
+};
+
+class CNHierarchyNodeSpy;
+typedef std::shared_ptr<CNHierarchyNodeSpy> CNHierarchyNodeSpyPtr;
+class CNHierarchyNodeSpy : public CNHierarchyNodeDummy {
+public:
+    static CNHierarchyNodeSpyPtr getNewInstance() {
+        return CNHierarchyNodeSpyPtr(new CNHierarchyNodeSpy());
+    }
+    virtual  ~CNHierarchyNodeSpy() {};
+
+protected:
+    CNHierarchyNodeSpy() {};
+
+public:
+    virtual void add(CNHierarchyNodePtr node) override {
+        added = node;
+    }
+    virtual CNHierarchyNodePtr getAdded() {
+        return added;
+    }
+
+private:
+    CNHierarchyNodePtr added;
 };
 
 #endif //CROSSNATIVE_HIERARCHYNODE_TESTDOUBLES_H
