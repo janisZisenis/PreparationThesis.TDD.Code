@@ -96,6 +96,7 @@ TEST_F(CNComposableHierarchyNodeTest, AddedTwoCNHierarchyNodes_InsertedOneCNHier
     sut->add(makeCNHierarchyNodeDummy());
     sut->add(makeCNHierarchyNodeDummy());
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->add(node);
 
     sut->remove(node);
 
