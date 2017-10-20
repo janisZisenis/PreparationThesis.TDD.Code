@@ -15,6 +15,7 @@ protected:
     PropertiesExplorerViewDummy() {}
 
 public:
+    virtual void displayPropertiesFor(CNVisitablePtr visitable) override {}
     void accept(CNVisitorPtr visitor) override {}
 };
 
@@ -30,6 +31,13 @@ protected:
     PropertiesExplorerViewSpy() {}
 
 public:
+    virtual void displayPropertiesFor(CNVisitablePtr visitable) override {
+        displayed = visitable;
+    }
+    virtual CNVisitablePtr getDisplayed() {
+        return displayed;
+    }
+
     virtual void accept(CNVisitorPtr visitor) override {
         accepted = visitor;
     }
@@ -38,6 +46,7 @@ public:
     }
 private:
     CNVisitorPtr accepted;
+    CNVisitablePtr displayed;
 };
 
 #endif //CROSSVIEWS_PROPERTIESEXPLORERVIEW_TESTDOUBLES_H

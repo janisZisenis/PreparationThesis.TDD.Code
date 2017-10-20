@@ -54,6 +54,13 @@ protected:
         std::string errorMessage = "The retrieved index should be " + expected.toString() + ". Instead it is " + actual.toString() + "!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
+    virtual void expectPropertiesExplorerDisplaysPropertiesFor(CNVisitablePtr visitable, PropertiesExplorerViewSpyPtr view) {
+        CNVisitablePtr expected = visitable;
+        CNVisitablePtr actual = view->getDisplayed();
+
+        std::string errorMessage = "The PropertiesExplorerView should display the properties for the visitable, but it does not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
 };
 
 TEST_F(PropertiesExplorerPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToPropertiesExplorerView) {
@@ -68,14 +75,30 @@ TEST_F(PropertiesExplorerPresenterTest, FreshInstance__Accept__ShouldPassTheVisi
     expectPropertiesExplorerViewHasAcceptedVisitor(view, visitor);
 }
 
-TEST_F(PropertiesExplorerPresenterTest, FreshInstance__Update__ShouldRetrieveTheSelectedIndexFromHierarchicModelAccess) {
-    PropertiesExplorerViewPtr view = makePropertiesExplorerViewDummy();
+TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateWithValidIndex__ShouldRetrieveTheSelectedIndexFromHierarchicModelAccess) {
+    PropertiesExplorerViewSpyPtr view = makePropertiesExplorerViewSpy();
     HierarchicModelAccessSpyPtr hierarchicModelAccess = makeHierarchicModelAccessSpy();
     SelectionModelPtr selectionModel = makeSelectionModelStub();
-    selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
     PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    hierarchicModelAccess->setRetrieved(visitable);
+    selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
 
     sut->update();
 
     expectRetrievedIndexWas(HierarchyIndex({1, 2, 3}), hierarchicModelAccess);
+}
+
+TEST_F(PropertiesExplorerPresenterTest, FreshInstance__UpdateWithValidIndex__ShouldTriggerPropertiesExplorerViewToDisplayPropertiesForTheRetrieved) {
+    PropertiesExplorerViewSpyPtr view = makePropertiesExplorerViewSpy();
+    HierarchicModelAccessSpyPtr hierarchicModelAccess = makeHierarchicModelAccessSpy();
+    SelectionModelPtr selectionModel = makeSelectionModelStub();
+    PropertiesExplorerPresenterPtr sut = makePropertiesExplorerPresenter(view, hierarchicModelAccess, selectionModel);
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    hierarchicModelAccess->setRetrieved(visitable);
+    selectionModel->setSelectedIndex(HierarchyIndex({1, 2, 3}));
+
+    sut->update();
+
+    expectPropertiesExplorerDisplaysPropertiesFor(visitable, view);
 }
