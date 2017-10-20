@@ -29,6 +29,9 @@ int CNHierarchy::getChildCountFor(CNHierarchyIndex index) {
 }
 
 CNHierarchyNodePtr CNHierarchy::retrieve(CNHierarchyIndex index) {
-    return first;
+    if(index.depth() == 1)
+        return first;
+
+    return first->getChild(0);
 }
 
