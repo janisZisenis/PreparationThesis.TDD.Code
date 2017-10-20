@@ -2,6 +2,7 @@
 #define CROSSNATIVE_HIERARCHY_H
 
 #include <memory>
+#include <vector>
 
 #include "CNHierarchyIndex.h"
 
@@ -28,7 +29,7 @@ public:
     virtual std::shared_ptr<CNHierarchyNode> retrieve(CNHierarchyIndex index);
 
 private:
-    std::shared_ptr<CNHierarchyNode> first;
+    std::vector< std::shared_ptr<CNHierarchyNode> > nodes;
 };
 
 #endif //CROSSNATIVE_HIERARCHY_H
