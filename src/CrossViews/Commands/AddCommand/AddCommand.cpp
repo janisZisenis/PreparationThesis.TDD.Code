@@ -14,7 +14,7 @@ AddCommand::AddCommand(CNComponentPtr component, const CNHierarchyIndex index, A
         : component(component), index(index), model(model) {}
 
 void AddCommand::execute() {
-//    model->add(component, index);
+    model->add(component, index);
 }
 
 void AddCommand::undo() {
