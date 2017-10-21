@@ -19,7 +19,7 @@ public:
     virtual void visit(CNFakeHierarchyNodePtr fakeHierarchyNode) = 0;
 };
 
-class CNFakeHierarchyNode : public CNHierarchyNode {
+class CNFakeHierarchyNode : public CNHierarchyNode, public std::enable_shared_from_this<CNFakeHierarchyNode> {
 public:
     static CNFakeHierarchyNodePtr getNewInstance() {
         return CNFakeHierarchyNodePtr(new CNFakeHierarchyNode());
@@ -66,7 +66,9 @@ public:
     }
 
     virtual void accept(CNVisitorPtr visitor) override {
-        throw CNVisitableVisitorMismatchException();
+        CNFakeHierarchyNodeVisitorPtr v = std::dynamic_pointer_cast<CNFakeHierarchyNodeVisitor>(visitor);
+        if(!v) throw CNVisitableVisitorMismatchException();
+        v->visit(me());
     }
 private:
     virtual bool isValidInsertingPosition(int childPos) {
@@ -90,6 +92,9 @@ private:
         return it == children.end() ? -1 : (int)(it - children.begin());
     }
 
+    virtual CNFakeHierarchyNodePtr me() {
+        return this->shared_from_this();
+    }
 private:
     std::vector<CNHierarchyNodePtr> children;
 };
