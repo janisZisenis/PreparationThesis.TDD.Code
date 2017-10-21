@@ -256,4 +256,12 @@ TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, CNHierarch
     expectComposerDismountedChild(composer, node);
 }
 
+TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, CNHierarchyNodeAdded__Destruction__ComposerShouldDismountTheCNHierarchyNode) {
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->add(node);
+
+    sut.reset();
+
+    expectComposerDismountedChild(composer, node);
+}
 
