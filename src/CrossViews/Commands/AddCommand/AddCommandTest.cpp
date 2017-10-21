@@ -1,13 +1,15 @@
 #include <gmock/gmock.h>
 
 #include "AddCommand.h"
-#include "CrossViews/HierarchicModel/API/AddingHierarchicModelTestDoubles.h"
+#include "AddingHierarchicModelTestDoubles.h"
 #include <CrossNative/CNComponent/CNComponentTestDoubles.h>
 
 class AddCommandTest : public testing::Test {
 protected:
-    virtual AddCommandPtr makeAddCommand(CNComponentPtr component, const CNHierarchyIndex index, AddingHierarchicModelPtr model) {
-        return AddCommand::getNewInstance(component, index, model);
+    virtual AddCommandPtr makeAddCommand(AddingHierarchicModelPtr model,
+                                         const CNHierarchyIndex index,
+                                         CNComponentPtr component) {
+        return AddCommand::getNewInstance(model, index, component);
     }
 
     virtual CNComponentPtr makeCNComponentDummy() {
@@ -62,7 +64,7 @@ protected:
 TEST_F(AddCommandTest, FreshInstance__Execute__ShouldAddTheComponentAtIndexToAddingHierarchicModel) {
     CNComponentPtr component = makeCNComponentDummy();
     AddingHierarchicModelSpyPtr model = AddingHierarchicModelSpy::getNewInstance();
-    AddCommandPtr sut = makeAddCommand(component, CNHierarchyIndex({0, 2}), model);
+    AddCommandPtr sut = makeAddCommand(model, CNHierarchyIndex({0, 2}), component);
 
     sut->execute();
 
@@ -72,7 +74,7 @@ TEST_F(AddCommandTest, FreshInstance__Execute__ShouldAddTheComponentAtIndexToAdd
 TEST_F(AddCommandTest, FreshInstance__Undo__ShouldRemoveTheComponentAtIndexFromAddingHierarchicModel) {
     CNComponentPtr component = makeCNComponentDummy();
     AddingHierarchicModelSpyPtr model = AddingHierarchicModelSpy::getNewInstance();
-    AddCommandPtr sut = makeAddCommand(component, CNHierarchyIndex({0, 2}), model);
+    AddCommandPtr sut = makeAddCommand(model, CNHierarchyIndex({0, 2}), component);
 
     sut->undo();
 

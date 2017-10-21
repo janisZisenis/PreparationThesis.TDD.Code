@@ -65,7 +65,7 @@ public:
     virtual int getRemovedChildPos() {
         return removedChildPos;
     }
-    virtual CNHierarchyIndex getRemovingIndex() {
+    virtual CNHierarchyIndex getRemovedIndex() {
         return removingIndex;
     }
 

@@ -12,10 +12,14 @@ typedef std::shared_ptr<AddCommand> AddCommandPtr;
 
 class AddCommand : public CBCommand {
 public:
-    static AddCommandPtr getNewInstance(std::shared_ptr<CNComponent> component, const CNHierarchyIndex index, std::shared_ptr<AddingHierarchicModel> model);
+    static AddCommandPtr getNewInstance(std::shared_ptr<AddingHierarchicModel> model,
+                                        const CNHierarchyIndex index,
+                                        std::shared_ptr<CNComponent> component);
     virtual ~AddCommand();
 protected:
-    AddCommand(std::shared_ptr<CNComponent> component, const CNHierarchyIndex index, std::shared_ptr<AddingHierarchicModel> model);
+    AddCommand(std::shared_ptr<AddingHierarchicModel> model,
+               const CNHierarchyIndex index,
+               std::shared_ptr<CNComponent> component);
 
 public:
     virtual void execute() override;

@@ -1,8 +1,8 @@
 #ifndef CROSSVIEWS_HIERARCHICMODEL_H
 #define CROSSVIEWS_HIERARCHICMODEL_H
 
-#include "CrossViews/HierarchicModel/API/AddingHierarchicModel.h"
-#include "CrossViews/HierarchicModel/API/InsertingHierarchicModel.h"
+#include "CrossViews/Commands/AddCommand/AddingHierarchicModel.h"
+#include "CrossViews/Commands/RemoveCommand/InsertingHierarchicModel.h"
 #include "CrossViews/HierarchicModel/API/HierarchicModelAccess.h"
 
 class CNVisitable;
