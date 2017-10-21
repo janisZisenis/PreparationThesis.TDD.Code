@@ -63,8 +63,7 @@ add_subdirectory(applications/CrossViews)
 add_subdirectory(applications/QtViews)
 add_subdirectory(applications/QtApp)
 
-add_subdirectory(applications/IRMB)
-add_subdirectory(applications/IRMBTest)
+#add_subdirectory(applications/IRMB)
 
 if(APPLE)
    add_subdirectory(applications/CocoaViews)

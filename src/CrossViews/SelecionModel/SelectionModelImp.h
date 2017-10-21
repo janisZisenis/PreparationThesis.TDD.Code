@@ -1,35 +1,35 @@
 #ifndef CROSSVIEWS_SELECTIONMODELIMP_H
 #define CROSSVIEWS_SELECTIONMODELIMP_H
 
-#include "SelectionModel.h"
+#include <CrossViews/SelecionModel/SelectionModel.h>
+#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
+#include "HasSelectionProvider.h"
+
+class CBObserver;
+class CBSubject;
 
 class SelectionModelImp;
 typedef std::shared_ptr<SelectionModelImp> SelectionModelImpPtr;
 
-class SelectionModelImp : public SelectionModel {
+class SelectionModelImp : public SelectionModel, public HasSelectionProvider {
 public:
-    static SelectionModelImpPtr getNewInstance() {
-        return SelectionModelImpPtr(new SelectionModelImp());
-    }
-    virtual ~SelectionModelImp() {};
+    static SelectionModelImpPtr getNewInstance();
+    virtual ~SelectionModelImp();
 protected:
-    SelectionModelImp() {};
+    SelectionModelImp();
 
 public:
-    virtual void setSelectedIndex(const CNHierarchyIndex& index) override {
-        selected = index;
-    }
+    virtual bool hasSelection() override;
+    virtual void setSelectedIndex(const CNHierarchyIndex& index) override;
+    virtual CNHierarchyIndex getSelectedIndex() override;
 
-    virtual CNHierarchyIndex getSelectedIndex() override {
-        return selected;
-    }
-
-    virtual bool hasSelection() override {
-        return selected.isValid();
-    }
+    virtual void attach(std::shared_ptr<CBObserver> observer);
+    virtual void detach(std::shared_ptr<CBObserver> observer);
+    virtual void notifyObservers();
 
 private:
-    CNHierarchyIndex selected;
+    std::shared_ptr<CBSubject> subject;
+    CNHierarchyIndex selectedIndex;
 };
 
 #endif //CROSSVIEWS_SELECTIONMODELIMP_H
