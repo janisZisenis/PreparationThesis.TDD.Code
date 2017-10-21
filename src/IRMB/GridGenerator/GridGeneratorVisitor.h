@@ -1,5 +1,5 @@
-#ifndef LVICE_GRIDGENERATORVISITOR_H
-#define LVICE_GRIDGENERATORVISITOR_H
+#ifndef IRMB_GRIDGENERATORVISITOR_H
+#define IRMB_GRIDGENERATORVISITOR_H
 
 #include <memory>
 
@@ -10,7 +10,7 @@ typedef std::shared_ptr<GridGeneratorVisitor> GridGeneratorVisitorPtr;
 
 class GridGeneratorVisitor {
 public:
-    virtual void visit(std::shared_ptr<GridGenerator> GridGenerator) = 0;
+    virtual void visit(std::shared_ptr<GridGenerator> gridGenerator) = 0;
 };
 
-#endif //LVICE_GRIDGENERATORVISITOR_H
+#endif //IRMB_GRIDGENERATORVISITOR_H

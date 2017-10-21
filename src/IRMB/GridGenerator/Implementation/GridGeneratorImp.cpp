@@ -1,11 +1,11 @@
 #include "GridGeneratorImp.h"
-#include "LViCE/GridGenerator/GridGeneratorVisitor.h"
-#include "CCore/Visitor/AcceptorImp.h"
+#include "IRMB/GridGenerator/GridGeneratorVisitor.h"
+#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 #include "GridGenerator/grid/kernel/GridKernelCPU.h"
 #include "GridGenerator/utilities/Transformator.h"
 #include "GridGenerator/utilities/io/STLReaderWriter.h"
 #include "GridGenerator/stl/Triangle.h"
-#include "LViCE/STLFile/STLFile.h"
+#include "IRMB/GridGenerator/STLFile.h"
 
 
 GridGeneratorImpPtr GridGeneratorImp::getNewInstance(std::string name, double length, double width, double height, double delta, std::string distribution) {
@@ -13,30 +13,23 @@ GridGeneratorImpPtr GridGeneratorImp::getNewInstance(std::string name, double le
 }
 GridGeneratorImp::~GridGeneratorImp() {}
 GridGeneratorImp::GridGeneratorImp(std::string name, double length, double width, double height, double delta, std::string distribution)
-        : name(name), length(length), width(width), height(height), delta(delta), distribution(distribution) {
-    acceptor = CCore::AcceptorImp<GridGenerator, GridGeneratorVisitor>::getNewInstance();
+        : acceptor(CNAcceptorImp<GridGeneratorVisitor, GridGenerator>::getNewInstance()),
+          name(name), length(length), width(width), height(height), delta(delta), distribution(distribution) {}
+
+std::string GridGeneratorImp::getName() {
+    return name;
 }
 
 void GridGeneratorImp::addSTLFile(std::shared_ptr<STLFile> stlFile) {
     stlFiles.push_back(stlFile);
 }
-
 void GridGeneratorImp::removeSTLFile(std::shared_ptr<STLFile> stlFile) {
     std::vector< std::shared_ptr<STLFile> >::iterator it = std::find(stlFiles.begin(), stlFiles.end(), stlFile);
     if(it != stlFiles.end()) stlFiles.erase(it);
 }
 
-void GridGeneratorImp::accept(std::shared_ptr<CCore::Visitor> visitor) {
-    acceptor->accept(visitor, sharedFromThis());
-}
-
-GridGeneratorImpPtr GridGeneratorImp::sharedFromThis() {
-    GridGeneratorImpPtr me = std::dynamic_pointer_cast<GridGeneratorImp>(this->shared_from_this());
-    return me;
-}
-
-std::string GridGeneratorImp::getName() {
-    return name;
+void GridGeneratorImp::accept(CNVisitorPtr visitor) {
+    acceptor->accept(visitor, me());
 }
 
 double GridGeneratorImp::getLength() { return length; }
@@ -44,7 +37,6 @@ double GridGeneratorImp::getWidth() { return width; }
 double GridGeneratorImp::getHeight() { return height; }
 double GridGeneratorImp::getDelta() { return delta; }
 std::string GridGeneratorImp::getDistribution() { return distribution; }
-
 Grid* GridGeneratorImp::generateGrid() {
 
     int nx = (int)(length / delta);
@@ -61,3 +53,6 @@ Grid* GridGeneratorImp::generateGrid() {
     return &gridKernel->grid;
 }
 
+GridGeneratorImpPtr GridGeneratorImp::me() {
+    return this->shared_from_this();
+}

@@ -1,7 +1,7 @@
-#ifndef LVICE_GRIDGENERATOR_H
-#define LVICE_GRIDGENERATOR_H
+#ifndef IRMB_GRIDGENERATOR_H
+#define IRMB_GRIDGENERATOR_H
 
-#include "CCore/Visitor/Visitable.h"
+#include <CrossNative/CNVisitable/CNVisitable.h>
 #include <string>
 
 class STLFile;
@@ -10,7 +10,7 @@ struct Grid;
 class GridGenerator;
 typedef std::shared_ptr<GridGenerator> GridGeneratorPtr;
 
-class GridGenerator : public CCore::Visitable {
+class GridGenerator : public virtual CNVisitable {
 public:
     virtual ~GridGenerator() {};
 protected:
@@ -30,4 +30,4 @@ public:
     virtual Grid* generateGrid() = 0;
 };
 
-#endif //LVICE_GRIDGENERATOR_H
+#endif //IRMB_GRIDGENERATOR_H

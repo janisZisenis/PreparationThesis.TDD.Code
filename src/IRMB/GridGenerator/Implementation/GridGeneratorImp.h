@@ -1,15 +1,11 @@
-#ifndef LVICE_GRIDGENERATORIMP_H
-#define LVICE_GRIDGENERATORIMP_H
+#ifndef IRMB_GRIDGENERATORIMP_H
+#define IRMB_GRIDGENERATORIMP_H
 
-#include <LViCE/LViCE_EXPORT.h>
 #include <vector>
 
-#include "LViCE/GridGenerator/GridGenerator.h"
+#include "IRMB/GridGenerator/GridGenerator.h"
 
-namespace CCore {
-    class Acceptor;
-    class Visitor;
-}
+class CNAcceptor;
 
 class STLFile;
 class GridKernelCPU;
@@ -17,7 +13,7 @@ class GridKernelCPU;
 class GridGeneratorImp;
 typedef std::shared_ptr<GridGeneratorImp> GridGeneratorImpPtr;
 
-class LViCE_EXPORT GridGeneratorImp : public GridGenerator, public std::enable_shared_from_this<GridGenerator> {
+class GridGeneratorImp : public GridGenerator, public std::enable_shared_from_this<GridGeneratorImp> {
 public:
     static GridGeneratorImpPtr getNewInstance(std::string name, double length, double width, double height, double delta, std::string distribution);
     virtual ~GridGeneratorImp();
@@ -30,7 +26,7 @@ public:
     virtual void addSTLFile(std::shared_ptr<STLFile> stlFile) override;
     virtual void removeSTLFile(std::shared_ptr<STLFile> stlFile) override;
 
-    virtual void accept(std::shared_ptr<CCore::Visitor> visitor) override;
+    virtual void accept(CNVisitorPtr visitor) override;
 
     virtual double getLength() override;
     virtual double getWidth() override;
@@ -39,7 +35,10 @@ public:
     virtual std::string getDistribution() override;
     virtual Grid* generateGrid() override;
 private:
-    GridGeneratorImpPtr sharedFromThis();
+    GridGeneratorImpPtr me();
+
+private:
+    std::shared_ptr<CNAcceptor> acceptor;
 
     std::vector< std::shared_ptr<STLFile> > stlFiles;
     std::string name;
@@ -49,7 +48,6 @@ private:
     double delta;
     std::shared_ptr<GridKernelCPU> gridKernel;
     std::string distribution;
-    std::shared_ptr<CCore::Acceptor> acceptor;
 };
 
-#endif //LVICE_GRIDGENERATORIMP_H
+#endif //IRMB_GRIDGENERATORIMP_H
