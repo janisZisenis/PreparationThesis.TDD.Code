@@ -1,12 +1,13 @@
 #include "CNHierarchy.h"
 #include "CrossNative/CNHierarchyNode/CNHierarchyNode.h"
 #include "CrossNative/CNHierarchyNode/CNComposableHierarchyNode.h"
+#include "CrossNative/CNComposer/CNNullComposer.h"
 
 CNHierarchyPtr CNHierarchy::getNewInstance()  {
     return CNHierarchyPtr(new CNHierarchy());
 }
 CNHierarchy::~CNHierarchy() {}
-CNHierarchy::CNHierarchy() : root(CNComposableHierarchyNode::getNewInstance(nullptr)) {}
+CNHierarchy::CNHierarchy() : root(CNComposableHierarchyNode::getNewInstance(nullptr, CNNullComposer::getNewInstance())) {}
 
 void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
     find(parent)->add(node);

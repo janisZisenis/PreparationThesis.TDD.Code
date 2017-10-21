@@ -8,7 +8,7 @@
 class CNComposableHierarchyNodeTest : public testing::Test {
 protected:
     virtual CNComposableHierarchyNodePtr makeCNComposableHierarchyNode(CNVisitablePtr visitable, CNComposerPtr composer) {
-        return CNComposableHierarchyNode::getNewInstance(visitable);
+        return CNComposableHierarchyNode::getNewInstance(visitable, composer);
     }
 
     virtual CNHierarchyNodePtr makeCNHierarchyNodeDummy() {

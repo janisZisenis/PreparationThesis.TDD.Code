@@ -4,15 +4,19 @@
 #include "CNHierarchyNode.h"
 #include <vector>
 
+class CNComposer;
+
 class CNComposableHierarchyNode;
 typedef std::shared_ptr<CNComposableHierarchyNode> CNComposableHierarchyNodePtr;
 class CNComposableHierarchyNode : public CNHierarchyNode {
 public:
-    static CNComposableHierarchyNodePtr getNewInstance(CNVisitablePtr visitable);
+    static CNComposableHierarchyNodePtr getNewInstance(CNVisitablePtr visitable,
+                                                       std::shared_ptr<CNComposer> composer);
     virtual  ~CNComposableHierarchyNode();
 
 protected:
-    CNComposableHierarchyNode(CNVisitablePtr visitable);
+    CNComposableHierarchyNode(CNVisitablePtr visitable,
+                              std::shared_ptr<CNComposer> composer);
 
 public:
     virtual bool isParentOf(CNHierarchyNodePtr node) override;
@@ -26,6 +30,7 @@ public:
 
     virtual void accept(CNVisitorPtr visitor) override;
 private:
+    virtual void mount(CNHierarchyNodePtr node);
     virtual bool isValidInsertingPosition(int childPos);
     virtual bool isValidChildPosition(int childPos);
     virtual void addToChildren(CNHierarchyNodePtr node);
@@ -35,6 +40,7 @@ private:
 
 private:
     CNVisitablePtr visitable;
+    std::shared_ptr<CNComposer> composer;
     std::vector<CNHierarchyNodePtr> children;
 };
 
