@@ -12,7 +12,7 @@ SelectionModelImp::~SelectionModelImp() {
 SelectionModelImp::SelectionModelImp() : subject(CBSubject::getNewInstance()){}
 
 bool SelectionModelImp::hasSelection() {
-    return true;
+    return false;
 }
 
 void SelectionModelImp::setSelectedIndex(const CNHierarchyIndex& index) {}
