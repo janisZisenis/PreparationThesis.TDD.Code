@@ -16,9 +16,9 @@ bool SelectionModelImp::hasSelection() {
 }
 
 void SelectionModelImp::setSelectedIndex(const CNHierarchyIndex& index) {
-    notifyObservers();
-
     selectedIndex = index;
+
+    notifyObservers();
 }
 
 CNHierarchyIndex SelectionModelImp::getSelectedIndex() {
