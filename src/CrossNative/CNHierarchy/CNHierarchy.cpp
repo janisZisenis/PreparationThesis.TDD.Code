@@ -25,12 +25,15 @@ void CNHierarchy::remove(CNHierarchyIndex parentIndex, int childPos) {
 CNHierarchyNodePtr CNHierarchy::retrieve(CNHierarchyIndex index) {
     if(!index.isValid())
         throw CNIndexOutOfBoundsException();
-    
+
     CNHierarchyNodePtr retrieved = root;
 
-    for(int i = 0; i < index.depth(); i++)
-        retrieved = retrieved->getChild(index[i]);
+    for(int i = 0; i < index.depth(); i++) {
+        if (index[i] >= retrieved->getChildCount())
+            throw CNIndexOutOfBoundsException();
 
+        retrieved = retrieved->getChild(index[i]);
+    }
     return retrieved;
 }
 

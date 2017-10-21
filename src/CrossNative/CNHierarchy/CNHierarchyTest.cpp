@@ -175,6 +175,15 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithInvalidIndex_A
     expectReceiverAddedCNHierarchyNode(third, fourth);
 }
 
+TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithNotExistingIndex__ShouldThrowCNIndexOutOfBoundsException) {
+    CNHierarchyPtr sut = makeCNHierarchy();
+
+    CNHierarchyIndex notExistingIndex = CNHierarchyIndex({99, 3, 54});
+
+    std::string errorMessage = "CNHierarchy should throw CNIndexOutOfBoundsException, but it did not!";
+    EXPECT_THROW(sut->retrieve(notExistingIndex), CNIndexOutOfBoundsException) << errorMessage;
+}
+
 TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithInvalidIndex__ShouldThrowCNIndexOutOfBoundsException) {
     CNHierarchyPtr sut = makeCNHierarchy();
 
