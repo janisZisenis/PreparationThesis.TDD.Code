@@ -34,6 +34,7 @@ void CNComposableHierarchyNode::remove(int childPos) {
     if(!isValidChildPosition(childPos))
         throw CNInvalidChildPositionException();
 
+    dismount(getChild(childPos));
     removeFromChildren(childPos);
 }
 
