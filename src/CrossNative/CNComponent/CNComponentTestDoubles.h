@@ -23,7 +23,7 @@ public:
         return 0;
     }
     virtual CNComponentPtr getChild(int childPosition) override {
-        return 0;
+        return nullptr;
     }
 
     virtual void add(CNComponentPtr component) override {}

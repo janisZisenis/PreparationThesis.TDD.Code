@@ -4,7 +4,7 @@
 #include "CocoaViews/CocoaViewMatcherFactory/CocoaViewMatcherFactory.h"
 
 #include <CrossNative/CNDynamicHierarchy/CNDynamicHierarchy.h>
-#include <CrossViews/SelecionModel/SelectionModelImp.h>
+#include <CrossViews/SelectionModel/SelectionModelImp.h>
 #include <CrossViews/PropertiesExplorerPresenter/HierarchicModelAccess.h>
 
 int main(int argc, char** argv) {

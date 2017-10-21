@@ -9,5 +9,7 @@ include(CMakePackage.cmake)
 
 buildExe(${targetName} "${MY_SRCS}" "${linkDirectories}" "${libsToLink}" "${includeDirectories}")
 
+target_compile_options(${targetName} PRIVATE -std=c++11)
+
 #Specify the linking to 3rdParty libs
 include(3rdPartyLinking.cmake)
