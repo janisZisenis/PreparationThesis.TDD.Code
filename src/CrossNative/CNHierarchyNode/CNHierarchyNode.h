@@ -2,13 +2,14 @@
 #define CROSSNATIVE_HIERARCHYNODE_H
 
 #include <memory>
+#include "CrossNative/CNVisitable/CNVisitable.h"
 #include "CrossNative/CNComponent/CNChildNotFoundException.h"
 #include "CNInvalidInsertingPositionException.h"
 #include "CNInvalidChildPositionException.h"
 
 class CNHierarchyNode;
 typedef std::shared_ptr<CNHierarchyNode> CNHierarchyNodePtr;
-class CNHierarchyNode {
+class CNHierarchyNode : public virtual CNVisitable {
 public:
     virtual  ~CNHierarchyNode() {};
 

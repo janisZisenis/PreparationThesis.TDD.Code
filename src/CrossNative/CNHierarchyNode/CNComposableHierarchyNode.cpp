@@ -73,3 +73,7 @@ void CNComposableHierarchyNode::insertToChildren(CNHierarchyNodePtr node, int ch
     children.insert(children.begin()+ childPos, node);
 }
 
+void CNComposableHierarchyNode::accept(CNVisitorPtr visitor) {
+
+}
+

@@ -1,6 +1,7 @@
 #include "gmock/gmock.h"
 #include "CNFakeHierarchyNode.h"
 #include "CNHierarchyNodeTestDoubles.h"
+#include "CrossNative/CNVisitor/CNVisitorTestDoubles.h"
 
 class CNFakeHierarchyNodeTest : public testing::Test {
 protected:
@@ -10,6 +11,9 @@ protected:
 
     virtual CNHierarchyNodePtr makeCNHierarchyNodeDummy() {
         return CNHierarchyNodeDummy::getNewInstance();
+    }
+    virtual CNVisitorPtr makeCNVisitorDummy() {
+        return CNVisitorDummy::getNewInstance();
     }
 
     virtual void expectIsParentOf(CNFakeHierarchyNodePtr parent,
@@ -166,4 +170,13 @@ TEST_F(CNFakeHierarchyNodeTest, FreshInstance__RemoveWithChildPosition1__ShouldT
 
     std::string errorMessage = "CNFakeHierarchyNode should throw CNInvalidChildPositionException, but it did not!";
     EXPECT_THROW(sut->remove(1), CNInvalidChildPositionException);
+}
+
+TEST_F(CNFakeHierarchyNodeTest, FreshInstance__AcceptWithFalseVisitorSubType__ShouldThrowCNVisitableVisitorMismatchException) {
+    CNFakeHierarchyNodePtr sut = makeCNFakeHierarchyNode();
+
+    CNVisitorPtr visitor = makeCNVisitorDummy();
+
+    std::string errorMessage = "CNFakeHierarchyNode should throw CNVisitableVisitorMismatchException, but it did not!";
+    EXPECT_THROW(sut->accept(visitor), CNVisitableVisitorMismatchException);
 }

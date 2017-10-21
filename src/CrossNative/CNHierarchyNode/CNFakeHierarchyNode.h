@@ -4,8 +4,21 @@
 #include "CNHierarchyNode.h"
 #include <vector>
 
+class CNFakeHierarchyNodeVisitor;
+typedef std::shared_ptr<CNFakeHierarchyNodeVisitor> CNFakeHierarchyNodeVisitorPtr;
 class CNFakeHierarchyNode;
 typedef std::shared_ptr<CNFakeHierarchyNode> CNFakeHierarchyNodePtr;
+
+class CNFakeHierarchyNodeVisitor : public CNVisitor {
+public:
+    virtual ~CNFakeHierarchyNodeVisitor() {}
+protected:
+    CNFakeHierarchyNodeVisitor() {}
+
+public:
+    virtual void visit(CNFakeHierarchyNodePtr fakeHierarchyNode) = 0;
+};
+
 class CNFakeHierarchyNode : public CNHierarchyNode {
 public:
     static CNFakeHierarchyNodePtr getNewInstance() {
@@ -51,6 +64,8 @@ public:
 
         removeFromChildren(childPos);
     }
+
+    virtual void accept(CNVisitorPtr visitor) override {}
 private:
     virtual bool isValidInsertingPosition(int childPos) {
         return childPos <= children.size();
