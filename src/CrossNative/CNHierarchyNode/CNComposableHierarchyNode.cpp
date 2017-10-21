@@ -26,7 +26,7 @@ void CNComposableHierarchyNode::insert(CNHierarchyNodePtr node, int childPos) {
 }
 
 void CNComposableHierarchyNode::remove(int childPos) {
-
+    removeFromChildren(childPos);
 }
 
 bool CNComposableHierarchyNode::isParentOf(CNHierarchyNodePtr node) {
