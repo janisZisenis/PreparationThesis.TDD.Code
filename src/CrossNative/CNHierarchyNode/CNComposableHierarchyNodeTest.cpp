@@ -247,3 +247,13 @@ TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, FreshInsta
     expectComposerMountedChild(composer, node);
 }
 
+TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, CNHierarchyNodeInsertedWithChildPos0__RemoveWithChildPos0__ComposerShouldDismountTheRemovedCNHierarchyNode) {
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->insert(node, 0);
+
+    sut->remove(0);
+
+    expectComposerDismountedChild(composer, node);
+}
+
+
