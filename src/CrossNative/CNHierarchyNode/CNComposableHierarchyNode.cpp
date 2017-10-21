@@ -5,7 +5,9 @@
 CNComposableHierarchyNodePtr CNComposableHierarchyNode::getNewInstance(CNVisitablePtr visitable, CNComposerPtr composer)  {
     return CNComposableHierarchyNodePtr(new CNComposableHierarchyNode(visitable, composer));
 }
-CNComposableHierarchyNode::~CNComposableHierarchyNode() {}
+CNComposableHierarchyNode::~CNComposableHierarchyNode() {
+    dismountAllChildren();
+}
 CNComposableHierarchyNode::CNComposableHierarchyNode(CNVisitablePtr visitable, CNComposerPtr composer)
         : visitable(visitable), composer(composer) {}
 
@@ -89,5 +91,10 @@ void CNComposableHierarchyNode::mount(CNHierarchyNodePtr node) {
 
 void CNComposableHierarchyNode::dismount(CNHierarchyNodePtr node) {
     composer->dismount(node);
+}
+
+void CNComposableHierarchyNode::dismountAllChildren() {
+    for(int i = 0; i < getChildCount(); i++)
+        composer->dismount(getChild(i));
 }
 

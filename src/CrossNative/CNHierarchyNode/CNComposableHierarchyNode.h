@@ -32,6 +32,7 @@ public:
 private:
     virtual void mount(CNHierarchyNodePtr node);
     virtual void dismount(CNHierarchyNodePtr node);
+    virtual void dismountAllChildren();
     virtual bool isValidInsertingPosition(int childPos);
     virtual bool isValidChildPosition(int childPos);
     virtual void addToChildren(CNHierarchyNodePtr node);
