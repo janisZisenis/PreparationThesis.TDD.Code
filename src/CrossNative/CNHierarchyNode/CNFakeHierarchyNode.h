@@ -65,7 +65,9 @@ public:
         removeFromChildren(childPos);
     }
 
-    virtual void accept(CNVisitorPtr visitor) override {}
+    virtual void accept(CNVisitorPtr visitor) override {
+        throw CNVisitableVisitorMismatchException();
+    }
 private:
     virtual bool isValidInsertingPosition(int childPos) {
         return childPos <= children.size();
