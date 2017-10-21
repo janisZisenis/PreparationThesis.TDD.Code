@@ -3,6 +3,7 @@
 
 #include <qobject.h>
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerView.h>
+#include "QtViews/QtWidget/QtWidget.h"
 
 class CNAcceptor;
 
@@ -15,7 +16,7 @@ class QtSolutionItem;
 class QtSolutionExplorer;
 typedef std::shared_ptr<QtSolutionExplorer> QtSolutionExplorerPtr;
 
-class QtSolutionExplorer : public QObject, public SolutionExplorerView, public std::enable_shared_from_this<QtSolutionExplorer> {
+class QtSolutionExplorer : public QObject, public QtWidget, public SolutionExplorerView, public std::enable_shared_from_this<QtSolutionExplorer> {
 public:
     Q_OBJECT
 public:
@@ -25,11 +26,8 @@ private:
     QtSolutionExplorer();
 
 public:
-    virtual QWidget* getQWidget();
-
-    virtual std::string getTitle();
-    virtual bool isVisible();
-    void toggleVisibility();
+    virtual QWidget* getQWidget() override;
+    virtual std::string getTitle() override;
 
     virtual void removeIndex(const CNHierarchyIndex &index) override;
     virtual CNHierarchyIndex getSelectedIndex() override;

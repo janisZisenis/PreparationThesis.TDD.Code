@@ -42,14 +42,6 @@ std::string QtSolutionExplorer::getTitle() {
     return widget->windowTitle().toStdString();
 }
 
-bool QtSolutionExplorer::isVisible() {
-    return widget->isVisible();
-}
-
-void QtSolutionExplorer::toggleVisibility() {
-    widget->setVisible(!widget->isVisible());
-}
-
 void QtSolutionExplorer::removeIndex(const CNHierarchyIndex &index) {
     QModelIndex qIndex = solutionModel->transformToQModelIndex(index);
     treeView->setCurrentIndex(QModelIndex());

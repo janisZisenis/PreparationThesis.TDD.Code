@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <CrossViews/PropertiesExplorerPresenter/PropertiesExplorerView.h>
+#include "QtViews/QtWidget/QtWidget.h"
 
 class CNAcceptor;
 
@@ -13,7 +14,7 @@ class QtPropertiesModel;
 class QtPropertiesExplorer;
 typedef std::shared_ptr<QtPropertiesExplorer> QtPropertiesExplorerPtr;
 
-class QtPropertiesExplorer : public PropertiesExplorerView, public std::enable_shared_from_this<QtPropertiesExplorer> {
+class QtPropertiesExplorer : public QtWidget, public PropertiesExplorerView, public std::enable_shared_from_this<QtPropertiesExplorer> {
 public:
     static QtPropertiesExplorerPtr getNewInstance();
     virtual ~QtPropertiesExplorer();
@@ -21,11 +22,8 @@ private:
     QtPropertiesExplorer();
 
 public:
-    virtual QWidget* getQWidget();
-
-    virtual std::string getTitle();
-    virtual bool isVisible();
-    virtual void toggleVisibility();
+    virtual QWidget* getQWidget() override;
+    virtual std::string getTitle() override;
 
     void accept(CNVisitorPtr visitor) override;
 

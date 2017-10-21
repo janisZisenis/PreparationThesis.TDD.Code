@@ -21,16 +21,12 @@ QtPropertiesExplorer::QtPropertiesExplorer()
     tableView->setModel(propertiesModel);
 }
 
+QWidget* QtPropertiesExplorer::getQWidget() {
+    return tableView;
+}
+
 std::string QtPropertiesExplorer::getTitle() {
     return tableView->windowTitle().toStdString();
-}
-
-void QtPropertiesExplorer::toggleVisibility() {
-    tableView->setVisible(!tableView->isVisible());
-}
-
-bool QtPropertiesExplorer::isVisible() {
-    return tableView->isVisible();
 }
 
 void QtPropertiesExplorer::accept(CNVisitorPtr visitor) {
@@ -45,10 +41,6 @@ void QtPropertiesExplorer::displayPropertiesFor(CNVisitablePtr visitable) {
     QAbstractItemModel* oldModel = tableView->model();
     tableView->setModel(makePropertiesModel(visitable));
     delete oldModel;
-}
-
-QWidget* QtPropertiesExplorer::getQWidget() {
-    return tableView;
 }
 
 QtPropertiesExplorerPtr QtPropertiesExplorer::me() {
