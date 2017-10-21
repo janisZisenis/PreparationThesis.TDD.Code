@@ -18,7 +18,7 @@ RemoveCommand::RemoveCommand(InsertingHierarchicModelPtr model,
         : model(model), index(index), component(component) {}
 
 void RemoveCommand::execute() {
-//    model->remove(index.parent(), index.childPosition());
+    model->remove(index.parent(), index.childPosition());
 }
 
 void RemoveCommand::undo() {
