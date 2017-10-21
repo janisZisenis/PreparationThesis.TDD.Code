@@ -224,7 +224,7 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Accept__VisitableShouldHave
     expectVisitableHasAcceptedVisitor(visitable, visitor);
 }
 
-TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, FreshInstance__Add__ComposerShouldMountedTheAddedCNHierarchyNode) {
+TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, FreshInstance__Add__ComposerShouldMountTheAddedCNHierarchyNode) {
     CNHierarchyNodePtr child = makeCNHierarchyNodeDummy();
     sut->add(child);
 
@@ -238,5 +238,12 @@ TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, CNHierarch
     sut->remove(node);
 
     expectComposerDismountedChild(composer, node);
+}
+
+TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, FreshInstance__InsertWithChildPosition0__ComposerShouldMountTheAddedCNHierarchyNode) {
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->insert(node, 0);
+
+    expectComposerMountedChild(composer, node);
 }
 
