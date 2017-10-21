@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "CNHierarchyIndex.h"
+#include "CNIndexOutOfBoundsException.h"
 
 class CNHierarchyNode;
 

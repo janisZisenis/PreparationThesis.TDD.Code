@@ -175,6 +175,15 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithInvalidIndex_A
     expectReceiverAddedCNHierarchyNode(third, fourth);
 }
 
+TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithInvalidIndex__ShouldThrowCNIndexOutOfBoundsException) {
+    CNHierarchyPtr sut = makeCNHierarchy();
+
+    CNHierarchyIndex invalidIndex = CNHierarchyIndex();
+
+    std::string errorMessage = "CNHierarchy should throw CNIndexOutOfBoundsException, but it did not!";
+    EXPECT_THROW(sut->retrieve(invalidIndex), CNIndexOutOfBoundsException) << errorMessage;
+}
+
 //TEST_F(CNHierarchyTest, FreshInstance__AddWithIndexOutOfBounds__ShouldThrowCNIndexOutOfBoundsException) {
 //    CNHierarchyPtr sut = makeCNHierarchy();
 //
@@ -197,11 +206,4 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithInvalidIndex_A
 //
 //    HierarchyIndex outOfBoundsIndex({1, 6, 88, 99});
 //    EXPECT_THROW(sut->retrieve(outOfBoundsIndex), IndexOutOfBoundsException);
-//}
-
-//TEST(CNHierarchyTest, testRetrieveWithInvalidIndex_ShouldThrowIndexOutOfBoundsException) {
-//    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
-//
-//    HierarchyIndex invalidIndex;
-//    EXPECT_THROW(sut->retrieve(invalidIndex), IndexOutOfBoundsException);
 //}
