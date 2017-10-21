@@ -104,6 +104,18 @@ protected:
     CNComposableHierarchyNodePtr sut;
 };
 
+class CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy : public CNComposableHierarchyNodeTest {
+protected:
+    virtual void SetUp() override {
+        CNVisitablePtr visitable = makeCNVisitableDummy();
+        composer = makeCNComposerSpy();
+        sut = makeCNComposableHierarchyNode(visitable, composer);
+    }
+
+    CNComposerSpyPtr composer;
+    CNComposableHierarchyNodePtr sut;
+};
+
 TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerDummy, FreshInstance__ShouldNotBeParentOfCNHierarchyNode) {
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
 
@@ -212,21 +224,14 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Accept__VisitableShouldHave
     expectVisitableHasAcceptedVisitor(visitable, visitor);
 }
 
-TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Add__ComposerShouldMountedTheAddedCNHierarchyNode) {
-    CNVisitablePtr visitable = makeCNVisitableDummy();
-    CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable, composer);
-
+TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, FreshInstance__Add__ComposerShouldMountedTheAddedCNHierarchyNode) {
     CNHierarchyNodePtr child = makeCNHierarchyNodeDummy();
     sut->add(child);
 
     expectComposerMountedChild(composer, child);
 }
 
-TEST_F(CNComposableHierarchyNodeTest, CNHierarchyNodeAdded__Remove__ComposerShouldDismountTheRemovedCNHierarchyNode) {
-    CNVisitablePtr visitable = makeCNVisitableDummy();
-    CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable, composer);
+TEST_F(CNComposableHierarchyNode_With_CNVisitableDummy_CNComposerSpy, CNHierarchyNodeAdded__Remove__ComposerShouldDismountTheRemovedCNHierarchyNode) {
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
     sut->add(node);
 
