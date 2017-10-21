@@ -29,6 +29,7 @@ public:
     virtual void add(CNHierarchyNodePtr node) override {}
     virtual void remove(CNHierarchyNodePtr node) override {}
     virtual void insert(CNHierarchyNodePtr node, int childPos) override {}
+    virtual void remove(int childPos) override {}
 };
 
 class CNHierarchyNodeSpy;

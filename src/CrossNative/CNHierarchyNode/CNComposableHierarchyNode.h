@@ -22,7 +22,7 @@ public:
     virtual void add(std::shared_ptr<CNHierarchyNode> node) override;
     virtual void remove(std::shared_ptr<CNHierarchyNode> node) override;
     virtual void insert(std::shared_ptr<CNHierarchyNode> node, int childPos) override;
-
+    virtual void remove(int childPos) override;
 private:
     virtual bool isValidInsertingPosition(int childPos);
     virtual bool isValidChildPosition(int childPos);

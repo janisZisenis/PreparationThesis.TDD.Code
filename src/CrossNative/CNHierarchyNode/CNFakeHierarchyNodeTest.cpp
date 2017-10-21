@@ -149,3 +149,15 @@ TEST_F(CNFakeHierarchyNodeTest, AddedCNHierarchyNode__GetChildWithChildPosition1
     std::string errorMessage = "CNFakeHierarchyNode should throw CNInvalidChildPositionException, but it does not!";
     EXPECT_THROW(sut->getChild(1), CNInvalidChildPositionException) << errorMessage;
 }
+
+TEST_F(CNFakeHierarchyNodeTest, AddedTwoCNHierarchyNodes__RemoveWithChildPosition0__ShouldKeepTheSecondCNHierarchyNotAtChildPosition0) {
+    CNFakeHierarchyNodePtr sut = makeCNFakeHierarchyNode();
+    sut->add(makeCNHierarchyNodeDummy());
+    sut->add(makeCNHierarchyNodeDummy());
+    CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
+    sut->add(node);
+
+    sut->remove(0);
+
+    expectHasChildAtPosition(sut, node, 0);
+}

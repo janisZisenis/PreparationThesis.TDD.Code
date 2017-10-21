@@ -23,6 +23,7 @@ public:
     virtual void add(CNHierarchyNodePtr node) = 0;
     virtual void remove(CNHierarchyNodePtr node) = 0;
     virtual void insert(CNHierarchyNodePtr node, int childPos) = 0;
+    virtual void remove(int childPos) = 0;
 };
 
 #endif //CROSSNATIVE_HIERARCHYNODE_H

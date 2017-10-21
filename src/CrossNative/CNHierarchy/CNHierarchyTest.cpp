@@ -43,13 +43,31 @@ protected:
     }
 };
 
-TEST_F(CNHierarchyTest, FreshInstance__AddWithNotExistingParentIndex__ShouldThrowCNNotExistingIndexException) {
+TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithNotExistingIndex__ShouldThrowCNNotExistingIndexException) {
     CNHierarchyPtr sut = makeCNHierarchy();
 
-    CNHierarchyIndex notExistingParentIndex = CNHierarchyIndex({123, 6, 0});
+    CNHierarchyIndex notExistingIndex = CNHierarchyIndex({99, 3, 54});
 
     std::string errorMessage = "CNHierarchy should throw CNNotExistingIndexException, but it did not!";
-    EXPECT_THROW(sut->add(makeCNHierarchyNodeDummy(), notExistingParentIndex), CNNotExistingIndexException) << errorMessage;
+    EXPECT_THROW(sut->retrieve(notExistingIndex), CNNotExistingIndexException) << errorMessage;
+}
+
+TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithInvalidIndex__ShouldThrowCNInvalidIndexException) {
+    CNHierarchyPtr sut = makeCNHierarchy();
+
+    CNHierarchyIndex invalidIndex = CNHierarchyIndex();
+
+    std::string errorMessage = "CNHierarchy should throw CNInvalidIndexException, but it did not!";
+    EXPECT_THROW(sut->retrieve(invalidIndex), CNInvalidIndexException) << errorMessage;
+}
+
+TEST_F(CNHierarchyTest, FreshInstance__AddWithNotExistingIndex__ShouldThrowCNNotExistingIndexException) {
+    CNHierarchyPtr sut = makeCNHierarchy();
+
+    CNHierarchyIndex notExistingIndex = CNHierarchyIndex({123, 6, 0});
+
+    std::string errorMessage = "CNHierarchy should throw CNNotExistingIndexException, but it did not!";
+    EXPECT_THROW(sut->add(makeCNHierarchyNodeDummy(), notExistingIndex), CNNotExistingIndexException) << errorMessage;
 }
 
 TEST_F(CNHierarchyTest, FreshInstance__AddWithInvalidIndex_ShouldStoreCNHierarchyNodeAtIndex_0) {
@@ -191,32 +209,14 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithInvalidIndex_A
     expectReceiverAddedCNHierarchyNode(third, fourth);
 }
 
-TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithNotExistingIndex__ShouldThrowCNNotExistingIndexException) {
+
+TEST_F(CNHierarchyTest, FreshInstance__RemoveWithNotExistingIndex__ShouldThrowCNNotExistingIndexException) {
     CNHierarchyPtr sut = makeCNHierarchy();
 
-    CNHierarchyIndex notExistingIndex = CNHierarchyIndex({99, 3, 54});
+    CNHierarchyIndex notExistingIndex = CNHierarchyIndex({123, 6, 0});
 
     std::string errorMessage = "CNHierarchy should throw CNNotExistingIndexException, but it did not!";
-    EXPECT_THROW(sut->retrieve(notExistingIndex), CNNotExistingIndexException) << errorMessage;
-}
-
-TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithInvalidIndex__ShouldThrowCNInvalidIndexException) {
-    CNHierarchyPtr sut = makeCNHierarchy();
-
-    CNHierarchyIndex invalidIndex = CNHierarchyIndex();
-
-    std::string errorMessage = "CNHierarchy should throw CNInvalidIndexException, but it did not!";
-    EXPECT_THROW(sut->retrieve(invalidIndex), CNInvalidIndexException) << errorMessage;
-}
-
-
-TEST_F(CNHierarchyTest, FreshInstance__RemoveWithNotExistingParentIndex__ShouldThrowCNNotExistingIndexException) {
-    CNHierarchyPtr sut = makeCNHierarchy();
-
-    CNHierarchyIndex notExistingParentIndex = CNHierarchyIndex({123, 6, 0});
-
-    std::string errorMessage = "CNHierarchy should throw CNNotExistingIndexException, but it did not!";
-    EXPECT_THROW(sut->remove(makeCNHierarchyNodeDummy(), notExistingParentIndex), CNNotExistingIndexException) << errorMessage;
+    EXPECT_THROW(sut->remove(makeCNHierarchyNodeDummy(), notExistingIndex), CNNotExistingIndexException) << errorMessage;
 }
 
 TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithIndex_0__RemoveSecondWithIndex_0__FirstShouldHaveRemovedSecond) {

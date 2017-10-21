@@ -25,6 +25,10 @@ void CNComposableHierarchyNode::insert(CNHierarchyNodePtr node, int childPos) {
     insertToChildren(node, childPos);
 }
 
+void CNComposableHierarchyNode::remove(int childPos) {
+
+}
+
 bool CNComposableHierarchyNode::isParentOf(CNHierarchyNodePtr node) {
     return findPosition(node) > -1;
 }
@@ -65,3 +69,4 @@ bool CNComposableHierarchyNode::isValidChildPosition(int childPos) {
 void CNComposableHierarchyNode::insertToChildren(CNHierarchyNodePtr node, int childPos) {
     children.insert(children.begin()+ childPos, node);
 }
+

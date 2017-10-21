@@ -45,7 +45,7 @@ public:
 
         insertToChildren(node, childPos);
     }
-
+    virtual void remove(int childPos) override {}
 private:
     virtual bool isValidInsertingPosition(int childPos) {
         return childPos <= children.size();
@@ -69,7 +69,6 @@ private:
     }
 
 private:
-
     std::vector<CNHierarchyNodePtr> children;
 };
 

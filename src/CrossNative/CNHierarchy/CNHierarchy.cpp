@@ -13,12 +13,16 @@ void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
 }
 
 void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
-    throw CNNotExistingIndexException();
+    find(parent)->remove(node);
 }
 
-void CNHierarchy::insert(CNHierarchyNodePtr node, CNHierarchyIndex parent, int childPos) {}
+void CNHierarchy::insert(CNHierarchyNodePtr node, CNHierarchyIndex parent, int childPos) {
+    find(parent)->insert(node, childPos);
+}
 
-void CNHierarchy::remove(CNHierarchyIndex parent, int childPos) {}
+void CNHierarchy::remove(CNHierarchyIndex parent, int childPos) {
+    find(parent)->remove(childPos);
+}
 
 CNHierarchyNodePtr CNHierarchy::retrieve(const CNHierarchyIndex& index) {
     return index.isValid() ? find(index) : throw CNInvalidIndexException();
