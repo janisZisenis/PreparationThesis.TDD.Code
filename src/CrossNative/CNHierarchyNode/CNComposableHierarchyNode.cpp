@@ -18,6 +18,7 @@ void CNComposableHierarchyNode::remove(CNHierarchyNodePtr node) {
     if(!isParentOf(node))
         throw CNChildNotFoundException();
 
+    dismount(node);
     removeFromChildren(findPosition(node));
 }
 
@@ -82,5 +83,9 @@ void CNComposableHierarchyNode::accept(CNVisitorPtr visitor) {
 
 void CNComposableHierarchyNode::mount(CNHierarchyNodePtr node) {
     composer->mount(node);
+}
+
+void CNComposableHierarchyNode::dismount(CNHierarchyNodePtr node) {
+    composer->dismount(node);
 }
 
