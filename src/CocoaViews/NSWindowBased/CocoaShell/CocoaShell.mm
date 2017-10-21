@@ -3,6 +3,7 @@
 #include "CocoaShellVisitor.h"
 #import <AppKit/AppKit.h>
 #include "CocoaViews/NSViewBased/NSViewBased.h"
+#include "CocoaViews/NSToolbarBased/NSToolbarBased.h"
 
 CocoaShellPtr CocoaShell::getNewInstance() {
     return CocoaShellPtr(new CocoaShell());
@@ -24,10 +25,10 @@ void CocoaShell::removeNSView(NSViewBasedPtr nsViewBased, CocoaShellPosition pos
     removeTabFrom(getTabViewForPosition(pos), nsViewBased);
 }
 
-void CocoaShell::addNSToolbar(NSToolbar* nsToolbar) {
-    [window setToolbar:nsToolbar];
+void CocoaShell::addNSToolbar(NSToolbarBasedPtr nsToolbarBased) {
+    [window setToolbar:nsToolbarBased->getNSToolbar()];
 }
-void CocoaShell::removeNSToolbar(NSToolbar* nsToolbar) {
+void CocoaShell::removeNSToolbar(NSToolbarBasedPtr nsToolbarBased) {
     [window setToolbar:nil];
 }
 

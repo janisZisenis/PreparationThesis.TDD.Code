@@ -9,6 +9,7 @@
 class CNAcceptor;
 
 class NSViewBased;
+class NSToolbarBased;
 
 @class NSView;
 @class NSToolbar;
@@ -33,8 +34,8 @@ public:
     virtual void addNSView(std::shared_ptr<NSViewBased> nsViewBased, CocoaShellPosition pos);
     virtual void removeNSView(std::shared_ptr<NSViewBased> nsViewBased, CocoaShellPosition pos);
 
-    virtual void addNSToolbar(NSToolbar* nsToolbar);
-    virtual void removeNSToolbar(NSToolbar* nsToolbar);
+    virtual void addNSToolbar(std::shared_ptr<NSToolbarBased> nsToolbarBased);
+    virtual void removeNSToolbar(std::shared_ptr<NSToolbarBased> nsToolbarBased);
 
     virtual void accept(CNVisitorPtr visitor) override;
 private:
