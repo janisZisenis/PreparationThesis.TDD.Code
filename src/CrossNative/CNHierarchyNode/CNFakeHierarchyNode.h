@@ -46,6 +46,9 @@ public:
         insertToChildren(node, childPos);
     }
     virtual void remove(int childPos) override {
+        if(!isValidChildPosition(childPos))
+            throw CNInvalidChildPositionException();
+
         removeFromChildren(childPos);
     }
 private:
