@@ -10,6 +10,7 @@ CNComposableHierarchyNode::CNComposableHierarchyNode(CNVisitablePtr visitable, C
         : visitable(visitable), composer(composer) {}
 
 void CNComposableHierarchyNode::add(CNHierarchyNodePtr node) {
+    mount(node);
     addToChildren(node);
 }
 
@@ -80,6 +81,6 @@ void CNComposableHierarchyNode::accept(CNVisitorPtr visitor) {
 }
 
 void CNComposableHierarchyNode::mount(CNHierarchyNodePtr node) {
-
+    composer->mount(node);
 }
 
