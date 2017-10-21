@@ -1,7 +1,7 @@
 #include "GridGeneratorComposingVisitor.h"
 
 #include "IRMB/GridGenerator/GridGenerator.h"
-#include "IRMB/GridGenerator/STLFile.h"
+#include "IRMB/STLFile/STLFile.h"
 
 GridGeneratorComposingVisitorPtr GridGeneratorComposingVisitor::getNewInstance(GridGeneratorPtr gridGenerator) {
     return GridGeneratorComposingVisitorPtr(new GridGeneratorComposingVisitor(gridGenerator));

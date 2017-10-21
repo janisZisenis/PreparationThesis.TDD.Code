@@ -2,7 +2,7 @@
 #define IRMB_GRIDGENERATORCOMPOSINGVISITOR_H
 
 #include <CrossNative/CNVisitor/CNVisitor.h>
-#include "IRMB/GridGenerator/STLFileVisitor.h"
+#include "IRMB/STLFile/STLFileVisitor.h"
 
 class GridGenerator;
 

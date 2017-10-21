@@ -5,7 +5,7 @@
 #include "GridGenerator/utilities/Transformator.h"
 #include "GridGenerator/utilities/io/STLReaderWriter.h"
 #include "GridGenerator/stl/Triangle.h"
-#include "IRMB/GridGenerator/STLFile.h"
+#include "IRMB/STLFile/STLFile.h"
 
 
 GridGeneratorImpPtr GridGeneratorImp::getNewInstance(std::string name, double length, double width, double height, double delta, std::string distribution) {

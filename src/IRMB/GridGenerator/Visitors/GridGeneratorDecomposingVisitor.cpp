@@ -1,7 +1,7 @@
 #include "GridGeneratorDecomposingVisitor.h"
 
 #include "IRMB/GridGenerator/GridGenerator.h"
-#include "IRMB/GridGenerator/STLFile.h"
+#include "IRMB/STLFile/STLFile.h"
 
 GridGeneratorDecomposingVisitorPtr GridGeneratorDecomposingVisitor::getNewInstance(GridGeneratorPtr gridGenerator) {
     return GridGeneratorDecomposingVisitorPtr(new GridGeneratorDecomposingVisitor(gridGenerator));
