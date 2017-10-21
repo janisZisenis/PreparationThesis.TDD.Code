@@ -202,26 +202,11 @@ TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithInvalidIndex__ShouldThrowCNIn
     EXPECT_THROW(sut->retrieve(invalidIndex), CNInvalidIndexException) << errorMessage;
 }
 
-//TEST_F(CNHierarchyTest, FreshInstance__AddWithIndexOutOfBounds__ShouldThrowCNIndexOutOfBoundsException) {
-//    CNHierarchyPtr sut = makeCNHierarchy();
-//
-//    HierarchyIndex outOfBoundsIndex({1, 1, 66, 8});
-//    EXPECT_THROW(sut->add(TMock::getNewInstance(), outOfBoundsIndex), IndexOutOfBoundsException);
-//    EXPECT_THROW(sut->remove(TMock::getNewInstance(), outOfBoundsIndex), IndexOutOfBoundsException);
-//}
+TEST_F(CNHierarchyTest, FreshInstance__RemoveWithNotExistingParentIndex__ShouldThrowCNNotExistingIndexException) {
+    CNHierarchyPtr sut = makeCNHierarchy();
 
-//TEST(CNHierarchyTest, testInsertRemove_ShouldThrowIndexOutOfBoundsExceptionIfParentIndexIsOutOfBounds) {
-//    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
-//
-//    HierarchyIndex outOfBoundsIndex({1, 1, 66, 8});
-//    int childPos = 0;
-//    EXPECT_THROW(sut->insert(TMock::getNewInstance(), outOfBoundsIndex, childPos), IndexOutOfBoundsException);
-//    EXPECT_THROW(sut->remove(outOfBoundsIndex, childPos), IndexOutOfBoundsException);
-//}
+    CNHierarchyIndex notExistingParentIndex = CNHierarchyIndex({123, 6, 0});
 
-//TEST(CNHierarchyTest, testRetrieveWithIndexOutOfBounds_ShouldThrowIndexOutOfBoundsException) {
-//    CNHierarchyPtr<TMock> sut = CNHierarchy<TMock>::getNewInstance();
-//
-//    HierarchyIndex outOfBoundsIndex({1, 6, 88, 99});
-//    EXPECT_THROW(sut->retrieve(outOfBoundsIndex), IndexOutOfBoundsException);
-//}
+    std::string errorMessage = "CNHierarchy should throw CNNotExistingIndexException, but it did not!";
+    EXPECT_THROW(sut->remove(makeCNHierarchyNodeDummy(), notExistingParentIndex), CNNotExistingIndexException) << errorMessage;
+}
