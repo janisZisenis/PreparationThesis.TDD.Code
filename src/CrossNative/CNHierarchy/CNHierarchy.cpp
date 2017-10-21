@@ -8,8 +8,8 @@ CNHierarchyPtr CNHierarchy::getNewInstance()  {
 CNHierarchy::~CNHierarchy() {}
 CNHierarchy::CNHierarchy() : root(CNComposableHierarchyNode::getNewInstance()) {}
 
-void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {
-    parentIndex.isValid() ? retrieve(parentIndex)->add(node) : root->add(node);
+void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
+    parent.isValid() ? retrieve(parent)->add(node) : root->add(node);
 }
 
 void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {}
@@ -22,18 +22,20 @@ void CNHierarchy::remove(CNHierarchyIndex parentIndex, int childPos) {
 
 }
 
-CNHierarchyNodePtr CNHierarchy::retrieve(CNHierarchyIndex index) {
-    if(!index.isValid())
-        throw CNIndexOutOfBoundsException();
+CNHierarchyNodePtr CNHierarchy::retrieve(const CNHierarchyIndex& index) {
+    return index.isValid() ? find(index) : throw CNInvalidIndexException();
+}
 
+CNHierarchyNodePtr CNHierarchy::find(const CNHierarchyIndex &index) {
     CNHierarchyNodePtr retrieved = root;
 
     for(int i = 0; i < index.depth(); i++) {
         if (index[i] >= retrieved->getChildCount())
-            throw CNIndexOutOfBoundsException();
+            throw CNNotExistingIndexException();
 
         retrieved = retrieved->getChild(index[i]);
     }
+
     return retrieved;
 }
 

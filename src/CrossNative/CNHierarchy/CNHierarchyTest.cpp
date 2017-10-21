@@ -36,6 +36,15 @@ protected:
     }
 };
 
+TEST_F(CNHierarchyTest, FreshInstance__AddWithNotExistingParentIndex__ShouldThrowCNNotExistingIndexException) {
+    CNHierarchyPtr sut = makeCNHierarchy();
+
+    CNHierarchyIndex notExistingParentIndex = CNHierarchyIndex({123, 6, 0});
+
+    std::string errorMessage = "CNHierarchy should throw CNNotExistingIndexException, but it did not!";
+    EXPECT_THROW(sut->add(makeCNHierarchyNodeDummy(), notExistingParentIndex), CNNotExistingIndexException) << errorMessage;
+}
+
 TEST_F(CNHierarchyTest, FreshInstance__AddWithInvalidIndex_ShouldStoreCNHierarchyNodeAtIndex_0) {
     CNHierarchyPtr sut = CNHierarchy::getNewInstance();
 
@@ -175,22 +184,22 @@ TEST_F(CNHierarchyTest, AddedFirstWithInvalidIndex_AddedSecondWithInvalidIndex_A
     expectReceiverAddedCNHierarchyNode(third, fourth);
 }
 
-TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithNotExistingIndex__ShouldThrowCNIndexOutOfBoundsException) {
+TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithNotExistingIndex__ShouldThrowCNNotExistingIndexException) {
     CNHierarchyPtr sut = makeCNHierarchy();
 
     CNHierarchyIndex notExistingIndex = CNHierarchyIndex({99, 3, 54});
 
-    std::string errorMessage = "CNHierarchy should throw CNIndexOutOfBoundsException, but it did not!";
-    EXPECT_THROW(sut->retrieve(notExistingIndex), CNIndexOutOfBoundsException) << errorMessage;
+    std::string errorMessage = "CNHierarchy should throw CNNotExistingIndexException, but it did not!";
+    EXPECT_THROW(sut->retrieve(notExistingIndex), CNNotExistingIndexException) << errorMessage;
 }
 
-TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithInvalidIndex__ShouldThrowCNIndexOutOfBoundsException) {
+TEST_F(CNHierarchyTest, FreshInstance__RetrieveWithInvalidIndex__ShouldThrowCNInvalidIndexException) {
     CNHierarchyPtr sut = makeCNHierarchy();
 
     CNHierarchyIndex invalidIndex = CNHierarchyIndex();
 
-    std::string errorMessage = "CNHierarchy should throw CNIndexOutOfBoundsException, but it did not!";
-    EXPECT_THROW(sut->retrieve(invalidIndex), CNIndexOutOfBoundsException) << errorMessage;
+    std::string errorMessage = "CNHierarchy should throw CNInvalidIndexException, but it did not!";
+    EXPECT_THROW(sut->retrieve(invalidIndex), CNInvalidIndexException) << errorMessage;
 }
 
 //TEST_F(CNHierarchyTest, FreshInstance__AddWithIndexOutOfBounds__ShouldThrowCNIndexOutOfBoundsException) {

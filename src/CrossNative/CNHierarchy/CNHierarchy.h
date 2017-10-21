@@ -5,7 +5,8 @@
 #include <vector>
 
 #include "CNHierarchyIndex.h"
-#include "CNIndexOutOfBoundsException.h"
+#include "CNIndexNotExistingException.h"
+#include "CNInvalidIndexException.h"
 
 class CNHierarchyNode;
 
@@ -20,14 +21,16 @@ protected:
     CNHierarchy();
 
 public:
-    virtual void add(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex);
+    virtual void add(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parent);
     virtual void remove(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex);
 
     virtual void insert(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex, int childPos);
     virtual void remove(CNHierarchyIndex parentIndex, int childPos);
 
-    virtual std::shared_ptr<CNHierarchyNode> retrieve(CNHierarchyIndex index);
+    virtual std::shared_ptr<CNHierarchyNode> retrieve(const CNHierarchyIndex& index);
 
+private:
+    virtual std::shared_ptr<CNHierarchyNode> find(const CNHierarchyIndex& index);
 private:
     std::shared_ptr<CNHierarchyNode> root;
     std::vector< std::shared_ptr<CNHierarchyNode> > nodes;
