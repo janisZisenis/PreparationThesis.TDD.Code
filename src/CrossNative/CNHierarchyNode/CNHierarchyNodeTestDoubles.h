@@ -51,8 +51,16 @@ public:
         return added;
     }
 
+    virtual void remove(CNHierarchyNodePtr node) override {
+        removed = node;
+    }
+    virtual CNHierarchyNodePtr getRemoved() {
+        return removed;
+    }
+
 private:
     CNHierarchyNodePtr added;
+    CNHierarchyNodePtr removed;
 };
 
 #endif //CROSSNATIVE_HIERARCHYNODE_TESTDOUBLES_H
