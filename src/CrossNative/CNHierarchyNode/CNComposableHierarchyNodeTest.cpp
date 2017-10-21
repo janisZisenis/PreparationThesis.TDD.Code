@@ -1,15 +1,26 @@
 #include "gmock/gmock.h"
 #include "CNComposableHierarchyNode.h"
 #include "CNHierarchyNodeTestDoubles.h"
+#include "CrossNative/CNVisitor/CNVisitorTestDoubles.h"
+#include "CrossNative/CNVisitable/CNVisitableTestDoubles.h"
 
 class CNComposableHierarchyNodeTest : public testing::Test {
 protected:
-    virtual CNComposableHierarchyNodePtr makeCNComposableHierarchyNode() {
-        return CNComposableHierarchyNode::getNewInstance();
+    virtual CNComposableHierarchyNodePtr makeCNComposableHierarchyNode(CNVisitablePtr visitable) {
+        return CNComposableHierarchyNode::getNewInstance(visitable);
     }
 
     virtual CNHierarchyNodePtr makeCNHierarchyNodeDummy() {
         return CNHierarchyNodeDummy::getNewInstance();
+    }
+    virtual CNVisitablePtr makeCNVisitableDummy() {
+        return CNVisitableDummy::getNewInstance();
+    }
+    virtual CNVisitableSpyPtr makeCNVisitableSpy() {
+        return CNVisitableSpy::getNewInstance();
+    }
+    virtual CNVisitorPtr makeCNVisitorDummy() {
+        return CNVisitorDummy::getNewInstance();
     }
 
     virtual void expectIsParentOf(CNComposableHierarchyNodePtr parent,
@@ -51,10 +62,18 @@ protected:
         std::string errorMessage = "CNComposableHierarchyNode should have a valid child position of " + std::to_string(childPos) + ", but it has not!";
         ASSERT_THAT(actual, testing::Ge(expected)) << errorMessage;
     }
+    virtual void expectVisitableHasAcceptedVisitor(CNVisitableSpyPtr visitable, CNVisitorPtr visitor) {
+        CNVisitorPtr expected = visitable->getAccepted();
+        CNVisitorPtr actual = visitor;
+
+        std::string errorMessage = "The visitable should have accepted the visitor, but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
 };
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__ShouldNotBeParentOfCNHierarchyNode) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
 
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
 
@@ -62,7 +81,8 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__ShouldNotBeParentOfCNHierar
 }
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Add__ShouldBeParentOfAddedCNHierarchyNode) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
 
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
     sut->add(node);
@@ -71,7 +91,8 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Add__ShouldBeParentOfAddedC
 }
 
 TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Remove__ShouldNotBeParentOfRemovedCNHierarchyNodeAnymore) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
     sut->add(node);
 
@@ -81,7 +102,8 @@ TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Remove__ShouldNotBeP
 }
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Remove__ShouldThrowCNChildNotFoundException) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
 
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
 
@@ -90,7 +112,8 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Remove__ShouldThrowCNChildN
 }
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__InsertWithChildPos0__ShouldBeParentOfCNHierarchyNode) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
 
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
     sut->insert(node, 0);
@@ -99,7 +122,8 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__InsertWithChildPos0__Should
 }
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__InsertWithChildPos1__ShouldThrowCNInvalidInsertingPositionException) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
 
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
 
@@ -108,7 +132,8 @@ TEST_F(CNComposableHierarchyNodeTest, FreshInstance__InsertWithChildPos1__Should
 }
 
 TEST_F(CNComposableHierarchyNodeTest, AddedTwoCNHierarchyNodes_InsertedOneCNHierarchyNode__RemoveInsertedCNHierarchyNodes__ShouldHaveChildCount2) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
     sut->add(makeCNHierarchyNodeDummy());
     sut->add(makeCNHierarchyNodeDummy());
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
@@ -120,7 +145,8 @@ TEST_F(CNComposableHierarchyNodeTest, AddedTwoCNHierarchyNodes_InsertedOneCNHier
 }
 
 TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Add__ShouldKeepTheSecondCNHierarchyNodeAtChildPosition1) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
     CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
     sut->add(first);
 
@@ -131,7 +157,8 @@ TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__Add__ShouldKeepTheSe
 }
 
 TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__InsertWithChildPosition0__ShouldKeepTheSecondCNHierarchyNodeAtChildPosition0) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
     CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
     sut->add(first);
 
@@ -142,7 +169,8 @@ TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__InsertWithChildPosit
 }
 
 TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__GetChildWithChildPosition1__ShouldThrowCNInvalidChildPositionException) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
     CNHierarchyNodePtr first = makeCNHierarchyNodeDummy();
     sut->add(first);
 
@@ -151,7 +179,8 @@ TEST_F(CNComposableHierarchyNodeTest, AddedCNHierarchyNode__GetChildWithChildPos
 }
 
 TEST_F(CNComposableHierarchyNodeTest, AddedTwoCNHierarchyNodes__RemoveWithChildPosition0__ShouldKeepTheSecondCNHierarchyNotAtChildPosition0) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
     sut->add(makeCNHierarchyNodeDummy());
     CNHierarchyNodePtr node = makeCNHierarchyNodeDummy();
     sut->add(node);
@@ -162,8 +191,19 @@ TEST_F(CNComposableHierarchyNodeTest, AddedTwoCNHierarchyNodes__RemoveWithChildP
 }
 
 TEST_F(CNComposableHierarchyNodeTest, FreshInstance__RemoveWithChildPosition1__ShouldThrowCNInvalidChildPositionException) {
-    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
 
     std::string errorMessage = "CNComposableHierarchyNode should throw CNInvalidChildPositionException, but it did not!";
     EXPECT_THROW(sut->remove(1), CNInvalidChildPositionException);
+}
+
+TEST_F(CNComposableHierarchyNodeTest, FreshInstance__Accept__VisitableShouldHaveAcceptedVisitor) {
+    CNVisitableSpyPtr visitable = makeCNVisitableSpy();
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode(visitable);
+
+    CNVisitorPtr visitor = makeCNVisitorDummy();
+    sut->accept(visitor);
+
+    expectVisitableHasAcceptedVisitor(visitable, visitor);
 }

@@ -6,7 +6,7 @@ CNHierarchyPtr CNHierarchy::getNewInstance()  {
     return CNHierarchyPtr(new CNHierarchy());
 }
 CNHierarchy::~CNHierarchy() {}
-CNHierarchy::CNHierarchy() : root(CNComposableHierarchyNode::getNewInstance()) {}
+CNHierarchy::CNHierarchy() : root(CNComposableHierarchyNode::getNewInstance(nullptr)) {}
 
 void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
     find(parent)->add(node);

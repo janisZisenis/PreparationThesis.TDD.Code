@@ -19,15 +19,13 @@ protected:
         return CNFakeHierarchyNodeVisitorSpy::getNewInstance();
     }
 
-    virtual void expectIsParentOf(CNFakeHierarchyNodePtr parent,
-                                  CNHierarchyNodePtr child) {
+    virtual void expectIsParentOf(CNFakeHierarchyNodePtr parent, CNHierarchyNodePtr child) {
         bool actual = parent->isParentOf(child);
 
         std::string errorMessage = "CNFakeHierarchyNode should be parent of CNHierarchyNode, but it is not!";
         EXPECT_TRUE(actual) << errorMessage;
     }
-    virtual void expectIsNotParentOf(CNFakeHierarchyNodePtr parent,
-                                     CNHierarchyNodePtr child) {
+    virtual void expectIsNotParentOf(CNFakeHierarchyNodePtr parent, CNHierarchyNodePtr child) {
         bool actual = parent->isParentOf(child);
 
         std::string errorMessage = "CNFakeHierarchyNode should not be parent of CNHierarchyNode, but it is!";

@@ -1,11 +1,11 @@
 #include "CNComposableHierarchyNode.h"
 #include "CNInvalidChildPositionException.h"
 
-CNComposableHierarchyNodePtr CNComposableHierarchyNode::getNewInstance()  {
-    return CNComposableHierarchyNodePtr(new CNComposableHierarchyNode());
+CNComposableHierarchyNodePtr CNComposableHierarchyNode::getNewInstance(CNVisitablePtr visitable)  {
+    return CNComposableHierarchyNodePtr(new CNComposableHierarchyNode(visitable));
 }
 CNComposableHierarchyNode::~CNComposableHierarchyNode() {}
-CNComposableHierarchyNode::CNComposableHierarchyNode() {}
+CNComposableHierarchyNode::CNComposableHierarchyNode(CNVisitablePtr visitable) : visitable(visitable) {}
 
 void CNComposableHierarchyNode::add(CNHierarchyNodePtr node) {
     addToChildren(node);

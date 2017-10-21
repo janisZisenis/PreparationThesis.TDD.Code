@@ -8,11 +8,11 @@ class CNComposableHierarchyNode;
 typedef std::shared_ptr<CNComposableHierarchyNode> CNComposableHierarchyNodePtr;
 class CNComposableHierarchyNode : public CNHierarchyNode {
 public:
-    static CNComposableHierarchyNodePtr getNewInstance();
+    static CNComposableHierarchyNodePtr getNewInstance(CNVisitablePtr visitable);
     virtual  ~CNComposableHierarchyNode();
 
 protected:
-    CNComposableHierarchyNode();
+    CNComposableHierarchyNode(CNVisitablePtr visitable);
 
 public:
     virtual bool isParentOf(CNHierarchyNodePtr node) override;
@@ -34,7 +34,7 @@ private:
     virtual int findPosition(CNHierarchyNodePtr node);
 
 private:
-
+    CNVisitablePtr visitable;
     std::vector<CNHierarchyNodePtr> children;
 };
 
