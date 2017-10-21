@@ -22,5 +22,5 @@ void RemoveCommand::execute() {
 }
 
 void RemoveCommand::undo() {
-//    model->insert(component, index.parent(), index.childPosition());
+    model->insert(component, index.parent(), index.childPosition());
 }
