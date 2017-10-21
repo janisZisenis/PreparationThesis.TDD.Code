@@ -9,18 +9,14 @@ CNHierarchy::~CNHierarchy() {}
 CNHierarchy::CNHierarchy() : root(CNComposableHierarchyNode::getNewInstance()) {}
 
 void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
-    parent.isValid() ? retrieve(parent)->add(node) : root->add(node);
+    find(parent)->add(node);
 }
 
-void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex) {}
+void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parent) {}
 
-void CNHierarchy::insert(CNHierarchyNodePtr node, CNHierarchyIndex parentIndex, int childPos) {
+void CNHierarchy::insert(CNHierarchyNodePtr node, CNHierarchyIndex parent, int childPos) {}
 
-}
-
-void CNHierarchy::remove(CNHierarchyIndex parentIndex, int childPos) {
-
-}
+void CNHierarchy::remove(CNHierarchyIndex parent, int childPos) {}
 
 CNHierarchyNodePtr CNHierarchy::retrieve(const CNHierarchyIndex& index) {
     return index.isValid() ? find(index) : throw CNInvalidIndexException();

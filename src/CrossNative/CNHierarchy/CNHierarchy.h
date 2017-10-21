@@ -22,10 +22,10 @@ protected:
 
 public:
     virtual void add(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parent);
-    virtual void remove(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex);
+    virtual void remove(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parent);
 
-    virtual void insert(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parentIndex, int childPos);
-    virtual void remove(CNHierarchyIndex parentIndex, int childPos);
+    virtual void insert(std::shared_ptr<CNHierarchyNode> node, CNHierarchyIndex parent, int childPos);
+    virtual void remove(CNHierarchyIndex parent, int childPos);
 
     virtual std::shared_ptr<CNHierarchyNode> retrieve(const CNHierarchyIndex& index);
 
