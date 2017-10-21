@@ -3,8 +3,8 @@
 #include <CrossNative/CNMatcher/CNNullMatcher.h>
 
 #include <CrossNative/CNTagged/Visitors/CNTagIdentifyingVisitor.h>
-#include "CocoaViews/CocoaShell/Visitors/CocoaShellTypeIdentifyingVisitor.h"
-#include "CocoaViews/CocoaMenuBar/Visitors/CocoaMenuBarTypeIdentifyingVisitor.h"
+#include "CocoaViews/NSWindowBased/CocoaShell/Visitors/CocoaShellTypeIdentifyingVisitor.h"
+#include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarTypeIdentifyingVisitor.h"
 
 CocoaViewMatcherFactoryPtr CocoaViewMatcherFactory::getNewInstance() {
     return CocoaViewMatcherFactoryPtr(new CocoaViewMatcherFactory());

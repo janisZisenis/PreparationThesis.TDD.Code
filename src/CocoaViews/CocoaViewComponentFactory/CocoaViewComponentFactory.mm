@@ -3,28 +3,28 @@
 #include <CrossNative/CNComposer/CNVisitingComposer/CNVisitingComposer.h>
 #include <CrossNative/CNComposer/CNNullComposer.h>
 
-#include "CocoaViews/CocoaShell/CocoaShell.h"
-#include "CocoaViews/CocoaShell/Visitors/CocoaShellComposingVisitor.h"
-#include "CocoaViews/CocoaShell/Visitors/CocoaShellDecomposingVisitor.h"
+#include "CocoaViews/NSWindowBased/CocoaShell/CocoaShell.h"
+#include "CocoaViews/NSWindowBased/CocoaShell/Visitors/CocoaShellComposingVisitor.h"
+#include "CocoaViews/NSWindowBased/CocoaShell/Visitors/CocoaShellDecomposingVisitor.h"
 
-#include "CocoaViews/CocoaMenuBar/CocoaMenuBar.h"
-#include "CocoaViews/CocoaMenuBar/Visitors/CocoaMenuBarComposingVisitor.h"
-#include "CocoaViews/CocoaMenuBar/Visitors/CocoaMenuBarDecomposingVisitor.h"
+#include "CocoaViews/NSMenuBased/CocoaMenuBar/CocoaMenuBar.h"
+#include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarComposingVisitor.h"
+#include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarDecomposingVisitor.h"
 
-#include "CocoaViews/CocoaMenu/CocoaMenu.h"
-#include "CocoaViews/CocoaMenu/Visitors/CocoaMenuComposingVisitor.h"
-#include "CocoaViews/CocoaMenu/Visitors/CocoaMenuDecomposingVisitor.h"
+#include "CocoaViews/NSMenuItemBased/CocoaMenu/CocoaMenu.h"
+#include "CocoaViews/NSMenuItemBased/CocoaMenu/Visitors/CocoaMenuComposingVisitor.h"
+#include "CocoaViews/NSMenuItemBased/CocoaMenu/Visitors/CocoaMenuDecomposingVisitor.h"
 
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
-#include "CocoaViews/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
+#include "CocoaViews/NSViewBased/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 
 #include <CrossViews/PropertiesExplorerPresenter/PropertiesExplorerPresenter.h>
-#include "CocoaViews/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
+#include "CocoaViews/NSViewBased/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
 
 #include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
 #include <CodeBaseImp/CBFixedActionAppearance/CBFixedAppearance.h>
 #include <CodeBase/CBTransAction/CBNullTransAction.h>
-#include "CocoaViews/CocoaMenuItem/CocoaMenuItem.h"
+#include "CocoaViews/NSMenuItemBased/CocoaMenuItem/CocoaMenuItem.h"
 
 CocoaViewComponentFactoryPtr CocoaViewComponentFactory::getNewInstance() {
     return CocoaViewComponentFactoryPtr(new CocoaViewComponentFactory());
