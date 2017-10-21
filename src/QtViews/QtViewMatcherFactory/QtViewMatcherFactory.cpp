@@ -3,8 +3,8 @@
 #include <CrossNative/CNMatcher/CNNullMatcher.h>
 
 #include <CrossNative/CNTagged/Visitors/CNTagIdentifyingVisitor.h>
-#include "QtViews/QtShell/Visitors/QtShellTypeIdentifyingVisitor.h"
-#include "QtViews/QtMenuBar/Visitors/QtMenuBarTypeIdentifyingVisitor.h"
+#include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellTypeIdentifyingVisitor.h"
+#include "QtViews/QMenuBarBased/QtMenuBar/Visitors/QtMenuBarTypeIdentifyingVisitor.h"
 
 QtViewMatcherFactoryPtr QtViewMatcherFactory::getNewInstance() {
     return QtViewMatcherFactoryPtr(new QtViewMatcherFactory());

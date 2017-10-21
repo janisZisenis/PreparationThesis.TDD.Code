@@ -3,27 +3,27 @@
 #include <CrossNative/CNComposer/CNVisitingComposer/CNVisitingComposer.h>
 #include <CrossNative/CNComposer/CNNullComposer.h>
 
-#include "QtViews/QtShell/QtShell.h"
-#include "QtViews/QtShell/Visitors/QtShellComposingVisitor.h"
-#include "QtViews/QtShell/Visitors/QtShellDecomposingVisitor.h"
+#include "QtViews/QMainWindowBased/QtShell/QtShell.h"
+#include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellComposingVisitor.h"
+#include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellDecomposingVisitor.h"
 
-#include "QtViews/QtMenuBar/QtMenuBar.h"
-#include "QtViews/QtMenuBar/Visitors/QtMenuBarComposingVisitor.h"
-#include "QtViews/QtMenuBar/Visitors/QtMenuBarDecomposingVisitor.h"
+#include "QtViews/QMenuBarBased/QtMenuBar/QtMenuBar.h"
+#include "QtViews/QMenuBarBased/QtMenuBar/Visitors/QtMenuBarComposingVisitor.h"
+#include "QtViews/QMenuBarBased/QtMenuBar/Visitors/QtMenuBarDecomposingVisitor.h"
 
-#include "QtViews/QtMenu/QtMenu.h"
-#include "QtViews/QtMenu/Visitors/QtMenuComposingVisitor.h"
-#include "QtViews/QtMenu/Visitors/QtMenuDecomposingVisitor.h"
+#include "QtViews/QActionBased/QtMenu/QtMenu.h"
+#include "QtViews/QActionBased/QtMenu/Visitors/QtMenuComposingVisitor.h"
+#include "QtViews/QActionBased/QtMenu/Visitors/QtMenuDecomposingVisitor.h"
 
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
-#include "QtViews/QtSolutionExplorer/QtSolutionExplorer.h"
+#include "QtViews/QWidgetBased/QtSolutionExplorer/QtSolutionExplorer.h"
 
-#include "QtViews/QtPropertiesExplorer/QtPropertiesExplorer.h"
+#include "QtViews/QWidgetBased/QtPropertiesExplorer/QtPropertiesExplorer.h"
 #include <CrossViews/PropertiesExplorerPresenter/PropertiesExplorerPresenter.h>
 
 #include <CodeBaseImp/CBFixedActionAppearance/CBFixedAppearance.h>
 #include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
-#include "QtViews/QtAction/QtAction.h"
+#include "QtViews/QActionBased/QtAction/QtAction.h"
 #include <CodeBase/CBTransAction/CBNullTransAction.h>
 
 QtViewComponentFactoryPtr QtViewComponentFactory::getNewInstance() {
