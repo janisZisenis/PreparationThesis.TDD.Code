@@ -18,5 +18,5 @@ void AddCommand::execute() {
 }
 
 void AddCommand::undo() {
-//    model->remove(component, index);
+    model->remove(component, index);
 }
