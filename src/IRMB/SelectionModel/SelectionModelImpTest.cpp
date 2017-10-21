@@ -15,6 +15,13 @@ protected:
         std::string errorMessage = "SelectionModelImp should not have a selection, but it has!";
         EXPECT_FALSE(actual) << errorMessage;
     }
+
+    virtual void expectHasSelection(SelectionModelImpPtr sut) {
+        bool actual = sut->hasSelection();
+
+        std::string errorMessage = "SelectionModelImp should have a selection, but it has not!";
+        EXPECT_TRUE(actual) << errorMessage;
+    }
 };
 
 TEST_F(SelectionModelImpTest, FreshInstance_ShouldNotHaveASelection) {
@@ -23,18 +30,14 @@ TEST_F(SelectionModelImpTest, FreshInstance_ShouldNotHaveASelection) {
     expectHasNoSelction(sut);
 }
 
-//TEST(SelectionModelImpTest, HasValidSelection_ReturnsTrueIfSelectedIndexIsBiggerThanOrEqual_0) {
-//    SelectionModelImpPtr sut = SelectionModelImp::getNewInstance();
-//
-//    sut->setSelectedIndex(CNHierarchyIndex());
-//    EXPECT_FALSE(sut->hasSelection());
-//    EXPECT_TRUE(sut->getSelectedIndex() == CNHierarchyIndex());
-//
-//    sut->setSelectedIndex(CNHierarchyIndex({0}));
-//    EXPECT_TRUE(sut->hasSelection());
-//    EXPECT_TRUE(sut->getSelectedIndex() == CNHierarchyIndex({0}));
-//}
-//
+TEST_F(SelectionModelImpTest, FreshInstance__SetValidIndex__ShouldHaveASelection) {
+    SelectionModelImpPtr sut = SelectionModelImp::getNewInstance();
+
+    sut->setSelectedIndex(CNHierarchyIndex({0}));
+
+    expectHasSelection(sut);
+}
+
 //class ObserverMock;
 //typedef std::shared_ptr<ObserverMock> ObserverMockPtr;
 //class ObserverMock : public CBObserver {
