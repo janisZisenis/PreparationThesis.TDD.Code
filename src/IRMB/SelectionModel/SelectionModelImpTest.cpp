@@ -4,6 +4,42 @@
 
 class SelectionModelImpTest : public testing::Test {
 protected:
+    class CBObserverMock;
+    typedef std::shared_ptr<CBObserverMock> CBObserverMockPtr;
+    class CBObserverMock : public CBObserver {
+    public:
+        static CBObserverMockPtr getNewInstance(SelectionModelImpPtr selectionModel) {
+            return CBObserverMockPtr(new CBObserverMock(selectionModel));
+        }
+        virtual ~CBObserverMock() {}
+    protected:
+        CBObserverMock(SelectionModelImpPtr selectionModel) : selectionModel(selectionModel) {}
+
+    public:
+        void update() override {
+            actual = selectionModel->getSelectedIndex();
+        }
+
+        virtual void expectIndexDuringUpdate(CNHierarchyIndex index) {
+            expected = index;
+        }
+
+        virtual void verify() {
+            std::string errorMessage = "The index during update should be " + expected.toString()
+                                       + ". Instead it is " + actual.toString()  + "!";
+            EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+        }
+    private:
+        bool updated = false;
+        CNHierarchyIndex expected;
+        CNHierarchyIndex actual;
+        SelectionModelImpPtr selectionModel;
+    };
+
+    virtual CBObserverMockPtr makeCBObserverMock(SelectionModelImpPtr selectionModel) {
+        return CBObserverMock::getNewInstance(selectionModel);
+    }
+
     virtual SelectionModelImpPtr makeSelectionModelImp() {
         return SelectionModelImp::getNewInstance();
     }
@@ -67,32 +103,13 @@ TEST_F(SelectionModelImpTest, AttachedTwoObservers_DetachedOneObserver__SetSelec
     expectedWasNotUpdated(second);
 }
 
-//class ObserverMock;
-//typedef std::shared_ptr<ObserverMock> ObserverMockPtr;
-//class ObserverMock : public CBObserver {
-//public:
-//    static ObserverMockPtr getNewInstance(SelectionModelImpPtr selectionModel) {
-//        return ObserverMockPtr(new ObserverMock(selectionModel));
-//    }
-//    virtual ~ObserverMock() {}
-//protected:
-//    ObserverMock(SelectionModelImpPtr selectionModel) : selectionModel(selectionModel) {}
-//
-//public:
-//    void update() override {
-//        updated = true;
-//        updatedIndex = selectionModel->getSelectedIndex();
-//    }
-//
-//    virtual void expectWasNotUpdated() {
-//        EXPECT_FALSE(updated);
-//    }
-//    virtual void expectWasUpdatedWithIndex(CNHierarchyIndex index) {
-//        EXPECT_TRUE(updatedIndex == index);
-//    }
-//
-//private:
-//    bool updated = false;
-//    CNHierarchyIndex updatedIndex;
-//    SelectionModelImpPtr selectionModel;
-//};
+TEST_F(SelectionModelImpTest, AttachedObserver__SetSelectedIndexTo_1_2_3__ShouldUpdateAttachedObserverWithIndex_1_2_3) {
+    SelectionModelImpPtr sut = SelectionModelImp::getNewInstance();
+    CBObserverMockPtr observer = makeCBObserverMock(sut);
+    observer->expectIndexDuringUpdate(CNHierarchyIndex({1, 2, 3}));
+    sut->attach(observer);
+
+    sut->setSelectedIndex(CNHierarchyIndex({1, 2, 3}));
+
+    observer->verify();
+}
