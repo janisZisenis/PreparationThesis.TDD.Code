@@ -49,13 +49,26 @@ protected:
 //        std::string errorMessage = "InsertingHierarchicModel should have removed the CNComponent, but it has not!";
 //        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
 //    }
-    virtual void expectIndexWasRemoved(InsertingHierarchicModelSpyPtr model, CNHierarchyIndex index) {
+
+    virtual void expectChildPositionWasRemovedAtIndex(InsertingHierarchicModelSpyPtr model, int childPos, CNHierarchyIndex index) {
+        expectChildPositionWasRemovedAtIndex(model, childPos);
+        expectWasRemovedAtParentIndex(model, index);
+    }
+    virtual void expectWasRemovedAtParentIndex(InsertingHierarchicModelSpyPtr model, CNHierarchyIndex index) {
         CNHierarchyIndex expected = index;
         CNHierarchyIndex actual = model->getRemovedIndex();
 
-        std::string errorMessage = "InsertingHierarchicModel should have removed the index " + expected.toString() + " , but it has not!";
+        std::string errorMessage = "InsertingHierarchicModel should have removed at parent index " + expected.toString() + " , but it has not!";
 
-        EXPECT_THAT(expected, testing::Eq(actual)) << errorMessage;
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
+    virtual void expectChildPositionWasRemovedAtIndex(InsertingHierarchicModelSpyPtr model, int childPos) {
+        int expected = childPos;
+        int actual = model->getRemovedChildPos();
+
+        std::string errorMessage = "InsertingHierarchicModel should have removed the child position " + std::to_string(childPos) + " , but it has not!";
+
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
 };
 
@@ -66,5 +79,5 @@ TEST_F(RemoveCommandTest, FreshInstance__Execute__ShouldRemoveTheComponentAtInde
 
     sut->execute();
 
-    expectIndexWasRemoved(model, CNHierarchyIndex({0, 2}));
+    expectChildPositionWasRemovedAtIndex(model, 2, CNHierarchyIndex({0}));
 }

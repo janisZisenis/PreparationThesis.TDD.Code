@@ -37,7 +37,7 @@ protected:
 
         std::string errorMessage = "AddingHierarchicModel should have added the CNComponent at index " + expected.toString() + " , but it has not!";
 
-        EXPECT_THAT(expected, testing::Eq(actual)) << errorMessage;
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
 
     virtual void expectComponentWasRemovedAtIndex(AddingHierarchicModelSpyPtr model, CNComponentPtr component, CNHierarchyIndex index) {
@@ -57,7 +57,7 @@ protected:
 
         std::string errorMessage = "AddingHierarchicModel should have removed the CNComponent at index " + expected.toString() + " , but it has not!";
 
-        EXPECT_THAT(expected, testing::Eq(actual)) << errorMessage;
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
 };
 
