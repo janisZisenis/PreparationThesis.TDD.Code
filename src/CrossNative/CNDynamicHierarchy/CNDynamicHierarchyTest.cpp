@@ -13,10 +13,10 @@ protected:
     virtual CNDynamicHierarchyPtr makeCNDynamicHierarchy() {
         return CNDynamicHierarchy::getNewInstance();
     }
-    virtual CNComponentPtr makeCNComponentDummy() {
+    virtual CNComponentPtr makeCNHierarchyNodeDummy() {
         return CNComponentDummy::getNewInstance();
     }
-    virtual CNComponentSpyPtr makeCNComponentSpy() {
+    virtual CNComponentSpyPtr makeCNHierarchyNodeSpy() {
         return CNComponentSpy::getNewInstance();
     }
     virtual CNComponentPtr makeCNFakeComponent() {
@@ -80,17 +80,17 @@ protected:
         return componentName + " should not be removed from " + receiverName + ", but it was!";
     }
 
-    virtual std::string getThrowsCNComponentNotLoadedExcpetionErrorMessage() {
-        return "CNDynamicComponentHierarchy should throw CNComponentNotLoadedException, but it did not!";
+    virtual std::string getThrowsCNHierarchyNodeNotLoadedExcpetionErrorMessage() {
+        return "CNDynamicComponentHierarchy should throw CNHierarchyNodeNotLoadedException, but it did not!";
     }
 };
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst__LoadSecondMatchingFirst__SecondShouldBeAddedToFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     sut->load(first, makeNotMatchingCNMatcher());
 
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeCNFakeMatcher(first));
 
     std::string errorMessage = getReceiverAddedComponentErrorMessage("First", "Second");
@@ -99,10 +99,10 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst__LoadSecondMatchingFirst__SecondShoul
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst__LoadSecondNotMatching__SecondShouldNotBeAddedToFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     sut->load(first, makeNotMatchingCNMatcher());
 
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeNotMatchingCNMatcher());
 
     std::string errorMessage = getReceiverDidNotAddComponentErrorMessage("First", "Second");
@@ -113,10 +113,10 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondMatchingFirst__LoadThirdM
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
     CNComponentPtr first = makeCNFakeComponent();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentSpyPtr second = makeCNComponentSpy();
+    CNComponentSpyPtr second = makeCNHierarchyNodeSpy();
     sut->load(second, makeCNFakeMatcher(first));
 
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
     sut->load(third, makeCNFakeMatcher(second));
 
     std::string errorMessage = getReceiverAddedComponentErrorMessage("Second", "Third");
@@ -127,10 +127,10 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondMatchingFirst__LoadThirdN
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
     CNComponentPtr first = makeCNFakeComponent();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentSpyPtr second = makeCNComponentSpy();
+    CNComponentSpyPtr second = makeCNHierarchyNodeSpy();
     sut->load(second, makeCNFakeMatcher(first));
 
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
     sut->load(third, makeNotMatchingCNMatcher());
 
     std::string errorMessage = getReceiverDidNotAddComponentErrorMessage("Second", "Third");
@@ -139,12 +139,12 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondMatchingFirst__LoadThirdN
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondMatchingFirst__LoadThirdMatchingFirst__ThirdShouldBeAddedToFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeCNFakeMatcher(first));
 
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
     sut->load(third, makeCNFakeMatcher(first));
 
     std::string errorMessage = getReceiverAddedComponentErrorMessage("First", "Third");
@@ -153,12 +153,12 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondMatchingFirst__LoadThirdM
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondMatchingFirst__LoadThirdNotMatching__ThirdShouldNotBeAddedToFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeCNFakeMatcher(first));
 
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
     sut->load(third, makeNotMatchingCNMatcher());
 
     std::string errorMessage = getReceiverDidNotAddComponentErrorMessage("First", "Third");
@@ -169,10 +169,10 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondMatchingFirst__LoadThirdM
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
     CNComponentPtr first = makeCNFakeComponent()  ;
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentSpyPtr second = makeCNComponentSpy();
+    CNComponentSpyPtr second = makeCNHierarchyNodeSpy();
     sut->load(second, makeCNFakeMatcher(first));
 
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
     sut->load(third, makeCNFakeMatcher(first));
 
     std::string errorMessage = getReceiverDidNotAddComponentErrorMessage("Second", "Third");
@@ -181,20 +181,20 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondMatchingFirst__LoadThirdM
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst__LoadFirst__ShouldThrowCNAlreadyLoadedException) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentPtr first = makeCNComponentDummy();
+    CNComponentPtr first = makeCNHierarchyNodeDummy();
     sut->load(first, makeNotMatchingCNMatcher());
 
-    std::string errorMessage = "CNDynamicHierarchy should throw CNComponentAlreadyLoadedException, but it did not!";
-    EXPECT_THROW(sut->load(first, makeNotMatchingCNMatcher()), CNComponentAlreadyLoadedException) << errorMessage;
+    std::string errorMessage = "CNDynamicHierarchy should throw CNHierarchyNodeAlreadyLoadedException, but it did not!";
+    EXPECT_THROW(sut->load(first, makeNotMatchingCNMatcher()), CNHierarchyNodeAlreadyLoadedException) << errorMessage;
 }
 
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_FirstIsParent__UnloadSecond__SecondShouldBeRemovedFromFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     first->setIsParentOf(true);
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeCNFakeMatcher(first));
 
     sut->unload(second);
@@ -205,10 +205,10 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_FirstIsParent__UnloadSec
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_FirstIsNotParent__UnloadSecond__SecondShouldNotBeRemovedFromFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     first->setIsParentOf(false);
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeNotMatchingCNMatcher());
 
     sut->unload(second);
@@ -221,10 +221,10 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_LoadedThird_SecondIsPare
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
     CNComponentPtr first = makeCNFakeComponent();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentSpyPtr second = makeCNComponentSpy();
+    CNComponentSpyPtr second = makeCNHierarchyNodeSpy();
     second->setIsParentOf(true);
     sut->load(second, makeCNFakeMatcher(first));
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
     sut->load(third, makeCNFakeMatcher(second));
 
     sut->unload(third);
@@ -237,10 +237,10 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_LoadedThird_SecondIsNotP
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
     CNComponentPtr first = makeCNFakeComponent();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentSpyPtr second = makeCNComponentSpy();
+    CNComponentSpyPtr second = makeCNHierarchyNodeSpy();
     second->setIsParentOf(false);
     sut->load(second, makeCNFakeMatcher(first));
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
     sut->load(third, makeNotMatchingCNMatcher());
 
     sut->unload(third);
@@ -249,47 +249,47 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_LoadedThird_SecondIsNotP
     expectReceiverDidNotRemoveComponent(second, third, errorMessage);
 }
 
-TEST_F(CNDynamicHierarchyTest, FreshInstance__UnloadFirst__ShouldThrowCNComponentNotLoadedException) {
+TEST_F(CNDynamicHierarchyTest, FreshInstance__UnloadFirst__ShouldThrowCNHierarchyNodeNotLoadedException) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
 
-    CNComponentPtr first = makeCNComponentDummy();
+    CNComponentPtr first = makeCNHierarchyNodeDummy();
 
-    std::string errorMessage = getThrowsCNComponentNotLoadedExcpetionErrorMessage();
-    EXPECT_THROW(sut->unload(first), CNComponentNotLoadedException) << errorMessage;
+    std::string errorMessage = getThrowsCNHierarchyNodeNotLoadedExcpetionErrorMessage();
+    EXPECT_THROW(sut->unload(first), CNHierarchyNodeNotLoadedException) << errorMessage;
 }
 
-TEST_F(CNDynamicHierarchyTest, LoadedFirst__UnloadSecond__ShouldThrowCNComponentNotLoadedException) {
+TEST_F(CNDynamicHierarchyTest, LoadedFirst__UnloadSecond__ShouldThrowCNHierarchyNodeNotLoadedException) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
     CNComponentPtr first = makeCNFakeComponent();
     sut->load(first, makeNotMatchingCNMatcher());
 
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
 
-    std::string errorMessage = getThrowsCNComponentNotLoadedExcpetionErrorMessage();
-    EXPECT_THROW(sut->unload(second), CNComponentNotLoadedException) << errorMessage;
+    std::string errorMessage = getThrowsCNHierarchyNodeNotLoadedExcpetionErrorMessage();
+    EXPECT_THROW(sut->unload(second), CNHierarchyNodeNotLoadedException) << errorMessage;
 }
 
-TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond__UnloadThird__ShouldThrowCNComponentNotLoadedException) {
+TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond__UnloadThird__ShouldThrowCNHierarchyNodeNotLoadedException) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
     CNComponentPtr first = makeCNFakeComponent();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeNotMatchingCNMatcher());
 
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
 
-    std::string errorMessage = getThrowsCNComponentNotLoadedExcpetionErrorMessage();
-    EXPECT_THROW(sut->unload(third), CNComponentNotLoadedException) << errorMessage;
+    std::string errorMessage = getThrowsCNHierarchyNodeNotLoadedExcpetionErrorMessage();
+    EXPECT_THROW(sut->unload(third), CNHierarchyNodeNotLoadedException) << errorMessage;
 }
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_LoadedThird_FirstIsParent__UnloadSecond__SecondShouldBeRemovedFromFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     first->setIsParentOf(true);
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeCNFakeMatcher(first));
-    CNComponentPtr third = makeCNComponentDummy();
+    CNComponentPtr third = makeCNHierarchyNodeDummy();
     sut->load(third, makeNotMatchingCNMatcher());
 
     sut->unload(second);
@@ -300,9 +300,9 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_LoadedThird_FirstIsParen
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_UnloadedSecond__LoadSecondMatchingFirst_SecondShouldBeAddedToFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeNotMatchingCNMatcher());
     sut->unload(second);
 
@@ -315,10 +315,10 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_UnloadedSecond__LoadSeco
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_FirstIsParent__MoveSecondNotMatching__SecondShouldBeRemovedFromFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     first->setIsParentOf(true);
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeCNFakeMatcher(first));
 
     sut->move(second, makeNotMatchingCNMatcher());
@@ -329,9 +329,9 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecond_FirstIsParent__MoveSecon
 
 TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondNotMatching__MoveSecondMatchingFirst__SecondShouldBeAddedToFirst) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     sut->load(first, makeNotMatchingCNMatcher());
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
     sut->load(second, makeNotMatchingCNMatcher());
 
     sut->move(second, makeCNFakeMatcher(first));
@@ -340,13 +340,13 @@ TEST_F(CNDynamicHierarchyTest, LoadedFirst_LoadedSecondNotMatching__MoveSecondMa
     expectReceiverAddedComponent(first, second, errorMessage);
 }
 
-TEST_F(CNDynamicHierarchyTest, LoadedFirst__MoveSecond__ShouldThrowCNComponentNotLoadedException) {
+TEST_F(CNDynamicHierarchyTest, LoadedFirst__MoveSecond__ShouldThrowCNHierarchyNodeNotLoadedException) {
     CNDynamicHierarchyPtr sut = makeCNDynamicHierarchy();
-    CNComponentSpyPtr first = makeCNComponentSpy();
+    CNComponentSpyPtr first = makeCNHierarchyNodeSpy();
     sut->load(first, makeNotMatchingCNMatcher());
 
-    CNComponentPtr second = makeCNComponentDummy();
+    CNComponentPtr second = makeCNHierarchyNodeDummy();
 
-    std::string errorMessage = getThrowsCNComponentNotLoadedExcpetionErrorMessage();
-    EXPECT_THROW(sut->move(second, makeNotMatchingCNMatcher()), CNComponentNotLoadedException) << errorMessage;
+    std::string errorMessage = getThrowsCNHierarchyNodeNotLoadedExcpetionErrorMessage();
+    EXPECT_THROW(sut->move(second, makeNotMatchingCNMatcher()), CNHierarchyNodeNotLoadedException) << errorMessage;
 }

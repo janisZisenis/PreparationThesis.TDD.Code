@@ -13,14 +13,14 @@ CNDynamicHierarchy::CNDynamicHierarchy() {}
 
 void CNDynamicHierarchy::load(CNComponentPtr component, CNMatcherPtr matcher) {
     if (isAlreadyLoaded(component))
-        throw CNComponentAlreadyLoadedException();
+        throw CNHierarchyNodeAlreadyLoadedException();
 
     loadComponent(component, matcher);
 }
 
 void CNDynamicHierarchy::unload(CNComponentPtr component) {
     if(!isAlreadyLoaded(component))
-        throw CNComponentNotLoadedException();
+        throw CNHierarchyNodeNotLoadedException();
 
     unloadComponent(component);
 }

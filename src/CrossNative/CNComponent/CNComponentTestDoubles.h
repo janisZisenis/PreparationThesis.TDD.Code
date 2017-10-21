@@ -10,16 +10,27 @@ public:
     static CNComponentDummyPtr getNewInstance() {
         return CNComponentDummyPtr(new CNComponentDummy());
     }
-    virtual ~CNComponentDummy() {};
+    virtual  ~CNComponentDummy() {};
+
 protected:
     CNComponentDummy() {};
 
 public:
-    virtual void add(CNComponentPtr view) override {};
-    virtual void remove(CNComponentPtr view) override {};
-    virtual bool isParentOf(CNComponentPtr view) override {
+    virtual bool isParentOf(CNComponentPtr component) override {
         return false;
     }
+    virtual int getChildCount() override {
+        return 0;
+    }
+    virtual CNComponentPtr getChild(int childPosition) override {
+        return 0;
+    }
+
+    virtual void add(CNComponentPtr component) override {}
+    virtual void remove(CNComponentPtr component) override {}
+    virtual void insert(CNComponentPtr component, int childPos) override {}
+    virtual void remove(int childPos) override {}
+
     virtual void accept(CNVisitorPtr visitor) override {}
 };
 
@@ -30,15 +41,16 @@ public:
     static CNComponentStubPtr getNewInstance() {
         return CNComponentStubPtr(new CNComponentStub());
     }
-    virtual ~CNComponentStub() {}
+    virtual  ~CNComponentStub() {};
+
 protected:
-    CNComponentStub() {}
+    CNComponentStub() {};
 
 public:
     virtual void setIsParentOf(bool isParent) {
         this->isParent = isParent;
     }
-    virtual bool isParentOf(CNComponentPtr view) override {
+    virtual bool isParentOf(CNComponentPtr component) override {
         return isParent;
     }
 private:
@@ -52,20 +64,21 @@ public:
     static CNComponentSpyPtr getNewInstance() {
         return CNComponentSpyPtr(new CNComponentSpy());
     }
-    virtual ~CNComponentSpy() {};
+    virtual  ~CNComponentSpy() {};
+
 protected:
     CNComponentSpy() {};
 
 public:
-    virtual void add(CNComponentPtr view) override {
-        added = view;
-    };
+    virtual void add(CNComponentPtr component) override {
+        added = component;
+    }
     virtual CNComponentPtr getAdded() {
         return added;
     }
 
-    virtual void remove(CNComponentPtr view) override {
-        removed = view;
+    virtual void remove(CNComponentPtr component) override {
+        removed = component;
     }
     virtual CNComponentPtr getRemoved() {
         return removed;

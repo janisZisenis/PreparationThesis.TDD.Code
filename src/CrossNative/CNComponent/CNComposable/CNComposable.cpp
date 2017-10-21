@@ -1,48 +1,88 @@
 #include "CNComposable.h"
-
+#include "CrossNative/CNComponent/CNInvalidChildPositionException.h"
 #include "CrossNative/CNComposer/CNComposer.h"
-#include "CrossNative/CNVisitable/CNVisitable.h"
 
-CNComposablePtr CNComposable::getNewInstance(CNVisitablePtr visitable, CNComposerPtr composer) {
+CNComposablePtr CNComposable::getNewInstance(CNVisitablePtr visitable, CNComposerPtr composer)  {
     return CNComposablePtr(new CNComposable(visitable, composer));
 }
-
 CNComposable::~CNComposable() {
-    std::vector< CNComponentPtr >::iterator it;
-    for(it = children.begin(); it < children.end(); it++)
-        composer->dismount(*it);
+    dismountAllChildren();
 }
-
 CNComposable::CNComposable(CNVisitablePtr visitable, CNComposerPtr composer)
         : visitable(visitable), composer(composer) {}
 
-void CNComposable::add(CNComponentPtr child) {
-    mount(child);
-    addToChildren(child);
+void CNComposable::add(CNComponentPtr component) {
+    mount(component);
+    addToChildren(component);
 }
 
-void CNComposable::remove(CNComponentPtr child) {
-    if(!isParentOf(child))
+void CNComposable::remove(CNComponentPtr component) {
+    if(!isParentOf(component))
         throw CNChildNotFoundException();
 
-    dismount(child);
-    removeFromChildren(child);
+    dismount(component);
+    removeFromChildren(findPosition(component));
+}
+
+void CNComposable::insert(CNComponentPtr component, int childPos) {
+    if(!isValidInsertingPosition(childPos))
+        throw CNInvalidInsertingPositionException();
+
+    mount(component);
+    insertToChildren(component, childPos);
+}
+
+void CNComposable::remove(int childPos) {
+    if(!isValidChildPosition(childPos))
+        throw CNInvalidChildPositionException();
+
+    dismount(getChild(childPos));
+    removeFromChildren(childPos);
 }
 
 bool CNComposable::isParentOf(CNComponentPtr component) {
     return findPosition(component) > -1;
 }
 
+int CNComposable::getChildCount() {
+    return (int)children.size();
+}
+
+CNComponentPtr CNComposable::getChild(int childPos) {
+    if(!isValidChildPosition(childPos))
+        throw CNInvalidChildPositionException();
+
+    return children[childPos];
+}
+
+void CNComposable::addToChildren(CNComponentPtr component) {
+    children.push_back(component);
+}
+
+void CNComposable::removeFromChildren(int childPos) {
+    children.erase(children.begin() + childPos);
+}
+
+int CNComposable::findPosition(CNComponentPtr component) {
+    std::vector<CNComponentPtr>::iterator it;
+    it = std::find(children.begin(), children.end(), component);
+    return it == children.end() ? -1 : (int)(it - children.begin());
+}
+
+bool CNComposable::isValidInsertingPosition(int childPos) {
+    return childPos <= children.size();
+}
+
+bool CNComposable::isValidChildPosition(int childPos) {
+    return childPos < children.size();
+}
+
+void CNComposable::insertToChildren(CNComponentPtr component, int childPos) {
+    children.insert(children.begin()+ childPos, component);
+}
+
 void CNComposable::accept(CNVisitorPtr visitor) {
     visitable->accept(visitor);
-}
-
-void CNComposable::addToChildren(CNComponentPtr child) {
-    children.push_back(child);
-}
-
-void CNComposable::removeFromChildren(CNComponentPtr child) {
-    children.erase(children.begin() + findPosition(child));
 }
 
 void CNComposable::mount(CNComponentPtr component) {
@@ -53,9 +93,8 @@ void CNComposable::dismount(CNComponentPtr component) {
     composer->dismount(component);
 }
 
-int CNComposable::findPosition(CNComponentPtr component) {
-    std::vector< CNComponentPtr >::iterator it;
-    it = std::find(children.begin(), children.end(), component);
-
-    return it == children.end() ? -1 : (int)(it - children.begin());
+void CNComposable::dismountAllChildren() {
+    for(int i = 0; i < getChildCount(); i++)
+        composer->dismount(getChild(i));
 }
+

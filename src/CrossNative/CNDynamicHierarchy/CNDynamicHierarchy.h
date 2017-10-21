@@ -6,13 +6,13 @@
 #include <string>
 #include <CrossNative/CrossNative_EXPORT.h>
 
-class CNComponentAlreadyLoadedException : public std::exception {
+class CNHierarchyNodeAlreadyLoadedException : public std::exception {
     const char *what() const throw() override {
         return std::string("The component was already loaded, components can't be loaded more than once!").c_str();
     }
 };
 
-class CNComponentNotLoadedException : public std::exception {
+class CNHierarchyNodeNotLoadedException : public std::exception {
     const char *what() const throw() override {
         return std::string("The given component was not loaded before unloading!").c_str();
     }

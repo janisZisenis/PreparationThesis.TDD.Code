@@ -6,7 +6,7 @@
 
 class CNInvalidInsertingPositionException : public std::exception {
     const char *what() const throw() override {
-        return std::string("The given inserting position is out of bounds").c_str();
+        return std::string("The given inserting position is invalid").c_str();
     }
 };
 

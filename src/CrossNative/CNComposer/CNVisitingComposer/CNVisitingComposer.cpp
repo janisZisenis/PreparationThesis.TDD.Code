@@ -1,6 +1,5 @@
 #include "CNVisitingComposer.h"
 #include "CrossNative/CNVisitable/CNVisitable.h"
-#include "CrossNative/CNComponent/CNComponent.h"
 
 CNVisitingComposerPtr CNVisitingComposer::getNewInstance(CNVisitorPtr mounting, CNVisitorPtr dismounting) {
     return CNVisitingComposerPtr(new CNVisitingComposer(mounting, dismounting));

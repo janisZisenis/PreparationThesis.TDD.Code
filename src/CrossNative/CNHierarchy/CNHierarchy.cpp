@@ -1,23 +1,23 @@
 #include "CNHierarchy.h"
-#include "CrossNative/CNHierarchyNode/CNHierarchyNode.h"
-#include "CrossNative/CNHierarchyNode/CNComposableHierarchyNode.h"
+#include "CrossNative/CNComponent/CNComponent.h"
+#include "CrossNative/CNComponent/CNComposable/CNComposable.h"
 #include "CrossNative/CNComposer/CNNullComposer.h"
 
 CNHierarchyPtr CNHierarchy::getNewInstance()  {
     return CNHierarchyPtr(new CNHierarchy());
 }
 CNHierarchy::~CNHierarchy() {}
-CNHierarchy::CNHierarchy() : root(CNComposableHierarchyNode::getNewInstance(nullptr, CNNullComposer::getNewInstance())) {}
+CNHierarchy::CNHierarchy() : root(CNComposable::getNewInstance(nullptr, CNNullComposer::getNewInstance())) {}
 
-void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
+void CNHierarchy::add(CNComponentPtr node, CNHierarchyIndex parent) {
     find(parent)->add(node);
 }
 
-void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
+void CNHierarchy::remove(CNComponentPtr node, CNHierarchyIndex parent) {
     find(parent)->remove(node);
 }
 
-void CNHierarchy::insert(CNHierarchyNodePtr node, CNHierarchyIndex parent, int childPos) {
+void CNHierarchy::insert(CNComponentPtr node, CNHierarchyIndex parent, int childPos) {
     find(parent)->insert(node, childPos);
 }
 
@@ -25,12 +25,12 @@ void CNHierarchy::remove(CNHierarchyIndex parent, int childPos) {
     find(parent)->remove(childPos);
 }
 
-CNHierarchyNodePtr CNHierarchy::retrieve(const CNHierarchyIndex& index) {
+CNComponentPtr CNHierarchy::retrieve(const CNHierarchyIndex& index) {
     return index.isValid() ? find(index) : throw CNInvalidIndexException();
 }
 
-CNHierarchyNodePtr CNHierarchy::find(const CNHierarchyIndex &index) {
-    CNHierarchyNodePtr retrieved = root;
+CNComponentPtr CNHierarchy::find(const CNHierarchyIndex &index) {
+    CNComponentPtr retrieved = root;
 
     for(int i = 0; i < index.depth(); i++) {
         if (index[i] >= retrieved->getChildCount())
