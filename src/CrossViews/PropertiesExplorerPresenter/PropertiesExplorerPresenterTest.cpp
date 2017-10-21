@@ -1,8 +1,8 @@
 #include <gmock/gmock.h>
 #include "PropertiesExplorerPresenter.h"
 #include "PropertiesExplorerViewTestDoubles.h"
-#include "CrossViews/SelecionModel/SelectionModelTestDoubles.h"
-#include "CrossViews/SelecionModel/FakeSelectionModel.h"
+#include "CrossViews/SelectionModel/SelectionModelTestDoubles.h"
+#include "CrossViews/SelectionModel/FakeSelectionModel.h"
 #include "HierarchicModelAccessTestDoubles.h"
 #include <CrossNative/CNVisitor/CNVisitorTestDoubles.h>
 #include <CrossNative/CNVisitable/CNVisitableTestDoubles.h>

@@ -1,6 +1,6 @@
 #include "SolutionExplorerPresenter.h"
 #include "SolutionExplorerView.h"
-#include "CrossViews/SelecionModel/SelectionModel.h"
+#include "CrossViews/SelectionModel/SelectionModel.h"
 
 SolutionExplorerPresenterPtr SolutionExplorerPresenter::getNewInstance(SolutionExplorerViewPtr view,
                                                                        SelectionModelPtr selectionModel) {

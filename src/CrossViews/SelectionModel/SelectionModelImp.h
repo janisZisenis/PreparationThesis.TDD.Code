@@ -1,9 +1,8 @@
 #ifndef CROSSVIEWS_SELECTIONMODELIMP_H
 #define CROSSVIEWS_SELECTIONMODELIMP_H
 
-#include <CrossViews/SelecionModel/SelectionModel.h>
+#include "SelectionModel.h"
 #include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
-#include "HasSelectionProvider.h"
 
 class CBObserver;
 class CBSubject;
@@ -11,7 +10,7 @@ class CBSubject;
 class SelectionModelImp;
 typedef std::shared_ptr<SelectionModelImp> SelectionModelImpPtr;
 
-class SelectionModelImp : public SelectionModel, public HasSelectionProvider {
+class SelectionModelImp : public SelectionModel {
 public:
     static SelectionModelImpPtr getNewInstance();
     virtual ~SelectionModelImp();

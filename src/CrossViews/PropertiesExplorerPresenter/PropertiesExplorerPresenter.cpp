@@ -2,7 +2,7 @@
 #include "PropertiesExplorerPresenter.h"
 #include "PropertiesExplorerView.h"
 #include "HierarchicModelAccess.h"
-#include "CrossViews/SelecionModel/SelectionModel.h"
+#include "CrossViews/SelectionModel/SelectionModel.h"
 
 PropertiesExplorerPresenterPtr PropertiesExplorerPresenter::getNewInstance(PropertiesExplorerViewPtr view,
                                                                            HierarchicModelAccessPtr modelAccess,
