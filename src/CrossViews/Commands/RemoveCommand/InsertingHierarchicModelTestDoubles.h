@@ -53,7 +53,7 @@ public:
     virtual int getInsertedChildPos() {
         return insertedChildPos;
     }
-    virtual CNHierarchyIndex getInsertingIndex() {
+    virtual CNHierarchyIndex getInsertedIndex() {
         return insertingIndex;
     }
 
@@ -69,7 +69,7 @@ public:
         return removingIndex;
     }
 
-    virtual std::shared_ptr<CNComponent> getInsertedcomponent() {
+    virtual std::shared_ptr<CNComponent> getInserted() {
         return insertedcomponent;
     }
 private:
