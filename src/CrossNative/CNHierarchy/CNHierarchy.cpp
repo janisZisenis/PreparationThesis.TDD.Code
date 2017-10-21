@@ -12,7 +12,9 @@ void CNHierarchy::add(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
     find(parent)->add(node);
 }
 
-void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parent) {}
+void CNHierarchy::remove(CNHierarchyNodePtr node, CNHierarchyIndex parent) {
+    throw CNNotExistingIndexException();
+}
 
 void CNHierarchy::insert(CNHierarchyNodePtr node, CNHierarchyIndex parent, int childPos) {}
 
