@@ -15,6 +15,9 @@ protected:
     virtual CNVisitorPtr makeCNVisitorDummy() {
         return CNVisitorDummy::getNewInstance();
     }
+    virtual CNFakeHierarchyNodeVisitorSpyPtr makeCNFakeHierarchyNodeVisitorSpy() {
+        return CNFakeHierarchyNodeVisitorSpy::getNewInstance();
+    }
 
     virtual void expectIsParentOf(CNFakeHierarchyNodePtr parent,
                                   CNHierarchyNodePtr child) {
@@ -54,6 +57,13 @@ protected:
 
         std::string errorMessage = "CNFakeHierarchyNode should have a valid child position of " + std::to_string(childPos) + ", but it has not!";
         ASSERT_THAT(actual, testing::Ge(expected)) << errorMessage;
+    }
+    virtual void expectVisitorHasVisitedSUT(CNFakeHierarchyNodeVisitorSpyPtr visitor, CNFakeHierarchyNodePtr sut) {
+        CNFakeHierarchyNodePtr expected = sut;
+        CNFakeHierarchyNodePtr actual = visitor->getVisited();
+
+        std::string errorMessage = "CNFakeHierarchyNodeVisitor should have visited the SUT, but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
 };
 
@@ -179,4 +189,13 @@ TEST_F(CNFakeHierarchyNodeTest, FreshInstance__AcceptWithFalseVisitorSubType__Sh
 
     std::string errorMessage = "CNFakeHierarchyNode should throw CNVisitableVisitorMismatchException, but it did not!";
     EXPECT_THROW(sut->accept(visitor), CNVisitableVisitorMismatchException);
+}
+
+TEST_F(CNFakeHierarchyNodeTest, FreshInstance__AcceptWithCNFakeHierarchyNodeVisitor__VisitorShouldHaveVisitedTheSUT) {
+    CNFakeHierarchyNodePtr sut = makeCNFakeHierarchyNode();
+
+    CNFakeHierarchyNodeVisitorSpyPtr visitor = makeCNFakeHierarchyNodeVisitorSpy();
+    sut->accept(visitor);
+
+    expectVisitorHasVisitedSUT(visitor, sut);
 }

@@ -9,7 +9,7 @@ typedef std::shared_ptr<CNFakeHierarchyNodeVisitor> CNFakeHierarchyNodeVisitorPt
 class CNFakeHierarchyNode;
 typedef std::shared_ptr<CNFakeHierarchyNode> CNFakeHierarchyNodePtr;
 
-class CNFakeHierarchyNodeVisitor : public CNVisitor {
+class CNFakeHierarchyNodeVisitor {
 public:
     virtual ~CNFakeHierarchyNodeVisitor() {}
 protected:
@@ -92,6 +92,28 @@ private:
 
 private:
     std::vector<CNHierarchyNodePtr> children;
+};
+
+class CNFakeHierarchyNodeVisitorSpy;
+typedef std::shared_ptr<CNFakeHierarchyNodeVisitorSpy> CNFakeHierarchyNodeVisitorSpyPtr;
+class CNFakeHierarchyNodeVisitorSpy : public CNVisitor, public CNFakeHierarchyNodeVisitor {
+public:
+    static CNFakeHierarchyNodeVisitorSpyPtr getNewInstance() {
+        return CNFakeHierarchyNodeVisitorSpyPtr(new CNFakeHierarchyNodeVisitorSpy());
+    }
+    virtual ~CNFakeHierarchyNodeVisitorSpy() {}
+protected:
+    CNFakeHierarchyNodeVisitorSpy() {}
+public:
+    void visit(CNFakeHierarchyNodePtr fakeHierarchyNode) override {
+        visited = fakeHierarchyNode;
+    }
+    virtual CNFakeHierarchyNodePtr getVisited() {
+        return visited;
+    }
+
+private:
+    CNFakeHierarchyNodePtr visited;
 };
 
 #endif //CROSSNATIVE_FAKEHIERARCHYNODE_H
