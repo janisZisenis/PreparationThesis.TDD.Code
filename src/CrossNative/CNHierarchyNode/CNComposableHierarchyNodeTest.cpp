@@ -160,3 +160,10 @@ TEST_F(CNComposableHierarchyNodeTest, AddedTwoCNHierarchyNodes__RemoveWithChildP
 
     expectHasChildAtPosition(sut, node, 0);
 }
+
+TEST_F(CNComposableHierarchyNodeTest, FreshInstance__RemoveWithChildPosition1__ShouldThrowCNInvalidChildPositionException) {
+    CNComposableHierarchyNodePtr sut = makeCNComposableHierarchyNode();
+
+    std::string errorMessage = "CNComposableHierarchyNode should throw CNInvalidChildPositionException, but it did not!";
+    EXPECT_THROW(sut->remove(1), CNInvalidChildPositionException);
+}
