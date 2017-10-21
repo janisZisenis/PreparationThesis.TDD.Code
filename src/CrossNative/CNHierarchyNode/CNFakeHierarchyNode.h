@@ -45,7 +45,9 @@ public:
 
         insertToChildren(node, childPos);
     }
-    virtual void remove(int childPos) override {}
+    virtual void remove(int childPos) override {
+        removeFromChildren(childPos);
+    }
 private:
     virtual bool isValidInsertingPosition(int childPos) {
         return childPos <= children.size();
