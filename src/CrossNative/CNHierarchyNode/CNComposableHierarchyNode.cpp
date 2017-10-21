@@ -26,6 +26,7 @@ void CNComposableHierarchyNode::insert(CNHierarchyNodePtr node, int childPos) {
     if(!isValidInsertingPosition(childPos))
         throw CNInvalidInsertingPositionException();
 
+    mount(node);
     insertToChildren(node, childPos);
 }
 
