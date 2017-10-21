@@ -9,19 +9,19 @@ CNHierarchyPtr CNHierarchy::getNewInstance()  {
 CNHierarchy::~CNHierarchy() {}
 CNHierarchy::CNHierarchy() : root(CNComposable::getNewInstance(nullptr, CNNullComposer::getNewInstance())) {}
 
-void CNHierarchy::add(CNComponentPtr node, CNHierarchyIndex parent) {
+void CNHierarchy::add(CNComponentPtr node, const CNHierarchyIndex &parent) {
     find(parent)->add(node);
 }
 
-void CNHierarchy::remove(CNComponentPtr node, CNHierarchyIndex parent) {
+void CNHierarchy::remove(CNComponentPtr node, const CNHierarchyIndex&  parent) {
     find(parent)->remove(node);
 }
 
-void CNHierarchy::insert(CNComponentPtr node, CNHierarchyIndex parent, int childPos) {
+void CNHierarchy::insert(CNComponentPtr node, const CNHierarchyIndex& parent, int childPos) {
     find(parent)->insert(node, childPos);
 }
 
-void CNHierarchy::remove(CNHierarchyIndex parent, int childPos) {
+void CNHierarchy::remove(const CNHierarchyIndex& parent, int childPos) {
     find(parent)->remove(childPos);
 }
 

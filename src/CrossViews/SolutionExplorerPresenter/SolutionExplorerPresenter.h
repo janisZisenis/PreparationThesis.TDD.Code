@@ -2,7 +2,7 @@
 #define CROSSVIEWS_SOLUTIONEXPLORERPRESENTER_H
 
 #include <CrossNative/CNVisitable/CNVisitable.h>
-#include "HierarchicModelListener.h"
+#include "CrossViews/HierarchicModel/HierarchicModelListener.h"
 
 class SolutionExplorerView;
 class SelectionModel;

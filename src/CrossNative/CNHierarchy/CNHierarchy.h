@@ -21,11 +21,11 @@ protected:
     CNHierarchy();
 
 public:
-    virtual void add(std::shared_ptr<CNComponent> node, CNHierarchyIndex parent);
-    virtual void remove(std::shared_ptr<CNComponent> node, CNHierarchyIndex parent);
+    virtual void add(std::shared_ptr<CNComponent> node, const CNHierarchyIndex& parent);
+    virtual void remove(std::shared_ptr<CNComponent> node, const CNHierarchyIndex& parent);
 
-    virtual void insert(std::shared_ptr<CNComponent> node, CNHierarchyIndex parent, int childPos);
-    virtual void remove(CNHierarchyIndex parent, int childPos);
+    virtual void insert(std::shared_ptr<CNComponent> node, const CNHierarchyIndex& parent, int childPos);
+    virtual void remove(const CNHierarchyIndex& parent, int childPos);
 
     virtual std::shared_ptr<CNComponent> retrieve(const CNHierarchyIndex& index);
 
