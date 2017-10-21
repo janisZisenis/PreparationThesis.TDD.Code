@@ -12,13 +12,15 @@ SelectionModelImp::~SelectionModelImp() {
 SelectionModelImp::SelectionModelImp() : subject(CBSubject::getNewInstance()){}
 
 bool SelectionModelImp::hasSelection() {
-    return false;
+    return selectedIndex.isValid();
 }
 
-void SelectionModelImp::setSelectedIndex(const CNHierarchyIndex& index) {}
+void SelectionModelImp::setSelectedIndex(const CNHierarchyIndex& index) {
+    selectedIndex = index;
+}
 
 CNHierarchyIndex SelectionModelImp::getSelectedIndex() {
-    return CNHierarchyIndex();
+    return selectedIndex;
 }
 
 void SelectionModelImp::attach(std::shared_ptr<CBObserver> observer) {}

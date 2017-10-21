@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 #include "SelectionModelImp.h"
-#include "CodeBase/CBObserver/CBObserver.h"
+#include "CodeBase/CBObserver/CBObserverMocks.h"
 
 class SelectionModelImpTest : public testing::Test {
 protected:
@@ -8,6 +8,9 @@ protected:
         return SelectionModelImp::getNewInstance();
     }
 
+    virtual CBObserverSpyPtr makeCBObserverSpy() {
+        return CBObserverSpy::getNewInstance();
+    }
 
     virtual void expectHasNoSelction(SelectionModelImpPtr sut) {
         bool actual = sut->hasSelection();
@@ -21,6 +24,18 @@ protected:
 
         std::string errorMessage = "SelectionModelImp should have a selection, but it has not!";
         EXPECT_TRUE(actual) << errorMessage;
+    }
+    virtual void expectedWasUpdated(CBObserverSpyPtr observer) {
+        bool actual = observer->wasUpdated();
+
+        std::string errorMessage = "SelectionModelImp should have updated the CBObserver, but it has not!";
+        EXPECT_TRUE(actual) << errorMessage;
+    }
+    virtual void expectedWasNotUpdated(CBObserverSpyPtr observer) {
+        bool actual = observer->wasUpdated();
+
+        std::string errorMessage = "SelectionModelImp should not have updated the CBObserver, but it has!";
+        EXPECT_FALSE(actual) << errorMessage;
     }
 };
 
@@ -36,6 +51,20 @@ TEST_F(SelectionModelImpTest, FreshInstance__SetValidIndex__ShouldHaveASelection
     sut->setSelectedIndex(CNHierarchyIndex({0}));
 
     expectHasSelection(sut);
+}
+
+TEST_F(SelectionModelImpTest, AttachedTwoObservers_DetachedOneObserver__SetSelectedIndex__ShouldUpdateAttachedObserver) {
+    SelectionModelImpPtr sut = SelectionModelImp::getNewInstance();
+    CBObserverSpyPtr first = makeCBObserverSpy();
+    sut->attach(first);
+    CBObserverSpyPtr second = makeCBObserverSpy();
+    sut->attach(second);
+    sut->detach(second);
+
+    sut->setSelectedIndex(CNHierarchyIndex());
+
+    expectedWasUpdated(first);
+    expectedWasNotUpdated(second);
 }
 
 //class ObserverMock;
@@ -67,23 +96,3 @@ TEST_F(SelectionModelImpTest, FreshInstance__SetValidIndex__ShouldHaveASelection
 //    CNHierarchyIndex updatedIndex;
 //    SelectionModelImpPtr selectionModel;
 //};
-//
-//TEST(SelectionModelImpTest, SetSelectedIndex_ShouldFirstSetTheSelectedIndex_ThenUpdateAllAttachedObservers) {
-//    SelectionModelImpPtr sut = SelectionModelImp::getNewInstance();
-//
-//    ObserverMockPtr first = ObserverMock::getNewInstance(sut);
-//    sut->attach(first);
-//    ObserverMockPtr second = ObserverMock::getNewInstance(sut);
-//    sut->attach(second);
-//    ObserverMockPtr third = ObserverMock::getNewInstance(sut);
-//    sut->attach(third);
-//
-//    sut->detach(second);
-//
-//
-//    sut->setSelectedIndex(CNHierarchyIndex({3, 4, 0}));
-//
-//    first->expectWasUpdatedWithIndex(CNHierarchyIndex({3, 4, 0}));
-//    second->expectWasNotUpdated();
-//    third->expectWasUpdatedWithIndex(CNHierarchyIndex({3, 4, 0}));
-//}
