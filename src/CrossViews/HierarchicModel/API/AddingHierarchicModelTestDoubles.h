@@ -56,10 +56,10 @@ public:
         addedcomponent = component;
         addingIndex = parent;
     }
-    virtual std::shared_ptr<CNComponent> getAddedcomponent() {
+    virtual std::shared_ptr<CNComponent> getAdded() {
         return addedcomponent;
     }
-    virtual CNHierarchyIndex getAddingIndex() {
+    virtual CNHierarchyIndex getAddedIndex() {
         return addingIndex;
     }
 
