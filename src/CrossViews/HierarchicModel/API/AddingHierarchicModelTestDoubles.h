@@ -67,10 +67,10 @@ public:
         removedcomponent = component;
         removingIndex = parent;
     }
-    virtual std::shared_ptr<CNComponent> getRemovedcomponent() {
+    virtual std::shared_ptr<CNComponent> getRemoved() {
         return removedcomponent;
     }
-    virtual CNHierarchyIndex getRemovingIndex() {
+    virtual CNHierarchyIndex getRemovedIndex() {
         return removingIndex;
     }
 

@@ -12,7 +12,7 @@
 //
 //    sut->execute();
 //
-//    EXPECT_TRUE(model->getRemovingIndex() == removingIndex.parent());
+//    EXPECT_TRUE(model->getRemovedIndex() == removingIndex.parent());
 //    EXPECT_THAT(model->getRemovedChildPos(), removingIndex.childPosition());
 //}
 //

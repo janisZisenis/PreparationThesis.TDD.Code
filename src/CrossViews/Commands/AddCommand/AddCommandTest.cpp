@@ -30,12 +30,32 @@ protected:
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
     virtual void expectWasAddedAtIndex(AddingHierarchicModelSpyPtr model, CNHierarchyIndex index) {
-        CNHierarchyIndex expectedIndex = index;
-        CNHierarchyIndex actualIndex = model->getAddedIndex();
+        CNHierarchyIndex expected = index;
+        CNHierarchyIndex actual = model->getAddedIndex();
 
-        std::string errorMessage = "AddingHierarchicModel should have added the CNComponent at index " + expectedIndex.toString() + " , but it has not!";
+        std::string errorMessage = "AddingHierarchicModel should have added the CNComponent at index " + expected.toString() + " , but it has not!";
 
-        EXPECT_THAT(expectedIndex, testing::Eq(actualIndex)) << errorMessage;
+        EXPECT_THAT(expected, testing::Eq(actual)) << errorMessage;
+    }
+
+    virtual void expectComponentWasRemovedAtIndex(AddingHierarchicModelSpyPtr model, CNComponentPtr component, CNHierarchyIndex index) {
+        expectComponentWasRemoved(model, component);
+        expectWasRemovedAtIndex(model, index);
+    }
+    virtual void expectComponentWasRemoved(AddingHierarchicModelSpyPtr model, CNComponentPtr component) {
+        CNComponentPtr expected = component;
+        CNComponentPtr actual = model->getRemoved();
+
+        std::string errorMessage = "AddingHierarchicModel should have removed the CNComponent, but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
+    virtual void expectWasRemovedAtIndex(AddingHierarchicModelSpyPtr model, CNHierarchyIndex index) {
+        CNHierarchyIndex expected = index;
+        CNHierarchyIndex actual = model->getRemovedIndex();
+
+        std::string errorMessage = "AddingHierarchicModel should have removed the CNComponent at index " + expected.toString() + " , but it has not!";
+
+        EXPECT_THAT(expected, testing::Eq(actual)) << errorMessage;
     }
 };
 
@@ -49,15 +69,12 @@ TEST_F(AddCommandTest, FreshInstance__Execute__ShouldAddTheComponentAtIndexToAdd
     expectComponentWasAddedAtIndex(model, component, CNHierarchyIndex({0, 2}));
 }
 
-//TEST_F(AddCommandTest, testUndoShouldTriggerTheModelToRemoveTheVisitableComposerPairAtAddedIndex) {
-//    AddingHierarchicModelSpyPtr model = AddingHierarchicModelSpy::getNewInstance();
-//    VisitableComposerPairDummyPtr pair = VisitableComposerPairDummy::getNewInstance();
-//
-//    CCore::HierarchyIndex addingIndex({1, 5});
-//    AddCommandPtr sut = AddCommand::getNewInstance(pair, addingIndex, model);
-//
-//    sut->undo();
-//
-//    EXPECT_THAT(model->getRemovedPair(), pair);
-//    EXPECT_TRUE(model->getRemovingIndex() == addingIndex);
-//}
+TEST_F(AddCommandTest, FreshInstance__Undo__ShouldRemoveTheComponentAtIndexFromAddingHierarchicModel) {
+    CNComponentPtr component = makeCNComponentDummy();
+    AddingHierarchicModelSpyPtr model = AddingHierarchicModelSpy::getNewInstance();
+    AddCommandPtr sut = makeAddCommand(component, CNHierarchyIndex({0, 2}), model);
+
+    sut->undo();
+
+    expectComponentWasRemovedAtIndex(model, component, CNHierarchyIndex({0, 2}));
+}
