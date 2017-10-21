@@ -74,6 +74,6 @@ void CNComposableHierarchyNode::insertToChildren(CNHierarchyNodePtr node, int ch
 }
 
 void CNComposableHierarchyNode::accept(CNVisitorPtr visitor) {
-
+    visitable->accept(visitor);
 }
 
