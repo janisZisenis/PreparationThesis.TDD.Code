@@ -20,11 +20,11 @@ public:
         selected = index;
     }
 
-    const CNHierarchyIndex getSelectedIndex() override {
+    virtual CNHierarchyIndex getSelectedIndex() override {
         return selected;
     }
 
-    bool hasSelection() override {
+    virtual bool hasSelection() override {
         return selected.isValid();
     }
 

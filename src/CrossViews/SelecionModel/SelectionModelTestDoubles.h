@@ -17,7 +17,7 @@ protected:
 
 public:
     virtual void setSelectedIndex(const CNHierarchyIndex &index) override {}
-    virtual const CNHierarchyIndex getSelectedIndex() override {
+    virtual CNHierarchyIndex getSelectedIndex() override {
         return CNHierarchyIndex();
     }
     virtual bool hasSelection() override {

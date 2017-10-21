@@ -15,7 +15,7 @@ protected:
 
 public:
     virtual void setSelectedIndex(const CNHierarchyIndex& index) = 0;
-    virtual const CNHierarchyIndex getSelectedIndex() = 0;
+    virtual CNHierarchyIndex getSelectedIndex() = 0;
     virtual bool hasSelection() = 0;
 };
 

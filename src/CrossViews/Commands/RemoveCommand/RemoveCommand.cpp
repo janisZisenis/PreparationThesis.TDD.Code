@@ -3,7 +3,7 @@
 #include <CrossNative/CNComponent/CNComponent.h>
 
 RemoveCommandPtr RemoveCommand::getNewInstance(InsertingHierarchicModelPtr model,
-                                               const CNHierarchyIndex index,
+                                               CNHierarchyIndex index,
                                                CNComponentPtr component) {
     return RemoveCommandPtr(new RemoveCommand(model, index, component));
 }
@@ -13,7 +13,7 @@ RemoveCommand::~RemoveCommand() {
 }
 
 RemoveCommand::RemoveCommand(InsertingHierarchicModelPtr model,
-                             const CNHierarchyIndex index,
+                             CNHierarchyIndex index,
                              CNComponentPtr component)
         : model(model), index(index), component(component) {}
 

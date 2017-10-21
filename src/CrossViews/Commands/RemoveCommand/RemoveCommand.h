@@ -13,12 +13,12 @@ typedef std::shared_ptr<RemoveCommand> RemoveCommandPtr;
 class RemoveCommand : public CBCommand {
 public:
     static RemoveCommandPtr getNewInstance(std::shared_ptr<InsertingHierarchicModel> model,
-                                           const CNHierarchyIndex index,
+                                           CNHierarchyIndex index,
                                            std::shared_ptr<CNComponent> component);
     virtual ~RemoveCommand();
 protected:
     RemoveCommand(std::shared_ptr<InsertingHierarchicModel> model,
-                  const CNHierarchyIndex index,
+                  CNHierarchyIndex index,
                   std::shared_ptr<CNComponent> component);
 
 public:

@@ -7,7 +7,7 @@
 class AddCommandTest : public testing::Test {
 protected:
     virtual AddCommandPtr makeAddCommand(AddingHierarchicModelPtr model,
-                                         const CNHierarchyIndex index,
+                                         CNHierarchyIndex index,
                                          CNComponentPtr component) {
         return AddCommand::getNewInstance(model, index, component);
     }
