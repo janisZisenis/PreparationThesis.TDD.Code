@@ -16,6 +16,8 @@ bool SelectionModelImp::hasSelection() {
 }
 
 void SelectionModelImp::setSelectedIndex(const CNHierarchyIndex& index) {
+    notifyObservers();
+
     selectedIndex = index;
 }
 
@@ -23,6 +25,12 @@ CNHierarchyIndex SelectionModelImp::getSelectedIndex() {
     return selectedIndex;
 }
 
-void SelectionModelImp::attach(std::shared_ptr<CBObserver> observer) {}
-void SelectionModelImp::detach(std::shared_ptr<CBObserver> observer) {}
-void SelectionModelImp::notifyObservers() {}
+void SelectionModelImp::attach(std::shared_ptr<CBObserver> observer) {
+    subject->attach(observer);
+}
+void SelectionModelImp::detach(std::shared_ptr<CBObserver> observer) {
+    subject->detach(observer);
+}
+void SelectionModelImp::notifyObservers() {
+    subject->notifyObservers();
+}
