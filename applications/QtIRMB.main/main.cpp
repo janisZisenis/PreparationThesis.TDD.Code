@@ -8,7 +8,7 @@
 #include <CrossViews/SelectionModel/SelectionModelImp.h>
 #include <CrossViews/HierarchicModel/HierarchicModel.h>
 
-#include "QtViews/QtViewComponentFactory/QtViewComponentFactory.h"
+#include "QtIRMBViewComponentFactory.h"
 #include "QtViews/QtViewMatcherFactory/QtViewMatcherFactory.h"
 
 int main(int argc, char** argv) {
@@ -19,7 +19,8 @@ int main(int argc, char** argv) {
 
     QApplication a(argc, argv);
 
-    QtViewComponentFactoryPtr componentFactory = QtViewComponentFactory::getNewInstance();
+    QtIRMBViewComponentFactoryPtr componentFactory = QtIRMBViewComponentFactory::getNewInstance();
+
     CNComponentPtr shell = componentFactory->makeShellComponent();
     CNComponentPtr menuBar = componentFactory->makeMenuBarComponent();
     CNComponentPtr solutionExplorer = componentFactory->makeSolutionExplorerComponent(selectionModel);
@@ -29,8 +30,8 @@ int main(int argc, char** argv) {
     CNComponentPtr undoMenuEntry = componentFactory->makeUndoActionComponent(commandStack);
     CNComponentPtr redoMenuEntry = componentFactory->makeRedoActionComponent(commandStack);
     CNComponentPtr removeMenuEntry = componentFactory->makeRemoveActionComponent(selectionModel, model, commandStack);
-    CNComponentPtr stlMenuEntry;
-    CNComponentPtr gridGeneratorMenuEntry;
+    CNComponentPtr stlMenuEntry = componentFactory->makeAddSTLFileActionComponent(commandStack, model, selectionModel, nullptr, nullptr);
+    CNComponentPtr gridGeneratorMenuEntry = componentFactory->makeGridGeneratorActionComponent(commandStack, model, selectionModel, nullptr);
 
     QtViewMatcherFactoryPtr matcherFactory = QtViewMatcherFactory::getNewInstance();
 
@@ -45,6 +46,8 @@ int main(int argc, char** argv) {
     viewHierarchy->load(undoMenuEntry, matcherFactory->makeTagMatcher("edit-menu"));
     viewHierarchy->load(redoMenuEntry, matcherFactory->makeTagMatcher("edit-menu"));
     viewHierarchy->load(removeMenuEntry, matcherFactory->makeTagMatcher("edit-menu"));
+    viewHierarchy->load(stlMenuEntry, matcherFactory->makeTagMatcher("add-menu"));
+    viewHierarchy->load(gridGeneratorMenuEntry, matcherFactory->makeTagMatcher("add-menu"));
 
     return a.exec();
 }

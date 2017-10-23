@@ -5,6 +5,7 @@
 #include <string>
 #include <CodeBase/CBTransActionAppearance/CBActionState.h>
 
+class CBTransAction;
 class CBTransActionAppearance;
 class CBActionAccessibility;
 class CBActionTitle;
@@ -20,6 +21,9 @@ class CNVisitor;
 class SelectionModel;
 class HierarchicModelAccess;
 class InsertingHierarchicModel;
+
+class MenuEntryView;
+class MenuEntryPresenter;
 
 class QtViewComponentFactory;
 typedef std::shared_ptr<QtViewComponentFactory> QtViewComponentFactoryPtr;
@@ -49,6 +53,11 @@ public:
     virtual std::shared_ptr<CNComponent> makeExampleActionComponent();
 
 protected:
+    virtual std::shared_ptr<MenuEntryView> makeMenuEntryView();
+    virtual std::shared_ptr<MenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<MenuEntryView> view,
+                                                                       std::shared_ptr<CBTransActionAppearance> appearance,
+                                                                       std::shared_ptr<CBTransAction> action);
+
     virtual std::shared_ptr<CBTransActionAppearance> makeTransActionAppearance(std::shared_ptr<CBActionAccessibility> accessibility,
                                                                                std::shared_ptr<CBActionState> state,
                                                                                std::shared_ptr<CBActionTitle> title);

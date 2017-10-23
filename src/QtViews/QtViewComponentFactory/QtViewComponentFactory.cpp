@@ -88,24 +88,24 @@ CNComponentPtr QtViewComponentFactory::makeMenuComponent(std::string title, std:
     return makeComposable(menu, composer);
 }
 CNComponentPtr QtViewComponentFactory::makeUndoActionComponent(CBCommandHistoryPtr commandHistory) {
-    QtActionPtr view = QtAction::getNewInstance();
+    MenuEntryViewPtr view = makeMenuEntryView();
     CBTransActionAppearancePtr appearance = makeTransActionAppearance(makeUndoDependenAccessibility(commandHistory),
                                                                       makeFixedActionState(OFF),
                                                                       makeFixedActionTitle("Undo"));
     CBTransActionPtr action = CBUndoAction::getNewInstance(commandHistory);
-    MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
+    MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     commandHistory->attach(presenter);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(presenter, composer);
 }
 CNComponentPtr QtViewComponentFactory::makeRedoActionComponent(CBCommandHistoryPtr commandHistory) {
-    QtActionPtr view = QtAction::getNewInstance();
+    MenuEntryViewPtr view = makeMenuEntryView();
     CBTransActionAppearancePtr appearance = makeTransActionAppearance(makeRedoDependenAccessibility(commandHistory),
                                                                       makeFixedActionState(OFF),
                                                                       makeFixedActionTitle("Redo"));
     CBTransActionPtr action = CBRedoAction::getNewInstance(commandHistory);
-    MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
+    MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     commandHistory->attach(presenter);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
@@ -114,12 +114,12 @@ CNComponentPtr QtViewComponentFactory::makeRedoActionComponent(CBCommandHistoryP
 CNComponentPtr QtViewComponentFactory::makeRemoveActionComponent(SelectionModelPtr selectionModel,
                                                                  std::shared_ptr<InsertingHierarchicModel> model,
                                                                  CBCommandInvokerPtr invoker) {
-    QtActionPtr view = QtAction::getNewInstance();
+    MenuEntryViewPtr view = makeMenuEntryView();
     CBTransActionAppearancePtr appearance = makeTransActionAppearance(makeSelectionDependenAccessibility(selectionModel),
                                                                       makeFixedActionState(OFF),
                                                                       makeFixedActionTitle("Remove"));
     RemoveActionPtr action = RemoveAction::getNewInstance(selectionModel, model, invoker);
-    MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
+    MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(presenter, composer);
@@ -134,10 +134,10 @@ CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent(std::string t
     return makeComposable(menu, composer);
 }
 CNComponentPtr QtViewComponentFactory::makeExampleActionComponent() {
-    QtActionPtr view = QtAction::getNewInstance();
+    MenuEntryViewPtr view = makeMenuEntryView();
     CBTransActionAppearancePtr appearance = makeFixedTransActionAppearance(false, OFF, "Example");
     CBNullTransActionPtr action = CBNullTransAction::getNewInstance();
-    MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
+    MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(presenter, composer);
@@ -182,3 +182,14 @@ CNComposerPtr QtViewComponentFactory::makeVisitingComposer(CNVisitorPtr composin
 CNComposerPtr QtViewComponentFactory::makeNullComposer() {
     return CNNullComposer::getNewInstance();
 }
+
+MenuEntryViewPtr QtViewComponentFactory::makeMenuEntryView() {
+    return QtAction::getNewInstance();
+}
+
+MenuEntryPresenterPtr QtViewComponentFactory::makeMenuEntryPresenter(MenuEntryViewPtr view,
+                                                                                   CBTransActionAppearancePtr appearance,
+                                                                                   CBTransActionPtr action) {
+    return MenuEntryPresenter::getNewInstance(view, appearance, action);
+}
+
