@@ -35,6 +35,7 @@ public:
     virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex &index, int childPos) override;
 
     virtual void accept(CNVisitorPtr visitor) override;
+    virtual void setListener(std::shared_ptr<SolutionExplorerListener> listener) override;
 private:
     virtual std::shared_ptr<QtSolutionItem> makeItem(CNVisitablePtr visitable);
 
@@ -42,6 +43,7 @@ private:
 
 private:
     std::shared_ptr<CNAcceptor> acceptor;
+    std::shared_ptr<SolutionExplorerListener> listener;
     std::shared_ptr<QtSolutionItemFactory> itemFactory;
     QWidget* widget;
     QPushButton* deselectButton;

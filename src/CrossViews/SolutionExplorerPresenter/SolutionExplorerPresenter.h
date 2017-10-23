@@ -3,6 +3,7 @@
 
 #include <CrossNative/CNVisitable/CNVisitable.h>
 #include "CrossViews/HierarchicModel/HierarchicModelListener.h"
+#include "SolutionExplorerListener.h"
 
 class SolutionExplorerView;
 class SelectionModel;
@@ -10,7 +11,7 @@ class SelectionModel;
 class SolutionExplorerPresenter;
 typedef std::shared_ptr<SolutionExplorerPresenter> SolutionExplorerPresenterPtr;
 
-class SolutionExplorerPresenter : public virtual CNVisitable, public HierarchicModelListener {
+class SolutionExplorerPresenter : public virtual CNVisitable, public HierarchicModelListener, public SolutionExplorerListener {
 public:
     static SolutionExplorerPresenterPtr getNewInstance(std::shared_ptr<SolutionExplorerView> view,
                                                        std::shared_ptr<SelectionModel> selectionModel);
@@ -25,7 +26,7 @@ public:
     virtual void onRemove(const CNHierarchyIndex& index) override;
     virtual void onInsert(CNVisitablePtr visitable, const CNHierarchyIndex& index, int childPos) override;
 
-    virtual void onSelectionChanged();
+    virtual void onSelectionChanged() override;
 private:
     std::shared_ptr<SolutionExplorerView> view;
     std::shared_ptr<SelectionModel> selectionModel;

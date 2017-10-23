@@ -21,6 +21,8 @@ public:
     virtual CNHierarchyIndex getSelectedIndex() override {
         return CNHierarchyIndex();
     };
+
+    virtual void setListener(std::shared_ptr<SolutionExplorerListener> listener) override {}
 };
 
 class SolutionExplorerViewStub;

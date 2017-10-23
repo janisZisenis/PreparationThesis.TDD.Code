@@ -38,6 +38,8 @@ public:
         verifyInsertItem();
     }
 
+    virtual void setListener(std::shared_ptr<SolutionExplorerListener> listener) override {}
+
 private:
 
     virtual void verifyInsertItem() {

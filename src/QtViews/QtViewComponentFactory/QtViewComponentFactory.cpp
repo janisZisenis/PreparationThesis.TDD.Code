@@ -62,6 +62,7 @@ CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent(SelectionMo
                                                                      std::shared_ptr<QtSolutionItemFactory> itemFactory) {
     QtSolutionExplorerPtr view = QtSolutionExplorer::getNewInstance(itemFactory);
     SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
+    view->setListener(presenter);
     modelAccess->addListener(presenter);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
@@ -124,6 +125,7 @@ CNComponentPtr QtViewComponentFactory::makeRemoveActionComponent(SelectionModelP
                                                                       makeFixedActionTitle("Remove"));
     RemoveActionPtr action = RemoveAction::getNewInstance(selectionModel, model, invoker);
     MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
+    selectionModel->attach(presenter);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(presenter, composer);

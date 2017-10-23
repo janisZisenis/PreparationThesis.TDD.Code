@@ -5,6 +5,8 @@
 #include <CrossNative/CNVisitable/CNVisitable.h>
 #include "CrossNative/CNHierarchy/CNHierarchyIndex.h"
 
+class SolutionExplorerListener;
+
 class SolutionExplorerView;
 typedef std::shared_ptr<SolutionExplorerView> SolutionExplorerViewPtr;
 
@@ -19,6 +21,8 @@ public:
     virtual void removeIndex(const CNHierarchyIndex& index) = 0;
     virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex& parent, int childPos) = 0;
     virtual CNHierarchyIndex getSelectedIndex() = 0;
+
+    virtual void setListener(std::shared_ptr<SolutionExplorerListener> listener) = 0;
 };
 
 #endif //CROSSVIEWS_SOLUTIONEXPLORERVIEW_H

@@ -7,6 +7,7 @@
 #include "QtSolutionModel.h"
 
 #include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerListener.h>
 
 QtSolutionExplorerPtr QtSolutionExplorer::getNewInstance(QtSolutionItemFactoryPtr itemFactory) {
     return QtSolutionExplorerPtr(new QtSolutionExplorer(itemFactory));
@@ -46,10 +47,11 @@ std::string QtSolutionExplorer::getTitle() {
 
 void QtSolutionExplorer::removeIndex(const CNHierarchyIndex &index) {
     QModelIndex qIndex = solutionModel->transformToQModelIndex(index);
-    treeView->setCurrentIndex(QModelIndex());
-    solutionModel->deleteIndex(qIndex.parent(), qIndex.row());
 
-    treeView->setCurrentIndex(qIndex);
+    if(qIndex == treeView->currentIndex())
+        treeView->setCurrentIndex(QModelIndex());
+
+    solutionModel->deleteIndex(qIndex.parent(), qIndex.row());
 }
 
 CNHierarchyIndex QtSolutionExplorer::getSelectedIndex() {
@@ -64,11 +66,17 @@ void QtSolutionExplorer::accept(CNVisitorPtr visitor) {
     acceptor->accept(visitor, me());
 }
 
+void QtSolutionExplorer::setListener(SolutionExplorerListenerPtr listener) {
+    this->listener = listener;
+}
+
 QtSolutionExplorerPtr QtSolutionExplorer::me() {
     return this->shared_from_this();
 }
 
-void QtSolutionExplorer::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected) {}
+void QtSolutionExplorer::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected) {
+    listener->onSelectionChanged();
+}
 
 void QtSolutionExplorer::onDeselectClicked() {
     treeView->setCurrentIndex(QModelIndex());
@@ -77,5 +85,6 @@ void QtSolutionExplorer::onDeselectClicked() {
 QtSolutionItemPtr QtSolutionExplorer::makeItem(CNVisitablePtr visitable) {
     return itemFactory->makeQtSolutionItem(visitable);
 }
+
 
 
