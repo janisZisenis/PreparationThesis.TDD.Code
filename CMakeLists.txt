@@ -68,6 +68,8 @@ add_subdirectory(applications/QtApp)
 
 add_subdirectory(applications/IRMB)
 
+add_subdirectory(applications/QtIRMB.main)
+
 if(APPLE)
    add_subdirectory(applications/CocoaViews)
    add_subdirectory(applications/CocoaApp)
