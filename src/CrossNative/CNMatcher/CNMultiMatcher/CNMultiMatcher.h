@@ -17,6 +17,7 @@ protected:
 
 public:
     virtual bool matches(std::shared_ptr<CNVisitable> visitable) override;
+    virtual void add(CNMatcherPtr matcher);
 };
 
 #endif //CROSSNATIVE_MULTIMATCHER_H

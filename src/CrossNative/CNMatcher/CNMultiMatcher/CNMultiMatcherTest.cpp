@@ -23,7 +23,12 @@ protected:
         std::string errorMessage = "CNMultiMatcher should not match the CNVisitable, but it does!";
         EXPECT_FALSE(expected) << errorMessage;
     }
+    virtual void expectMatchesVisitable(CNMultiMatcherPtr sut, CNVisitablePtr visitable) {
+        bool expected = sut->matches(visitable);
 
+        std::string errorMessage = "CNMultiMatcher should match the CNVisitable, but it does not!";
+        EXPECT_TRUE(expected) << errorMessage;
+    }
 };
 
 TEST_F(CNMultiMatcherTest, FreshInstance__ShouldNotMatchVisitable) {
@@ -31,4 +36,15 @@ TEST_F(CNMultiMatcherTest, FreshInstance__ShouldNotMatchVisitable) {
 
     CNVisitablePtr visitable = makeCNVisitableDummy();
     expectDoesNotMatchVisitable(sut, visitable);
+}
+
+TEST_F(CNMultiMatcherTest, FreshInstance__AddMatchingMatcher__ShouldMatchVisitable) {
+    CNMultiMatcherPtr sut = makeCNMultiMatcher();
+
+    CNMatcherStubPtr matcher = makeCNMatcherStub();
+    matcher->setIsMatching(true);
+    sut->add(matcher);
+
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    expectMatchesVisitable(sut, visitable);
 }
