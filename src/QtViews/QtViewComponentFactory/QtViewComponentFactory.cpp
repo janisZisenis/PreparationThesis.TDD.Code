@@ -69,9 +69,11 @@ CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent(SelectionMo
     return makeComposable(presenter, composer);
 }
 CNComponentPtr QtViewComponentFactory::makePropertiesExplorerComponent(SelectionModelPtr selectionModel,
-                                                                       HierarchicModelAccessPtr modelAccess) {
-    QtPropertiesExplorerPtr view = QtPropertiesExplorer::getNewInstance();
+                                                                       HierarchicModelAccessPtr modelAccess,
+                                                                       std::shared_ptr<QtPropertiesModelFactory> modelFactory) {
+    QtPropertiesExplorerPtr view = QtPropertiesExplorer::getNewInstance(modelFactory);
     PropertiesExplorerPresenterPtr presenter = PropertiesExplorerPresenter::getNewInstance(view, modelAccess, selectionModel);
+    selectionModel->attach(presenter);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(presenter, composer);

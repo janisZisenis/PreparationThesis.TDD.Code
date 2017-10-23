@@ -7,6 +7,8 @@
 
 class CNAcceptor;
 
+class QtPropertiesModelFactory;
+
 class QWidget;
 class QTreeView;
 class QtPropertiesModel;
@@ -16,10 +18,10 @@ typedef std::shared_ptr<QtPropertiesExplorer> QtPropertiesExplorerPtr;
 
 class QtPropertiesExplorer : public QWidgetBased, public PropertiesExplorerView, public std::enable_shared_from_this<QtPropertiesExplorer> {
 public:
-    static QtPropertiesExplorerPtr getNewInstance();
+    static QtPropertiesExplorerPtr getNewInstance(std::shared_ptr<QtPropertiesModelFactory> modelFactory);
     virtual ~QtPropertiesExplorer();
 private:
-    QtPropertiesExplorer();
+    QtPropertiesExplorer(std::shared_ptr<QtPropertiesModelFactory> modelFactory);
 
 public:
     virtual QWidget* getQWidget() override;
@@ -37,6 +39,7 @@ private:
 
 private:
     std::shared_ptr<CNAcceptor> acceptor;
+    std::shared_ptr<QtPropertiesModelFactory> modelFactory;
 
     QTreeView* tableView;
 };

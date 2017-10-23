@@ -13,6 +13,7 @@
 #include "CocoaIRMBViewComponentFactory.h"
 #include "QtViews/QtViewMatcherFactory/QtViewMatcherFactory.h"
 #include "QtIRMBSolutionItemFactory.h"
+#include "QtIRMBPropertiesModelFactory.h"
 
 int main(int argc, char** argv) {
     SelectionModelImpPtr selectionModel = SelectionModelImp::getNewInstance();
@@ -28,7 +29,7 @@ int main(int argc, char** argv) {
     CNComponentPtr shell = componentFactory->makeShellComponent();
     CNComponentPtr menuBar = componentFactory->makeMenuBarComponent();
     CNComponentPtr solutionExplorer = componentFactory->makeSolutionExplorerComponent(selectionModel, model, QtIRMBSolutionItemFactory::getNewInstance());
-    CNComponentPtr propertiesExplorer = componentFactory->makePropertiesExplorerComponent(selectionModel, model);
+    CNComponentPtr propertiesExplorer = componentFactory->makePropertiesExplorerComponent(selectionModel, model, QtIRMBPropertiesModelFactory::getNewInstance());
     CNComponentPtr editMenu = componentFactory->makeMenuComponent("Edit", "edit-menu");
     CNComponentPtr addMenu = componentFactory->makeMenuComponent("Add", "add-menu");
     CNComponentPtr undoMenuEntry = componentFactory->makeUndoActionComponent(commandStack);

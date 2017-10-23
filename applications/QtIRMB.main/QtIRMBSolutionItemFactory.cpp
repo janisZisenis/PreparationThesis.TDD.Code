@@ -43,7 +43,7 @@ QtIRMBSolutionItemFactoryPtr QtIRMBSolutionItemFactory::getNewInstance() {
 QtIRMBSolutionItemFactory::~QtIRMBSolutionItemFactory() {}
 QtIRMBSolutionItemFactory::QtIRMBSolutionItemFactory() {}
 
-QtSolutionItemPtr QtIRMBSolutionItemFactory::makeQtSolutionItem(std::shared_ptr<CNVisitable> visitable) {
+QtSolutionItemPtr QtIRMBSolutionItemFactory::makeQtSolutionItem(CNVisitablePtr visitable) {
     QtIRMBSolutionItemCreatorPtr itemCreator = QtIRMBSolutionItemCreator::getNewInstance();
 
     try{

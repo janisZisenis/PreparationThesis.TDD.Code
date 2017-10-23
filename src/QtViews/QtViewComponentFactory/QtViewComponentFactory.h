@@ -22,6 +22,7 @@ class SelectionModel;
 class HierarchicModelAccess;
 class InsertingHierarchicModel;
 class QtSolutionItemFactory;
+class QtPropertiesModelFactory;
 
 class MenuEntryView;
 class MenuEntryPresenter;
@@ -42,7 +43,8 @@ public:
                                                                        std::shared_ptr<HierarchicModelAccess> modelAccess,
                                                                        std::shared_ptr<QtSolutionItemFactory> itemFactory);
     virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent(std::shared_ptr<SelectionModel> selectionModel,
-                                                                         std::shared_ptr<HierarchicModelAccess> modelAccess);
+                                                                         std::shared_ptr<HierarchicModelAccess> modelAccess,
+                                                                         std::shared_ptr<QtPropertiesModelFactory> modelFactory);
 
     virtual std::shared_ptr<CNComponent> makeMenuBarComponent();
     virtual std::shared_ptr<CNComponent> makeMenuComponent(std::string title, std::string tag);

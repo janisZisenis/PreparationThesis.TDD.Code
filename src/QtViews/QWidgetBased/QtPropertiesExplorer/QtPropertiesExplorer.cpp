@@ -1,19 +1,21 @@
 #include "QtPropertiesExplorer.h"
 #include "QtPropertiesModel.h"
 #include "QtPropertiesExplorerVisitor.h"
+#include "QtPropertiesModelFactory.h"
 #include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 #include <QtWidgets>
 
-QtPropertiesExplorerPtr QtPropertiesExplorer::getNewInstance() {
-    return QtPropertiesExplorerPtr(new QtPropertiesExplorer());
+QtPropertiesExplorerPtr QtPropertiesExplorer::getNewInstance(QtPropertiesModelFactoryPtr modelFactory) {
+    return QtPropertiesExplorerPtr(new QtPropertiesExplorer(modelFactory));
 }
 
 QtPropertiesExplorer::~QtPropertiesExplorer() {
     delete tableView;
 }
 
-QtPropertiesExplorer::QtPropertiesExplorer()
+QtPropertiesExplorer::QtPropertiesExplorer(QtPropertiesModelFactoryPtr modelFactory)
         : acceptor(CNAcceptorImp<QtPropertiesExplorerVisitor, QtPropertiesExplorer>::getNewInstance()),
+          modelFactory(modelFactory),
           tableView(new QTreeView()) {
     tableView->setWindowTitle("Properties Explorer");
 
@@ -48,6 +50,5 @@ QtPropertiesExplorerPtr QtPropertiesExplorer::me() {
 }
 
 QtPropertiesModel *QtPropertiesExplorer::makePropertiesModel(CNVisitablePtr visitable) {
-    throw std::logic_error("Function not yet implemented");
-    return nullptr;
+    return modelFactory->makeQtPropertiesModel(visitable);
 }

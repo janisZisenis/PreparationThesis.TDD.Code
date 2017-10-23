@@ -3,12 +3,8 @@
 
 #include <memory>
 #include <string>
+#include "QtViews/UnknownTypeException/UnknownTypeException.h"
 
-class UnknownTypeException : public std::exception {
-    const char *what() const throw() override {
-        return std::string("The given subtype of the CNVisitable is unknown").c_str();
-    }
-};
 
 class CNVisitable;
 class QtSolutionItem;
