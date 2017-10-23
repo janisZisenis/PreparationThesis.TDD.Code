@@ -30,7 +30,7 @@ public:
     virtual void disable() override;
 
     virtual void accept(CNVisitorPtr visitor) override;
-
+    virtual void setListener(std::shared_ptr<MenuEntryListener> listener) override;
 private:
     virtual void setChecked(bool checked);
     virtual void setEnbaled(bool enabled);
@@ -40,13 +40,11 @@ private:
     QtActionPtr me();
 private:
     std::shared_ptr<CNAcceptor> acceptor;
+    std::shared_ptr<MenuEntryListener> listener;
 
     QAction* action;
 
 private slots:
-    virtual void onChanged();
-    virtual void onHovered();
-    virtual void onToggled(bool checked);
     virtual void onTriggered(bool checked = false);
 };
 

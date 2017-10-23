@@ -28,7 +28,7 @@ void MenuEntryPresenter::accept(CNVisitorPtr visitor) {
     view->accept(visitor);
 }
 
-void MenuEntryPresenter::onAction() {
+void MenuEntryPresenter::onTriggered() {
     action->execute();
 }
 

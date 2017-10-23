@@ -98,13 +98,13 @@ TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToMenu
 }
 
 
-TEST_F(MenuEntryPresenterTest, FreshInstance__onAction__ShouldExecuteTransAction) {
+TEST_F(MenuEntryPresenterTest, FreshInstance__onTriggered__ShouldExecuteTransAction) {
     CBTransActionSpyPtr action = makeCBTransActionSpy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
     CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
-    sut->onAction();
+    sut->onTriggered();
 
     expectCBTransActionWasExecuted(action);
 }

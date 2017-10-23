@@ -42,3 +42,7 @@ CNComponentPtr CNHierarchy::find(const CNHierarchyIndex &index) {
     return retrieved;
 }
 
+int CNHierarchy::getChildCountFor(const CNHierarchyIndex &parent) {
+    return find(parent)->getChildCount();
+}
+

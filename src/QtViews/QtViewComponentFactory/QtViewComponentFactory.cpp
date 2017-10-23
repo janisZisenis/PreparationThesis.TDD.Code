@@ -190,6 +190,8 @@ MenuEntryViewPtr QtViewComponentFactory::makeMenuEntryView() {
 MenuEntryPresenterPtr QtViewComponentFactory::makeMenuEntryPresenter(MenuEntryViewPtr view,
                                                                                    CBTransActionAppearancePtr appearance,
                                                                                    CBTransActionPtr action) {
-    return MenuEntryPresenter::getNewInstance(view, appearance, action);
+    MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
+    view->setListener(presenter);
+    return presenter;
 }
 

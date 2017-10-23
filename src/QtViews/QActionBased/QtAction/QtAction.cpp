@@ -2,6 +2,7 @@
 #include "QtActionVisitor.h"
 #include <QAction>
 #include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossViews/MenuEntryPresenter/MenuEntryListener.h>
 
 QtActionPtr QtAction::getNewInstance() {
     return QtActionPtr(new QtAction());
@@ -22,9 +23,6 @@ QAction *QtAction::getQAction() {
 }
 
 void QtAction::connectToAction() {
-    connect(action, SIGNAL(hovered()), this, SLOT(onHovered()));
-    connect(action, SIGNAL(changed()), this, SLOT(onChanged()));
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(onToggled(bool)));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(onTriggered(bool)));
 }
 
@@ -66,7 +64,11 @@ QtActionPtr QtAction::me() {
     return this->shared_from_this();
 }
 
-void QtAction::onChanged() {}
-void QtAction::onHovered() {}
-void QtAction::onToggled(bool checked) {}
-void QtAction::onTriggered(bool checked) {}
+void QtAction::setListener(MenuEntryListenerPtr listener) {
+    this->listener = listener;
+}
+
+void QtAction::onTriggered(bool checked) {
+    if(listener)
+        listener->onTriggered();
+}

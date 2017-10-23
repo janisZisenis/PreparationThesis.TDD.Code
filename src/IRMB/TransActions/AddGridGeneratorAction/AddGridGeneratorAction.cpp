@@ -31,7 +31,8 @@ void AddGridGeneratorAction::execute() {
     if(selectionModel->hasSelection() && matcher->matches(model->retrieve(selectionModel->getSelectedIndex())))
         insertingIndex = selectionModel->getSelectedIndex();
 
-    invoker->invoke(makeCommand(model,insertingIndex, makeGridGeneratorComponent()));
+    CBCommandPtr command = makeCommand(model, insertingIndex, makeGridGeneratorComponent());
+    invoker->invoke(command);
 }
 
 CNComponentPtr AddGridGeneratorAction::makeGridGeneratorComponent() {

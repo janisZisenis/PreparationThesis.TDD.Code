@@ -31,6 +31,7 @@ public:
     virtual void disable() override;
 
     void accept(CNVisitorPtr visitor) override;
+    virtual void setListener(std::shared_ptr<MenuEntryListener> listener) override;
 
 private:
     virtual void connectToMenuItem();
@@ -41,6 +42,7 @@ private:
 
 private:
     std::shared_ptr<CNAcceptor> acceptor;
+    std::shared_ptr<MenuEntryListener> listener;
 
     std::string title;
 

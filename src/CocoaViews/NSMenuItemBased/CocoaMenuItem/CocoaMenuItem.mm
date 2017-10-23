@@ -2,6 +2,7 @@
 #include "CocoaMenuItemVisitor.h"
 #include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 #import "CocoaViews/CocoaActionListener/CocoaActionListener.h"
+#include "CrossViews/MenuEntryPresenter/MenuEntryListener.h"
 
 CocoaMenuItemPtr CocoaMenuItem::getNewInstance() {
     return CocoaMenuItemPtr(new CocoaMenuItem());
@@ -55,9 +56,18 @@ void CocoaMenuItem::accept(CNVisitorPtr visitor) {
     acceptor->accept(visitor, me());
 }
 
+void CocoaMenuItem::setListener(MenuEntryListenerPtr listener) {
+    this->listener = listener;
+}
+
 CocoaMenuItemPtr CocoaMenuItem::me() {
     return this->shared_from_this();
 }
 
-void CocoaMenuItem::onAction(NSObject *object, CocoaActionListener *action) {}
+void CocoaMenuItem::onAction(NSObject *object, CocoaActionListener *action) {
+    if(listener)
+        listener->onTriggered();
+}
+
+
 

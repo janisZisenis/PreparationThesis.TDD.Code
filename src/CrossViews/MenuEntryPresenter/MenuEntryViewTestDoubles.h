@@ -17,6 +17,7 @@ protected:
 public:
     virtual void setTitle(std::string title) override {}
     virtual void accept(CNVisitorPtr visitor) override {}
+    virtual void setListener(std::shared_ptr<MenuEntryListener> listener) override {}
 
     virtual void check() override {}
     virtual void uncheck() override {}
@@ -27,7 +28,7 @@ public:
 
 class MenuEntryViewSpy;
 typedef std::shared_ptr<MenuEntryViewSpy> MenuEntryViewSpyPtr;
-class MenuEntryViewSpy : public MenuEntryView {
+class MenuEntryViewSpy : public MenuEntryViewDummy {
 public:
     static MenuEntryViewSpyPtr getNewInstance() {
         return MenuEntryViewSpyPtr(new MenuEntryViewSpy());

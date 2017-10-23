@@ -3,6 +3,7 @@
 
 #include <CodeBase/CBObserver/CBObserver.h>
 #include <CrossNative/CNVisitable/CNVisitable.h>
+#include "MenuEntryListener.h"
 
 class MenuEntryView;
 class CBTransActionAppearance;
@@ -11,7 +12,7 @@ class CBTransAction;
 class MenuEntryPresenter;
 typedef std::shared_ptr<MenuEntryPresenter> MenuEntryPresenterPtr;
 
-class MenuEntryPresenter : public CBObserver, public virtual CNVisitable {
+class MenuEntryPresenter : public CBObserver, public virtual CNVisitable, public MenuEntryListener {
 public:
     static MenuEntryPresenterPtr getNewInstance(std::shared_ptr<MenuEntryView> view,
                                                std::shared_ptr<CBTransActionAppearance> appearance,
@@ -26,7 +27,7 @@ public:
     virtual void update() override;
     virtual void accept(CNVisitorPtr visitor) override;
 
-    virtual void onAction();
+    virtual void onTriggered() override;
 
 private:
     virtual void updateTitle();

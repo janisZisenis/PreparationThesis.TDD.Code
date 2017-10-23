@@ -14,12 +14,12 @@ HierarchicModel::HierarchicModel()
 void HierarchicModel::add(CNComponentPtr component, const CNHierarchyIndex& parent) {
     hierarchy->add(component, parent);
 
-    notifyInserted(component, parent, hierarchy->retrieve(parent)->getChildCount() - 1);
+    notifyInserted(component, parent, hierarchy->getChildCountFor(parent) - 1);
 }
 
 void HierarchicModel::remove(CNComponentPtr component, const CNHierarchyIndex& parent) {
     int childPos = -1;
-    for(int i = 0; i < hierarchy->retrieve(parent)->getChildCount(); i++) {
+    for(int i = 0; i < hierarchy->getChildCountFor(parent); i++) {
         if(hierarchy->retrieve(CNHierarchyIndex(parent, i)) == component) {
             childPos = i;
             break;
