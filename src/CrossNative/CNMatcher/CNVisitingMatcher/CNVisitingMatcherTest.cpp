@@ -7,7 +7,7 @@
 
 class CNVisitingMatcherTest : public testing::Test {
 protected:
-    virtual CNVisitingMatcherPtr makeCNVistingMatcher(CNIdentifyingVisitorPtr identifyingVisitor) {
+    virtual CNVisitingMatcherPtr makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifyingVisitor) {
         return CNVisitingMatcher::getNewInstance(identifyingVisitor);
     }
     virtual CNIdentifyingVisitorPtr makeCNIdentifyingVisitorDummy() {
@@ -50,7 +50,7 @@ protected:
 
 TEST_F(CNVisitingMatcherTest, FreshInstance__MatchesVisitable__VisitableShouldHaveAcceptedTheVisitor) {
     CNIdentifyingVisitorPtr visitor = makeCNIdentifyingVisitorDummy();
-    CNVisitingMatcherPtr sut = makeCNVistingMatcher(visitor);
+    CNVisitingMatcherPtr sut = makeCNVisitingMatcher(visitor);
 
     CNVisitableSpyPtr visitable = makeCNVisitableSpy();
     sut->matches(visitable);
@@ -60,7 +60,7 @@ TEST_F(CNVisitingMatcherTest, FreshInstance__MatchesVisitable__VisitableShouldHa
 
 TEST_F(CNVisitingMatcherTest, FreshInstance__MatchesVisitableSaboteur__MatcherShouldNotMatchTheVisitable) {
     CNIdentifyingVisitorPtr visitor = makeCNIdentifyingVisitorDummy();
-    CNVisitingMatcherPtr sut = makeCNVistingMatcher(visitor);
+    CNVisitingMatcherPtr sut = makeCNVisitingMatcher(visitor);
 
     CNVisitablePtr visitable = makeCNVisitableSaboteur();
 
@@ -70,7 +70,7 @@ TEST_F(CNVisitingMatcherTest, FreshInstance__MatchesVisitableSaboteur__MatcherSh
 TEST_F(CNVisitingMatcherTest, FreshInstance__VisitorDoesNotIdentifyVisitable__MatcherShouldNotMatchVisitable) {
     CNIdentifyingVisitorStubPtr visitor = makeCNIdentifyingVisitorStub();
     visitor->setIdentified(false);
-    CNVisitingMatcherPtr sut = makeCNVistingMatcher(visitor);
+    CNVisitingMatcherPtr sut = makeCNVisitingMatcher(visitor);
 
     CNVisitablePtr visitable = makeCNVisitableDummy();
 
@@ -80,7 +80,7 @@ TEST_F(CNVisitingMatcherTest, FreshInstance__VisitorDoesNotIdentifyVisitable__Ma
 TEST_F(CNVisitingMatcherTest, FreshInstance__VisitorIdentifiesVisitable__MatcherShouldMatchVisitable) {
     CNIdentifyingVisitorStubPtr visitor = makeCNIdentifyingVisitorStub();
     visitor->setIdentified(true);
-    CNVisitingMatcherPtr sut = makeCNVistingMatcher(visitor);
+    CNVisitingMatcherPtr sut = makeCNVisitingMatcher(visitor);
 
     CNVisitablePtr visitable = makeCNVisitableDummy();
 
