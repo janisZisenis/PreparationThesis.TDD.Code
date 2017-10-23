@@ -58,8 +58,9 @@ CNComponentPtr QtViewComponentFactory::makeShellComponent() {
     return makeComposable(shell, composer);
 }
 CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent(SelectionModelPtr selectionModel,
-                                                                     HierarchicModelAccessPtr modelAccess) {
-    QtSolutionExplorerPtr view = QtSolutionExplorer::getNewInstance();
+                                                                     HierarchicModelAccessPtr modelAccess,
+                                                                     std::shared_ptr<QtSolutionItemFactory> itemFactory) {
+    QtSolutionExplorerPtr view = QtSolutionExplorer::getNewInstance(itemFactory);
     SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
     modelAccess->addListener(presenter);
     CNComposerPtr composer = CNNullComposer::getNewInstance();

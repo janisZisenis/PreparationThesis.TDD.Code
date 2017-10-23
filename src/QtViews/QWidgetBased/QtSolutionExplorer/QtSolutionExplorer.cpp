@@ -1,14 +1,15 @@
 #include "QtSolutionExplorer.h"
 #include "QtSolutionExplorerVisitor.h"
-#include <QtWidgets>
+#include  <QtWidgets>
 
 #include "QtSolutionItem.h"
+#include "QtSolutionItemFactory.h"
 #include "QtSolutionModel.h"
 
 #include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 
-QtSolutionExplorerPtr QtSolutionExplorer::getNewInstance() {
-    return QtSolutionExplorerPtr(new QtSolutionExplorer());
+QtSolutionExplorerPtr QtSolutionExplorer::getNewInstance(QtSolutionItemFactoryPtr itemFactory) {
+    return QtSolutionExplorerPtr(new QtSolutionExplorer(itemFactory));
 }
 
 QtSolutionExplorer::~QtSolutionExplorer() {
@@ -16,8 +17,9 @@ QtSolutionExplorer::~QtSolutionExplorer() {
     delete solutionModel;
 }
 
-QtSolutionExplorer::QtSolutionExplorer()
+QtSolutionExplorer::QtSolutionExplorer(QtSolutionItemFactoryPtr itemFactory)
         : acceptor(CNAcceptorImp<QtSolutionExplorerVisitor, QtSolutionExplorer>::getNewInstance()),
+          itemFactory(itemFactory),
           treeView(new QTreeView()), deselectButton(new QPushButton("Clear Selection")), widget(new QWidget()),
           solutionModel(new QtSolutionModel()) {
     widget->setWindowTitle("Solution Explorer");
@@ -73,8 +75,7 @@ void QtSolutionExplorer::onDeselectClicked() {
 }
 
 QtSolutionItemPtr QtSolutionExplorer::makeItem(CNVisitablePtr visitable) {
-    throw std::logic_error("Function not yet implemented");
-    return nullptr;
+    return itemFactory->makeQtSolutionItem(visitable);
 }
 
 

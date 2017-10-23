@@ -12,6 +12,7 @@ class QTreeView;
 class QPushButton;
 class QtSolutionModel;
 class QtSolutionItem;
+class QtSolutionItemFactory;
 
 class QtSolutionExplorer;
 typedef std::shared_ptr<QtSolutionExplorer> QtSolutionExplorerPtr;
@@ -20,10 +21,10 @@ class QtSolutionExplorer : public QObject, public QWidgetBased, public SolutionE
 public:
     Q_OBJECT
 public:
-    static QtSolutionExplorerPtr getNewInstance();
+    static QtSolutionExplorerPtr getNewInstance(std::shared_ptr<QtSolutionItemFactory> itemFactory);
     virtual ~QtSolutionExplorer();
 private:
-    QtSolutionExplorer();
+    QtSolutionExplorer(std::shared_ptr<QtSolutionItemFactory> itemFactory);
 
 public:
     virtual QWidget* getQWidget() override;
@@ -41,7 +42,7 @@ private:
 
 private:
     std::shared_ptr<CNAcceptor> acceptor;
-
+    std::shared_ptr<QtSolutionItemFactory> itemFactory;
     QWidget* widget;
     QPushButton* deselectButton;
     QTreeView* treeView;

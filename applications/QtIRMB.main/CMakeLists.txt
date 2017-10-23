@@ -1,8 +1,8 @@
 set(targetName QtIRMB.main)       #REQUIRED#
 
 set(linkDirectories "")
-set(libsToLink QtViews IRMB)
-set(includeDirectories ${CMAKE_SOURCE_DIR}/src)
+set(libsToLink QtViews IRMB GridGenerator)
+set(includeDirectories ${CMAKE_SOURCE_DIR}/src/GridGenerator ${CMAKE_SOURCE_DIR}/src/GridGenerator/common ${CMAKE_SOURCE_DIR}/src)
 #glob files and save in MY_SRCS
 include(CMakePackage.cmake)
 
