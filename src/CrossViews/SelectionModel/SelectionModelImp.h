@@ -4,7 +4,6 @@
 #include "SelectionModel.h"
 #include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
 
-class CBObserver;
 class CBSubject;
 
 class SelectionModelImp;
@@ -22,8 +21,8 @@ public:
     virtual void setSelectedIndex(const CNHierarchyIndex& index) override;
     virtual CNHierarchyIndex getSelectedIndex() override;
 
-    virtual void attach(std::shared_ptr<CBObserver> observer);
-    virtual void detach(std::shared_ptr<CBObserver> observer);
+    virtual void attach(std::shared_ptr<CBObserver> observer) override;
+    virtual void detach(std::shared_ptr<CBObserver> observer) override;
     virtual void notifyObservers();
 
 private:

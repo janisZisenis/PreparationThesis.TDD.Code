@@ -14,7 +14,7 @@ class QtViewMatcherFactory {
 public:
     static QtViewMatcherFactoryPtr getNewInstance();
     virtual ~QtViewMatcherFactory();
-private:
+protected:
     QtViewMatcherFactory();
 
 public:

@@ -23,6 +23,10 @@ public:
     virtual bool hasSelection() override {
         return false;
     }
+
+    void attach(std::shared_ptr<CBObserver> observer) override {}
+    void detach(std::shared_ptr<CBObserver> observer) override {}
+
 };
 
 #endif //CROSSVIEWS_SELECTIONMODEL_TESTDOUBLES_H
