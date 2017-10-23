@@ -10,5 +10,5 @@ CNMultiMatcher::~CNMultiMatcher() {}
 CNMultiMatcher::CNMultiMatcher() {}
 
 bool CNMultiMatcher::matches(CNVisitablePtr visitable) {
-    return true;
+    return false;
 }
