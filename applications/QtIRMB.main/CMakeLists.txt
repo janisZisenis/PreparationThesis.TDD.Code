@@ -1,7 +1,7 @@
 set(targetName QtIRMB.main)       #REQUIRED#
 
 set(linkDirectories "")
-set(libsToLink CrossNative QtViews)
+set(libsToLink QtViews)
 set(includeDirectories ${CMAKE_SOURCE_DIR}/src)
 #glob files and save in MY_SRCS
 include(CMakePackage.cmake)

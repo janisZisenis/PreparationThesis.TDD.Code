@@ -2,7 +2,7 @@
 #include "IRMB/STLFile/STLFileVisitor.h"
 #include <CrossNative/CNAcceptor/CNAcceptorImp.h>
 
-//#include <boost/filesystem.hpp>
+#include <boost/filesystem.hpp>
 #include "GridGenerator/utilities/io/STLReaderWriter.h"
 #include "GridGenerator/utilities/Transformator.h"
 
@@ -17,9 +17,8 @@ STLFileImp::STLFileImp(std::string path)
           path(path) {
     static int i;
 
-//    boost::filesystem::path p(path);
-//    this->name = p.stem().string() + " (" + std::to_string(i++) +")";
-    name = path;
+    boost::filesystem::path p(path);
+    this->name = p.stem().string() + " (" + std::to_string(i++) +")";
 
     Transformator trans;
     triangles = STLReaderWriter::readSTL(getPath(), trans);
