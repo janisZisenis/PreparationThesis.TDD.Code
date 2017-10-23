@@ -38,3 +38,4 @@ CNMatcherPtr QtViewMatcherFactory::makeCNNullMatcher() {
 CNMatcherPtr QtViewMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifying) {
     return CNVisitingMatcher::getNewInstance(identifying);
 }
+

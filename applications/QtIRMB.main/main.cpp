@@ -8,6 +8,8 @@
 #include <CrossViews/SelectionModel/SelectionModelImp.h>
 #include <CrossViews/HierarchicModel/HierarchicModel.h>
 
+#include <IRMB/IRMBMatcherFactory/IRMBMatcherFactory.h>
+#include "QtFileFinder.h"
 #include "QtIRMBViewComponentFactory.h"
 #include "QtViews/QtViewMatcherFactory/QtViewMatcherFactory.h"
 
@@ -19,6 +21,7 @@ int main(int argc, char** argv) {
 
     QApplication a(argc, argv);
 
+    IRMBMatcherFactoryPtr irmbMatcherFactory = IRMBMatcherFactory::getNewInstance();
     QtIRMBViewComponentFactoryPtr componentFactory = QtIRMBViewComponentFactory::getNewInstance();
 
     CNComponentPtr shell = componentFactory->makeShellComponent();
@@ -30,24 +33,27 @@ int main(int argc, char** argv) {
     CNComponentPtr undoMenuEntry = componentFactory->makeUndoActionComponent(commandStack);
     CNComponentPtr redoMenuEntry = componentFactory->makeRedoActionComponent(commandStack);
     CNComponentPtr removeMenuEntry = componentFactory->makeRemoveActionComponent(selectionModel, model, commandStack);
-    CNComponentPtr stlMenuEntry = componentFactory->makeAddSTLFileActionComponent(commandStack, model, selectionModel, nullptr, nullptr);
-    CNComponentPtr gridGeneratorMenuEntry = componentFactory->makeGridGeneratorActionComponent(commandStack, model, selectionModel, nullptr);
+    CNComponentPtr stlMenuEntry = componentFactory->makeAddSTLFileActionComponent(commandStack, model, selectionModel,
+                                                                                  irmbMatcherFactory->makeSTLFileParentTypeMatcher(),
+                                                                                  QtFileFinder::getNewInstance());
+    CNComponentPtr gridGeneratorMenuEntry = componentFactory->makeGridGeneratorActionComponent(commandStack, model, selectionModel,
+                                                                                               irmbMatcherFactory->makeGridGeneratorParentTypeMatcher());
 
-    QtViewMatcherFactoryPtr matcherFactory = QtViewMatcherFactory::getNewInstance();
+    QtViewMatcherFactoryPtr viewMatcherFactory = QtViewMatcherFactory::getNewInstance();
 
     CNDynamicHierarchyPtr viewHierarchy = CNDynamicHierarchy::getNewInstance();
-    viewHierarchy->load(shell, matcherFactory->makeTopLevelMatcher());
-    viewHierarchy->load(solutionExplorer, matcherFactory->makeShellTypeMatcher());
-    viewHierarchy->load(propertiesExplorer, matcherFactory->makeShellTypeMatcher());
-    viewHierarchy->load(menuBar, matcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(shell, viewMatcherFactory->makeTopLevelMatcher());
+    viewHierarchy->load(solutionExplorer, viewMatcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(propertiesExplorer, viewMatcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(menuBar, viewMatcherFactory->makeShellTypeMatcher());
 
-    viewHierarchy->load(editMenu, matcherFactory->makeMenuBarTypeMatcher());
-    viewHierarchy->load(addMenu, matcherFactory->makeMenuBarTypeMatcher());
-    viewHierarchy->load(undoMenuEntry, matcherFactory->makeTagMatcher("edit-menu"));
-    viewHierarchy->load(redoMenuEntry, matcherFactory->makeTagMatcher("edit-menu"));
-    viewHierarchy->load(removeMenuEntry, matcherFactory->makeTagMatcher("edit-menu"));
-    viewHierarchy->load(stlMenuEntry, matcherFactory->makeTagMatcher("add-menu"));
-    viewHierarchy->load(gridGeneratorMenuEntry, matcherFactory->makeTagMatcher("add-menu"));
+    viewHierarchy->load(editMenu, viewMatcherFactory->makeMenuBarTypeMatcher());
+    viewHierarchy->load(addMenu, viewMatcherFactory->makeMenuBarTypeMatcher());
+    viewHierarchy->load(undoMenuEntry, viewMatcherFactory->makeTagMatcher("edit-menu"));
+    viewHierarchy->load(redoMenuEntry, viewMatcherFactory->makeTagMatcher("edit-menu"));
+    viewHierarchy->load(removeMenuEntry, viewMatcherFactory->makeTagMatcher("edit-menu"));
+    viewHierarchy->load(stlMenuEntry, viewMatcherFactory->makeTagMatcher("add-menu"));
+    viewHierarchy->load(gridGeneratorMenuEntry, viewMatcherFactory->makeTagMatcher("add-menu"));
 
     return a.exec();
 }
