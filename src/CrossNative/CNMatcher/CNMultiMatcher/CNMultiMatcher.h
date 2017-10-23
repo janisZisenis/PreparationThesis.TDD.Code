@@ -2,6 +2,7 @@
 #define CROSSNATIVE_MULTIMATCHER_H
 
 #include "CrossNative/CNMatcher/CNMatcher.h"
+#include <vector>
 
 class CNIdentifyingVisitor;
 
@@ -18,6 +19,9 @@ protected:
 public:
     virtual bool matches(std::shared_ptr<CNVisitable> visitable) override;
     virtual void add(CNMatcherPtr matcher);
+
+private:
+    std::vector<CNMatcherPtr> matchers;
 };
 
 #endif //CROSSNATIVE_MULTIMATCHER_H

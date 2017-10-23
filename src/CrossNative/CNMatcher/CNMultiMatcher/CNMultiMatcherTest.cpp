@@ -48,3 +48,17 @@ TEST_F(CNMultiMatcherTest, FreshInstance__AddMatchingMatcher__ShouldMatchVisitab
     CNVisitablePtr visitable = makeCNVisitableDummy();
     expectMatchesVisitable(sut, visitable);
 }
+
+TEST_F(CNMultiMatcherTest, AddedNotMatchingMatcher__AddMatchingMatcher__ShouldMatchVisitable) {
+    CNMultiMatcherPtr sut = makeCNMultiMatcher();
+    CNMatcherStubPtr notMatchingMatcher = makeCNMatcherStub();
+    notMatchingMatcher->setIsMatching(false);
+    sut->add(notMatchingMatcher);
+
+    CNMatcherStubPtr matchingMatcher = makeCNMatcherStub();
+    matchingMatcher->setIsMatching(true);
+    sut->add(matchingMatcher);
+
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    expectMatchesVisitable(sut, visitable);
+}
