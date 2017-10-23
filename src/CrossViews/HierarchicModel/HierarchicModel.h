@@ -33,8 +33,8 @@ public:
 
     virtual std::shared_ptr<CNComponent> retrieve(const CNHierarchyIndex& parent) override;
 
-    virtual void attach(std::shared_ptr<HierarchicModelListener> listener);
-    virtual void detach(std::shared_ptr<HierarchicModelListener> listener);
+    virtual void addListener(std::shared_ptr<HierarchicModelListener> listener) override;
+    virtual void removeListener(std::shared_ptr<HierarchicModelListener> listener) override;
 
 private:
     std::shared_ptr<CNHierarchy> hierarchy;

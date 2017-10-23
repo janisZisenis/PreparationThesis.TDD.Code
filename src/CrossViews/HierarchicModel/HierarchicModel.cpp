@@ -16,7 +16,6 @@ void HierarchicModel::add(CNComponentPtr component, const CNHierarchyIndex& pare
 
     notifyInserted(component, parent, hierarchy->getChildCountFor(parent) - 1);
 }
-
 void HierarchicModel::remove(CNComponentPtr component, const CNHierarchyIndex& parent) {
     int childPos = -1;
     for(int i = 0; i < hierarchy->getChildCountFor(parent); i++) {
@@ -35,7 +34,6 @@ void HierarchicModel::insert(CNComponentPtr component, const CNHierarchyIndex& p
 
     notifyInserted(component, parent, childPos);
 }
-
 void HierarchicModel::remove(const CNHierarchyIndex& parent, int childPos) {
     hierarchy->remove(parent, childPos);
 
@@ -47,11 +45,10 @@ CNComponentPtr HierarchicModel::retrieve(const CNHierarchyIndex& index) {
 }
 
 
-void HierarchicModel::attach(HierarchicModelListenerPtr listener) {
+void HierarchicModel::addListener(HierarchicModelListenerPtr listener) {
     listeners.push_back(listener);
 }
-
-void HierarchicModel::detach(HierarchicModelListenerPtr listener) {
+void HierarchicModel::removeListener(HierarchicModelListenerPtr listener) {
     for(int i = 0; i < listeners.size(); i++) {
         if(!listeners[i].lock() || listeners[i].lock() == listener) {
             listeners.erase(listeners.begin() + i);
@@ -65,7 +62,6 @@ void HierarchicModel::notifyInserted(CNVisitablePtr visitable, const CNHierarchy
         if(listeners[i].lock()) listeners[i].lock()->onInsert(visitable, parent, childPos);
         else listeners.erase(listeners.begin() + i--);
 }
-
 void HierarchicModel::notifyRemoved(const CNHierarchyIndex& index) {
     for(int i = 0; i < listeners.size(); i++)
         if(listeners[i].lock()) listeners[i].lock()->onRemove(index);

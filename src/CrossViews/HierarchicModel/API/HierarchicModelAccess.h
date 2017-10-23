@@ -4,6 +4,7 @@
 #include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
 
 class CNComponent;
+class HierarchicModelListener;
 
 class HierarchicModelAccess;
 typedef std::shared_ptr<HierarchicModelAccess> HierarchicModelAccessPtr;
@@ -16,6 +17,9 @@ protected:
 
 public:
     virtual std::shared_ptr<CNComponent> retrieve(const CNHierarchyIndex& index) = 0;
+
+    virtual void addListener(std::shared_ptr<HierarchicModelListener> listener) = 0;
+    virtual void removeListener(std::shared_ptr<HierarchicModelListener> listener) = 0;
 };
 
 #endif //CROSSVIEWS_HIERARCHICMODELACCESS_H

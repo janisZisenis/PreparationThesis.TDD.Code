@@ -37,7 +37,8 @@ protected:
 
 public:
     virtual std::shared_ptr<CNComponent> makeShellComponent();
-    virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent(std::shared_ptr<SelectionModel> selectionModel);
+    virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent(std::shared_ptr<SelectionModel> selectionModel,
+                                                                       std::shared_ptr<HierarchicModelAccess> modelAccess);
     virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent(std::shared_ptr<SelectionModel> selectionModel,
                                                                          std::shared_ptr<HierarchicModelAccess> modelAccess);
 

@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 
     CNComponentPtr shell = componentFactory->makeShellComponent();
     CNComponentPtr menuBar = componentFactory->makeMenuBarComponent();
-    CNComponentPtr solutionExplorer = componentFactory->makeSolutionExplorerComponent(selectionModel);
+    CNComponentPtr solutionExplorer = componentFactory->makeSolutionExplorerComponent(selectionModel, model);
     CNComponentPtr propertiesExplorer = componentFactory->makePropertiesExplorerComponent(selectionModel, model);
     CNComponentPtr editMenu = componentFactory->makeMenuComponent("Edit", "edit-menu");
     CNComponentPtr addMenu = componentFactory->makeMenuComponent("Add", "add-menu");

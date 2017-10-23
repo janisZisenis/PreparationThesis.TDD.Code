@@ -8,6 +8,7 @@
 #include "QtViews/QWidgetBased/QtSolutionExplorer/QtSolutionExplorer.h"
 
 #include "QtViews/QWidgetBased/QtPropertiesExplorer/QtPropertiesExplorer.h"
+#include <CrossViews/HierarchicModel/API/HierarchicModelAccess.h>
 #include <CrossViews/PropertiesExplorerPresenter/PropertiesExplorerPresenter.h>
 
 #include "QtViews/QMenuBarBased/QtMenuBar/QtMenuBar.h"
@@ -56,15 +57,17 @@ CNComponentPtr QtViewComponentFactory::makeShellComponent() {
                                                   QtShellDecomposingVisitor::getNewInstance(shell));
     return makeComposable(shell, composer);
 }
-CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent(SelectionModelPtr selectionModel) {
+CNComponentPtr QtViewComponentFactory::makeSolutionExplorerComponent(SelectionModelPtr selectionModel,
+                                                                     HierarchicModelAccessPtr modelAccess) {
     QtSolutionExplorerPtr view = QtSolutionExplorer::getNewInstance();
     SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
+    modelAccess->addListener(presenter);
     CNComposerPtr composer = CNNullComposer::getNewInstance();
 
     return makeComposable(presenter, composer);
 }
 CNComponentPtr QtViewComponentFactory::makePropertiesExplorerComponent(SelectionModelPtr selectionModel,
-                                                                       std::shared_ptr<HierarchicModelAccess> modelAccess) {
+                                                                       HierarchicModelAccessPtr modelAccess) {
     QtPropertiesExplorerPtr view = QtPropertiesExplorer::getNewInstance();
     PropertiesExplorerPresenterPtr presenter = PropertiesExplorerPresenter::getNewInstance(view, modelAccess, selectionModel);
     CNComposerPtr composer = CNNullComposer::getNewInstance();

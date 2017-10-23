@@ -17,6 +17,9 @@ protected:
 
 public:
     virtual std::shared_ptr<CNComponent> retrieve(const CNHierarchyIndex& index) override { return nullptr; }
+
+    virtual void addListener(std::shared_ptr<CBObserver> observer) override {}
+    virtual void removeListener(std::shared_ptr<CBObserver> observer) override {}
 };
 
 class HierarchicModelAccessStub;
