@@ -10,13 +10,10 @@ CNMultiMatcher::~CNMultiMatcher() {}
 CNMultiMatcher::CNMultiMatcher() {}
 
 bool CNMultiMatcher::matches(CNVisitablePtr visitable) {
-    if(matchers.empty()) return false;
-
+    bool matches = false;
     for(int i = 0; i < matchers.size(); i++)
-        if(matchers[i]->matches(visitable))
-            return true;
-
-    return false;
+        matches = matches || matchers[i]->matches(visitable);
+    return matches;
 }
 
 void CNMultiMatcher::add(CNMatcherPtr matcher) {
