@@ -69,9 +69,11 @@ CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent(Selectio
     return makeComposable(presenter, composer);
 }
 CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent(SelectionModelPtr selectionModel,
-                                                                       HierarchicModelAccessPtr modelAccess) {
-    CocoaPropertiesExplorerPtr view = CocoaPropertiesExplorer::getNewInstance();
+                                                                          HierarchicModelAccessPtr modelAccess,
+                                                                          std::shared_ptr<CocoaPropertiesModelFactory> modelFactory) {
+    CocoaPropertiesExplorerPtr view = CocoaPropertiesExplorer::getNewInstance(modelFactory);
     PropertiesExplorerPresenterPtr presenter = PropertiesExplorerPresenter::getNewInstance(view, modelAccess, selectionModel);
+    selectionModel->attach(presenter);
     CNComposerPtr composer = makeNullComposer();
 
     return makeComposable(presenter, composer);

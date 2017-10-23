@@ -7,6 +7,7 @@
 #include "CocoaViews/NSViewBased/NSViewBased.h"
 
 class CNAcceptor;
+class CocoaPropertiesModelFactory;
 
 @class NSView;
 @class NSTableView;
@@ -18,10 +19,10 @@ typedef std::shared_ptr<CocoaPropertiesExplorer> CocoaPropertiesExplorerPtr;
 
 class CocoaPropertiesExplorer : public NSViewBased, public PropertiesExplorerView, public std::enable_shared_from_this<CocoaPropertiesExplorer> {
 public:
-    static CocoaPropertiesExplorerPtr getNewInstance();
+    static CocoaPropertiesExplorerPtr getNewInstance(std::shared_ptr<CocoaPropertiesModelFactory> modelFactory);
     virtual ~CocoaPropertiesExplorer();
 private:
-    CocoaPropertiesExplorer();
+    CocoaPropertiesExplorer(std::shared_ptr<CocoaPropertiesModelFactory> modelFactory);
 
 public:
     virtual NSView* getNSView() override;
@@ -39,6 +40,7 @@ private:
 
 private:
     std::shared_ptr<CNAcceptor> acceptor;
+    std::shared_ptr<CocoaPropertiesModelFactory> modelFactory;
 
     CocoaPropertiesModel* viewDataSource;
     NSTableView* tableView;

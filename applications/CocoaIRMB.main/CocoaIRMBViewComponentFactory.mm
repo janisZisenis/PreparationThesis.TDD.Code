@@ -24,9 +24,9 @@ std::shared_ptr<CNComponent> CocoaIRMBViewComponentFactory::makeAddSTLFileAction
 }
 
 std::shared_ptr<CNComponent> CocoaIRMBViewComponentFactory::makeGridGeneratorActionComponent(std::shared_ptr<CBCommandInvoker> invoker,
-                                                                                          std::shared_ptr<AddingHierarchicModel> model,
-                                                                                          std::shared_ptr<SelectionModel> selectionModel,
-                                                                                          std::shared_ptr<CNMatcher> matcher) {
+                                                                                             std::shared_ptr<AddingHierarchicModel> model,
+                                                                                             std::shared_ptr<SelectionModel> selectionModel,
+                                                                                             std::shared_ptr<CNMatcher> matcher) {
     std::shared_ptr<MenuEntryView> view = makeMenuEntryView();
     std::shared_ptr<CBTransActionAppearance> appearance = makeFixedTransActionAppearance(true, OFF, "Grid Generator");
     CBTransActionPtr action = AddGridGeneratorAction::getNewInstance(invoker, model, selectionModel, matcher);

@@ -4,11 +4,7 @@
 #include <memory>
 #include <string>
 
-class UnknownTypeException : public std::exception {
-    const char *what() const throw() override {
-        return std::string("The given subtype of the CNVisitable is unknown").c_str();
-    }
-};
+#include "CocoaViews/UnknownTypeException/UnknownTypeException.h"
 
 class CNVisitable;
 @class CocoaSolutionItem;
@@ -24,7 +20,6 @@ protected:
 
 public:
     virtual CocoaSolutionItem* makeCocoaSolutionItem(std::shared_ptr<CNVisitable> visitable) = 0;
-
 };
 
 #endif //COCOAVIEWS_COCOASOLUTIONITEMFACTORY_H

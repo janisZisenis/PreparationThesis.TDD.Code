@@ -11,8 +11,9 @@
 #include <IRMB/IRMBMatcherFactory/IRMBMatcherFactory.h>
 #include "CocoaFileFinder.h"
 #include "CocoaIRMBViewComponentFactory.h"
-#include "CocoaViews/CocoaViewMatcherFactory/CocoaViewMatcherFactory.h"
 #include "CocoaIRMBSolutionItemFactory.h"
+#include "CocoaIRMBPropertiesModelFactory.h"
+#include "CocoaViews/CocoaViewMatcherFactory/CocoaViewMatcherFactory.h"
 
 int main(int argc, char** argv) {
     SelectionModelImpPtr selectionModel = SelectionModelImp::getNewInstance();
@@ -29,7 +30,7 @@ int main(int argc, char** argv) {
     CNComponentPtr shell = componentFactory->makeShellComponent();
     CNComponentPtr menuBar = componentFactory->makeMenuBarComponent();
     CNComponentPtr solutionExplorer = componentFactory->makeSolutionExplorerComponent(selectionModel, model, CocoaIRMBSolutionItemFactory::getNewInstance());
-    CNComponentPtr propertiesExplorer = componentFactory->makePropertiesExplorerComponent(selectionModel, model);
+    CNComponentPtr propertiesExplorer = componentFactory->makePropertiesExplorerComponent(selectionModel, model, CocoaIRMBPropertiesModelFactory::getNewInstance());
     CNComponentPtr editMenu = componentFactory->makeMenuComponent("Edit", "edit-menu");
     CNComponentPtr addMenu = componentFactory->makeMenuComponent("Add", "add-menu");
     CNComponentPtr undoMenuEntry = componentFactory->makeUndoActionComponent(commandStack);

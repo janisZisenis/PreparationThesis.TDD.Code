@@ -5,15 +5,17 @@
 #include <CrossNative/CNVisitor/CNVisitor.h>
 #import "CocoaPropertiesModel.h"
 #import "CocoaPropertiesItem.h"
+#include "CocoaPropertiesModelFactory.h"
 
-CocoaPropertiesExplorerPtr CocoaPropertiesExplorer::getNewInstance()  {
-    return CocoaPropertiesExplorerPtr(new CocoaPropertiesExplorer());
+CocoaPropertiesExplorerPtr CocoaPropertiesExplorer::getNewInstance(CocoaPropertiesModelFactoryPtr modelFactory)  {
+    return CocoaPropertiesExplorerPtr(new CocoaPropertiesExplorer(modelFactory));
 }
 
 CocoaPropertiesExplorer::~CocoaPropertiesExplorer() {}
 
-CocoaPropertiesExplorer::CocoaPropertiesExplorer()
+CocoaPropertiesExplorer::CocoaPropertiesExplorer(CocoaPropertiesModelFactoryPtr modelFactory)
         : acceptor(CNAcceptorImp<CocoaPropertiesExplorerVisitor, CocoaPropertiesExplorer>::getNewInstance()),
+          modelFactory(modelFactory),
           title("Properties Explorer") {
     tableView = [NSTableView new];
 
@@ -74,7 +76,6 @@ CocoaPropertiesExplorerPtr CocoaPropertiesExplorer::me() {
 }
 
 CocoaPropertiesModel *CocoaPropertiesExplorer::makePropertiesModel(CNVisitablePtr visitable) {
-    throw std::logic_error("Function not yet implemented");
-    return nullptr;
+    return modelFactory->makeCocoaPropertiesModel(visitable);
 }
 
