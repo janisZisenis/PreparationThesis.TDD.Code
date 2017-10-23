@@ -131,24 +131,6 @@ CNComponentPtr QtViewComponentFactory::makeRemoveActionComponent(SelectionModelP
     return makeComposable(presenter, composer);
 }
 
-CNComponentPtr QtViewComponentFactory::makeHelloWorldMenuComponent(std::string tag) {
-    QtMenuPtr menu = QtMenu::getNewInstance("HelloWorld!");
-    menu->setTag(tag);
-    CNComposerPtr composer = makeVisitingComposer(QtMenuComposingVisitor::getNewInstance(menu),
-                                                  QtMenuDecomposingVisitor::getNewInstance(menu));
-
-    return makeComposable(menu, composer);
-}
-CNComponentPtr QtViewComponentFactory::makeExampleActionComponent() {
-    MenuEntryViewPtr view = makeMenuEntryView();
-    CBTransActionAppearancePtr appearance = makeFixedTransActionAppearance(false, OFF, "Example");
-    CBNullTransActionPtr action = CBNullTransAction::getNewInstance();
-    MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
-    CNComposerPtr composer = CNNullComposer::getNewInstance();
-
-    return makeComposable(presenter, composer);
-}
-
 CBTransActionAppearancePtr QtViewComponentFactory::makeFixedTransActionAppearance(bool accessibility, CBActionStates state, std::string title) {
     return CBFixedAppearance::getNewInstance(accessibility, state, title);
 }

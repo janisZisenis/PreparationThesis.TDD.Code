@@ -64,15 +64,13 @@ add_subdirectory(applications/CrossViewsTest)
 add_subdirectory(applications/CrossViews)
 
 add_subdirectory(applications/QtViews)
-add_subdirectory(applications/QtApp)
+if(APPLE)
+   add_subdirectory(applications/CocoaViews)
+endif()
 
 add_subdirectory(applications/IRMB)
 
 add_subdirectory(applications/QtIRMB.main)
-
-if(APPLE)
-   add_subdirectory(applications/CocoaViews)
-   add_subdirectory(applications/CocoaApp)
-endif()
+add_subdirectory(applications/CocoaIRMB.main)
 
 add_subdirectory(applications/AllTest)

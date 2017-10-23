@@ -9,6 +9,8 @@
 
 class CNAcceptor;
 
+class CocoaSolutionItemFactory;
+
 @class NSScrollView;
 @class NSView;
 @class NSOutlineView;
@@ -20,10 +22,10 @@ typedef std::shared_ptr<CocoaSolutionExplorer> CocoaSolutionExplorerPtr;
 
 class CocoaSolutionExplorer : public NSViewBased, public SolutionExplorerView, public std::enable_shared_from_this<CocoaSolutionExplorer> {
 public:
-    static CocoaSolutionExplorerPtr getNewInstance();
+    static CocoaSolutionExplorerPtr getNewInstance(std::shared_ptr<CocoaSolutionItemFactory> itemFactory);
     virtual ~CocoaSolutionExplorer();
 private:
-    CocoaSolutionExplorer();
+    CocoaSolutionExplorer(std::shared_ptr<CocoaSolutionItemFactory> itemFactory);
 
 public:
     virtual NSView* getNSView() override;
@@ -37,13 +39,16 @@ public:
     virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex &index, int childPos) override;
 
     void accept(CNVisitorPtr visitor) override;
-
+    virtual void setListener(std::shared_ptr<SolutionExplorerListener> listener) override;
 private:
     CocoaSolutionItem* makeItem(CNVisitablePtr visitable);
 
     CocoaSolutionExplorerPtr me();
 private:
     std::shared_ptr<CNAcceptor> acceptor;
+    std::shared_ptr<CocoaSolutionItemFactory> itemFactory;
+
+    std::shared_ptr<SolutionExplorerListener> listener;
     NSOutlineView* outlineView;
     NSScrollView* scrollView;
 

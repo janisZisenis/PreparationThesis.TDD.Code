@@ -44,7 +44,7 @@ void CocoaMenuItem::setState(const NSControlStateValue state) {
 }
 
 void CocoaMenuItem::setMenuEnabled(bool enabled) {
-    [menuItem setEnabled:NO];
+    [menuItem setEnabled:enabled];
 }
 
 void CocoaMenuItem::connectToMenuItem() {

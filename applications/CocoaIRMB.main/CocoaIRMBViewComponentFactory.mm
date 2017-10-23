@@ -1,15 +1,15 @@
-#include "QtIRMBViewComponentFactory.h"
+#include "CocoaIRMBViewComponentFactory.h"
 #include <IRMB/TransActions/AddSTLFileAction/AddSTLFileAction.h>
 #include <IRMB/TransActions/AddGridGeneratorAction/AddGridGeneratorAction.h>
 #include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
 
-QtIRMBViewComponentFactoryPtr QtIRMBViewComponentFactory::getNewInstance() {
-    return QtIRMBViewComponentFactoryPtr(new QtIRMBViewComponentFactory());
+CocoaIRMBViewComponentFactoryPtr CocoaIRMBViewComponentFactory::getNewInstance() {
+    return CocoaIRMBViewComponentFactoryPtr(new CocoaIRMBViewComponentFactory());
 }
-QtIRMBViewComponentFactory::~QtIRMBViewComponentFactory() {}
-QtIRMBViewComponentFactory::QtIRMBViewComponentFactory() {}
+CocoaIRMBViewComponentFactory::~CocoaIRMBViewComponentFactory() {}
+CocoaIRMBViewComponentFactory::CocoaIRMBViewComponentFactory() {}
 
-std::shared_ptr<CNComponent> QtIRMBViewComponentFactory::makeAddSTLFileActionComponent(std::shared_ptr<CBCommandInvoker> invoker,
+std::shared_ptr<CNComponent> CocoaIRMBViewComponentFactory::makeAddSTLFileActionComponent(std::shared_ptr<CBCommandInvoker> invoker,
                                                           std::shared_ptr<AddingHierarchicModel> model,
                                                           std::shared_ptr<SelectionModel> selectionModel,
                                                           std::shared_ptr<CNMatcher> matcher,
@@ -23,7 +23,7 @@ std::shared_ptr<CNComponent> QtIRMBViewComponentFactory::makeAddSTLFileActionCom
     return makeComposable(presenter, composer);
 }
 
-std::shared_ptr<CNComponent> QtIRMBViewComponentFactory::makeGridGeneratorActionComponent(std::shared_ptr<CBCommandInvoker> invoker,
+std::shared_ptr<CNComponent> CocoaIRMBViewComponentFactory::makeGridGeneratorActionComponent(std::shared_ptr<CBCommandInvoker> invoker,
                                                                                           std::shared_ptr<AddingHierarchicModel> model,
                                                                                           std::shared_ptr<SelectionModel> selectionModel,
                                                                                           std::shared_ptr<CNMatcher> matcher) {

@@ -1,4 +1,4 @@
-#include <QApplication>
+#include <AppKit/AppKit.h>
 
 #include <CodeBaseImp/CBCommandStack/CBCommandStack.h>
 
@@ -9,10 +9,10 @@
 #include <CrossViews/HierarchicModel/HierarchicModel.h>
 
 #include <IRMB/IRMBMatcherFactory/IRMBMatcherFactory.h>
-#include "QtFileFinder.h"
+#include "CocoaFileFinder.h"
 #include "CocoaIRMBViewComponentFactory.h"
-#include "QtViews/QtViewMatcherFactory/QtViewMatcherFactory.h"
-#include "QtIRMBSolutionItemFactory.h"
+#include "CocoaViews/CocoaViewMatcherFactory/CocoaViewMatcherFactory.h"
+#include "CocoaIRMBSolutionItemFactory.h"
 
 int main(int argc, char** argv) {
     SelectionModelImpPtr selectionModel = SelectionModelImp::getNewInstance();
@@ -20,14 +20,15 @@ int main(int argc, char** argv) {
     CBCommandStackPtr commandStack = CBCommandStack::getNewInstance();
 
 
-    QApplication a(argc, argv);
+    NSApplication* application = [NSApplication sharedApplication];
+    [application activateIgnoringOtherApps:true];
 
     IRMBMatcherFactoryPtr irmbMatcherFactory = IRMBMatcherFactory::getNewInstance();
-    QtIRMBViewComponentFactoryPtr componentFactory = CocoaIRMBViewComponentFactory::getNewInstance();
+    CocoaIRMBViewComponentFactoryPtr componentFactory = CocoaIRMBViewComponentFactory::getNewInstance();
 
     CNComponentPtr shell = componentFactory->makeShellComponent();
     CNComponentPtr menuBar = componentFactory->makeMenuBarComponent();
-    CNComponentPtr solutionExplorer = componentFactory->makeSolutionExplorerComponent(selectionModel, model, QtIRMBSolutionItemFactory::getNewInstance());
+    CNComponentPtr solutionExplorer = componentFactory->makeSolutionExplorerComponent(selectionModel, model, CocoaIRMBSolutionItemFactory::getNewInstance());
     CNComponentPtr propertiesExplorer = componentFactory->makePropertiesExplorerComponent(selectionModel, model);
     CNComponentPtr editMenu = componentFactory->makeMenuComponent("Edit", "edit-menu");
     CNComponentPtr addMenu = componentFactory->makeMenuComponent("Add", "add-menu");
@@ -36,17 +37,17 @@ int main(int argc, char** argv) {
     CNComponentPtr removeMenuEntry = componentFactory->makeRemoveActionComponent(selectionModel, model, commandStack);
     CNComponentPtr stlMenuEntry = componentFactory->makeAddSTLFileActionComponent(commandStack, model, selectionModel,
                                                                                   irmbMatcherFactory->makeSTLFileParentTypeMatcher(),
-                                                                                  QtFileFinder::getNewInstance());
+                                                                                  CocoaFileFinder::getNewInstance());
     CNComponentPtr gridGeneratorMenuEntry = componentFactory->makeGridGeneratorActionComponent(commandStack, model, selectionModel,
                                                                                                irmbMatcherFactory->makeGridGeneratorParentTypeMatcher());
 
-    QtViewMatcherFactoryPtr viewMatcherFactory = QtViewMatcherFactory::getNewInstance();
+    CocoaViewMatcherFactoryPtr viewMatcherFactory = CocoaViewMatcherFactory::getNewInstance();
 
     CNDynamicHierarchyPtr viewHierarchy = CNDynamicHierarchy::getNewInstance();
     viewHierarchy->load(shell, viewMatcherFactory->makeTopLevelMatcher());
     viewHierarchy->load(solutionExplorer, viewMatcherFactory->makeShellTypeMatcher());
     viewHierarchy->load(propertiesExplorer, viewMatcherFactory->makeShellTypeMatcher());
-    viewHierarchy->load(menuBar, viewMatcherFactory->makeShellTypeMatcher());
+    viewHierarchy->load(menuBar, viewMatcherFactory->makeTopLevelMatcher());
 
     viewHierarchy->load(editMenu, viewMatcherFactory->makeMenuBarTypeMatcher());
     viewHierarchy->load(addMenu, viewMatcherFactory->makeMenuBarTypeMatcher());
@@ -56,5 +57,6 @@ int main(int argc, char** argv) {
     viewHierarchy->load(stlMenuEntry, viewMatcherFactory->makeTagMatcher("add-menu"));
     viewHierarchy->load(gridGeneratorMenuEntry, viewMatcherFactory->makeTagMatcher("add-menu"));
 
-    return a.exec();
+    [application run];
+    return 0;
 }

@@ -1,7 +1,7 @@
-#ifndef QTIRMB_QTIRMBVIEWCOMPONENTFACTORY_H
-#define QTIRMB_QTIRMBVIEWCOMPONENTFACTORY_H
+#ifndef COCOAIRMB_COCOAIRMBVIEWCOMPONENTFACTORY_H
+#define COCOAIRMB_COCOAIRMBVIEWCOMPONENTFACTORY_H
 
-#include <QtViews/QtViewComponentFactory/QtViewComponentFactory.h>
+#include <CocoaViews/CocoaViewComponentFactory/CocoaViewComponentFactory.h>
 
 class CBCommandInvoker;
 class AddingHierarchicModel;
@@ -9,15 +9,15 @@ class SelectionModel;
 class CNMatcher;
 class FileFinder;
 
-class QtIRMBViewComponentFactory;
-typedef std::shared_ptr<QtIRMBViewComponentFactory> QtIRMBViewComponentFactoryPtr;
+class CocoaIRMBViewComponentFactory;
+typedef std::shared_ptr<CocoaIRMBViewComponentFactory> CocoaIRMBViewComponentFactoryPtr;
 
-class QtIRMBViewComponentFactory : public QtViewComponentFactory {
+class CocoaIRMBViewComponentFactory : public CocoaViewComponentFactory {
 public:
-    static QtIRMBViewComponentFactoryPtr getNewInstance();
-    virtual ~QtIRMBViewComponentFactory();
+    static CocoaIRMBViewComponentFactoryPtr getNewInstance();
+    virtual ~CocoaIRMBViewComponentFactory();
 private:
-    QtIRMBViewComponentFactory();
+    CocoaIRMBViewComponentFactory();
 
 public:
     virtual std::shared_ptr<CNComponent> makeAddSTLFileActionComponent(std::shared_ptr<CBCommandInvoker> invoker,
@@ -32,4 +32,4 @@ public:
                                                                           std::shared_ptr<CNMatcher> matcher);
 };
 
-#endif //QTIRMB_QTIRMBVIEWCOMPONENTFACTORY_H
+#endif //COCOAIRMB_COCOAIRMBVIEWCOMPONENTFACTORY_H

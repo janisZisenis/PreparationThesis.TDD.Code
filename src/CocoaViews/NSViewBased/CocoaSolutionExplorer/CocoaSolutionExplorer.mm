@@ -1,15 +1,18 @@
 #include "CocoaSolutionExplorer.h"
 #include "CocoaSolutionExplorerVisitor.h"
+#include "CocoaSolutionItemFactory.h"
 #include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerListener.h>
 #import "CocoaSolutionModel.h"
 #import "CocoaSolutionItem.h"
 
-CocoaSolutionExplorerPtr CocoaSolutionExplorer::getNewInstance()  {
-    return CocoaSolutionExplorerPtr(new CocoaSolutionExplorer());
+CocoaSolutionExplorerPtr CocoaSolutionExplorer::getNewInstance(std::shared_ptr<CocoaSolutionItemFactory> itemFactory)  {
+    return CocoaSolutionExplorerPtr(new CocoaSolutionExplorer(itemFactory));
 }
 CocoaSolutionExplorer::~CocoaSolutionExplorer() {}
-CocoaSolutionExplorer::CocoaSolutionExplorer()
+CocoaSolutionExplorer::CocoaSolutionExplorer(std::shared_ptr<CocoaSolutionItemFactory> itemFactory)
         : acceptor(CNAcceptorImp<CocoaSolutionExplorerVisitor, CocoaSolutionExplorer>::getNewInstance()),
+          itemFactory(itemFactory),
           title("Solution Explorer") {
     outlineView = [NSOutlineView new];
     viewDataSource = [[CocoaSolutionModel alloc] initWithNSOutlineView:outlineView];
@@ -63,10 +66,16 @@ void CocoaSolutionExplorer::insertItem(CNVisitablePtr visitable, const CNHierarc
     [viewDataSource insertItem:makeItem(visitable) atParentIndex:index atChildPos:childPos];
 }
 
-void CocoaSolutionExplorer::onSelectionChanged() {}
+void CocoaSolutionExplorer::onSelectionChanged() {
+    listener->onSelectionChanged();
+}
 
 void CocoaSolutionExplorer::accept(CNVisitorPtr visitor) {
     acceptor->accept(visitor, me());
+}
+
+void CocoaSolutionExplorer::setListener(SolutionExplorerListenerPtr listener) {
+    this->listener = listener;
 }
 
 CocoaSolutionExplorerPtr CocoaSolutionExplorer::me() {
@@ -74,8 +83,8 @@ CocoaSolutionExplorerPtr CocoaSolutionExplorer::me() {
 }
 
 CocoaSolutionItem *CocoaSolutionExplorer::makeItem(CNVisitablePtr visitable) {
-    throw std::logic_error("Function not yet implemented");
-    return nullptr;
+    return itemFactory->makeCocoaSolutionItem(visitable);
 }
+
 
 

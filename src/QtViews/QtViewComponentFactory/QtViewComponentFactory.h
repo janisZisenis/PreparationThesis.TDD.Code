@@ -52,9 +52,6 @@ public:
                                                                    std::shared_ptr<InsertingHierarchicModel> model,
                                                                    std::shared_ptr<CBCommandInvoker> invoker);
 
-    virtual std::shared_ptr<CNComponent> makeHelloWorldMenuComponent(std::string tag);
-    virtual std::shared_ptr<CNComponent> makeExampleActionComponent();
-
 protected:
     virtual std::shared_ptr<MenuEntryView> makeMenuEntryView();
     virtual std::shared_ptr<MenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<MenuEntryView> view,
