@@ -54,9 +54,6 @@ sharedLibs()
 ###                   SUBDIRECTORIES                      ###
 #############################################################
 
-#add_subdirectory(applications/GridGenerator)
-#add_subdirectory(applications/VTKWriter)
-
 add_subdirectory(applications/CrossNative)
 add_subdirectory(applications/CrossNativeTest)
 
@@ -67,10 +64,5 @@ add_subdirectory(applications/QtViews)
 if(APPLE)
    add_subdirectory(applications/CocoaViews)
 endif()
-
-add_subdirectory(applications/IRMB)
-
-add_subdirectory(applications/QtIRMB.main)
-add_subdirectory(applications/CocoaIRMB.main)
 
 add_subdirectory(applications/AllTest)
