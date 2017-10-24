@@ -54,8 +54,8 @@ sharedLibs()
 ###                   SUBDIRECTORIES                      ###
 #############################################################
 
-add_subdirectory(applications/GridGenerator)
-add_subdirectory(applications/VTKWriter)
+#add_subdirectory(applications/GridGenerator)
+#add_subdirectory(applications/VTKWriter)
 
 add_subdirectory(applications/CrossNative)
 add_subdirectory(applications/CrossNativeTest)
