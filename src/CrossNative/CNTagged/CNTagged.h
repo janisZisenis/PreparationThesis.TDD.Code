@@ -7,7 +7,7 @@
 class CNTagged;
 typedef std::shared_ptr<CNTagged> CNTaggedPtr;
 
-class CNTagged : public CNVisitable {
+class CNTagged : public virtual CNVisitable {
 public:
     virtual ~CNTagged() {}
 protected:

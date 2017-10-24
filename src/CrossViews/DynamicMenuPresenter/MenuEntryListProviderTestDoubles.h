@@ -16,7 +16,7 @@ protected:
     MenuEntryListProviderDummy() {}
 
 public:
-    virtual std::vector< std::shared_ptr<CNVisitable> > getMenuEntryList() {
+    virtual const std::vector< std::shared_ptr<CNVisitable> > getMenuEntryList() {
         return std::vector< std::shared_ptr<CNVisitable> >();
     };
 };
@@ -37,7 +37,7 @@ public:
     virtual void addMenuEntryList(std::shared_ptr<CNVisitable> visitable) {
         visitables.push_back(visitable);
     }
-    virtual std::vector< std::shared_ptr<CNVisitable> > getMenuEntryList() {
+    virtual const std::vector< std::shared_ptr<CNVisitable> > getMenuEntryList() {
         return visitables;
     };
 

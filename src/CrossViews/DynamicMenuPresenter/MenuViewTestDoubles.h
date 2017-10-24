@@ -37,8 +37,17 @@ public:
     virtual bool wasCleared() {
         return cleared;
     }
+
+    virtual void accept(CNVisitorPtr visitor) override {
+        accepted = visitor;
+    }
+    virtual CNVisitorPtr getAccepted() {
+        return accepted;
+    }
+
 private:
     bool cleared = false;
+    CNVisitorPtr accepted;
 };
 
 #endif //CROSSVIEWS_MENUVIEW_TESTDOUBLES_H

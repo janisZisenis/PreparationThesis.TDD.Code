@@ -16,7 +16,7 @@ protected:
     MenuEntryListProvider() {}
 
 public:
-    virtual std::vector< std::shared_ptr<CNVisitable> > getMenuEntryList() = 0;
+    virtual const std::vector< std::shared_ptr<CNVisitable> > getMenuEntryList() = 0;
 };
 
 #endif //CROSSVIEWS_MENUENTRYLISTPROVIDER_H
