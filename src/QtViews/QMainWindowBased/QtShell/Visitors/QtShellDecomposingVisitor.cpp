@@ -4,6 +4,7 @@
 #include "QtViews/QMenuBarBased/QtMenuBar/QtMenuBar.h"
 #include "QtViews/QWidgetBased/QtSolutionExplorer/QtSolutionExplorer.h"
 #include "QtViews/QWidgetBased/QtPropertiesExplorer/QtPropertiesExplorer.h"
+#include "QtViews/QWidgetBased/QtCentral/QtCentral.h"
 
 QtShellDecomposingVisitorPtr QtShellDecomposingVisitor::getNewInstance(QtShellPtr shell) {
     return QtShellDecomposingVisitorPtr(new QtShellDecomposingVisitor(shell));
@@ -21,7 +22,11 @@ void QtShellDecomposingVisitor::visit(QtSolutionExplorerPtr solutionExplorer) {
     shell->removeQtWidget(solutionExplorer, LEFT);
 }
 
-void QtShellDecomposingVisitor::visit(std::shared_ptr<QtPropertiesExplorer> propertiesExplorer) {
+void QtShellDecomposingVisitor::visit(QtPropertiesExplorerPtr propertiesExplorer) {
     shell->removeQtWidget(propertiesExplorer, RIGHT);
+}
+
+void QtShellDecomposingVisitor::visit(QtCentralPtr central) {
+    shell->removeQtWidget(central, CENTRAL);
 }
 

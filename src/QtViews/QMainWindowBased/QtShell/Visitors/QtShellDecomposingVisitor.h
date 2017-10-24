@@ -6,6 +6,7 @@
 #include "QtViews/QMenuBarBased/QtMenuBar/QtMenuBarVisitor.h"
 #include "QtViews/QWidgetBased/QtSolutionExplorer/QtSolutionExplorerVisitor.h"
 #include "QtViews/QWidgetBased/QtPropertiesExplorer/QtPropertiesExplorerVisitor.h"
+#include "QtViews/QWidgetBased/QtCentral/QtCentralVisitor.h"
 
 class QtShell;
 
@@ -16,7 +17,8 @@ class QtShellDecomposingVisitor
         : public CNVisitor,
           public QtMenuBarVisitor,
           public QtSolutionExplorerVisitor,
-          public QtPropertiesExplorerVisitor {
+          public QtPropertiesExplorerVisitor,
+          public QtCentralVisitor {
 
 public:
     static QtShellDecomposingVisitorPtr getNewInstance(std::shared_ptr<QtShell> shell);
@@ -30,6 +32,7 @@ public:
     void visit(std::shared_ptr<QtMenuBar> menuBar) override;
     void visit(std::shared_ptr<QtSolutionExplorer> solutionExplorer) override;
     void visit(std::shared_ptr<QtPropertiesExplorer> propertiesExplorer) override;
+    void visit(std::shared_ptr<QtCentral> central) override;
 };
 
 #endif //QTVIEWS_QTSHELLDECOMPOSINGVISITOR_H
