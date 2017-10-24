@@ -9,15 +9,15 @@ class SelectionModel;
 class CNMatcher;
 class FileFinder;
 
-class CocoaIRMBViewComponentFactory;
-typedef std::shared_ptr<CocoaIRMBViewComponentFactory> QtIRMBViewComponentFactoryPtr;
+class QtIRMBViewComponentFactory;
+typedef std::shared_ptr<QtIRMBViewComponentFactory> QtIRMBViewComponentFactoryPtr;
 
-class CocoaIRMBViewComponentFactory : public QtViewComponentFactory {
+class QtIRMBViewComponentFactory : public QtViewComponentFactory {
 public:
     static QtIRMBViewComponentFactoryPtr getNewInstance();
-    virtual ~CocoaIRMBViewComponentFactory();
+    virtual ~QtIRMBViewComponentFactory();
 private:
-    CocoaIRMBViewComponentFactory();
+    QtIRMBViewComponentFactory();
 
 public:
     virtual std::shared_ptr<CNComponent> makeAddSTLFileActionComponent(std::shared_ptr<CBCommandInvoker> invoker,

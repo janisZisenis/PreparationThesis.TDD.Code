@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 
+class CNMatcherFactory;
 class CNMatcher;
 class CNIdentifyingVisitor;
 
@@ -24,7 +25,10 @@ public:
     virtual std::shared_ptr<CNMatcher> makeTagMatcher(std::string tag);
 private:
     virtual std::shared_ptr<CNMatcher> makeCNNullMatcher();
-    virtual std::shared_ptr<CNMatcher> makeCNVisitingMatcher(std::shared_ptr<CNIdentifyingVisitor> identifying);
+    virtual std::shared_ptr<CNMatcher> makeCNVisitingMatcher(std::shared_ptr<CNIdentifyingVisitor> identifier);
+
+private:
+    std::shared_ptr<CNMatcherFactory> matcherFactory;
 };
 
 #endif //QTVIEWS_QTVIEWMATCHERFACTORY_H

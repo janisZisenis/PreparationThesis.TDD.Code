@@ -25,11 +25,11 @@
 #include <CodeBase/CBTransAction/CBNullTransAction.h>
 #include <CodeBase/CBCommandInvoker/CBCommandInvoker.h>
 #include <CodeBase/CBCommandHistory/CBCommandHistory.h>
-#include <CodeBaseImp/CBTransActionAppearanceImp/CBTransActionAppearanceImp.h>
-#include <CodeBaseImp/CBFixedActionAppearance/CBFixedAppearance.h>
-#include <CodeBaseImp/CBFixedActionAppearance/CBFixedAccessibility.h>
-#include <CodeBaseImp/CBFixedActionAppearance/CBFixedState.h>
-#include <CodeBaseImp/CBFixedActionAppearance/CBFixedTitle.h>
+#include <CodeBaseImp/CBActionAppearance/CBTransActionAppearanceImp/CBTransActionAppearanceImp.h>
+#include <CodeBaseImp/CBActionAppearance/CBFixedActionAppearance/CBFixedAppearance.h>
+#include <CodeBaseImp/CBActionAppearance/CBFixedActionAppearance/CBFixedAccessibility.h>
+#include <CodeBaseImp/CBActionAppearance/CBFixedActionAppearance/CBFixedState.h>
+#include <CodeBaseImp/CBActionAppearance/CBFixedActionAppearance/CBFixedTitle.h>
 
 #include <CodeBaseImp/CBTransActions/UndoAction/Action/CBUndoAction.h>
 #include <CodeBaseImp/CBTransActions/UndoAction/Accessibility/CBUndoDependentAccessibility.h>

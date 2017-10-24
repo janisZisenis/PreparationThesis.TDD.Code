@@ -10,7 +10,7 @@
 
 #include <IRMB/IRMBMatcherFactory/IRMBMatcherFactory.h>
 #include "QtFileFinder.h"
-#include "CocoaIRMBViewComponentFactory.h"
+#include "QtIRMBViewComponentFactory.h"
 #include "QtViews/QtViewMatcherFactory/QtViewMatcherFactory.h"
 #include "QtIRMBSolutionItemFactory.h"
 #include "QtIRMBPropertiesModelFactory.h"
@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
     QApplication a(argc, argv);
 
     IRMBMatcherFactoryPtr irmbMatcherFactory = IRMBMatcherFactory::getNewInstance();
-    QtIRMBViewComponentFactoryPtr componentFactory = CocoaIRMBViewComponentFactory::getNewInstance();
+    QtIRMBViewComponentFactoryPtr componentFactory = QtIRMBViewComponentFactory::getNewInstance();
 
     CNComponentPtr shell = componentFactory->makeShellComponent();
     CNComponentPtr menuBar = componentFactory->makeMenuBarComponent();

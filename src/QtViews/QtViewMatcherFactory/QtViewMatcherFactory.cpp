@@ -1,6 +1,6 @@
 #include "QtViewMatcherFactory.h"
-#include <CrossNative/CNMatcher/CNVisitingMatcher/CNVisitingMatcher.h>
-#include <CrossNative/CNMatcher/CNNullMatcher.h>
+#include <CrossNative/CNMatcherFactory/CNMatcherFactory.h>
+#include <CrossNative/CNMatcher/CNMatcher.h>
 
 #include <CrossNative/CNTagged/Visitors/CNTagIdentifyingVisitor.h>
 #include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellTypeIdentifyingVisitor.h"
@@ -10,7 +10,7 @@ QtViewMatcherFactoryPtr QtViewMatcherFactory::getNewInstance() {
     return QtViewMatcherFactoryPtr(new QtViewMatcherFactory());
 }
 QtViewMatcherFactory::~QtViewMatcherFactory() {}
-QtViewMatcherFactory::QtViewMatcherFactory() {}
+QtViewMatcherFactory::QtViewMatcherFactory() : matcherFactory(CNMatcherFactory::getNewInstance()) {}
 
 CNMatcherPtr QtViewMatcherFactory::makeTopLevelMatcher() {
     return makeCNNullMatcher();
@@ -27,15 +27,14 @@ CNMatcherPtr QtViewMatcherFactory::makeMenuBarTypeMatcher() {
 }
 
 CNMatcherPtr QtViewMatcherFactory::makeTagMatcher(std::string tag) {
-    CNIdentifyingVisitorPtr visitor = CNTagIdentifyingVisitor::getNewInstance(tag);
-    return makeCNVisitingMatcher(visitor);
+    return matcherFactory->makeCNTagMatcher(tag);
 }
 
 CNMatcherPtr QtViewMatcherFactory::makeCNNullMatcher() {
-    return CNNullMatcher::getNewInstance();
+    return matcherFactory->makeCNNullMatcher();
 }
 
-CNMatcherPtr QtViewMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifying) {
-    return CNVisitingMatcher::getNewInstance(identifying);
+CNMatcherPtr QtViewMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifier) {
+    return matcherFactory->makeCNVisitingMatcher(identifier);
 }
 

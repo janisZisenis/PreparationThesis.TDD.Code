@@ -2,6 +2,7 @@
 #include "CrossNative/CNMatcher/CNNullMatcher.h"
 #include "CrossNative/CNMatcher/CNVisitingMatcher/CNVisitingMatcher.h"
 #include "CrossNative/CNMatcher/CNMultiMatcher/CNMultiMatcher.h"
+#include "CrossNative/CNTagged/Visitors/CNTagIdentifyingVisitor.h"
 
 CNMatcherFactoryPtr CNMatcherFactory::getNewInstance() {
     return CNMatcherFactoryPtr(new CNMatcherFactory());
@@ -13,7 +14,7 @@ CNMatcherPtr CNMatcherFactory::makeCNNullMatcher() {
     return CNNullMatcher::getNewInstance();
 }
 
-CNMatcherPtr CNMatcherFactory::makeCNVisitingMatcher(std::shared_ptr<CNIdentifyingVisitor> identifier) {
+CNMatcherPtr CNMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifier) {
     return CNVisitingMatcher::getNewInstance(identifier);
 }
 
@@ -24,4 +25,9 @@ CNMatcherPtr CNMatcherFactory::makeCNMultiMatcher(std::vector<CNMatcherPtr> matc
         matcher->add(matchers[i]);
 
     return matcher;
+}
+
+CNMatcherPtr CNMatcherFactory::makeCNTagMatcher(std::string tag) {
+    CNIdentifyingVisitorPtr tagIdentifier = CNTagIdentifyingVisitor::getNewInstance(tag);
+    return makeCNVisitingMatcher(tagIdentifier);
 }
