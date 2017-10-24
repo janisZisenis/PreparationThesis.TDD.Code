@@ -3,6 +3,7 @@
 
 #include "CocoaViews/NSViewBased/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
 #include "CocoaViews/NSViewBased/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
+#include "CocoaViews/NSViewBased/CocoaCentral/CocoaCentral.h"
 
 CocoaShellComposingVisitorPtr CocoaShellComposingVisitor::getNewInstance(CocoaShellPtr shell) {
     return CocoaShellComposingVisitorPtr(new CocoaShellComposingVisitor(shell));
@@ -18,5 +19,9 @@ void CocoaShellComposingVisitor::visit(CocoaSolutionExplorerPtr solutionExplorer
 
 void CocoaShellComposingVisitor::visit(CocoaPropertiesExplorerPtr propertiesExplorer) {
     shell->addNSView(propertiesExplorer, RIGHT);
+}
+
+void CocoaShellComposingVisitor::visit(CocoaCentralPtr central) {
+    shell->addNSView(central, CENTRAL);
 }
 

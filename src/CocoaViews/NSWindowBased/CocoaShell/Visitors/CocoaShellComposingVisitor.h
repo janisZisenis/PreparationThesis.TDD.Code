@@ -5,6 +5,7 @@
 
 #include "CocoaViews/NSViewBased/CocoaSolutionExplorer/CocoaSolutionExplorerVisitor.h"
 #include "CocoaViews/NSViewBased/CocoaPropertiesExplorer/CocoaPropertiesExplorerVisitor.h"
+#include "CocoaViews/NSViewBased/CocoaCentral/CocoaCentralVisitor.h"
 
 class CocoaShell;
 
@@ -14,7 +15,8 @@ typedef std::shared_ptr<CocoaShellComposingVisitor> CocoaShellComposingVisitorPt
 class CocoaShellComposingVisitor
         : public CNVisitor,
           public CocoaPropertiesExplorerVisitor,
-          public CocoaSolutionExplorerVisitor {
+          public CocoaSolutionExplorerVisitor,
+          public CocoaCentralVisitor {
 public:
     static CocoaShellComposingVisitorPtr getNewInstance(std::shared_ptr<CocoaShell> shell);
     virtual ~CocoaShellComposingVisitor();
@@ -24,6 +26,7 @@ private:
 public:
     void visit(std::shared_ptr<CocoaSolutionExplorer> solutionExplorer) override;
     void visit(std::shared_ptr<CocoaPropertiesExplorer> propertiesExplorer) override;
+    void visit(std::shared_ptr<CocoaCentral> central) override;
 
 private:
     std::shared_ptr<CocoaShell> shell;
