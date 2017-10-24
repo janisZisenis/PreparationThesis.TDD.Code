@@ -42,7 +42,6 @@
 #include <CrossViews/SelectionModel/SelectionModel.h>
 #include <CrossViews/TransActions/RemoveAction/RemoveAction.h>
 #include <CrossViews/TransActions/RemoveAction/Appearance/SelectionDependentAccessibility.h>
-#include <CodeBaseImp/CBActionAppearanceFactory/CBActionAppearanceFactory.h>
 
 QtViewComponentFactoryPtr QtViewComponentFactory::getNewInstance() {
     return QtViewComponentFactoryPtr(new QtViewComponentFactory());

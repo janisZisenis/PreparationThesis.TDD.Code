@@ -1,8 +1,7 @@
 #include "CocoaViewMatcherFactory.h"
-#include <CrossNative/CNMatcher/CNVisitingMatcher/CNVisitingMatcher.h>
-#include <CrossNative/CNMatcher/CNNullMatcher.h>
+#include <CrossNative/CNMatcherFactory/CNMatcherFactory.h>
+#include <CrossNative/CNMatcher/CNMatcher.h>
 
-#include <CrossNative/CNTagged/Visitors/CNTagIdentifyingVisitor.h>
 #include "CocoaViews/NSWindowBased/CocoaShell/Visitors/CocoaShellTypeIdentifyingVisitor.h"
 #include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarTypeIdentifyingVisitor.h"
 
@@ -10,7 +9,7 @@ CocoaViewMatcherFactoryPtr CocoaViewMatcherFactory::getNewInstance() {
     return CocoaViewMatcherFactoryPtr(new CocoaViewMatcherFactory());
 }
 CocoaViewMatcherFactory::~CocoaViewMatcherFactory() {}
-CocoaViewMatcherFactory::CocoaViewMatcherFactory() {}
+CocoaViewMatcherFactory::CocoaViewMatcherFactory() : matcherFactory(CNMatcherFactory::getNewInstance()) {}
 
 CNMatcherPtr CocoaViewMatcherFactory::makeTopLevelMatcher() {
     return makeCNNullMatcher();
@@ -27,14 +26,13 @@ CNMatcherPtr CocoaViewMatcherFactory::makeMenuBarTypeMatcher() {
 }
 
 CNMatcherPtr CocoaViewMatcherFactory::makeTagMatcher(std::string tag) {
-    CNIdentifyingVisitorPtr visitor = CNTagIdentifyingVisitor::getNewInstance(tag);
-    return makeCNVisitingMatcher(visitor);
+    return matcherFactory->makeCNTagMatcher(tag);
 }
 
 CNMatcherPtr CocoaViewMatcherFactory::makeCNNullMatcher() {
-    return CNNullMatcher::getNewInstance();
+    return matcherFactory->makeCNNullMatcher();
 }
 
-CNMatcherPtr CocoaViewMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifying) {
-    return CNVisitingMatcher::getNewInstance(identifying);
+CNMatcherPtr CocoaViewMatcherFactory::makeCNVisitingMatcher(CNIdentifyingVisitorPtr identifier) {
+    return matcherFactory->makeCNVisitingMatcher(identifier);
 }

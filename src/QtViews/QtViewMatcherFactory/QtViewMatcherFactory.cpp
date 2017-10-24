@@ -2,7 +2,6 @@
 #include <CrossNative/CNMatcherFactory/CNMatcherFactory.h>
 #include <CrossNative/CNMatcher/CNMatcher.h>
 
-#include <CrossNative/CNTagged/Visitors/CNTagIdentifyingVisitor.h>
 #include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellTypeIdentifyingVisitor.h"
 #include "QtViews/QMenuBarBased/QtMenuBar/Visitors/QtMenuBarTypeIdentifyingVisitor.h"
 
