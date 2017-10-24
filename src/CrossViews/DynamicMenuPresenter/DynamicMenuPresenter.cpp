@@ -14,7 +14,9 @@ DynamicMenuPresenter::DynamicMenuPresenter(MenuViewPtr view,
                                            MenuEntryListProviderPtr listProvider)
         : view(view), composer(composer), listProvider(listProvider) {}
 
-void DynamicMenuPresenter::accept(CNVisitorPtr visitor) {}
+void DynamicMenuPresenter::accept(CNVisitorPtr visitor) {
+    view->accept(visitor);
+}
 
 void DynamicMenuPresenter::update() {
     view->clear();
