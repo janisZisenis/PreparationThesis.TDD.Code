@@ -36,3 +36,4 @@ TEST_F(DynamicMenuPresenterTest, FreshInstance__Update__ShouldClearTheMenuView) 
 
     expectMenuViewWasCleared(view);
 }
+

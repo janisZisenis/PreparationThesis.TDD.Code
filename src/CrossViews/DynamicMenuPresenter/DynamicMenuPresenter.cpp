@@ -12,5 +12,5 @@ DynamicMenuPresenter::DynamicMenuPresenter(MenuViewPtr view, CNComposerPtr compo
 void DynamicMenuPresenter::accept(CNVisitorPtr visitor) {}
 
 void DynamicMenuPresenter::update() {
-
+    view->clear();
 }
