@@ -21,7 +21,7 @@ private:
 public:
     virtual std::shared_ptr<CNMatcher> makeCNNullMatcher();
     virtual std::shared_ptr<CNMatcher> makeCNVisitingMatcher(std::shared_ptr<CNIdentifyingVisitor> identifier);
-    virtual std::shared_ptr<CNMatcher> makeCNVisitingMatcher(std::vector< std::shared_ptr<CNMatcher> > matchers);
+    virtual std::shared_ptr<CNMatcher> makeCNMultiMatcher(std::vector< std::shared_ptr<CNMatcher> > matchers);
 };
 
 

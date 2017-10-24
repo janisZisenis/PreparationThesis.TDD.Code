@@ -17,7 +17,7 @@ CNMatcherPtr CNMatcherFactory::makeCNVisitingMatcher(std::shared_ptr<CNIdentifyi
     return CNVisitingMatcher::getNewInstance(identifier);
 }
 
-CNMatcherPtr CNMatcherFactory::makeCNVisitingMatcher(std::vector<CNMatcherPtr> matchers) {
+CNMatcherPtr CNMatcherFactory::makeCNMultiMatcher(std::vector<CNMatcherPtr> matchers) {
     CNMultiMatcherPtr matcher = CNMultiMatcher::getNewInstance();
 
     for(int i = 0; i < matchers.size(); i++)

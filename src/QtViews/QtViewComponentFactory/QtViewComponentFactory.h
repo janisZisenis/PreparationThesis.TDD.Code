@@ -5,6 +5,9 @@
 #include <string>
 #include <CodeBase/CBTransActionAppearance/CBActionState.h>
 
+class CNComponentFactory;
+class CNComposerFactory;
+
 class CBTransAction;
 class CBTransActionAppearance;
 class CBActionAccessibility;
@@ -74,6 +77,10 @@ protected:
     virtual std::shared_ptr<CNComponent> makeComposable(std::shared_ptr<CNVisitable> visitable, std::shared_ptr<CNComposer> composer);
     virtual std::shared_ptr<CNComposer> makeVisitingComposer(std::shared_ptr<CNVisitor> composing, std::shared_ptr<CNVisitor> decomposing);
     virtual std::shared_ptr<CNComposer> makeNullComposer();
+
+private:
+    std::shared_ptr<CNComponentFactory> componentFactory;
+    std::shared_ptr<CNComposerFactory> composerFactory;
 };
 
 #endif //QTVIEWS_QTVIEWCOMPONENTFACTORY_H

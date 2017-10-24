@@ -1,5 +1,10 @@
 #include "QtViewComponentFactory.h"
 
+#include <CrossNative/CNComponentFactory/CNComponentFactory.h>
+#include <CrossNative/CNComposerFactory/CNComposerFactory.h>
+#include <CrossNative/CNComponent/CNComponent.h>
+#include <CrossNative/CNComposer/CNComposer.h>
+
 #include "QtViews/QMainWindowBased/QtShell/QtShell.h"
 #include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellComposingVisitor.h"
 #include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellDecomposingVisitor.h"
@@ -41,15 +46,13 @@
 #include <CrossViews/TransActions/RemoveAction/RemoveAction.h>
 #include <CrossViews/TransActions/RemoveAction/Appearance/SelectionDependentAccessibility.h>
 
-#include <CrossNative/CNComponent/CNComposable/CNComposable.h>
-#include <CrossNative/CNComposer/CNVisitingComposer/CNVisitingComposer.h>
-#include <CrossNative/CNComposer/CNNullComposer.h>
-
 QtViewComponentFactoryPtr QtViewComponentFactory::getNewInstance() {
     return QtViewComponentFactoryPtr(new QtViewComponentFactory());
 }
 QtViewComponentFactory::~QtViewComponentFactory() {}
-QtViewComponentFactory::QtViewComponentFactory() {}
+QtViewComponentFactory::QtViewComponentFactory()
+        : componentFactory(CNComponentFactory::getNewInstance()),
+          composerFactory(CNComposerFactory::getNewInstance()) {}
 
 CNComponentPtr QtViewComponentFactory::makeShellComponent() {
     QtShellPtr shell = QtShell::getNewInstance();
@@ -164,13 +167,13 @@ CBActionTitlePtr QtViewComponentFactory::makeFixedActionTitle(std::string title)
 
 
 CNComponentPtr QtViewComponentFactory::makeComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
-    return CNComposable::getNewInstance(visitable, composer);
+    return componentFactory->makeCNComposable(visitable, composer);
 }
 CNComposerPtr QtViewComponentFactory::makeVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing) {
-    return CNVisitingComposer::getNewInstance(composing, decomposing);
+    return composerFactory->makeCNVisitingComposer(composing, decomposing);
 }
 CNComposerPtr QtViewComponentFactory::makeNullComposer() {
-    return CNNullComposer::getNewInstance();
+    return composerFactory->makeCNNullComposer();
 }
 
 MenuEntryViewPtr QtViewComponentFactory::makeMenuEntryView() {
@@ -178,8 +181,8 @@ MenuEntryViewPtr QtViewComponentFactory::makeMenuEntryView() {
 }
 
 MenuEntryPresenterPtr QtViewComponentFactory::makeMenuEntryPresenter(MenuEntryViewPtr view,
-                                                                                   CBTransActionAppearancePtr appearance,
-                                                                                   CBTransActionPtr action) {
+                                                                     CBTransActionAppearancePtr appearance,
+                                                                     CBTransActionPtr action) {
     MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
     view->setListener(presenter);
     return presenter;
