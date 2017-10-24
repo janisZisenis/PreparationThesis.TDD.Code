@@ -3,6 +3,9 @@
 #include <IRMB/TransActions/AddGridGeneratorAction/AddGridGeneratorAction.h>
 #include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
 
+#include <CrossViews/TransActions/AddAction/AddAction.h>
+#include <IRMB/GridGenerator/CreateStrategy/CreateGridGeneratorStrategy.h>
+
 QtIRMBViewComponentFactoryPtr QtIRMBViewComponentFactory::getNewInstance() {
     return QtIRMBViewComponentFactoryPtr(new QtIRMBViewComponentFactory());
 }
@@ -29,7 +32,7 @@ std::shared_ptr<CNComponent> QtIRMBViewComponentFactory::makeGridGeneratorAction
                                                                                           std::shared_ptr<CNMatcher> matcher) {
     std::shared_ptr<MenuEntryView> view = makeMenuEntryView();
     std::shared_ptr<CBTransActionAppearance> appearance = makeCBFixedTransActionAppearance(true, OFF, "Grid Generator");
-    CBTransActionPtr action = AddGridGeneratorAction::getNewInstance(invoker, model, selectionModel, matcher);
+    CBTransActionPtr action = AddAction::getNewInstance(invoker, model, selectionModel, CreateGridGeneratorStrategy::getNewInstance(), matcher);
     std::shared_ptr<MenuEntryPresenter> presenter = makeMenuEntryPresenter(view, appearance, action);
     std::shared_ptr<CNComposer> composer = makeCNNullComposer();
 
