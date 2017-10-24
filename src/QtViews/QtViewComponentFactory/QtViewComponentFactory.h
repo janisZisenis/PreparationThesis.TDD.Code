@@ -28,8 +28,13 @@ class InsertingHierarchicModel;
 class QtSolutionItemFactory;
 class QtPropertiesModelFactory;
 
-class MenuEntryView;
+class DynamicMenuPresenter;
+class MenuEntryListProvider;
+class MenuView;
+class QtMenu;
 class MenuEntryPresenter;
+class MenuEntryView;
+class QtAction;
 
 class QtViewComponentFactory;
 typedef std::shared_ptr<QtViewComponentFactory> QtViewComponentFactoryPtr;
@@ -59,10 +64,14 @@ public:
                                                                    std::shared_ptr<CBCommandInvoker> invoker);
 
 protected:
-    virtual std::shared_ptr<MenuEntryView> makeMenuEntryView();
+    virtual std::shared_ptr<QtMenu> makeQtMenu(std::string title, std::string tag);
+    virtual std::shared_ptr<QtAction> makeQtAction();
     virtual std::shared_ptr<MenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<MenuEntryView> view,
                                                                        std::shared_ptr<CBTransActionAppearance> appearance,
                                                                        std::shared_ptr<CBTransAction> action);
+    virtual std::shared_ptr<DynamicMenuPresenter> makeDynamicMenuPresenter(std::shared_ptr<MenuView> view,
+                                                                  std::shared_ptr<CNComposer> composer,
+                                                                  std::shared_ptr<MenuEntryListProvider> listProvider);
 
     virtual std::shared_ptr<CBTransActionAppearance> makeCBTransActionAppearance(std::shared_ptr<CBActionAccessibility> accessibility,
                                                                                std::shared_ptr<CBActionState> state,

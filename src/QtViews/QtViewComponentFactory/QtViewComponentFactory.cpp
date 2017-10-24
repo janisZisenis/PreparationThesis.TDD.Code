@@ -23,6 +23,7 @@
 #include "QtViews/QMenuBarBased/QtMenuBar/Visitors/QtMenuBarComposingVisitor.h"
 #include "QtViews/QMenuBarBased/QtMenuBar/Visitors/QtMenuBarDecomposingVisitor.h"
 
+#include <CrossViews/DynamicMenuPresenter/DynamicMenuPresenter.h>
 #include "QtViews/QActionBased/QtMenu/QtMenu.h"
 #include "QtViews/QActionBased/QtMenu/Visitors/QtMenuComposingVisitor.h"
 #include "QtViews/QActionBased/QtMenu/Visitors/QtMenuDecomposingVisitor.h"
@@ -88,15 +89,14 @@ CNComponentPtr QtViewComponentFactory::makeMenuBarComponent() {
     return makeCNComposable(menuBar, composer);
 }
 CNComponentPtr QtViewComponentFactory::makeMenuComponent(std::string title, std::string tag) {
-    QtMenuPtr menu = QtMenu::getNewInstance(title);
-    menu->setTag(tag);
-    CNComposerPtr composer = makeCNVisitingComposer(QtMenuComposingVisitor::getNewInstance(menu),
-                                                    QtMenuDecomposingVisitor::getNewInstance(menu));
+    QtMenuPtr view = makeQtMenu(title, tag);
+    CNComposerPtr composer = makeCNVisitingComposer(QtMenuComposingVisitor::getNewInstance(view),
+                                                    QtMenuDecomposingVisitor::getNewInstance(view));
 
-    return makeCNComposable(menu, composer);
+    return makeCNComposable(view, composer);
 }
 CNComponentPtr QtViewComponentFactory::makeUndoActionComponent(CBCommandHistoryPtr commandHistory) {
-    MenuEntryViewPtr view = makeMenuEntryView();
+    QtActionPtr view = makeQtAction();
     CBTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeUndoDependenAccessibility(commandHistory),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Undo"));
@@ -108,7 +108,7 @@ CNComponentPtr QtViewComponentFactory::makeUndoActionComponent(CBCommandHistoryP
     return makeCNComposable(presenter, composer);
 }
 CNComponentPtr QtViewComponentFactory::makeRedoActionComponent(CBCommandHistoryPtr commandHistory) {
-    MenuEntryViewPtr view = makeMenuEntryView();
+    QtActionPtr view = makeQtAction();
     CBTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeRedoDependenAccessibility(commandHistory),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Redo"));
@@ -122,7 +122,7 @@ CNComponentPtr QtViewComponentFactory::makeRedoActionComponent(CBCommandHistoryP
 CNComponentPtr QtViewComponentFactory::makeRemoveActionComponent(SelectionModelPtr selectionModel,
                                                                  std::shared_ptr<InsertingHierarchicModel> model,
                                                                  CBCommandInvokerPtr invoker) {
-    MenuEntryViewPtr view = makeMenuEntryView();
+    QtActionPtr view = makeQtAction();
     CBTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeSelectionDependenAccessibility(selectionModel),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Remove"));
@@ -172,7 +172,13 @@ CNComposerPtr QtViewComponentFactory::makeCNNullComposer() {
     return composerFactory->makeCNNullComposer();
 }
 
-MenuEntryViewPtr QtViewComponentFactory::makeMenuEntryView() {
+QtMenuPtr QtViewComponentFactory::makeQtMenu(std::string title, std::string tag) {
+    QtMenuPtr menu = QtMenu::getNewInstance(title);
+    menu->setTag(tag);
+    return menu;
+}
+
+QtActionPtr QtViewComponentFactory::makeQtAction() {
     return QtAction::getNewInstance();
 }
 
@@ -184,3 +190,8 @@ MenuEntryPresenterPtr QtViewComponentFactory::makeMenuEntryPresenter(MenuEntryVi
     return presenter;
 }
 
+DynamicMenuPresenterPtr QtViewComponentFactory::makeDynamicMenuPresenter(MenuViewPtr view,
+                                                                std::shared_ptr<CNComposer> composer,
+                                                                std::shared_ptr<MenuEntryListProvider> listProvider) {
+    return DynamicMenuPresenter::getNewInstance(view, composer, listProvider);
+}

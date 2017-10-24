@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <CrossNative/CNTagged/CNTagged.h>
+#include <CrossViews/DynamicMenuPresenter/MenuView.h>
 #include "QtViews/QActionBased/QActionBased.h"
 
 class CNAcceptor;
@@ -16,7 +17,7 @@ class QMenu;
 class QtMenu;
 typedef std::shared_ptr<QtMenu> QtMenuPtr;
 
-class QtMenu : public QActionBased, public CNTagged, public std::enable_shared_from_this<QtMenu> {
+class QtMenu : public QActionBased, public CNTagged, public MenuView, public std::enable_shared_from_this<QtMenu> {
 public:
     static QtMenuPtr getNewInstance(std::string title);
     virtual ~QtMenu();
@@ -28,6 +29,7 @@ public:
 
     virtual void addQAction(QActionBasedPtr qActionBased);
     virtual void removeQAction(QActionBasedPtr qActionBased);
+    virtual void clear() override;
 
     virtual void accept(CNVisitorPtr visitor) override;
     virtual void setTag(std::string tag);
