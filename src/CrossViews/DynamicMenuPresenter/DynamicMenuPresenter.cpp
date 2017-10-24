@@ -1,13 +1,18 @@
 #include "DynamicMenuPresenter.h"
 #include "MenuView.h"
+#include "MenuEntryListProvider.h"
 #include <CrossNative/CNComposer/CNComposer.h>
 
-DynamicMenuPresenterPtr DynamicMenuPresenter::getNewInstance(MenuViewPtr view, CNComposerPtr composer) {
-    return DynamicMenuPresenterPtr(new DynamicMenuPresenter(view, composer));
+DynamicMenuPresenterPtr DynamicMenuPresenter::getNewInstance(MenuViewPtr view,
+                                                             CNComposerPtr composer,
+                                                             MenuEntryListProviderPtr listProvider) {
+    return DynamicMenuPresenterPtr(new DynamicMenuPresenter(view, composer, listProvider));
 }
 DynamicMenuPresenter::~DynamicMenuPresenter() {}
-DynamicMenuPresenter::DynamicMenuPresenter(MenuViewPtr view, CNComposerPtr composer)
-        : view(view), composer(composer) {}
+DynamicMenuPresenter::DynamicMenuPresenter(MenuViewPtr view,
+                                           CNComposerPtr composer,
+                                           MenuEntryListProviderPtr listProvider)
+        : view(view), composer(composer), listProvider(listProvider) {}
 
 void DynamicMenuPresenter::accept(CNVisitorPtr visitor) {}
 
