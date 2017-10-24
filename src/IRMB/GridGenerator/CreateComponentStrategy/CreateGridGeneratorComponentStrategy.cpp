@@ -1,17 +1,17 @@
-#include "CreateGridGeneratorStrategy.h"
+#include "CreateGridGeneratorComponentStrategy.h"
 #include "IRMB/GridGenerator/Implementation/GridGeneratorImp.h"
 #include "IRMB/GridGenerator/Visitors/GridGeneratorComposingVisitor.h"
 #include "IRMB/GridGenerator/Visitors/GridGeneratorDecomposingVisitor.h"
 #include <CrossNative/CNComponent/CNComposable/CNComposable.h>
 #include <CrossNative/CNComposer/CNVisitingComposer/CNVisitingComposer.h>
 
-CreateGridGeneratorStrategyPtr CreateGridGeneratorStrategy::getNewInstance() {
-    return CreateGridGeneratorStrategyPtr(new CreateGridGeneratorStrategy());
+CreateGridGeneratorComponentStrategyPtr CreateGridGeneratorComponentStrategy::getNewInstance() {
+    return CreateGridGeneratorComponentStrategyPtr(new CreateGridGeneratorComponentStrategy());
 }
-CreateGridGeneratorStrategy::~CreateGridGeneratorStrategy() {}
-CreateGridGeneratorStrategy::CreateGridGeneratorStrategy() {}
+CreateGridGeneratorComponentStrategy::~CreateGridGeneratorComponentStrategy() {}
+CreateGridGeneratorComponentStrategy::CreateGridGeneratorComponentStrategy() {}
 
-CNComponentPtr CreateGridGeneratorStrategy::createComponent() {
+CNComponentPtr CreateGridGeneratorComponentStrategy::createComponent() {
     static int i;
 
     GridGeneratorPtr gridGenerator = GridGeneratorImp::getNewInstance("MyFancyGridGenerator (" + std::to_string(i++) + ")", 10, 10, 10, 1, "D3Q7");

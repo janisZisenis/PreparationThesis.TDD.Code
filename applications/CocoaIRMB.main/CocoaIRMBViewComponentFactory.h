@@ -23,8 +23,7 @@ public:
     virtual std::shared_ptr<CNComponent> makeAddSTLFileActionComponent(std::shared_ptr<CBCommandInvoker> invoker,
                                                                        std::shared_ptr<AddingHierarchicModel> model,
                                                                        std::shared_ptr<SelectionModel> selectionModel,
-                                                                       std::shared_ptr<CNMatcher> matcher,
-                                                                       std::shared_ptr<FileFinder> fileFinder);
+                                                                       std::shared_ptr<CNMatcher> matcher);
 
     virtual std::shared_ptr<CNComponent> makeGridGeneratorActionComponent(std::shared_ptr<CBCommandInvoker> invoker,
                                                                           std::shared_ptr<AddingHierarchicModel> model,

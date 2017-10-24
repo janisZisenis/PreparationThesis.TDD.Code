@@ -36,8 +36,7 @@ int main(int argc, char** argv) {
     CNComponentPtr redoMenuEntry = componentFactory->makeRedoActionComponent(commandStack);
     CNComponentPtr removeMenuEntry = componentFactory->makeRemoveActionComponent(selectionModel, model, commandStack);
     CNComponentPtr stlMenuEntry = componentFactory->makeAddSTLFileActionComponent(commandStack, model, selectionModel,
-                                                                                  irmbMatcherFactory->makeSTLFileParentTypeMatcher(),
-                                                                                  QtFileFinder::getNewInstance());
+                                                                                  irmbMatcherFactory->makeSTLFileParentTypeMatcher());
     CNComponentPtr gridGeneratorMenuEntry = componentFactory->makeGridGeneratorActionComponent(commandStack, model, selectionModel,
                                                                                                irmbMatcherFactory->makeGridGeneratorParentTypeMatcher());
 
