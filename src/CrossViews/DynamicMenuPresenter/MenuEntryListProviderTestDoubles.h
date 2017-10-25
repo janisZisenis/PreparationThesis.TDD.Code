@@ -34,8 +34,8 @@ protected:
     MenuEntryListProviderStub() {}
 
 public:
-    virtual void addMenuEntryList(std::shared_ptr<CNVisitable> visitable) {
-        visitables.push_back(visitable);
+    virtual void setMenuEntryList(std::vector< std::shared_ptr<CNVisitable> > visitables) {
+        this->visitables = visitables;
     }
     virtual const std::vector< std::shared_ptr<CNVisitable> > getMenuEntryList() {
         return visitables;

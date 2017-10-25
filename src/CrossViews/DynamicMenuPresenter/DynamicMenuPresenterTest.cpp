@@ -38,17 +38,18 @@ protected:
         return MenuEntryListProviderStub::getNewInstance();
     }
 
-    virtual void expectMenuViewWasCleared(MenuViewSpyPtr view) {
-        bool actual = view->wasCleared();
-
-        std::string errorMessage = "DynamicMenuPresenter should have cleared the MenuView, but it has not!";
-        EXPECT_TRUE(actual) << errorMessage;
-    }
     virtual void expectComposerMountedVisitable(CNComposerSpyPtr composer, CNVisitablePtr visitable) {
         CNVisitablePtr expected = visitable;
         CNVisitablePtr actual = composer->getMounted();
 
         std::string errorMessage = "CNComposer should have mounted the CNVisitable, but it has not!";
+        EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
+    }
+    virtual void expectComposerDismountedVisitable(CNComposerSpyPtr composer, CNVisitablePtr visitable) {
+        CNVisitablePtr expected = visitable;
+        CNVisitablePtr actual = composer->getDismounted();
+
+        std::string errorMessage = "CNComposer should have dismounted the CNVisitable, but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
     virtual void expectViewAcceptedVisitor(MenuViewSpyPtr view, CNVisitorPtr visitor) {
@@ -72,27 +73,31 @@ TEST_F(DynamicMenuPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToTh
     expectViewAcceptedVisitor(view, visitor);
 }
 
-TEST_F(DynamicMenuPresenterTest, FreshInstance__Update__ShouldClearTheMenuView) {
-    MenuViewSpyPtr view = makeMenuViewSpy();
-    CNComposerPtr composer = makeCNComposerSpy();
-    MenuEntryListProviderPtr listProvider = makeMenuEntryListProviderDummy();
-    DynamicMenuPresenterPtr sut = makeDynamicMenuPresenter(view, composer, listProvider);
-
-    sut->update();
-
-    expectMenuViewWasCleared(view);
-}
-
 TEST_F(DynamicMenuPresenterTest, FreshInstance__Update__ShouldMountTheProvidedMenuEntry) {
     MenuViewPtr view = makeMenuViewDummy();
     CNComposerSpyPtr composer = makeCNComposerSpy();
     MenuEntryListProviderStubPtr listProvider = makeMenuEntryListProviderStub();
     DynamicMenuPresenterPtr sut = makeDynamicMenuPresenter(view, composer, listProvider);
     CNVisitablePtr visitable = makeCNVisitableDummy();
-    listProvider->addMenuEntryList(visitable);
+    listProvider->setMenuEntryList({visitable});
 
     sut->update();
 
     expectComposerMountedVisitable(composer, visitable);
+}
+
+TEST_F(DynamicMenuPresenterTest, Updated__Update__ShouldDismountThePreviousProvidedMenuEntry) {
+    MenuViewPtr view = makeMenuViewDummy();
+    CNComposerSpyPtr composer = makeCNComposerSpy();
+    MenuEntryListProviderStubPtr listProvider = makeMenuEntryListProviderStub();
+    DynamicMenuPresenterPtr sut = makeDynamicMenuPresenter(view, composer, listProvider);
+    CNVisitablePtr visitable = makeCNVisitableDummy();
+    listProvider->setMenuEntryList({visitable});
+    sut->update();
+
+    listProvider->setMenuEntryList({makeCNVisitableDummy()});
+    sut->update();
+
+    expectComposerDismountedVisitable(composer, visitable);
 }
 

@@ -19,8 +19,6 @@ void DynamicMenuPresenter::accept(CNVisitorPtr visitor) {
 }
 
 void DynamicMenuPresenter::update() {
-    view->clear();
-
     std::vector<CNVisitablePtr> menuEntryList = listProvider->getMenuEntryList();
     for(int i = 0; i < menuEntryList.size(); i++)
         composer->mount(menuEntryList[i]);
