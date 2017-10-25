@@ -17,9 +17,8 @@ CNLoadAction::CNLoadAction(CNComponentLoaderPtr componentLoader,
           matcher(matcher){}
 
 void CNLoadAction::execute() {
-    std::shared_ptr<CNComponent> component;
     try {
-        component = componentStrategy->createComponent();
+        std::shared_ptr<CNComponent> component = componentStrategy->createComponent();
         componentLoader->load(component, matcher);
     } catch (CNCreationCanceledException& e) {}
 }
