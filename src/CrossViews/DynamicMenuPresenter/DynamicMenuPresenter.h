@@ -3,6 +3,7 @@
 
 #include <CodeBase/CBObserver/CBObserver.h>
 #include <CrossNative/CNVisitable/CNVisitable.h>
+#include <vector>
 
 class CNComposer;
 class MenuView;
@@ -30,6 +31,8 @@ private:
     std::shared_ptr<MenuView> view;
     std::shared_ptr<CNComposer> composer;
     std::shared_ptr<MenuEntryListProvider> listProvider;
+
+    std::vector< std::shared_ptr<CNVisitable> > menuEntries;
 };
 
 #endif //CROSSVIEWS_MENUPRESENTER_H
