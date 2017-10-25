@@ -33,6 +33,7 @@ public:
     virtual void load(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher) {
         this->component = component;
         this->matcher = matcher;
+        loadedCalled = true;
     }
 
     virtual std::shared_ptr<CNComponent> getLoadedComponent() {
@@ -41,7 +42,11 @@ public:
     virtual std::shared_ptr<CNMatcher> getLoadedMatcher() {
         return matcher;
     }
+    virtual bool loadedWasCalled() {
+        return loadedCalled;
+    }
 private:
+    bool loadedCalled = false;
     std::shared_ptr<CNComponent> component;
     std::shared_ptr<CNMatcher> matcher;
 };
