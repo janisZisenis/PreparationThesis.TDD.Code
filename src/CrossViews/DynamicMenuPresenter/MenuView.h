@@ -11,9 +11,6 @@ public:
     virtual ~MenuView() {}
 protected:
     MenuView() {}
-
-public:
-    virtual void clear() = 0;
 };
 
 #endif //CROSSVIEWS_MENUVIEW_H

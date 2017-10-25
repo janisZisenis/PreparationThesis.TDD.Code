@@ -15,7 +15,6 @@ protected:
     MenuViewDummy() {}
 
 public:
-    virtual void clear() override {}
     virtual void accept(CNVisitorPtr accept) override {}
 };
 
@@ -31,13 +30,6 @@ protected:
     MenuViewSpy() {}
 
 public:
-    virtual void clear() override {
-        cleared = true;
-    }
-    virtual bool wasCleared() {
-        return cleared;
-    }
-
     virtual void accept(CNVisitorPtr visitor) override {
         accepted = visitor;
     }
@@ -46,7 +38,6 @@ public:
     }
 
 private:
-    bool cleared = false;
     CNVisitorPtr accepted;
 };
 
