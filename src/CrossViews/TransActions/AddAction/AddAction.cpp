@@ -26,9 +26,8 @@ AddAction::AddAction(CBCommandInvokerPtr invoker,
           componentStrategy(componentStrategy), matcher(matcher) {}
 
 void AddAction::execute() {
-    CNComponentPtr component;
     try {
-        component = componentStrategy->createComponent();
+        CNComponentPtr component = componentStrategy->createComponent();
         invoker->invoke(makeCommand(model, getInsertingIndex(), component));
     } catch (CreationCanceledException& e) {}
 }
