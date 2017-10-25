@@ -13,6 +13,9 @@ public:
     virtual ~CNComponentLoaderDummy() {}
 protected:
     CNComponentLoaderDummy() {}
+
+public:
+    virtual void load(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher) {}
 };
 
 class CNComponentLoaderSpy;
@@ -27,6 +30,11 @@ protected:
     CNComponentLoaderSpy() {}
 
 public:
+    virtual void load(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher) {
+        this->component = component;
+        this->matcher = matcher;
+    }
+
     virtual std::shared_ptr<CNComponent> getLoadedComponent() {
         return component;
     }

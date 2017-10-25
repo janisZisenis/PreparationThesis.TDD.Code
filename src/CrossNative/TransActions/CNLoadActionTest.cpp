@@ -48,7 +48,7 @@ protected:
     }
 };
 
-TEST_F(CNLoadActionTest, FreshInstance__Execute__ShouldLoadTheCNComponentToTheCNComponenLoaderWithCNMatcher) {
+TEST_F(CNLoadActionTest, FreshInstance__Execute__ShouldLoadCNComponentAndCNMatcherToCNComponenLoaderWithCNMatcher) {
     CNCreateComponentStrategyStubPtr componentStrategy = makeCNCreateComponentStrategyStub();
     CNComponentPtr component = makeCNComponentDummy();
     componentStrategy->setCNComponent(component);

@@ -16,4 +16,6 @@ CNLoadAction::CNLoadAction(CNComponentLoaderPtr componentLoader,
           componentStrategy(componentStrategy),
           matcher(matcher){}
 
-void CNLoadAction::execute() {}
+void CNLoadAction::execute() {
+    componentLoader->load(componentStrategy->createComponent(), matcher);
+}
