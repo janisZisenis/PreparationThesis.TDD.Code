@@ -28,6 +28,11 @@ public:
     virtual void update() override;
 
 private:
+    virtual void mountMenuEntries();
+    virtual void dismountMenuEntries();
+    void updateMenuEntries();
+
+private:
     std::shared_ptr<MenuView> view;
     std::shared_ptr<CNComposer> composer;
     std::shared_ptr<MenuEntryListProvider> listProvider;

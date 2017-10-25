@@ -19,11 +19,22 @@ void DynamicMenuPresenter::accept(CNVisitorPtr visitor) {
 }
 
 void DynamicMenuPresenter::update() {
-    for(int i = 0; i < menuEntries.size(); i++)
-        composer->dismount(menuEntries[i]);
+    dismountMenuEntries();
+    updateMenuEntries();
+    mountMenuEntries();
+}
 
-    menuEntries = listProvider->getMenuEntryList();
-
+void DynamicMenuPresenter::mountMenuEntries() {
     for(int i = 0; i < menuEntries.size(); i++)
         composer->mount(menuEntries[i]);
 }
+
+void DynamicMenuPresenter::dismountMenuEntries() {
+    for(int i = 0; i < menuEntries.size(); i++)
+        composer->dismount(menuEntries[i]);
+}
+
+void DynamicMenuPresenter::updateMenuEntries() {
+    menuEntries = listProvider->getMenuEntryList();
+}
+
