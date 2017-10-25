@@ -20,7 +20,6 @@ void CNLoadAction::execute() {
     std::shared_ptr<CNComponent> component;
     try {
         component = componentStrategy->createComponent();
+        componentLoader->load(component, matcher);
     } catch (CNCreationCanceledException& e) {}
-
-    componentLoader->load(component, matcher);
 }
