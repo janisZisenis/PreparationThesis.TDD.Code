@@ -4,7 +4,8 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include <CrossNative/CrossNative_EXPORT.h>
+
+#include "CrossNative/TransActions/CNLoadAction/CNComponentLoader.h"
 
 class CNHierarchyNodeAlreadyLoadedException : public std::exception {
     const char *what() const throw() override {
@@ -24,7 +25,7 @@ class CNMatcher;
 class CNDynamicHierarchy;
 typedef std::shared_ptr<CNDynamicHierarchy> CNDynamicHierarchyPtr;
 
-class CrossNative_EXPORT CNDynamicHierarchy {
+class CNDynamicHierarchy : public CNComponentLoader {
 public:
     static CNDynamicHierarchyPtr getNewInstance();
     virtual ~CNDynamicHierarchy();
@@ -33,7 +34,7 @@ protected:
     CNDynamicHierarchy();
 
 public:
-    virtual void load(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher);
+    virtual void load(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher) override;
     virtual void unload(std::shared_ptr<CNComponent> component);
     virtual void move(std::shared_ptr<CNComponent> component, std::shared_ptr<CNMatcher> matcher);
 

@@ -1,5 +1,5 @@
 #include "AddAction.h"
-#include "CreateComponentStrategy.h"
+#include <CrossNative/TransActions/CNLoadAction/CNCreateComponentStrategy.h>
 #include <CodeBase/CBCommandInvoker/CBCommandInvoker.h>
 #include <CrossNative/CNComponent/CNComponent.h>
 #include <CrossNative/CNMatcher/CNMatcher.h>
@@ -10,7 +10,7 @@
 AddActionPtr AddAction::getNewInstance(CBCommandInvokerPtr invoker,
                                        AddingHierarchicModelPtr model,
                                        SelectionModelPtr selectionModel,
-                                       CreateComponentStrategyPtr componentStrategy,
+                                       CNCreateComponentStrategyPtr componentStrategy,
                                        CNMatcherPtr matcher) {
     return AddActionPtr(new AddAction(invoker, model, selectionModel, componentStrategy, matcher));
 }
@@ -20,7 +20,7 @@ AddAction::~AddAction() {}
 AddAction::AddAction(CBCommandInvokerPtr invoker,
                      AddingHierarchicModelPtr model,
                      SelectionModelPtr selectionModel,
-                     CreateComponentStrategyPtr componentStrategy,
+                     CNCreateComponentStrategyPtr componentStrategy,
                      CNMatcherPtr matcher)
         : invoker(invoker), model(model), selectionModel(selectionModel),
           componentStrategy(componentStrategy), matcher(matcher) {}
@@ -29,7 +29,7 @@ void AddAction::execute() {
     try {
         CNComponentPtr component = componentStrategy->createComponent();
         invoker->invoke(makeCommand(model, getInsertingIndex(), component));
-    } catch (CreationCanceledException& e) {}
+    } catch (CNCreationCanceledException& e) {}
 }
 
 CBCommandPtr AddAction::makeCommand(AddingHierarchicModelPtr model, CNHierarchyIndex index, CNComponentPtr component) {

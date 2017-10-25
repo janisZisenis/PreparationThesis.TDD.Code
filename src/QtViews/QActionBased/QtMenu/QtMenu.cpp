@@ -73,10 +73,6 @@ void QtMenu::removeEmptyActionFromMenu() {
     removeFromMenu(emptyAction);
 }
 
-void QtMenu::clear() {
-    menu->clear();
-}
-
 void QtMenu::accept(CNVisitorPtr visitor) {
     try {
         typeAcceptor->accept(visitor, me());

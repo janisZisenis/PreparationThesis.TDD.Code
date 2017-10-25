@@ -29,7 +29,6 @@ public:
 
     virtual void addQAction(QActionBasedPtr qActionBased);
     virtual void removeQAction(QActionBasedPtr qActionBased);
-    virtual void clear() override;
 
     virtual void accept(CNVisitorPtr visitor) override;
     virtual void setTag(std::string tag);
