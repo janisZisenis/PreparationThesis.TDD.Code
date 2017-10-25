@@ -3,15 +3,31 @@
 
 #include <CodeBase/CBTransAction/CBTransAction.h>
 
+class CNComponentLoader;
+class CNCreateComponentStrategy;
+class CNMatcher;
+
 class CNLoadAction;
 typedef std::shared_ptr<CNLoadAction> CNLoadActionPtr;
 
 class CNLoadAction : public CBTransAction {
 public:
-    static CNLoadActionPtr getNewInstance();
+    static CNLoadActionPtr getNewInstance(std::shared_ptr<CNComponentLoader> componentLoader,
+                                          std::shared_ptr<CNCreateComponentStrategy> componentStrategy,
+                                          std::shared_ptr<CNMatcher> matcher);
     virtual ~CNLoadAction();
 protected:
-    CNLoadAction();
+    CNLoadAction(std::shared_ptr<CNComponentLoader> componentLoader,
+                 std::shared_ptr<CNCreateComponentStrategy> componentStrategy,
+                 std::shared_ptr<CNMatcher> matcher);
+
+public:
+    virtual void execute() override;
+
+private:
+    std::shared_ptr<CNComponentLoader> componentLoader;
+    std::shared_ptr<CNCreateComponentStrategy> componentStrategy;
+    std::shared_ptr<CNMatcher> matcher;
 };
 
 #endif //CROSSNATIVE_LOADACTION_H
