@@ -54,6 +54,9 @@ sharedLibs()
 ###                   SUBDIRECTORIES                      ###
 #############################################################
 
+add_subdirectory(applications/Base)
+add_subdirectory(applications/BaseTest)
+
 add_subdirectory(applications/Hierarchies)
 add_subdirectory(applications/HierarchiesTest)
 
