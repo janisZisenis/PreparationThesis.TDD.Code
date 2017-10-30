@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_PROPERTIESEXPLORERVIEW_H
 #define CROSSVIEWS_PROPERTIESEXPLORERVIEW_H
 
-#include <CodeBase/CBTransActionAppearance/CBActionState.h>
+#include <Base/CNTransActionAppearance/CNActionState.h>
 #include <Hierarchies/CNVisitable/CNVisitable.h>
 
 class PropertiesExplorerView;

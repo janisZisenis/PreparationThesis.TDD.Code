@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 #include "MenuEntryPresenter.h"
 #include "MenuEntryViewTestDoubles.h"
-#include <CodeBase/CBTransActionAppearance/CBTransActionAppearanceTestDoubles.h>
+#include <Base/CNTransActionAppearance/CNTransActionAppearanceTestDoubles.h>
 #include <Hierarchies/CNVisitable/CNVisitableTestDoubles.h>
 #include <Hierarchies/CNVisitor/CNVisitorTestDoubles.h>
 #include <Base/CNTransAction/CNTransActionTestDoubles.h>
@@ -10,7 +10,7 @@ class MenuEntryPresenterTest : public testing::Test {
 protected:
     virtual MenuEntryPresenterPtr makeMenuEntryPresenter(MenuEntryViewPtr view,
                                                          CNTransActionAppearancePtr appearance,
-                                                       CNTransActionPtr action) {
+                                                         CNTransActionPtr action) {
         return MenuEntryPresenter::getNewInstance(view, appearance, action);
     }
 
@@ -23,10 +23,10 @@ protected:
     }
 
     virtual CNTransActionAppearancePtr makeCBTransActionAppearanceDummy() {
-        return CBTransActionAppearanceDummy::getNewInstance();
+        return CNTransActionAppearanceDummy::getNewInstance();
     }
     virtual CNTransActionAppearanceStubPtr makeCBTransActionAppearanceStub() {
-        return CBTransActionAppearanceStub::getNewInstance();
+        return CNTransActionAppearanceStub::getNewInstance();
     }
 
     virtual CNTransActionPtr makeCNTransActionDummy() {

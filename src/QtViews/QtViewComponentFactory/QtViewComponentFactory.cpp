@@ -1,8 +1,8 @@
 #include "QtViewComponentFactory.h"
 
 #include <Base/CNActionAppearanceFactory/CNActionAppearanceFactory.h>
-#include <Base/CBTransActionAppearance/CNTransActionAppearance.h>
-#include <Base/CBTransActionAppearance/CNActionTitle.h>
+#include <Base/CNTransActionAppearance/CNTransActionAppearance.h>
+#include <Base/CNTransActionAppearance/CNActionTitle.h>
 #include <Hierarchies/CNComponentFactory/CNComponentFactory.h>
 #include <Hierarchies/CNComposerFactory/CNComposerFactory.h>
 #include <Hierarchies/CNComponent/CNComponent.h>

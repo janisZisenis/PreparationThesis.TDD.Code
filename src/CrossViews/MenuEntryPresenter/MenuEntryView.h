@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_MENUENTRYVIEW_H
 #define CROSSVIEWS_MENUENTRYVIEW_H
 
-#include <CodeBase/CBTransActionAppearance/CBActionState.h>
+#include <Base/CNTransActionAppearance/CNActionState.h>
 #include <Hierarchies/CNVisitable/CNVisitable.h>
 
 class MenuEntryListener;

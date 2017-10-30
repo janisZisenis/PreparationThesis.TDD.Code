@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <Base/CBTransActionAppearance/CNActionState.h>
+#include <Base/CNTransActionAppearance/CNActionState.h>
 
 class CNActionAppearanceFactory;
 
