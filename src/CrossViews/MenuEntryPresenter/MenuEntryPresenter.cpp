@@ -1,17 +1,17 @@
 #include "MenuEntryPresenter.h"
 #include "MenuEntryView.h"
-#include <CodeBase/CBTransActionAppearance/CBTransActionAppearance.h>
-#include <CodeBase/CBTransAction/CBTransAction.h>
+#include <Base/CNTransActionAppearance/CNTransActionAppearance.h>
+#include <Base/CNTransAction/CNTransAction.h>
 
 MenuEntryPresenterPtr MenuEntryPresenter::getNewInstance(MenuEntryViewPtr view,
-                                                       CBTransActionAppearancePtr appearance,
-                                                       CBTransActionPtr action) {
+                                                       CNTransActionAppearancePtr appearance,
+                                                       CNTransActionPtr action) {
     return MenuEntryPresenterPtr(new MenuEntryPresenter(view, appearance, action));
 }
 MenuEntryPresenter::~MenuEntryPresenter() {}
 MenuEntryPresenter::MenuEntryPresenter(MenuEntryViewPtr view,
-                                     CBTransActionAppearancePtr appearance,
-                                     CBTransActionPtr action)
+                                     CNTransActionAppearancePtr appearance,
+                                     CNTransActionPtr action)
         : view(view),
           appearance(appearance),
           action(action) {

@@ -4,7 +4,7 @@
 #include <memory>
 #include "Hierarchies/CNHierarchy/CNHierarchyIndex.h"
 
-class CBObserver;
+class CNObserver;
 
 class SelectionModel;
 typedef std::shared_ptr<SelectionModel> SelectionModelPtr;
@@ -20,8 +20,8 @@ public:
     virtual CNHierarchyIndex getSelectedIndex() = 0;
     virtual bool hasSelection() = 0;
 
-    virtual void attach(std::shared_ptr<CBObserver> observer) = 0;
-    virtual void detach(std::shared_ptr<CBObserver> observer) = 0;
+    virtual void attach(std::shared_ptr<CNObserver> observer) = 0;
+    virtual void detach(std::shared_ptr<CNObserver> observer) = 0;
 };
 
 #endif //CROSSVIEWS_SELECTIONMODEL_H

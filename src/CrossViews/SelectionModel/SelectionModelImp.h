@@ -4,7 +4,7 @@
 #include "SelectionModel.h"
 #include <Hierarchies/CNHierarchy/CNHierarchyIndex.h>
 
-class CBSubject;
+class CNSubject;
 
 class SelectionModelImp;
 typedef std::shared_ptr<SelectionModelImp> SelectionModelImpPtr;
@@ -21,12 +21,12 @@ public:
     virtual void setSelectedIndex(const CNHierarchyIndex& index) override;
     virtual CNHierarchyIndex getSelectedIndex() override;
 
-    virtual void attach(std::shared_ptr<CBObserver> observer) override;
-    virtual void detach(std::shared_ptr<CBObserver> observer) override;
+    virtual void attach(std::shared_ptr<CNObserver> observer) override;
+    virtual void detach(std::shared_ptr<CNObserver> observer) override;
     virtual void notifyObservers();
 
 private:
-    std::shared_ptr<CBSubject> subject;
+    std::shared_ptr<CNSubject> subject;
     CNHierarchyIndex selectedIndex;
 };
 

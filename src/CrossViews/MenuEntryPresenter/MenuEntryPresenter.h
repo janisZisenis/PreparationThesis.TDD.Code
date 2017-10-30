@@ -1,27 +1,27 @@
 #ifndef CROSSVIEWS_MENUENTRYPRESENTER_H
 #define CROSSVIEWS_MENUENTRYPRESENTER_H
 
-#include <CodeBase/CBObserver/CBObserver.h>
+#include <Base/CNObserver/CNObserver.h>
 #include <Hierarchies/CNVisitable/CNVisitable.h>
 #include "MenuEntryListener.h"
 
 class MenuEntryView;
-class CBTransActionAppearance;
-class CBTransAction;
+class CNTransActionAppearance;
+class CNTransAction;
 
 class MenuEntryPresenter;
 typedef std::shared_ptr<MenuEntryPresenter> MenuEntryPresenterPtr;
 
-class MenuEntryPresenter : public CBObserver, public virtual CNVisitable, public MenuEntryListener {
+class MenuEntryPresenter : public CNObserver, public virtual CNVisitable, public MenuEntryListener {
 public:
     static MenuEntryPresenterPtr getNewInstance(std::shared_ptr<MenuEntryView> view,
-                                               std::shared_ptr<CBTransActionAppearance> appearance,
-                                               std::shared_ptr<CBTransAction> action);
+                                               std::shared_ptr<CNTransActionAppearance> appearance,
+                                               std::shared_ptr<CNTransAction> action);
     virtual ~MenuEntryPresenter();
 private:
     MenuEntryPresenter(std::shared_ptr<MenuEntryView> view,
-                      std::shared_ptr<CBTransActionAppearance> appearance,
-                      std::shared_ptr<CBTransAction> action);
+                      std::shared_ptr<CNTransActionAppearance> appearance,
+                      std::shared_ptr<CNTransAction> action);
 
 public:
     virtual void update() override;
@@ -36,8 +36,8 @@ private:
 
 private:
     std::shared_ptr<MenuEntryView> view;
-    std::shared_ptr<CBTransActionAppearance> appearance;
-    std::shared_ptr<CBTransAction> action;
+    std::shared_ptr<CNTransActionAppearance> appearance;
+    std::shared_ptr<CNTransAction> action;
 };
 
 #endif //CROSSVIEWS_MENUENTRYPRESENTER_H

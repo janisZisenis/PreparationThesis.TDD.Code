@@ -89,7 +89,7 @@ private:
     bool disabled = false;
 
     bool newAccessbility = false;
-    CBActionStates newState = OFF;
+    CNActionStates newState = OFF;
     std::string newTitle = std::string();
     CNVisitorPtr accepted;
 };

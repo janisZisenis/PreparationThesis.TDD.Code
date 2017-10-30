@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_REMOVECOMMAND_H
 #define CROSSVIEWS_REMOVECOMMAND_H
 
-#include <CodeBase/CBCommand/CBCommand.h>
+#include <Base/CNCommandInvoker/CNCommand.h>
 #include <Hierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CNComponent;
@@ -10,7 +10,7 @@ class InsertingHierarchicModel;
 class RemoveCommand;
 typedef std::shared_ptr<RemoveCommand> RemoveCommandPtr;
 
-class RemoveCommand : public CBCommand {
+class RemoveCommand : public CNCommand {
 public:
     static RemoveCommandPtr getNewInstance(std::shared_ptr<InsertingHierarchicModel> model,
                                            CNHierarchyIndex index,

@@ -1,13 +1,13 @@
 #include "AddAction.h"
 #include "CrossViews/TransActions/LoadAction/CreateComponentStrategy.h"
-#include <CodeBase/CBCommandInvoker/CBCommandInvoker.h>
+#include <Base/CNCommandInvoker/CNCommandInvoker.h>
 #include <Hierarchies/CNComponent/CNComponent.h>
 #include <Hierarchies/CNMatcher/CNMatcher.h>
 #include <CrossViews/SelectionModel/SelectionModel.h>
 #include <CrossViews/Commands/AddCommand/AddingHierarchicModel.h>
 #include <CrossViews/Commands/AddCommand/AddCommand.h>
 
-AddActionPtr AddAction::getNewInstance(CBCommandInvokerPtr invoker,
+AddActionPtr AddAction::getNewInstance(CNCommandInvokerPtr invoker,
                                        AddingHierarchicModelPtr model,
                                        SelectionModelPtr selectionModel,
                                        CreateComponentStrategyPtr componentStrategy,
@@ -17,7 +17,7 @@ AddActionPtr AddAction::getNewInstance(CBCommandInvokerPtr invoker,
 
 AddAction::~AddAction() {}
 
-AddAction::AddAction(CBCommandInvokerPtr invoker,
+AddAction::AddAction(CNCommandInvokerPtr invoker,
                      AddingHierarchicModelPtr model,
                      SelectionModelPtr selectionModel,
                      CreateComponentStrategyPtr componentStrategy,
@@ -32,7 +32,7 @@ void AddAction::execute() {
     } catch (CreationCanceledException& e) {}
 }
 
-CBCommandPtr AddAction::makeCommand(AddingHierarchicModelPtr model, CNHierarchyIndex index, CNComponentPtr component) {
+CNCommandPtr AddAction::makeCommand(AddingHierarchicModelPtr model, CNHierarchyIndex index, CNComponentPtr component) {
     return AddCommand::getNewInstance(model, index, component);
 }
 

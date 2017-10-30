@@ -3,17 +3,17 @@
 
 #include <memory>
 #include <string>
-#include <CodeBase/CBTransActionAppearance/CBActionState.h>
+#include <Base/CBTransActionAppearance/CNActionState.h>
 
-class CBActionAppearanceFactory;
+class CNActionAppearanceFactory;
 
-class CBTransAction;
-class CBTransActionAppearance;
-class CBActionAccessibility;
-class CBActionTitle;
-class CBActionState;
-class CBCommandHistory;
-class CBCommandInvoker;
+class CNTransAction;
+class CNTransActionAppearance;
+class CNActionAccessibility;
+class CNActionTitle;
+class CNActionState;
+class CNCommandHistory;
+class CNCommandInvoker;
 
 class CNComponentFactory;
 class CNComposerFactory;
@@ -57,33 +57,33 @@ public:
 
     virtual std::shared_ptr<CNComponent> makeMenuBarComponent();
     virtual std::shared_ptr<CNComponent> makeMenuComponent(std::string title, std::string tag);
-    virtual std::shared_ptr<CNComponent> makeUndoActionComponent(std::shared_ptr<CBCommandHistory> commandHistory);
-    virtual std::shared_ptr<CNComponent> makeRedoActionComponent(std::shared_ptr<CBCommandHistory> commandHistory);
+    virtual std::shared_ptr<CNComponent> makeUndoActionComponent(std::shared_ptr<CNCommandHistory> commandHistory);
+    virtual std::shared_ptr<CNComponent> makeRedoActionComponent(std::shared_ptr<CNCommandHistory> commandHistory);
     virtual std::shared_ptr<CNComponent> makeRemoveActionComponent(std::shared_ptr<SelectionModel> selectionModel,
                                                                    std::shared_ptr<InsertingHierarchicModel> model,
-                                                                   std::shared_ptr<CBCommandInvoker> invoker);
+                                                                   std::shared_ptr<CNCommandInvoker> invoker);
 
 protected:
     virtual std::shared_ptr<QtMenu> makeQtMenu(std::string title, std::string tag);
     virtual std::shared_ptr<QtAction> makeQtAction();
     virtual std::shared_ptr<MenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<MenuEntryView> view,
-                                                                       std::shared_ptr<CBTransActionAppearance> appearance,
-                                                                       std::shared_ptr<CBTransAction> action);
+                                                                       std::shared_ptr<CNTransActionAppearance> appearance,
+                                                                       std::shared_ptr<CNTransAction> action);
     virtual std::shared_ptr<DynamicMenuPresenter> makeDynamicMenuPresenter(std::shared_ptr<MenuView> view,
                                                                   std::shared_ptr<CNComposer> composer,
                                                                   std::shared_ptr<MenuEntryListProvider> listProvider);
 
-    virtual std::shared_ptr<CBTransActionAppearance> makeCBTransActionAppearance(std::shared_ptr<CBActionAccessibility> accessibility,
-                                                                               std::shared_ptr<CBActionState> state,
-                                                                               std::shared_ptr<CBActionTitle> title);
-    virtual std::shared_ptr<CBTransActionAppearance> makeCBFixedTransActionAppearance(bool accessibility, CBActionStates state, std::string title);
+    virtual std::shared_ptr<CNTransActionAppearance> makeCBTransActionAppearance(std::shared_ptr<CNActionAccessibility> accessibility,
+                                                                               std::shared_ptr<CNActionState> state,
+                                                                               std::shared_ptr<CNActionTitle> title);
+    virtual std::shared_ptr<CNTransActionAppearance> makeCBFixedTransActionAppearance(bool accessibility, CNActionStates state, std::string title);
 
-    virtual std::shared_ptr<CBActionState> makeCBFixedActionState(CBActionStates state);
-    virtual std::shared_ptr<CBActionTitle> makeCBFixedActionTitle(std::string title);
+    virtual std::shared_ptr<CNActionState> makeCBFixedActionState(CNActionStates state);
+    virtual std::shared_ptr<CNActionTitle> makeCBFixedActionTitle(std::string title);
 
-    virtual std::shared_ptr<CBActionAccessibility> makeUndoDependenAccessibility(std::shared_ptr<CBCommandHistory> commandHistory);
-    virtual std::shared_ptr<CBActionAccessibility> makeRedoDependenAccessibility(std::shared_ptr<CBCommandHistory> commandHistory);
-    virtual std::shared_ptr<CBActionAccessibility> makeSelectionDependenAccessibility(std::shared_ptr<SelectionModel> selectionModel);
+    virtual std::shared_ptr<CNActionAccessibility> makeUndoDependenAccessibility(std::shared_ptr<CNCommandHistory> commandHistory);
+    virtual std::shared_ptr<CNActionAccessibility> makeRedoDependenAccessibility(std::shared_ptr<CNCommandHistory> commandHistory);
+    virtual std::shared_ptr<CNActionAccessibility> makeSelectionDependenAccessibility(std::shared_ptr<SelectionModel> selectionModel);
 
     virtual std::shared_ptr<CNComponent> makeCNComposable(std::shared_ptr<CNVisitable> visitable,
                                                           std::shared_ptr<CNComposer> composer);
@@ -94,7 +94,7 @@ protected:
 private:
     std::shared_ptr<CNComponentFactory> componentFactory;
     std::shared_ptr<CNComposerFactory> composerFactory;
-    std::shared_ptr<CBActionAppearanceFactory> appearanceFactory;
+    std::shared_ptr<CNActionAppearanceFactory> appearanceFactory;
 };
 
 #endif //QTVIEWS_QTVIEWCOMPONENTFACTORY_H

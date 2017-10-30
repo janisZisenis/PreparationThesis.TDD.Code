@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_MENUPRESENTER_H
 #define CROSSVIEWS_MENUPRESENTER_H
 
-#include <CodeBase/CBObserver/CBObserver.h>
+#include <Base/CNObserver/CNObserver.h>
 #include <Hierarchies/CNVisitable/CNVisitable.h>
 #include <vector>
 
@@ -12,7 +12,7 @@ class MenuEntryListProvider;
 class DynamicMenuPresenter;
 typedef std::shared_ptr<DynamicMenuPresenter> DynamicMenuPresenterPtr;
 
-class DynamicMenuPresenter : public CBObserver, public virtual CNVisitable {
+class DynamicMenuPresenter : public CNObserver, public virtual CNVisitable {
 public:
     static DynamicMenuPresenterPtr getNewInstance(std::shared_ptr<MenuView> view,
                                                   std::shared_ptr<CNComposer> composer,

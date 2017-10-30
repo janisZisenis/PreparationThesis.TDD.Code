@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_ADDCOMMAND_H
 #define CROSSVIEWS_ADDCOMMAND_H
 
-#include <CodeBase/CBCommand/CBCommand.h>
+#include <Base/CNCommandInvoker/CNCommand.h>
 #include <Hierarchies/CNHierarchy/CNHierarchy.h>
 
 class AddingHierarchicModel;
@@ -10,7 +10,7 @@ class CNComponent;
 class AddCommand;
 typedef std::shared_ptr<AddCommand> AddCommandPtr;
 
-class AddCommand : public CBCommand {
+class AddCommand : public CNCommand {
 public:
     static AddCommandPtr getNewInstance(std::shared_ptr<AddingHierarchicModel> model,
                                         CNHierarchyIndex index,

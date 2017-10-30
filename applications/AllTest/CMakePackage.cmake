@@ -12,6 +12,7 @@ activateAllTestOption()
 
 includeRecursiveTestFilesFrom(CrossViews ${CMAKE_SOURCE_DIR}/src/Hierarchies)
 includeRecursiveTestFilesFrom(CrossViews ${CMAKE_SOURCE_DIR}/src/CrossViews)
+includeRecursiveTestFilesFrom(CrossViews ${CMAKE_SOURCE_DIR}/src/Base)
 
 #deactivate AllTestOption for normal source_group
 deactivateAllTestOption()

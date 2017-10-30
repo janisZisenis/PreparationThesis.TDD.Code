@@ -4,13 +4,13 @@
 #include <CodeBase/CBTransActionAppearance/CBTransActionAppearanceTestDoubles.h>
 #include <Hierarchies/CNVisitable/CNVisitableTestDoubles.h>
 #include <Hierarchies/CNVisitor/CNVisitorTestDoubles.h>
-#include <CodeBase/CBTransAction/CBTransActionMocks.h>
+#include <Base/CNTransAction/CNTransActionTestDoubles.h>
 
 class MenuEntryPresenterTest : public testing::Test {
 protected:
     virtual MenuEntryPresenterPtr makeMenuEntryPresenter(MenuEntryViewPtr view,
-                                                       CBTransActionAppearancePtr appearance,
-                                                       CBTransActionPtr action) {
+                                                         CNTransActionAppearancePtr appearance,
+                                                       CNTransActionPtr action) {
         return MenuEntryPresenter::getNewInstance(view, appearance, action);
     }
 
@@ -22,18 +22,18 @@ protected:
         return CNVisitorDummy::getNewInstance();
     }
 
-    virtual CBTransActionAppearancePtr makeCBTransActionAppearanceDummy() {
+    virtual CNTransActionAppearancePtr makeCBTransActionAppearanceDummy() {
         return CBTransActionAppearanceDummy::getNewInstance();
     }
-    virtual CBTransActionAppearanceStubPtr makeCBTransActionAppearanceStub() {
+    virtual CNTransActionAppearanceStubPtr makeCBTransActionAppearanceStub() {
         return CBTransActionAppearanceStub::getNewInstance();
     }
 
-    virtual CBTransActionPtr makeCBTransActionDummy() {
-        return CBTransActionDummy::getNewInstance();
+    virtual CNTransActionPtr makeCNTransActionDummy() {
+        return CNTransActionDummy::getNewInstance();
     }
-    virtual CBTransActionSpyPtr makeCBTransActionSpy() {
-        return CBTransActionSpy::getNewInstance();
+    virtual CNTransActionSpyPtr makeCNTransActionSpy() {
+        return CNTransActionSpy::getNewInstance();
     }
 
     virtual void expectTitleWasSetTo(std::string title, MenuEntryViewSpyPtr view) {
@@ -50,10 +50,10 @@ protected:
         std::string errorMessage = "The MenuEntryView should have accepted the CNVisitor but it has not!";
         EXPECT_THAT(actual, testing::Eq(expected)) << errorMessage;
     }
-    virtual void expectCBTransActionWasExecuted(CBTransActionSpyPtr transAction) {
+    virtual void expectCNTransActionWasExecuted(CNTransActionSpyPtr transAction) {
         bool actual = transAction->wasExecuted();
 
-        std::string errorMessage = "CBTransAction should be executed, but it was not!";
+        std::string errorMessage = "CNTransAction should be executed, but it was not!";
         EXPECT_TRUE(actual);
     }
 
@@ -86,9 +86,9 @@ protected:
 };
 
 TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToMenuEntryView) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearancePtr appearance = makeCBTransActionAppearanceDummy();
+    CNTransActionAppearancePtr appearance = makeCBTransActionAppearanceDummy();
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     CNVisitorPtr visitor = makeCNVisitorDummy();
@@ -99,21 +99,21 @@ TEST_F(MenuEntryPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToMenu
 
 
 TEST_F(MenuEntryPresenterTest, FreshInstance__onTriggered__ShouldExecuteTransAction) {
-    CBTransActionSpyPtr action = makeCBTransActionSpy();
+    CNTransActionSpyPtr action = makeCNTransActionSpy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
     sut->onTriggered();
 
-    expectCBTransActionWasExecuted(action);
+    expectCNTransActionWasExecuted(action);
 }
 
 
 TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceStateON__ShouldCheckTheMenuEntry) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setState(ON);
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
@@ -121,9 +121,9 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceStateON__ShouldCheck
 }
 
 TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAppearanceStateOFF__ShouldUncheckTheMenuEntry) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setState(OFF);
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
@@ -131,9 +131,9 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAppearanceStateOFF__ShouldU
 }
 
 TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAppearanceStateOFF__UpdateWithAppearanceStateON__ShouldCheckTheMenuEntry) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setState(OFF);
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
@@ -144,9 +144,9 @@ TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAppearanceStateOFF__UpdateWi
 }
 
 TEST_F(MenuEntryPresenterTest, OnConstruction_WithAccessibleAppearance__ShouldEnableTheMenuEntry) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setIsAccessible(true);
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
@@ -154,9 +154,9 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithAccessibleAppearance__ShouldEn
 }
 
 TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAccessibleAppearance__ShouldDisableTheMenuEntry) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setIsAccessible(false);
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
@@ -164,9 +164,9 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithNotAccessibleAppearance__Shoul
 }
 
 TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAccessibleAppearance__UpdateWithAccessibleAppearance__ShouldEnableTheMenuEntry) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setIsAccessible(false);
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
@@ -177,9 +177,9 @@ TEST_F(MenuEntryPresenterTest, FreshInstance_WithNotAccessibleAppearance__Update
 }
 
 TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceWithTitle__ShouldSetTitleToMenuEntryView) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setTitle("Title");
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 
@@ -187,9 +187,9 @@ TEST_F(MenuEntryPresenterTest, OnConstruction_WithAppearanceWithTitle__ShouldSet
 }
 
 TEST_F(MenuEntryPresenterTest, FreshInstance_WithAppearanceWithTitle__UpdateWithAppearanceWithNewTitle__ShouldSetNewTitleToMenuEntryView) {
-    CBTransActionPtr action = makeCBTransActionDummy();
+    CNTransActionPtr action = makeCNTransActionDummy();
     MenuEntryViewSpyPtr view = makeMenuEntryViewSpy();
-    CBTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
+    CNTransActionAppearanceStubPtr appearance = makeCBTransActionAppearanceStub();
     appearance->setTitle("Title");
     MenuEntryPresenterPtr sut = makeMenuEntryPresenter(view, appearance, action);
 

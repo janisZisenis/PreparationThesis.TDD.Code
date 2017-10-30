@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_PROPERTIESEXPLORERPRESENTER_H
 #define CROSSVIEWS_PROPERTIESEXPLORERPRESENTER_H
 
-#include <CodeBase/CBObserver/CBObserver.h>
+#include <Base/CNObserver/CNObserver.h>
 #include <Hierarchies/CNVisitable/CNVisitable.h>
 
 class PropertiesExplorerView;
@@ -11,7 +11,7 @@ class SelectionModel;
 class PropertiesExplorerPresenter;
 typedef std::shared_ptr<PropertiesExplorerPresenter> PropertiesExplorerPresenterPtr;
 
-class PropertiesExplorerPresenter : public virtual CNVisitable, public CBObserver {
+class PropertiesExplorerPresenter : public virtual CNVisitable, public CNObserver {
 public:
     static PropertiesExplorerPresenterPtr getNewInstance(std::shared_ptr<PropertiesExplorerView> view,
                                                          std::shared_ptr<HierarchicModelAccess> modelAccess,

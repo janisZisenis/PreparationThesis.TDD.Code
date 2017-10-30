@@ -2,7 +2,7 @@
 #define CROSSVIEWS_FAKESELECTIONMODEL_H
 
 #include "SelectionModel.h"
-#include <CodeBase/CBObserver/CBObserver.h>
+#include <Base/CNObserver/CNObserver.h>
 
 class FakeSelectionModel;
 typedef std::shared_ptr<FakeSelectionModel> FakeSelectionModelPtr;
@@ -28,10 +28,10 @@ public:
         return selected.isValid();
     }
 
-    void attach(std::shared_ptr<CBObserver> observer) override {
+    void attach(std::shared_ptr<CNObserver> observer) override {
         observers.push_back(observer);
     }
-    void detach(std::shared_ptr<CBObserver> observer) override {
+    void detach(std::shared_ptr<CNObserver> observer) override {
         removeObserver(findPosition(observer));
     }
 
@@ -40,13 +40,13 @@ private:
         for(int i = 0; i < observers.size(); i++)
             (observers[i].lock() != nullptr) ? update(observers[i].lock()) : removeObserver(i--);
     }
-    virtual void update(std::shared_ptr<CBObserver> observer) {
+    virtual void update(std::shared_ptr<CNObserver> observer) {
         observer->update();
     }
     virtual void removeObserver(int position) {
         observers.erase(observers.begin() + position);
     }
-    int findPosition(std::shared_ptr<CBObserver> observer) {
+    int findPosition(std::shared_ptr<CNObserver> observer) {
         for(int i = 0; i < observers.size(); i++) {
             if(observers[i].lock() && observers[i].lock() == observer)
                 return i;
@@ -57,7 +57,7 @@ private:
 
 private:
     CNHierarchyIndex selected;
-    std::vector< std::weak_ptr<CBObserver> > observers;
+    std::vector< std::weak_ptr<CNObserver> > observers;
 };
 
 #endif //CROSSVIEWS_FAKESELECTIONMODEL_H

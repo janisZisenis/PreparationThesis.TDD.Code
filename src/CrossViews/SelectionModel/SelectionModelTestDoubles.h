@@ -24,8 +24,8 @@ public:
         return false;
     }
 
-    void attach(std::shared_ptr<CBObserver> observer) override {}
-    void detach(std::shared_ptr<CBObserver> observer) override {}
+    void attach(std::shared_ptr<CNObserver> observer) override {}
+    void detach(std::shared_ptr<CNObserver> observer) override {}
 
 };
 

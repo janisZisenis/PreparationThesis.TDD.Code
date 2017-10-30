@@ -1,12 +1,12 @@
 #include <gmock/gmock.h>
 #include "SelectionModelImp.h"
-#include "CodeBase/CBObserver/CBObserverMocks.h"
+#include "Base/CNObserver/CNObserverTestDoubles.h"
 
 class SelectionModelImpTest : public testing::Test {
 protected:
     class CBObserverMock;
     typedef std::shared_ptr<CBObserverMock> CBObserverMockPtr;
-    class CBObserverMock : public CBObserver {
+    class CBObserverMock : public CNObserver {
     public:
         static CBObserverMockPtr getNewInstance(SelectionModelImpPtr selectionModel) {
             return CBObserverMockPtr(new CBObserverMock(selectionModel));
@@ -44,8 +44,8 @@ protected:
         return SelectionModelImp::getNewInstance();
     }
 
-    virtual CBObserverSpyPtr makeCBObserverSpy() {
-        return CBObserverSpy::getNewInstance();
+    virtual CNObserverSpyPtr makeCBObserverSpy() {
+        return CNObserverSpy::getNewInstance();
     }
 
     virtual void expectHasNoSelction(SelectionModelImpPtr sut) {
@@ -61,16 +61,16 @@ protected:
         std::string errorMessage = "SelectionModelImp should have a selection, but it has not!";
         EXPECT_TRUE(actual) << errorMessage;
     }
-    virtual void expectedWasUpdated(CBObserverSpyPtr observer) {
+    virtual void expectedWasUpdated(CNObserverSpyPtr observer) {
         bool actual = observer->wasUpdated();
 
-        std::string errorMessage = "SelectionModelImp should have updated the CBObserver, but it has not!";
+        std::string errorMessage = "SelectionModelImp should have updated the CNObserver, but it has not!";
         EXPECT_TRUE(actual) << errorMessage;
     }
-    virtual void expectedWasNotUpdated(CBObserverSpyPtr observer) {
+    virtual void expectedWasNotUpdated(CNObserverSpyPtr observer) {
         bool actual = observer->wasUpdated();
 
-        std::string errorMessage = "SelectionModelImp should not have updated the CBObserver, but it has!";
+        std::string errorMessage = "SelectionModelImp should not have updated the CNObserver, but it has!";
         EXPECT_FALSE(actual) << errorMessage;
     }
 };
@@ -91,9 +91,9 @@ TEST_F(SelectionModelImpTest, FreshInstance__SetValidIndex__ShouldHaveASelection
 
 TEST_F(SelectionModelImpTest, AttachedTwoObservers_DetachedOneObserver__SetSelectedIndex__ShouldUpdateAttachedObserver) {
     SelectionModelImpPtr sut = SelectionModelImp::getNewInstance();
-    CBObserverSpyPtr first = makeCBObserverSpy();
+    CNObserverSpyPtr first = makeCBObserverSpy();
     sut->attach(first);
-    CBObserverSpyPtr second = makeCBObserverSpy();
+    CNObserverSpyPtr second = makeCBObserverSpy();
     sut->attach(second);
     sut->detach(second);
 

@@ -1,8 +1,8 @@
 #include "QtViewComponentFactory.h"
 
-#include <CodeBaseImp/CBActionAppearanceFactory/CBActionAppearanceFactory.h>
-#include <CodeBase/CBTransActionAppearance/CBTransActionAppearance.h>
-#include <CodeBase/CBTransActionAppearance/CBActionTitle.h>
+#include <Base/CNActionAppearanceFactory/CNActionAppearanceFactory.h>
+#include <Base/CBTransActionAppearance/CNTransActionAppearance.h>
+#include <Base/CBTransActionAppearance/CNActionTitle.h>
 #include <Hierarchies/CNComponentFactory/CNComponentFactory.h>
 #include <Hierarchies/CNComposerFactory/CNComposerFactory.h>
 #include <Hierarchies/CNComponent/CNComponent.h>
@@ -31,14 +31,14 @@
 #include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
 #include "QtViews/QActionBased/QtAction/QtAction.h"
 
-#include <CodeBase/CBCommandInvoker/CBCommandInvoker.h>
-#include <CodeBase/CBCommandHistory/CBCommandHistory.h>
+#include <Base/CNCommandInvoker/CNCommandInvoker.h>
+#include <Base/CNCommandHistory/CNCommandHistory.h>
 
-#include <CodeBaseImp/CBTransActions/UndoAction/Action/CBUndoAction.h>
-#include <CodeBaseImp/CBTransActions/UndoAction/Accessibility/CBUndoDependentAccessibility.h>
+#include <Base/TransActions/CNUndoAction/Action/CNUndoAction.h>
+#include <Base/TransActions/CNUndoAction/Accessibility/CNUndoDependentAccessibility.h>
 
-#include <CodeBaseImp/CBTransActions/RedoAction/Action/CBRedoAction.h>
-#include <CodeBaseImp/CBTransActions/RedoAction/Accessibility/CBRedoDependentAccessibility.h>
+#include <Base/TransActions/CNRedoAction/Action/CNRedoAction.h>
+#include <Base/TransActions/CNRedoAction/Accessibility/CNRedoDependentAccessibility.h>
 
 #include <CrossViews/SelectionModel/SelectionModel.h>
 #include <CrossViews/TransActions/RemoveAction/RemoveAction.h>
@@ -49,7 +49,7 @@ QtViewComponentFactoryPtr QtViewComponentFactory::getNewInstance() {
 }
 QtViewComponentFactory::~QtViewComponentFactory() {}
 QtViewComponentFactory::QtViewComponentFactory()
-        : appearanceFactory(CBActionAppearanceFactory::getNewInstance()),
+        : appearanceFactory(CNActionAppearanceFactory::getNewInstance()),
           componentFactory(CNComponentFactory::getNewInstance()),
           composerFactory(CNComposerFactory::getNewInstance()) {}
 
@@ -95,24 +95,24 @@ CNComponentPtr QtViewComponentFactory::makeMenuComponent(std::string title, std:
 
     return makeCNComposable(view, composer);
 }
-CNComponentPtr QtViewComponentFactory::makeUndoActionComponent(CBCommandHistoryPtr commandHistory) {
+CNComponentPtr QtViewComponentFactory::makeUndoActionComponent(CNCommandHistoryPtr commandHistory) {
     QtActionPtr view = makeQtAction();
-    CBTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeUndoDependenAccessibility(commandHistory),
+    CNTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeUndoDependenAccessibility(commandHistory),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Undo"));
-    CBTransActionPtr action = CBUndoAction::getNewInstance(commandHistory);
+    CNTransActionPtr action = CNUndoAction::getNewInstance(commandHistory);
     MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     commandHistory->attach(presenter);
     CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
-CNComponentPtr QtViewComponentFactory::makeRedoActionComponent(CBCommandHistoryPtr commandHistory) {
+CNComponentPtr QtViewComponentFactory::makeRedoActionComponent(CNCommandHistoryPtr commandHistory) {
     QtActionPtr view = makeQtAction();
-    CBTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeRedoDependenAccessibility(commandHistory),
+    CNTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeRedoDependenAccessibility(commandHistory),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Redo"));
-    CBTransActionPtr action = CBRedoAction::getNewInstance(commandHistory);
+    CNTransActionPtr action = CNRedoAction::getNewInstance(commandHistory);
     MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     commandHistory->attach(presenter);
     CNComposerPtr composer = makeCNNullComposer();
@@ -121,9 +121,9 @@ CNComponentPtr QtViewComponentFactory::makeRedoActionComponent(CBCommandHistoryP
 }
 CNComponentPtr QtViewComponentFactory::makeRemoveActionComponent(SelectionModelPtr selectionModel,
                                                                  std::shared_ptr<InsertingHierarchicModel> model,
-                                                                 CBCommandInvokerPtr invoker) {
+                                                                 CNCommandInvokerPtr invoker) {
     QtActionPtr view = makeQtAction();
-    CBTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeSelectionDependenAccessibility(selectionModel),
+    CNTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeSelectionDependenAccessibility(selectionModel),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Remove"));
     RemoveActionPtr action = RemoveAction::getNewInstance(selectionModel, model, invoker);
@@ -134,29 +134,29 @@ CNComponentPtr QtViewComponentFactory::makeRemoveActionComponent(SelectionModelP
     return makeCNComposable(presenter, composer);
 }
 
-CBTransActionAppearancePtr QtViewComponentFactory::makeCBTransActionAppearance(CBActionAccessibilityPtr accessibility,
-                                                                               CBActionStatePtr state,
-                                                                               CBActionTitlePtr title) {
-    return appearanceFactory->makeCBTransActionAppearance(accessibility, state, title);
+CNTransActionAppearancePtr QtViewComponentFactory::makeCBTransActionAppearance(CNActionAccessibilityPtr accessibility,
+                                                                               CNActionStatePtr state,
+                                                                               CNActionTitlePtr title) {
+    return appearanceFactory->makeCNTransActionAppearance(accessibility, state, title);
 }
-CBTransActionAppearancePtr QtViewComponentFactory::makeCBFixedTransActionAppearance(bool accessibility, CBActionStates state, std::string title) {
-    return appearanceFactory->makeCBFixedTransActionAppearance(accessibility, state, title);
-}
-
-CBActionStatePtr QtViewComponentFactory::makeCBFixedActionState(CBActionStates state) {
-    return appearanceFactory->makeCBFixedActionState(state);
-}
-CBActionTitlePtr QtViewComponentFactory::makeCBFixedActionTitle(std::string title) {
-    return appearanceFactory->makeCBFixedActionTitle(title);
+CNTransActionAppearancePtr QtViewComponentFactory::makeCBFixedTransActionAppearance(bool accessibility, CNActionStates state, std::string title) {
+    return appearanceFactory->makeCNFixedTransActionAppearance(accessibility, state, title);
 }
 
-CBActionAccessibilityPtr QtViewComponentFactory::makeUndoDependenAccessibility(CBCommandHistoryPtr commandHistory) {
-    return CBUndoDependentAccessibility::getNewInstance(commandHistory);
+CNActionStatePtr QtViewComponentFactory::makeCBFixedActionState(CNActionStates state) {
+    return appearanceFactory->makeCNFixedActionState(state);
 }
-CBActionAccessibilityPtr QtViewComponentFactory::makeRedoDependenAccessibility(CBCommandHistoryPtr commandHistory) {
-    return CBRedoDependentAccessibility::getNewInstance(commandHistory);
+CNActionTitlePtr QtViewComponentFactory::makeCBFixedActionTitle(std::string title) {
+    return appearanceFactory->makeCNFixedActionTitle(title);
 }
-CBActionAccessibilityPtr QtViewComponentFactory::makeSelectionDependenAccessibility(SelectionModelPtr selectionModel) {
+
+CNActionAccessibilityPtr QtViewComponentFactory::makeUndoDependenAccessibility(CNCommandHistoryPtr commandHistory) {
+    return CNUndoDependentAccessibility::getNewInstance(commandHistory);
+}
+CNActionAccessibilityPtr QtViewComponentFactory::makeRedoDependenAccessibility(CNCommandHistoryPtr commandHistory) {
+    return CNRedoDependentAccessibility::getNewInstance(commandHistory);
+}
+CNActionAccessibilityPtr QtViewComponentFactory::makeSelectionDependenAccessibility(SelectionModelPtr selectionModel) {
     return SelectionDependentAccessibility::getNewInstance(selectionModel);
 }
 
@@ -183,8 +183,8 @@ QtActionPtr QtViewComponentFactory::makeQtAction() {
 }
 
 MenuEntryPresenterPtr QtViewComponentFactory::makeMenuEntryPresenter(MenuEntryViewPtr view,
-                                                                     CBTransActionAppearancePtr appearance,
-                                                                     CBTransActionPtr action) {
+                                                                     CNTransActionAppearancePtr appearance,
+                                                                     CNTransActionPtr action) {
     MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
     view->setListener(presenter);
     return presenter;

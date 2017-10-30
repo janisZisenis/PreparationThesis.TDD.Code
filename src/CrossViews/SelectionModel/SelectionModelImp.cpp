@@ -1,5 +1,5 @@
 #include "SelectionModelImp.h"
-#include "CodeBaseImp/CBSubject/CBSubject.h"
+#include "Base/CNSubject/CNSubject.h"
 
 SelectionModelImpPtr SelectionModelImp::getNewInstance() {
     return SelectionModelImpPtr(new SelectionModelImp());
@@ -9,7 +9,7 @@ SelectionModelImp::~SelectionModelImp() {
 
 }
 
-SelectionModelImp::SelectionModelImp() : subject(CBSubject::getNewInstance()){}
+SelectionModelImp::SelectionModelImp() : subject(CNSubject::getNewInstance()){}
 
 bool SelectionModelImp::hasSelection() {
     return selectedIndex.isValid();
@@ -25,10 +25,10 @@ CNHierarchyIndex SelectionModelImp::getSelectedIndex() {
     return selectedIndex;
 }
 
-void SelectionModelImp::attach(std::shared_ptr<CBObserver> observer) {
+void SelectionModelImp::attach(std::shared_ptr<CNObserver> observer) {
     subject->attach(observer);
 }
-void SelectionModelImp::detach(std::shared_ptr<CBObserver> observer) {
+void SelectionModelImp::detach(std::shared_ptr<CNObserver> observer) {
     subject->detach(observer);
 }
 void SelectionModelImp::notifyObservers() {
