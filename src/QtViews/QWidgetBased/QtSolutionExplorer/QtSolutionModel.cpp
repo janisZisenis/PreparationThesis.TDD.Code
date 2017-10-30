@@ -1,4 +1,4 @@
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossHierarchies/CNVisitable/CNVisitable.h>
 #include "QtSolutionModel.h"
 #include "QtSolutionItem.h"
 

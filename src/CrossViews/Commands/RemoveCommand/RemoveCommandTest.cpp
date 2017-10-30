@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 #include "RemoveCommand.h"
 #include "InsertingHierarchicModelTestDoubles.h"
-#include <CrossNative/CNComponent/CNComponentTestDoubles.h>
+#include <CrossHierarchies/CNComponent/CNComponentTestDoubles.h>
 
 class RemoveCommandTest : public testing::Test {
 protected:

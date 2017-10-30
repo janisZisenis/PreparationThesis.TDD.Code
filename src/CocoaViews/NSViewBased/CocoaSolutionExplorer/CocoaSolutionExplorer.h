@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerView.h>
-#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
+#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
 #include "CocoaViews/NSViewBased/NSViewBased.h"
 
 class CNAcceptor;

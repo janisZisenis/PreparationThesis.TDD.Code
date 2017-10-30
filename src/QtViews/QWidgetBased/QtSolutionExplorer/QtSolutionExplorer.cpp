@@ -6,7 +6,7 @@
 #include "QtSolutionItemFactory.h"
 #include "QtSolutionModel.h"
 
-#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerListener.h>
 
 QtSolutionExplorerPtr QtSolutionExplorer::getNewInstance(QtSolutionItemFactoryPtr itemFactory) {

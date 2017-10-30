@@ -16,7 +16,7 @@ void CocoaShellDecomposingVisitor::visit(CocoaSolutionExplorerPtr solutionExplor
 }
 
 void CocoaShellDecomposingVisitor::visit(CocoaPropertiesExplorerPtr propertiesExplorer) {
-    shell->removeNSView(propertiesExplorer, RIGHT);
+    shell->removeNSView(propertiesExplorer, LEFT);
 }
 
 void CocoaShellDecomposingVisitor::visit(CocoaCentralPtr central) {

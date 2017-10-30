@@ -2,7 +2,7 @@
 #define CROSSVIEWS_MENUPRESENTER_H
 
 #include <CodeBase/CBObserver/CBObserver.h>
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossHierarchies/CNVisitable/CNVisitable.h>
 #include <vector>
 
 class CNComposer;

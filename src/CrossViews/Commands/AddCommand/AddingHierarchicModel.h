@@ -2,7 +2,7 @@
 #define CROSSVIEWS_ADDINGHIERARCHICMODEL_H
 
 #include <memory>
-#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
+#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CNComponent;
 

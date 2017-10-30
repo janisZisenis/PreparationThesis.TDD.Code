@@ -1,7 +1,7 @@
 #include "CocoaMenu.h"
 #include "CocoaMenuVisitor.h"
-#include <CrossNative/CNTagged/CNTaggedVisitor.h>
-#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossHierarchies/CNTagged/CNTaggedVisitor.h>
+#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
 #import <Cocoa/Cocoa.h>
 
 CocoaMenuPtr CocoaMenu::getNewInstance(std::string title) {

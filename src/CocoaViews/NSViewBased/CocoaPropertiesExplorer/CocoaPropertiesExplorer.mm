@@ -1,8 +1,8 @@
 #include "CocoaPropertiesExplorer.h"
 #include "CocoaPropertiesExplorerVisitor.h"
-#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
 #import <Cocoa/Cocoa.h>
-#include <CrossNative/CNVisitor/CNVisitor.h>
+#include <CrossHierarchies/CNVisitor/CNVisitor.h>
 #import "CocoaPropertiesModel.h"
 #import "CocoaPropertiesItem.h"
 #include "CocoaPropertiesModelFactory.h"

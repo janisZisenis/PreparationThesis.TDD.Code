@@ -1,7 +1,7 @@
 #ifndef QTVIEWS_QTMENUBAR_H
 #define QTVIEWS_QTMENUBAR_H
 
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossHierarchies/CNVisitable/CNVisitable.h>
 #include "QtViews/QMenuBarBased/QMenuBarBased.h"
 
 class QActionBased;

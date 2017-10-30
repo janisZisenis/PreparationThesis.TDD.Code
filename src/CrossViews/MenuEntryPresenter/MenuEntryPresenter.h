@@ -2,7 +2,7 @@
 #define CROSSVIEWS_MENUENTRYPRESENTER_H
 
 #include <CodeBase/CBObserver/CBObserver.h>
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossHierarchies/CNVisitable/CNVisitable.h>
 #include "MenuEntryListener.h"
 
 class MenuEntryView;

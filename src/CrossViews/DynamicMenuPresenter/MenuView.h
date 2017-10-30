@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_MENUVIEW_H
 #define CROSSVIEWS_MENUVIEW_H
 
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossHierarchies/CNVisitable/CNVisitable.h>
 
 class MenuView;
 typedef std::shared_ptr<MenuView> MenuViewPtr;

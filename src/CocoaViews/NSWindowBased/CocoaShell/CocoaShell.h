@@ -2,7 +2,7 @@
 #define COCOAVIEWS_COCOASHELL_H
 
 #include <memory>
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossHierarchies/CNVisitable/CNVisitable.h>
 #include "CocoaShell.h"
 #include <Foundation/Foundation.h>
 

@@ -2,7 +2,7 @@
 #define CROSSVIEWS_PROPERTIESEXPLORERPRESENTER_H
 
 #include <CodeBase/CBObserver/CBObserver.h>
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossHierarchies/CNVisitable/CNVisitable.h>
 
 class PropertiesExplorerView;
 class HierarchicModelAccess;

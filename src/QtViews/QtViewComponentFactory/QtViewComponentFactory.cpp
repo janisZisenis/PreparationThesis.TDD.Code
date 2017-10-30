@@ -3,10 +3,10 @@
 #include <CodeBaseImp/CBActionAppearanceFactory/CBActionAppearanceFactory.h>
 #include <CodeBase/CBTransActionAppearance/CBTransActionAppearance.h>
 #include <CodeBase/CBTransActionAppearance/CBActionTitle.h>
-#include <CrossNative/CNComponentFactory/CNComponentFactory.h>
-#include <CrossNative/CNComposerFactory/CNComposerFactory.h>
-#include <CrossNative/CNComponent/CNComponent.h>
-#include <CrossNative/CNComposer/CNComposer.h>
+#include <CrossHierarchies/CNComponentFactory/CNComponentFactory.h>
+#include <CrossHierarchies/CNComposerFactory/CNComposerFactory.h>
+#include <CrossHierarchies/CNComponent/CNComponent.h>
+#include <CrossHierarchies/CNComposer/CNComposer.h>
 
 #include "QtViews/QMainWindowBased/QtShell/QtShell.h"
 #include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellComposingVisitor.h"

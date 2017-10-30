@@ -2,7 +2,7 @@
 #define CROSSVIEWS_SELECTIONMODELIMP_H
 
 #include "SelectionModel.h"
-#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
+#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CBSubject;
 

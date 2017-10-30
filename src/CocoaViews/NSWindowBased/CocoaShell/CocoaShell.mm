@@ -1,5 +1,5 @@
 #include "CocoaShell.h"
-#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
 #include "CocoaShellVisitor.h"
 #import <AppKit/AppKit.h>
 #include "CocoaViews/NSViewBased/NSViewBased.h"

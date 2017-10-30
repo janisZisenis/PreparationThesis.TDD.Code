@@ -1,6 +1,6 @@
 #include "CocoaViewMatcherFactory.h"
-#include <CrossNative/CNMatcherFactory/CNMatcherFactory.h>
-#include <CrossNative/CNMatcher/CNMatcher.h>
+#include <CrossHierarchies/CNMatcherFactory/CNMatcherFactory.h>
+#include <CrossHierarchies/CNMatcher/CNMatcher.h>
 
 #include "CocoaViews/NSWindowBased/CocoaShell/Visitors/CocoaShellTypeIdentifyingVisitor.h"
 #include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarTypeIdentifyingVisitor.h"

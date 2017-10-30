@@ -1,7 +1,7 @@
 #ifndef QTVIEWS_QTMENUBARDECOMPOSINGVISITOR_H
 #define QTVIEWS_QTMENUBARDECOMPOSINGVISITOR_H
 
-#include "CrossNative/CNVisitor/CNVisitor.h"
+#include "CrossHierarchies/CNVisitor/CNVisitor.h"
 
 #include "QtViews/QActionBased/QtMenu/QtMenuVisitor.h"
 

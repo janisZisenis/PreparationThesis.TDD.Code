@@ -3,10 +3,10 @@
 #include <CodeBaseImp/CBActionAppearanceFactory/CBActionAppearanceFactory.h>
 #include <CodeBase/CBTransActionAppearance/CBTransActionAppearance.h>
 #include <CodeBase/CBTransActionAppearance/CBActionTitle.h>
-#include <CrossNative/CNComponentFactory/CNComponentFactory.h>
-#include <CrossNative/CNComposerFactory/CNComposerFactory.h>
-#include <CrossNative/CNComponent/CNComponent.h>
-#include <CrossNative/CNComposer/CNComposer.h>
+#include <CrossHierarchies/CNComponentFactory/CNComponentFactory.h>
+#include <CrossHierarchies/CNComposerFactory/CNComposerFactory.h>
+#include <CrossHierarchies/CNComponent/CNComponent.h>
+#include <CrossHierarchies/CNComposer/CNComposer.h>
 
 #include "CocoaViews/NSWindowBased/CocoaShell/CocoaShell.h"
 #include "CocoaViews/NSWindowBased/CocoaShell/Visitors/CocoaShellComposingVisitor.h"
@@ -23,6 +23,7 @@
 #include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarComposingVisitor.h"
 #include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarDecomposingVisitor.h"
 
+#include <CrossViews/DynamicMenuPresenter/DynamicMenuPresenter.h>
 #include "CocoaViews/NSMenuItemBased/CocoaMenu/CocoaMenu.h"
 #include "CocoaViews/NSMenuItemBased/CocoaMenu/Visitors/CocoaMenuComposingVisitor.h"
 #include "CocoaViews/NSMenuItemBased/CocoaMenu/Visitors/CocoaMenuDecomposingVisitor.h"
@@ -55,8 +56,8 @@ CocoaViewComponentFactory::CocoaViewComponentFactory()
 
 CNComponentPtr CocoaViewComponentFactory::makeShellComponent() {
     CocoaShellPtr shell = CocoaShell::getNewInstance();
-    CNComposerPtr composer = makeVisitingComposer(CocoaShellComposingVisitor::getNewInstance(shell),
-                                                  CocoaShellDecomposingVisitor::getNewInstance(shell));
+    CNComposerPtr composer = makeCNVisitingComposer(CocoaShellComposingVisitor::getNewInstance(shell),
+                                                    CocoaShellDecomposingVisitor::getNewInstance(shell));
     return makeCNComposable(shell, composer);
 }
 CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent(SelectionModelPtr selectionModel,
@@ -66,7 +67,7 @@ CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent(Selectio
     SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
     view->setListener(presenter);
     modelAccess->addListener(presenter);
-    CNComposerPtr composer = makeNullComposer();
+    CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
@@ -76,23 +77,23 @@ CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent(Select
     CocoaPropertiesExplorerPtr view = CocoaPropertiesExplorer::getNewInstance(modelFactory);
     PropertiesExplorerPresenterPtr presenter = PropertiesExplorerPresenter::getNewInstance(view, modelAccess, selectionModel);
     selectionModel->attach(presenter);
-    CNComposerPtr composer = makeNullComposer();
+    CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
 
 CNComponentPtr CocoaViewComponentFactory::makeMenuBarComponent() {
     CocoaMenuBarPtr menuBar = CocoaMenuBar::getNewInstance();
-    CNComposerPtr composer = makeVisitingComposer(CocoaMenuBarComposingVisitor::getNewInstance(menuBar),
-                                                  CocoaMenuBarDecomposingVisitor::getNewInstance(menuBar));
+    CNComposerPtr composer = makeCNVisitingComposer(CocoaMenuBarComposingVisitor::getNewInstance(menuBar),
+                                                    CocoaMenuBarDecomposingVisitor::getNewInstance(menuBar));
 
     return makeCNComposable(menuBar, composer);
 }
 CNComponentPtr CocoaViewComponentFactory::makeMenuComponent(std::string title, std::string tag) {
     CocoaMenuPtr menu = CocoaMenu::getNewInstance(title);
     menu->setTag(tag);
-    CNComposerPtr composer = makeVisitingComposer(CocoaMenuComposingVisitor::getNewInstance(menu),
-                                                  CocoaMenuDecomposingVisitor::getNewInstance(menu));
+    CNComposerPtr composer = makeCNVisitingComposer(CocoaMenuComposingVisitor::getNewInstance(menu),
+                                                    CocoaMenuDecomposingVisitor::getNewInstance(menu));
 
     return makeCNComposable(menu, composer);
 }
@@ -104,7 +105,7 @@ CNComponentPtr CocoaViewComponentFactory::makeUndoActionComponent(CBCommandHisto
     CBTransActionPtr action = CBUndoAction::getNewInstance(commandHistory);
     MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     commandHistory->attach(presenter);
-    CNComposerPtr composer = makeNullComposer();
+    CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
@@ -116,7 +117,7 @@ CNComponentPtr CocoaViewComponentFactory::makeRedoActionComponent(CBCommandHisto
     CBTransActionPtr action = CBRedoAction::getNewInstance(commandHistory);
     MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     commandHistory->attach(presenter);
-    CNComposerPtr composer = makeNullComposer();
+    CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
@@ -130,7 +131,7 @@ CNComponentPtr CocoaViewComponentFactory::makeRemoveActionComponent(SelectionMod
     RemoveActionPtr action = RemoveAction::getNewInstance(selectionModel, model, invoker);
     MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     selectionModel->attach(presenter);
-    CNComposerPtr composer = makeNullComposer();
+    CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
@@ -166,11 +167,17 @@ CBActionAccessibilityPtr CocoaViewComponentFactory::makeSelectionDependenAccessi
 CNComponentPtr CocoaViewComponentFactory::makeCNComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
     return componentFactory->makeCNComposable(visitable, composer);
 }
-CNComposerPtr CocoaViewComponentFactory::makeVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing) {
+CNComposerPtr CocoaViewComponentFactory::makeCNVisitingComposer(CNVisitorPtr composing, CNVisitorPtr decomposing) {
     return composerFactory->makeCNVisitingComposer(composing, decomposing);
 }
-CNComposerPtr CocoaViewComponentFactory::makeNullComposer() {
+CNComposerPtr CocoaViewComponentFactory::makeCNNullComposer() {
     return composerFactory->makeCNNullComposer();
+}
+
+CocoaMenuPtr CocoaViewComponentFactory::makeCocoaMenu(std::string title, std::string tag) {
+    CocoaMenuPtr menu = CocoaMenu::getNewInstance(title);
+    menu->setTag(tag);
+    return menu;
 }
 
 MenuEntryViewPtr CocoaViewComponentFactory::makeMenuEntryView() {
@@ -185,3 +192,8 @@ MenuEntryPresenterPtr CocoaViewComponentFactory::makeMenuEntryPresenter(MenuEntr
     return presenter;
 }
 
+DynamicMenuPresenterPtr CocoaViewComponentFactory::makeDynamicMenuPresenter(MenuViewPtr view,
+                                                                         std::shared_ptr<CNComposer> composer,
+                                                                         std::shared_ptr<MenuEntryListProvider> listProvider) {
+    return DynamicMenuPresenter::getNewInstance(view, composer, listProvider);
+}

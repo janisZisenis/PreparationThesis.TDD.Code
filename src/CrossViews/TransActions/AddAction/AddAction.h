@@ -2,7 +2,7 @@
 #define CROSSVIEWS_ADDACTION_H
 
 #include <CodeBase/CBTransAction/CBTransAction.h>
-#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
+#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CBCommand;
 class CBCommandInvoker;
@@ -11,7 +11,7 @@ class CNMatcher;
 class CNComponent;
 class CNVisitable;
 class CNComposer;
-class CNCreateComponentStrategy;
+class CreateComponentStrategy;
 
 class SelectionModel;
 class AddingHierarchicModel;
@@ -24,14 +24,14 @@ public:
     static AddActionPtr getNewInstance(std::shared_ptr<CBCommandInvoker> invoker,
                                        std::shared_ptr<AddingHierarchicModel> model,
                                        std::shared_ptr<SelectionModel> selectionModel,
-                                       std::shared_ptr<CNCreateComponentStrategy> componentStrategy,
+                                       std::shared_ptr<CreateComponentStrategy> componentStrategy,
                                        std::shared_ptr<CNMatcher> matcher);
     virtual ~AddAction();
 protected:
     AddAction(std::shared_ptr<CBCommandInvoker> invoker,
               std::shared_ptr<AddingHierarchicModel> model,
               std::shared_ptr<SelectionModel> selectionModel,
-              std::shared_ptr<CNCreateComponentStrategy> componentStrategy,
+              std::shared_ptr<CreateComponentStrategy> componentStrategy,
               std::shared_ptr<CNMatcher> matcher);
 public:
     virtual void execute() override;
@@ -46,7 +46,7 @@ private:
     std::shared_ptr<CBCommandInvoker> invoker;
     std::shared_ptr<AddingHierarchicModel> model;
     std::shared_ptr<SelectionModel> selectionModel;
-    std::shared_ptr<CNCreateComponentStrategy> componentStrategy;
+    std::shared_ptr<CreateComponentStrategy> componentStrategy;
     std::shared_ptr<CNMatcher> matcher;
 };
 

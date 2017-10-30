@@ -2,7 +2,7 @@
 #define CROSSVIEWS_REMOVECOMMAND_H
 
 #include <CodeBase/CBCommand/CBCommand.h>
-#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
+#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CNComponent;
 class InsertingHierarchicModel;

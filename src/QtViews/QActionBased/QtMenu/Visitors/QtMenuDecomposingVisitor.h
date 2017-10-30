@@ -1,7 +1,7 @@
 #ifndef QTVIEWS_QTMENUDECOMPOSINGVISITOR_H
 #define QTVIEWS_QTMENUDECOMPOSINGVISITOR_H
 
-#include <CrossNative/CNVisitor/CNVisitor.h>
+#include <CrossHierarchies/CNVisitor/CNVisitor.h>
 
 #include "QtViews/QActionBased/QtMenu/QtMenuVisitor.h"
 #include "QtViews/QActionBased/QtAction/QtActionVisitor.h"

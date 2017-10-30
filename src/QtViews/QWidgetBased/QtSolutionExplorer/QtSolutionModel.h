@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <QAbstractItemModel>
-#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
+#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class QtSolutionItem;
 

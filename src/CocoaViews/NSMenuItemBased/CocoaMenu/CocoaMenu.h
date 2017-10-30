@@ -3,7 +3,8 @@
 
 #include <memory>
 #include <string>
-#include <CrossNative/CNTagged/CNTagged.h>
+#include <CrossHierarchies/CNTagged/CNTagged.h>
+#include <CrossViews/DynamicMenuPresenter/MenuView.h>
 #include "CocoaViews/NSMenuItemBased/NSMenuItemBased.h"
 
 class CNAcceptor;
@@ -14,7 +15,7 @@ class CNAcceptor;
 class CocoaMenu;
 typedef std::shared_ptr<CocoaMenu> CocoaMenuPtr;
 
-class CocoaMenu : public NSMenuItemBased, public CNTagged, public std::enable_shared_from_this<CocoaMenu> {
+class CocoaMenu : public NSMenuItemBased, public CNTagged, public MenuView, public std::enable_shared_from_this<CocoaMenu> {
 public:
     static CocoaMenuPtr getNewInstance(std::string title);
     virtual ~CocoaMenu();

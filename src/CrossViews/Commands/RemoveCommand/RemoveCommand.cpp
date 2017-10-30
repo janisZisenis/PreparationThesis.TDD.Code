@@ -1,6 +1,6 @@
 #include "RemoveCommand.h"
 #include "InsertingHierarchicModel.h"
-#include <CrossNative/CNComponent/CNComponent.h>
+#include <CrossHierarchies/CNComponent/CNComponent.h>
 
 RemoveCommandPtr RemoveCommand::getNewInstance(InsertingHierarchicModelPtr model,
                                                CNHierarchyIndex index,

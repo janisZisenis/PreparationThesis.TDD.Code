@@ -1,6 +1,6 @@
 #include "CocoaMenuItem.h"
 #include "CocoaMenuItemVisitor.h"
-#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
 #import "CocoaViews/CocoaActionListener/CocoaActionListener.h"
 #include "CrossViews/MenuEntryPresenter/MenuEntryListener.h"
 

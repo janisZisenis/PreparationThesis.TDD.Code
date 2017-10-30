@@ -2,7 +2,7 @@
 #define QTVIEWS_QTSHELL_H
 
 #include <memory>
-#include <CrossNative/CNVisitable/CNVisitable.h>
+#include <CrossHierarchies/CNVisitable/CNVisitable.h>
 
 class CNAcceptor;
 

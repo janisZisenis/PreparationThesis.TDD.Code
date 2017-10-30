@@ -3,7 +3,7 @@
 
 
 #include <CodeBase/CBTransAction/CBTransAction.h>
-#include <CrossNative/CNHierarchy/CNHierarchyIndex.h>
+#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CBCommand;
 class CBCommandInvoker;

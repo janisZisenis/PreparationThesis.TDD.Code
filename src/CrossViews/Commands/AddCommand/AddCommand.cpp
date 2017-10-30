@@ -1,6 +1,6 @@
 #include "AddCommand.h"
 #include "AddingHierarchicModel.h"
-#include <CrossNative/CNComponent/CNComponent.h>
+#include <CrossHierarchies/CNComponent/CNComponent.h>
 
 AddCommandPtr AddCommand::getNewInstance(std::shared_ptr<AddingHierarchicModel> model, CNHierarchyIndex index,
                                         std::shared_ptr<CNComponent> component) {

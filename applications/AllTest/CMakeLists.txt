@@ -1,7 +1,7 @@
 set(targetName AllTest)     #REQUIRED#
 
 set(linkDirectories "")
-set(libsToLink CrossNative CrossViews)
+set(libsToLink CrossHierarchies CrossViews)
 set(includeDirectories ${CMAKE_SOURCE_DIR}/src)
 
 #glob files and save in MY_SRCS

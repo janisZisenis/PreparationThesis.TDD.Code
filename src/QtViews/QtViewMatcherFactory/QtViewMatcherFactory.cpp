@@ -1,6 +1,6 @@
 #include "QtViewMatcherFactory.h"
-#include <CrossNative/CNMatcherFactory/CNMatcherFactory.h>
-#include <CrossNative/CNMatcher/CNMatcher.h>
+#include <CrossHierarchies/CNMatcherFactory/CNMatcherFactory.h>
+#include <CrossHierarchies/CNMatcher/CNMatcher.h>
 
 #include "QtViews/QMainWindowBased/QtShell/Visitors/QtShellTypeIdentifyingVisitor.h"
 #include "QtViews/QMenuBarBased/QtMenuBar/Visitors/QtMenuBarTypeIdentifyingVisitor.h"

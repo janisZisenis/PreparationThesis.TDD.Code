@@ -1,7 +1,7 @@
 #include "DynamicMenuPresenter.h"
 #include "MenuView.h"
 #include "MenuEntryListProvider.h"
-#include <CrossNative/CNComposer/CNComposer.h>
+#include <CrossHierarchies/CNComposer/CNComposer.h>
 
 DynamicMenuPresenterPtr DynamicMenuPresenter::getNewInstance(MenuViewPtr view,
                                                              CNComposerPtr composer,

@@ -18,7 +18,7 @@ void CocoaShellComposingVisitor::visit(CocoaSolutionExplorerPtr solutionExplorer
 }
 
 void CocoaShellComposingVisitor::visit(CocoaPropertiesExplorerPtr propertiesExplorer) {
-    shell->addNSView(propertiesExplorer, RIGHT);
+    shell->addNSView(propertiesExplorer, LEFT);
 }
 
 void CocoaShellComposingVisitor::visit(CocoaCentralPtr central) {

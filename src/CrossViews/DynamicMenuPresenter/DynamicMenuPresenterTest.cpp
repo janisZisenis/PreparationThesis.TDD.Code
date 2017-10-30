@@ -2,9 +2,9 @@
 #include "DynamicMenuPresenter.h"
 #include "MenuViewTestDoubles.h"
 #include "MenuEntryListProviderTestDoubles.h"
-#include <CrossNative/CNComposer/CNComposerTestDoubles.h>
-#include <CrossNative/CNVisitor/CNVisitorTestDoubles.h>
-#include <CrossNative/CNVisitable/CNVisitableTestDoubles.h>
+#include <CrossHierarchies/CNComposer/CNComposerTestDoubles.h>
+#include <CrossHierarchies/CNVisitor/CNVisitorTestDoubles.h>
+#include <CrossHierarchies/CNVisitable/CNVisitableTestDoubles.h>
 
 class DynamicMenuPresenterTest : public testing::Test {
 protected:

@@ -23,10 +23,9 @@ void QtShellDecomposingVisitor::visit(QtSolutionExplorerPtr solutionExplorer) {
 }
 
 void QtShellDecomposingVisitor::visit(QtPropertiesExplorerPtr propertiesExplorer) {
-    shell->removeQtWidget(propertiesExplorer, RIGHT);
+    shell->removeQtWidget(propertiesExplorer, LEFT);
 }
 
 void QtShellDecomposingVisitor::visit(QtCentralPtr central) {
     shell->removeQtWidget(central, CENTRAL);
 }
-

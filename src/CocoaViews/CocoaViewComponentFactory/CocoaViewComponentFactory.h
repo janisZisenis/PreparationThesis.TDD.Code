@@ -28,8 +28,13 @@ class InsertingHierarchicModel;
 class CocoaSolutionItemFactory;
 class CocoaPropertiesModelFactory;
 
-class MenuEntryView;
+class DynamicMenuPresenter;
+class MenuEntryListProvider;
+class MenuView;
+class CocoaMenu;
 class MenuEntryPresenter;
+class MenuEntryView;
+class CocoaAction;
 
 class CocoaViewComponentFactory;
 typedef std::shared_ptr<CocoaViewComponentFactory> CocoaViewComponentFactoryPtr;
@@ -59,10 +64,14 @@ public:
                                                                    std::shared_ptr<CBCommandInvoker> invoker);
 
 protected:
+    virtual std::shared_ptr<CocoaMenu> makeCocoaMenu(std::string title, std::string tag);
     virtual std::shared_ptr<MenuEntryView> makeMenuEntryView();
     virtual std::shared_ptr<MenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<MenuEntryView> view,
                                                                        std::shared_ptr<CBTransActionAppearance> appearance,
                                                                        std::shared_ptr<CBTransAction> action);
+    virtual std::shared_ptr<DynamicMenuPresenter> makeDynamicMenuPresenter(std::shared_ptr<MenuView> view,
+                                                                           std::shared_ptr<CNComposer> composer,
+                                                                           std::shared_ptr<MenuEntryListProvider> listProvider);
 
     virtual std::shared_ptr<CBTransActionAppearance> makeCBTransActionAppearance(
             std::shared_ptr<CBActionAccessibility> accessibility,
@@ -79,8 +88,9 @@ protected:
 
     virtual std::shared_ptr<CNComponent> makeCNComposable(std::shared_ptr<CNVisitable> visitable,
                                                           std::shared_ptr<CNComposer> composer);
-    virtual std::shared_ptr<CNComposer> makeVisitingComposer(std::shared_ptr<CNVisitor> composing, std::shared_ptr<CNVisitor> decomposing);
-    virtual std::shared_ptr<CNComposer> makeNullComposer();
+    virtual std::shared_ptr<CNComposer> makeCNVisitingComposer(std::shared_ptr<CNVisitor> composing,
+                                                               std::shared_ptr<CNVisitor> decomposing);
+    virtual std::shared_ptr<CNComposer> makeCNNullComposer();
 
 private:
     std::shared_ptr<CNComponentFactory> componentFactory;

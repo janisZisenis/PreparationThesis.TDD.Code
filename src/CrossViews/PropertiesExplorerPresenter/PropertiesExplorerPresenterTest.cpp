@@ -4,8 +4,8 @@
 #include "CrossViews/SelectionModel/SelectionModelTestDoubles.h"
 #include "CrossViews/SelectionModel/FakeSelectionModel.h"
 #include "HierarchicModelAccessTestDoubles.h"
-#include <CrossNative/CNVisitor/CNVisitorTestDoubles.h>
-#include <CrossNative/CNVisitable/CNVisitableTestDoubles.h>
+#include <CrossHierarchies/CNVisitor/CNVisitorTestDoubles.h>
+#include <CrossHierarchies/CNVisitable/CNVisitableTestDoubles.h>
 
 class PropertiesExplorerPresenterTest : public testing::Test {
 protected:

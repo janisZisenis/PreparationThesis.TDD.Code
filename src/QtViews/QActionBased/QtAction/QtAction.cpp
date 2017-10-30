@@ -1,7 +1,7 @@
 #include "QtAction.h"
 #include "QtActionVisitor.h"
 #include <QAction>
-#include <CrossNative/CNAcceptor/CNAcceptorImp.h>
+#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
 #include <CrossViews/MenuEntryPresenter/MenuEntryListener.h>
 
 QtActionPtr QtAction::getNewInstance() {

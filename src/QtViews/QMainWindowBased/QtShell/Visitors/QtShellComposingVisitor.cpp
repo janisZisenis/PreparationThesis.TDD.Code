@@ -23,7 +23,7 @@ void QtShellComposingVisitor::visit(QtSolutionExplorerPtr solutionExplorer) {
 }
 
 void QtShellComposingVisitor::visit(QtPropertiesExplorerPtr propertiesExplorer) {
-    shell->addQtWidget(propertiesExplorer, RIGHT);
+    shell->addQtWidget(propertiesExplorer, LEFT);
 }
 
 void QtShellComposingVisitor::visit(QtCentralPtr central) {
