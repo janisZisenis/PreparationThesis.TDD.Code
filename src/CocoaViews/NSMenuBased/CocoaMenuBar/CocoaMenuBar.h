@@ -1,7 +1,7 @@
 #ifndef COCOAVIEWS_COCOAMENUBAR_H
 #define COCOAVIEWS_COCOAMENUBAR_H
 
-#include <CrossHierarchies/CNVisitable/CNVisitable.h>
+#include <Hierarchies/CNVisitable/CNVisitable.h>
 
 class CNAcceptor;
 

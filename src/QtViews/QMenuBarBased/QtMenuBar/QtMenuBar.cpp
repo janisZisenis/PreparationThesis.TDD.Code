@@ -1,6 +1,6 @@
 #include "QtMenuBar.h"
 #include "QtMenuBarVisitor.h"
-#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
+#include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
 #include "QtViews/QActionBased/QActionBased.h"
 
 #include <QMenuBar>

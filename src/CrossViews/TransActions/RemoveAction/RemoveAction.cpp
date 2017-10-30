@@ -1,7 +1,7 @@
 #include "RemoveAction.h"
 #include "CrossViews/SelectionModel/SelectionModel.h"
 #include <CodeBaseImp/CBCommandStack/CBCommandStack.h>
-#include <CrossHierarchies/CNComponent/CNComponent.h>
+#include <Hierarchies/CNComponent/CNComponent.h>
 #include "CrossViews/Commands/RemoveCommand/RemoveCommand.h"
 #include "CrossViews/Commands/RemoveCommand/InsertingHierarchicModel.h"
 

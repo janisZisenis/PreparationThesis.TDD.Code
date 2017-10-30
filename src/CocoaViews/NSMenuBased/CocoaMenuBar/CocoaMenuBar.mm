@@ -1,6 +1,6 @@
 #include "CocoaMenuBar.h"
 #include "CocoaMenuBarVisitor.h"
-#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
+#include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
 #import "Cocoa/Cocoa.h"
 
 CocoaMenuBarPtr CocoaMenuBar::getNewInstance() {

@@ -1,7 +1,7 @@
 #ifndef COCOAVIEWS_COCOAMENUBARCOMPOSINGVISITOR_H
 #define COCOAVIEWS_COCOAMENUBARCOMPOSINGVISITOR_H
 
-#include "CrossHierarchies/CNVisitor/CNVisitor.h"
+#include "Hierarchies/CNVisitor/CNVisitor.h"
 
 #include "CocoaViews/NSMenuItemBased/CocoaMenu/CocoaMenuVisitor.h"
 

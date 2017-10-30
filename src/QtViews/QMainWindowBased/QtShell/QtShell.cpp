@@ -1,6 +1,6 @@
 #include "QtShell.h"
 #include "QtShellVisitor.h"
-#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
+#include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
 
 #include "QtViews/QWidgetBased/QWidgetBased.h"
 #include "QtViews/QMenuBarBased/QMenuBarBased.h"

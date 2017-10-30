@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_SOLUTIONEXPLORERPRESENTER_H
 #define CROSSVIEWS_SOLUTIONEXPLORERPRESENTER_H
 
-#include <CrossHierarchies/CNVisitable/CNVisitable.h>
+#include <Hierarchies/CNVisitable/CNVisitable.h>
 #include "CrossViews/HierarchicModel/HierarchicModelListener.h"
 #include "SolutionExplorerListener.h"
 

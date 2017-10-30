@@ -1,7 +1,7 @@
 #ifndef COCOAVIEWS_COCOACENTRAL_H
 #define COCOAVIEWS_COCOACENTRAL_H
 
-#include <CrossHierarchies/CNVisitable/CNVisitable.h>
+#include <Hierarchies/CNVisitable/CNVisitable.h>
 #include "CocoaViews/NSViewBased/NSViewBased.h"
 
 class CocoaCentral;

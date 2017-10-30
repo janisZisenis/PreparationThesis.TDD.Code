@@ -2,7 +2,7 @@
 #define QTVIEWS_QTMENUBARTYPEIDENTIFYINGVISITOR_H
 
 #include "QtViews/QMenuBarBased/QtMenuBar/QtMenuBarVisitor.h"
-#include "CrossHierarchies/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitor.h"
+#include "Hierarchies/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitor.h"
 
 class QtMenuBarTypeIdentifyingVisitor;
 typedef std::shared_ptr<QtMenuBarTypeIdentifyingVisitor> QtMenuBarTypeIdentifyingVisitorPtr;

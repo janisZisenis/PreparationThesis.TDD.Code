@@ -2,7 +2,7 @@
 #define CROSSVIEWS_SELECTIONMODEL_H
 
 #include <memory>
-#include "CrossHierarchies/CNHierarchy/CNHierarchyIndex.h"
+#include "Hierarchies/CNHierarchy/CNHierarchyIndex.h"
 
 class CBObserver;
 

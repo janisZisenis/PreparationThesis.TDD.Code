@@ -1,7 +1,7 @@
 #include "HierarchicModel.h"
 #include "HierarchicModelListener.h"
-#include <CrossHierarchies/CNHierarchy/CNHierarchy.h>
-#include <CrossHierarchies/CNComponent/CNComponent.h>
+#include <Hierarchies/CNHierarchy/CNHierarchy.h>
+#include <Hierarchies/CNComponent/CNComponent.h>
 
 HierarchicModelPtr HierarchicModel::getNewInstance() {
     return HierarchicModelPtr(new HierarchicModel());

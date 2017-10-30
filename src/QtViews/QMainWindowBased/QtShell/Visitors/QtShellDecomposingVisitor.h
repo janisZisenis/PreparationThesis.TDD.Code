@@ -1,7 +1,7 @@
 #ifndef QTVIEWS_QTSHELLDECOMPOSINGVISITOR_H
 #define QTVIEWS_QTSHELLDECOMPOSINGVISITOR_H
 
-#include "CrossHierarchies/CNVisitor/CNVisitor.h"
+#include "Hierarchies/CNVisitor/CNVisitor.h"
 
 #include "QtViews/QMenuBarBased/QtMenuBar/QtMenuBarVisitor.h"
 #include "QtViews/QWidgetBased/QtSolutionExplorer/QtSolutionExplorerVisitor.h"

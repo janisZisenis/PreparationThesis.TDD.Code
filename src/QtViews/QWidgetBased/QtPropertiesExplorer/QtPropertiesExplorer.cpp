@@ -2,7 +2,7 @@
 #include "QtPropertiesModel.h"
 #include "QtPropertiesExplorerVisitor.h"
 #include "QtPropertiesModelFactory.h"
-#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
+#include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
 #include <QtWidgets>
 
 QtPropertiesExplorerPtr QtPropertiesExplorer::getNewInstance(QtPropertiesModelFactoryPtr modelFactory) {

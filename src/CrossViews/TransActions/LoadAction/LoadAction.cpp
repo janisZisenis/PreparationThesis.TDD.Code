@@ -1,7 +1,7 @@
 #include "LoadAction.h"
 #include "ComponentLoader.h"
 #include "CreateComponentStrategy.h"
-#include "CrossHierarchies/CNMatcher/CNMatcher.h"
+#include "Hierarchies/CNMatcher/CNMatcher.h"
 
 LoadActionPtr LoadAction::getNewInstance(ComponentLoaderPtr componentLoader,
                                              CreateComponentStrategyPtr componentStrategy,

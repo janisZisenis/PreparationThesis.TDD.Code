@@ -1,7 +1,7 @@
 #ifndef LVICE_INSERTINGHIERARCHICMODEL_H
 #define LVICE_INSERTINGHIERARCHICMODEL_H
 
-#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
+#include <Hierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CNComponent;
 

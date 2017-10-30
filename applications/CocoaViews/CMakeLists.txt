@@ -1,7 +1,7 @@
 set(targetName CocoaViews)       #REQUIRED#
 
 set(linkDirectories "")
-set(libsToLink CrossViews CrossHierarchies)
+set(libsToLink CrossViews)
 set(includeDirectories ${CMAKE_SOURCE_DIR}/src)
 #glob files and save in MY_SRCS
 include(CMakePackage.cmake)

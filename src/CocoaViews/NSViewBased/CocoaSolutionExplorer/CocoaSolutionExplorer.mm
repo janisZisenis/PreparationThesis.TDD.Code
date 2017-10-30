@@ -1,7 +1,7 @@
 #include "CocoaSolutionExplorer.h"
 #include "CocoaSolutionExplorerVisitor.h"
 #include "CocoaSolutionItemFactory.h"
-#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
+#include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
 #include <CrossViews/SolutionExplorerPresenter/SolutionExplorerListener.h>
 #import "CocoaSolutionModel.h"
 #import "CocoaSolutionItem.h"

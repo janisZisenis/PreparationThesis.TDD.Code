@@ -1,8 +1,8 @@
 #include "AddAction.h"
 #include "CrossViews/TransActions/LoadAction/CreateComponentStrategy.h"
 #include <CodeBase/CBCommandInvoker/CBCommandInvoker.h>
-#include <CrossHierarchies/CNComponent/CNComponent.h>
-#include <CrossHierarchies/CNMatcher/CNMatcher.h>
+#include <Hierarchies/CNComponent/CNComponent.h>
+#include <Hierarchies/CNMatcher/CNMatcher.h>
 #include <CrossViews/SelectionModel/SelectionModel.h>
 #include <CrossViews/Commands/AddCommand/AddingHierarchicModel.h>
 #include <CrossViews/Commands/AddCommand/AddCommand.h>

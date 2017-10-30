@@ -1,7 +1,7 @@
 #ifndef CROSSVIEWS_HIERARCHICMODELACCESS_H
 #define CROSSVIEWS_HIERARCHICMODELACCESS_H
 
-#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
+#include <Hierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CNComponent;
 class HierarchicModelListener;

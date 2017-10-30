@@ -2,8 +2,8 @@
 #define CROSSVIEWS_SOLUTIONEXPLORERVIEW_H
 
 #include <CodeBase/CBTransActionAppearance/CBActionState.h>
-#include <CrossHierarchies/CNVisitable/CNVisitable.h>
-#include "CrossHierarchies/CNHierarchy/CNHierarchyIndex.h"
+#include <Hierarchies/CNVisitable/CNVisitable.h>
+#include "Hierarchies/CNHierarchy/CNHierarchyIndex.h"
 
 class SolutionExplorerListener;
 

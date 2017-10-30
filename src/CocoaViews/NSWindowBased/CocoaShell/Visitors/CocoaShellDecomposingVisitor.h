@@ -1,7 +1,7 @@
 #ifndef COCOAVIEWS_COCOASHELLDECOMPOSINGVISITOR_H
 #define COCOAVIEWS_COCOASHELLDECOMPOSINGVISITOR_H
 
-#include "CrossHierarchies/CNVisitor/CNVisitor.h"
+#include "Hierarchies/CNVisitor/CNVisitor.h"
 
 #include "CocoaViews/NSViewBased/CocoaSolutionExplorer/CocoaSolutionExplorerVisitor.h"
 #include "CocoaViews/NSViewBased/CocoaPropertiesExplorer/CocoaPropertiesExplorerVisitor.h"

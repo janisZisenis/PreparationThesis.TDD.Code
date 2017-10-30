@@ -4,8 +4,8 @@
 #include "SolutionExplorerViewMock.h"
 #include "CrossViews/SelectionModel/SelectionModelTestDoubles.h"
 #include "CrossViews/SelectionModel/FakeSelectionModel.h"
-#include <CrossHierarchies/CNVisitor/CNVisitorTestDoubles.h>
-#include <CrossHierarchies/CNVisitable/CNVisitableTestDoubles.h>
+#include <Hierarchies/CNVisitor/CNVisitorTestDoubles.h>
+#include <Hierarchies/CNVisitable/CNVisitableTestDoubles.h>
 
 class SolutionExplorerPresenterTest : public testing::Test {
 protected:

@@ -2,7 +2,7 @@
 #define CROSSVIEWS_ADDACTION_H
 
 #include <CodeBase/CBTransAction/CBTransAction.h>
-#include <CrossHierarchies/CNHierarchy/CNHierarchyIndex.h>
+#include <Hierarchies/CNHierarchy/CNHierarchyIndex.h>
 
 class CBCommand;
 class CBCommandInvoker;

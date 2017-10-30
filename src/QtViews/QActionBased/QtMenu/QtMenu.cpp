@@ -1,7 +1,7 @@
 #include "QtMenu.h"
 #include "QtMenuVisitor.h"
-#include <CrossHierarchies/CNAcceptor/CNAcceptorImp.h>
-#include <CrossHierarchies/CNTagged/CNTaggedVisitor.h>
+#include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
+#include <Hierarchies/CNTagged/CNTaggedVisitor.h>
 #include <QAction>
 #include <QMenu>
 

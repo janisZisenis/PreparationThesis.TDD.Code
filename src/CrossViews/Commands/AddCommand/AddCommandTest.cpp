@@ -2,7 +2,7 @@
 
 #include "AddCommand.h"
 #include "AddingHierarchicModelTestDoubles.h"
-#include <CrossHierarchies/CNComponent/CNComponentTestDoubles.h>
+#include <Hierarchies/CNComponent/CNComponentTestDoubles.h>
 
 class AddCommandTest : public testing::Test {
 protected:

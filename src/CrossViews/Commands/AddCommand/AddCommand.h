@@ -2,7 +2,7 @@
 #define CROSSVIEWS_ADDCOMMAND_H
 
 #include <CodeBase/CBCommand/CBCommand.h>
-#include <CrossHierarchies/CNHierarchy/CNHierarchy.h>
+#include <Hierarchies/CNHierarchy/CNHierarchy.h>
 
 class AddingHierarchicModel;
 class CNComponent;

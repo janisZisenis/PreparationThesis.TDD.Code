@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <CrossHierarchies/CNTagged/CNTagged.h>
+#include <Hierarchies/CNTagged/CNTagged.h>
 #include <CrossViews/DynamicMenuPresenter/MenuView.h>
 #include "QtViews/QActionBased/QActionBased.h"
 

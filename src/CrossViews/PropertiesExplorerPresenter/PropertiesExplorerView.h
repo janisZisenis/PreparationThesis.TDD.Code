@@ -2,7 +2,7 @@
 #define CROSSVIEWS_PROPERTIESEXPLORERVIEW_H
 
 #include <CodeBase/CBTransActionAppearance/CBActionState.h>
-#include <CrossHierarchies/CNVisitable/CNVisitable.h>
+#include <Hierarchies/CNVisitable/CNVisitable.h>
 
 class PropertiesExplorerView;
 typedef std::shared_ptr<PropertiesExplorerView> PropertiesExplorerViewPtr;

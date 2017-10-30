@@ -1,9 +1,9 @@
 #include <gmock/gmock.h>
 #include "LoadAction.h"
-#include "CrossHierarchies/CNComponent/CNComponentTestDoubles.h"
+#include "Hierarchies/CNComponent/CNComponentTestDoubles.h"
 #include "ComponentLoaderTestDoubles.h"
 #include "CreateComponentStrategyTestDoubles.h"
-#include "CrossHierarchies/CNMatcher/CNMatcherTestDoubles.h"
+#include "Hierarchies/CNMatcher/CNMatcherTestDoubles.h"
 
 class LoadActionTest : public testing::Test {
 protected:

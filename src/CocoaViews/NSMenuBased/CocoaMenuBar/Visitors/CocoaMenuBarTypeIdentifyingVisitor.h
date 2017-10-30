@@ -2,7 +2,7 @@
 #define COCOAVIEWS_COCOAMENUBARTYPEIDENTIFYINGVISITOR_H
 
 #include "CocoaViews/NSMenuBased/CocoaMenuBar/CocoaMenuBarVisitor.h"
-#include "CrossHierarchies/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitor.h"
+#include "Hierarchies/CNMatcher/CNVisitingMatcher/CNIdentifyingVisitor.h"
 
 class CocoaMenuBarTypeIdentifyingVisitor;
 typedef std::shared_ptr<CocoaMenuBarTypeIdentifyingVisitor> CocoaMenuBarTypeIdentifyingVisitorPtr;

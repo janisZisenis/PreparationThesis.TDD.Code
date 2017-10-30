@@ -54,8 +54,8 @@ sharedLibs()
 ###                   SUBDIRECTORIES                      ###
 #############################################################
 
-add_subdirectory(applications/CrossHierarchies)
-add_subdirectory(applications/CrossHierarchiesTest)
+add_subdirectory(applications/Hierarchies)
+add_subdirectory(applications/HierarchiesTest)
 
 add_subdirectory(applications/CrossViewsTest)
 add_subdirectory(applications/CrossViews)

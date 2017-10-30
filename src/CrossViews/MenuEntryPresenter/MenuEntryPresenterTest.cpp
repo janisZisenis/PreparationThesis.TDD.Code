@@ -2,8 +2,8 @@
 #include "MenuEntryPresenter.h"
 #include "MenuEntryViewTestDoubles.h"
 #include <CodeBase/CBTransActionAppearance/CBTransActionAppearanceTestDoubles.h>
-#include <CrossHierarchies/CNVisitable/CNVisitableTestDoubles.h>
-#include <CrossHierarchies/CNVisitor/CNVisitorTestDoubles.h>
+#include <Hierarchies/CNVisitable/CNVisitableTestDoubles.h>
+#include <Hierarchies/CNVisitor/CNVisitorTestDoubles.h>
 #include <CodeBase/CBTransAction/CBTransActionMocks.h>
 
 class MenuEntryPresenterTest : public testing::Test {
