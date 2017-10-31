@@ -3,13 +3,13 @@
 #include <Base/CNTransActionAppearance/CNTransActionAppearance.h>
 #include <Base/CNTransAction/CNTransAction.h>
 
-CNMenuEntryPresenterPtr MenuEntryPresenter::getNewInstance(CNMenuEntryViewPtr view,
+CNMenuEntryPresenterPtr CNMenuEntryPresenter::getNewInstance(CNMenuEntryViewPtr view,
                                                        CNTransActionAppearancePtr appearance,
                                                        CNTransActionPtr action) {
-    return CNMenuEntryPresenterPtr(new MenuEntryPresenter(view, appearance, action));
+    return CNMenuEntryPresenterPtr(new CNMenuEntryPresenter(view, appearance, action));
 }
-MenuEntryPresenter::~MenuEntryPresenter() {}
-MenuEntryPresenter::MenuEntryPresenter(CNMenuEntryViewPtr view,
+CNMenuEntryPresenter::~CNMenuEntryPresenter() {}
+CNMenuEntryPresenter::CNMenuEntryPresenter(CNMenuEntryViewPtr view,
                                      CNTransActionAppearancePtr appearance,
                                      CNTransActionPtr action)
         : view(view),
@@ -18,28 +18,28 @@ MenuEntryPresenter::MenuEntryPresenter(CNMenuEntryViewPtr view,
     update();
 }
 
-void MenuEntryPresenter::update() {
+void CNMenuEntryPresenter::update() {
     updateTitle();
     updateState();
     updateAccessibility();
 }
 
-void MenuEntryPresenter::accept(CNVisitorPtr visitor) {
+void CNMenuEntryPresenter::accept(CNVisitorPtr visitor) {
     view->accept(visitor);
 }
 
-void MenuEntryPresenter::onTriggered() {
+void CNMenuEntryPresenter::onTriggered() {
     action->execute();
 }
 
-void MenuEntryPresenter::updateState() {
+void CNMenuEntryPresenter::updateState() {
     appearance->getState() == ON ? view->check() : view->uncheck();
 }
 
-void MenuEntryPresenter::updateAccessibility() {
+void CNMenuEntryPresenter::updateAccessibility() {
     appearance->isAccessible() ? view->enable() : view->disable();
 }
 
-void MenuEntryPresenter::updateTitle() {
+void CNMenuEntryPresenter::updateTitle() {
     view->setTitle(appearance->getTitle());
 }

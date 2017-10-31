@@ -11,7 +11,7 @@ protected:
     virtual CNMenuEntryPresenterPtr makeMenuEntryPresenter(CNMenuEntryViewPtr view,
                                                            CNTransActionAppearancePtr appearance,
                                                            CNTransActionPtr action) {
-        return MenuEntryPresenter::getNewInstance(view, appearance, action);
+        return CNMenuEntryPresenter::getNewInstance(view, appearance, action);
     }
 
     virtual CNMenuEntryViewSpyPtr makeMenuEntryViewSpy() {

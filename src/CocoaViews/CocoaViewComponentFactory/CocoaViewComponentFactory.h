@@ -32,7 +32,7 @@ class CNDynamicMenuPresenter;
 class CNComponentListProvider;
 class CNMenuView;
 class CocoaMenu;
-class MenuEntryPresenter;
+class CNMenuEntryPresenter;
 class CNMenuEntryView;
 class CocoaAction;
 
@@ -66,7 +66,7 @@ public:
 protected:
     virtual std::shared_ptr<CocoaMenu> makeCocoaMenu(std::string title, std::string tag);
     virtual std::shared_ptr<CNMenuEntryView> makeMenuEntryView();
-    virtual std::shared_ptr<MenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<CNMenuEntryView> view,
+    virtual std::shared_ptr<CNMenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<CNMenuEntryView> view,
                                                                        std::shared_ptr<CNTransActionAppearance> appearance,
                                                                        std::shared_ptr<CNTransAction> action);
     virtual std::shared_ptr<CNDynamicMenuPresenter> makeDynamicMenuPresenter(std::shared_ptr<CNMenuView> view,

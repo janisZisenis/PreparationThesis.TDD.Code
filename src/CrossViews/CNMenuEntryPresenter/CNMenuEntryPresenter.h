@@ -9,19 +9,19 @@ class CNMenuEntryView;
 class CNTransActionAppearance;
 class CNTransAction;
 
-class MenuEntryPresenter;
-typedef std::shared_ptr<MenuEntryPresenter> CNMenuEntryPresenterPtr;
+class CNMenuEntryPresenter;
+typedef std::shared_ptr<CNMenuEntryPresenter> CNMenuEntryPresenterPtr;
 
-class MenuEntryPresenter : public CNObserver, public virtual CNVisitable, public CNMenuEntryListener {
+class CNMenuEntryPresenter : public CNObserver, public virtual CNVisitable, public CNMenuEntryListener {
 public:
     static CNMenuEntryPresenterPtr getNewInstance(std::shared_ptr<CNMenuEntryView> view,
-                                               std::shared_ptr<CNTransActionAppearance> appearance,
-                                               std::shared_ptr<CNTransAction> action);
-    virtual ~MenuEntryPresenter();
+                                                  std::shared_ptr<CNTransActionAppearance> appearance,
+                                                  std::shared_ptr<CNTransAction> action);
+    virtual ~CNMenuEntryPresenter();
 private:
-    MenuEntryPresenter(std::shared_ptr<CNMenuEntryView> view,
-                      std::shared_ptr<CNTransActionAppearance> appearance,
-                      std::shared_ptr<CNTransAction> action);
+    CNMenuEntryPresenter(std::shared_ptr<CNMenuEntryView> view,
+                         std::shared_ptr<CNTransActionAppearance> appearance,
+                         std::shared_ptr<CNTransAction> action);
 
 public:
     virtual void update() override;

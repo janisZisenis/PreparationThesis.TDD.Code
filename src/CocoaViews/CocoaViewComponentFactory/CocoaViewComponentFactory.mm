@@ -187,7 +187,7 @@ CNMenuEntryViewPtr CocoaViewComponentFactory::makeMenuEntryView() {
 CNMenuEntryPresenterPtr CocoaViewComponentFactory::makeMenuEntryPresenter(CNMenuEntryViewPtr view,
                                                                           CNTransActionAppearancePtr appearance,
                                                                           CNTransActionPtr action) {
-    CNMenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
+    CNMenuEntryPresenterPtr presenter = CNMenuEntryPresenter::getNewInstance(view, appearance, action);
     view->setListener(presenter);
     return presenter;
 }
