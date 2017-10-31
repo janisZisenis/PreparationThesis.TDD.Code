@@ -10,7 +10,7 @@ class CNDynamicMenuPresenterTest : public testing::Test {
 protected:
     virtual CNDynamicMenuPresenterPtr makeDynamicMenuPresenter(CNMenuViewPtr view,
                                                              CNComposerPtr composer,
-                                                             CNComponentListProviderPtr listProvider) {
+                                                             CNVisitableListProviderPtr listProvider) {
         return CNDynamicMenuPresenter::getNewInstance(view, composer, listProvider);
     }
     virtual CNMenuViewPtr makeMenuViewDummy() {
@@ -31,7 +31,7 @@ protected:
     virtual CNComposerPtr makeCNComposerDummy() {
         return CNComposerDummy::getNewInstance();
     }
-    virtual CNComponentListProviderPtr makeMenuEntryListProviderDummy() {
+    virtual CNVisitableListProviderPtr makeMenuEntryListProviderDummy() {
         return CNComponentListProviderDummy::getNewInstance();
     }
     virtual CNComponentListProviderStubPtr makeMenuEntryListProviderStub() {
@@ -64,7 +64,7 @@ protected:
 TEST_F(CNDynamicMenuPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToTheView) {
     CNMenuViewSpyPtr view = makeMenuViewSpy();
     CNComposerPtr composer = makeCNComposerDummy();
-    CNComponentListProviderPtr listProvider = makeMenuEntryListProviderDummy();
+    CNVisitableListProviderPtr listProvider = makeMenuEntryListProviderDummy();
     CNDynamicMenuPresenterPtr sut = makeDynamicMenuPresenter(view, composer, listProvider);
 
     CNVisitorPtr visitor = makeCNVisitorDummy();

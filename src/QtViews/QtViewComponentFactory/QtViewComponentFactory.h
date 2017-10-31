@@ -29,7 +29,7 @@ class QtSolutionItemFactory;
 class QtPropertiesModelFactory;
 
 class CNDynamicMenuPresenter;
-class CNComponentListProvider;
+class CNVisitableListProvider;
 class CNMenuView;
 class QtMenu;
 class CNMenuEntryPresenter;
@@ -71,7 +71,7 @@ protected:
                                                                        std::shared_ptr<CNTransAction> action);
     virtual std::shared_ptr<CNDynamicMenuPresenter> makeDynamicMenuPresenter(std::shared_ptr<CNMenuView> view,
                                                                   std::shared_ptr<CNComposer> composer,
-                                                                  std::shared_ptr<CNComponentListProvider> listProvider);
+                                                                  std::shared_ptr<CNVisitableListProvider> listProvider);
 
     virtual std::shared_ptr<CNTransActionAppearance> makeCBTransActionAppearance(std::shared_ptr<CNTransActionAccessibility> accessibility,
                                                                                std::shared_ptr<CNTransActionState> state,

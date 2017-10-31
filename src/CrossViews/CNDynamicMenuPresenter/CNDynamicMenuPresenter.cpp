@@ -1,17 +1,17 @@
 #include "CNDynamicMenuPresenter.h"
 #include "CNMenuView.h"
-#include "CNComponentListProvider.h"
+#include "CNVisitableListProvider.h"
 #include <Hierarchies/CNComposer/CNComposer.h>
 
 CNDynamicMenuPresenterPtr CNDynamicMenuPresenter::getNewInstance(CNMenuViewPtr view,
                                                                  CNComposerPtr composer,
-                                                                 CNComponentListProviderPtr listProvider) {
+                                                                 CNVisitableListProviderPtr listProvider) {
     return CNDynamicMenuPresenterPtr(new CNDynamicMenuPresenter(view, composer, listProvider));
 }
 CNDynamicMenuPresenter::~CNDynamicMenuPresenter() {}
 CNDynamicMenuPresenter::CNDynamicMenuPresenter(CNMenuViewPtr view,
                                                CNComposerPtr composer,
-                                               CNComponentListProviderPtr listProvider)
+                                               CNVisitableListProviderPtr listProvider)
         : view(view), composer(composer), listProvider(listProvider) {}
 
 void CNDynamicMenuPresenter::accept(CNVisitorPtr visitor) {
@@ -35,6 +35,6 @@ void CNDynamicMenuPresenter::dismountMenuEntries() {
 }
 
 void CNDynamicMenuPresenter::updateMenuEntries() {
-    menuEntries = listProvider->getMenuEntryList();
+    menuEntries = listProvider->getVisitables();
 }
 

@@ -1,12 +1,12 @@
 #ifndef CROSSNATIVE_COMPONENTLISTPROVIDER_TESTDOUBLES_H
 #define CROSSNATIVE_COMPONENTLISTPROVIDER_TESTDOUBLES_H
 
-#include "CNComponentListProvider.h"
+#include "CNVisitableListProvider.h"
 
 class CNComponentListProviderDummy;
 typedef std::shared_ptr<CNComponentListProviderDummy> CNComponentListProviderDummyPtr;
 
-class CNComponentListProviderDummy : public CNComponentListProvider {
+class CNComponentListProviderDummy : public CNVisitableListProvider {
 public:
     static CNComponentListProviderDummyPtr getNewInstance() {
         return CNComponentListProviderDummyPtr(new CNComponentListProviderDummy());
@@ -16,7 +16,7 @@ protected:
     CNComponentListProviderDummy() {}
 
 public:
-    virtual const std::vector< std::shared_ptr<CNVisitable> > getMenuEntryList() {
+    virtual const std::vector< std::shared_ptr<CNVisitable> > getVisitables() {
         return std::vector< std::shared_ptr<CNVisitable> >();
     };
 };

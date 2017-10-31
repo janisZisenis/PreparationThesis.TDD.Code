@@ -194,6 +194,6 @@ CNMenuEntryPresenterPtr CocoaViewComponentFactory::makeMenuEntryPresenter(CNMenu
 
 CNDynamicMenuPresenterPtr CocoaViewComponentFactory::makeDynamicMenuPresenter(CNMenuViewPtr view,
                                                                               std::shared_ptr<CNComposer> composer,
-                                                                              std::shared_ptr<CNComponentListProvider> listProvider) {
+                                                                              std::shared_ptr<CNVisitableListProvider> listProvider) {
     return CNDynamicMenuPresenter::getNewInstance(view, composer, listProvider);
 }
