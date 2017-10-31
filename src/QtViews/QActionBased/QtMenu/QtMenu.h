@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 #include <Hierarchies/CNTagged/CNTagged.h>
-#include <CrossViews/DynamicMenuPresenter/MenuView.h>
+#include <CrossViews/CNDynamicMenuPresenter/CNMenuView.h>
 #include "QtViews/QActionBased/QActionBased.h"
 
 class CNAcceptor;
@@ -17,7 +17,7 @@ class QMenu;
 class QtMenu;
 typedef std::shared_ptr<QtMenu> QtMenuPtr;
 
-class QtMenu : public QActionBased, public CNTagged, public MenuView, public std::enable_shared_from_this<QtMenu> {
+class QtMenu : public QActionBased, public CNTagged, public CNMenuView, public std::enable_shared_from_this<QtMenu> {
 public:
     static QtMenuPtr getNewInstance(std::string title);
     virtual ~QtMenu();

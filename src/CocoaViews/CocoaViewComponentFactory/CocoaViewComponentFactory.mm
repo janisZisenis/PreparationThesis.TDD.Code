@@ -2,7 +2,7 @@
 
 #include <Base/CNActionAppearanceFactory/CNActionAppearanceFactory.h>
 #include <Base/CNTransActionAppearance/CNTransActionAppearance.h>
-#include <Base/CNTransActionAppearance/CNActionTitle.h>
+#include <Base/CNTransActionAppearance/CNTransActionTitle.h>
 #include <Hierarchies/CNComponentFactory/CNComponentFactory.h>
 #include <Hierarchies/CNComposerFactory/CNComposerFactory.h>
 #include <Hierarchies/CNComponent/CNComponent.h>
@@ -12,23 +12,23 @@
 #include "CocoaViews/NSWindowBased/CocoaShell/Visitors/CocoaShellComposingVisitor.h"
 #include "CocoaViews/NSWindowBased/CocoaShell/Visitors/CocoaShellDecomposingVisitor.h"
 
-#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerPresenter.h>
+#include <CrossViews/CNSolutionExplorerPresenter/CNSolutionExplorerPresenter.h>
 #include "CocoaViews/NSViewBased/CocoaSolutionExplorer/CocoaSolutionExplorer.h"
 
 #include "CocoaViews/NSViewBased/CocoaPropertiesExplorer/CocoaPropertiesExplorer.h"
-#include <CrossViews/HierarchicModel/API/HierarchicModelAccess.h>
-#include <CrossViews/PropertiesExplorerPresenter/PropertiesExplorerPresenter.h>
+#include <CrossViews/CNHierarchicModel/API/CNHierarchicComponentAccess.h>
+#include <CrossViews/CNPropertiesExplorerPresenter/CNPropertiesExplorerPresenter.h>
 
 #include "CocoaViews/NSMenuBased/CocoaMenuBar/CocoaMenuBar.h"
 #include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarComposingVisitor.h"
 #include "CocoaViews/NSMenuBased/CocoaMenuBar/Visitors/CocoaMenuBarDecomposingVisitor.h"
 
-#include <CrossViews/DynamicMenuPresenter/DynamicMenuPresenter.h>
+#include <CrossViews/CNDynamicMenuPresenter/CNDynamicMenuPresenter.h>
 #include "CocoaViews/NSMenuItemBased/CocoaMenu/CocoaMenu.h"
 #include "CocoaViews/NSMenuItemBased/CocoaMenu/Visitors/CocoaMenuComposingVisitor.h"
 #include "CocoaViews/NSMenuItemBased/CocoaMenu/Visitors/CocoaMenuDecomposingVisitor.h"
 
-#include <CrossViews/MenuEntryPresenter/MenuEntryPresenter.h>
+#include <CrossViews/CNMenuEntryPresenter/CNMenuEntryPresenter.h>
 #include "CocoaViews/NSMenuItemBased/CocoaMenuItem/CocoaMenuItem.h"
 
 #include <Base/CNTransAction/CNNullTransAction.h>
@@ -41,9 +41,9 @@
 #include <Base/TransActions/CNRedoAction/Action/CNRedoAction.h>
 #include <Base/TransActions/CNRedoAction/Accessibility/CNRedoDependentAccessibility.h>
 
-#include <CrossViews/SelectionModel/SelectionModel.h>
-#include <CrossViews/TransActions/RemoveAction/RemoveAction.h>
-#include <CrossViews/TransActions/RemoveAction/Appearance/SelectionDependentAccessibility.h>
+#include <CrossViews/CNSelectionModel/CNSelectionModel.h>
+#include <CrossViews/TransActions/CNRemoveAction/CNRemoveAction.h>
+#include <CrossViews/TransActions/CNRemoveAction/Appearance/CNSelectionDependentAccessibility.h>
 
 CocoaViewComponentFactoryPtr CocoaViewComponentFactory::getNewInstance() {
     return CocoaViewComponentFactoryPtr(new CocoaViewComponentFactory());
@@ -60,22 +60,22 @@ CNComponentPtr CocoaViewComponentFactory::makeShellComponent() {
                                                     CocoaShellDecomposingVisitor::getNewInstance(shell));
     return makeCNComposable(shell, composer);
 }
-CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent(SelectionModelPtr selectionModel,
-                                                                     HierarchicModelAccessPtr modelAccess,
-                                                                     std::shared_ptr<CocoaSolutionItemFactory> itemFactory) {
+CNComponentPtr CocoaViewComponentFactory::makeSolutionExplorerComponent(CNSelectionModelPtr selectionModel,
+                                                                        CNHierarchicComponentAccessPtr modelAccess,
+                                                                        std::shared_ptr<CocoaSolutionItemFactory> itemFactory) {
     CocoaSolutionExplorerPtr view = CocoaSolutionExplorer::getNewInstance(itemFactory);
-    SolutionExplorerPresenterPtr presenter = SolutionExplorerPresenter::getNewInstance(view, selectionModel);
+    CNSolutionExplorerPresenterPtr presenter = CNSolutionExplorerPresenter::getNewInstance(view, selectionModel);
     view->setListener(presenter);
     modelAccess->addListener(presenter);
     CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
-CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent(SelectionModelPtr selectionModel,
-                                                                          HierarchicModelAccessPtr modelAccess,
+CNComponentPtr CocoaViewComponentFactory::makePropertiesExplorerComponent(CNSelectionModelPtr selectionModel,
+                                                                          CNHierarchicComponentAccessPtr modelAccess,
                                                                           std::shared_ptr<CocoaPropertiesModelFactory> modelFactory) {
     CocoaPropertiesExplorerPtr view = CocoaPropertiesExplorer::getNewInstance(modelFactory);
-    PropertiesExplorerPresenterPtr presenter = PropertiesExplorerPresenter::getNewInstance(view, modelAccess, selectionModel);
+    CNPropertiesExplorerPresenterPtr presenter = CNPropertiesExplorerPresenter::getNewInstance(view, modelAccess, selectionModel);
     selectionModel->attach(presenter);
     CNComposerPtr composer = makeCNNullComposer();
 
@@ -98,38 +98,38 @@ CNComponentPtr CocoaViewComponentFactory::makeMenuComponent(std::string title, s
     return makeCNComposable(menu, composer);
 }
 CNComponentPtr CocoaViewComponentFactory::makeUndoActionComponent(CNCommandHistoryPtr commandHistory) {
-    MenuEntryViewPtr view = makeMenuEntryView();
+    CNMenuEntryViewPtr view = makeMenuEntryView();
     CNTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeUndoDependenAccessibility(commandHistory),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Undo"));
     CNTransActionPtr action = CNUndoAction::getNewInstance(commandHistory);
-    MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
+    CNMenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     commandHistory->attach(presenter);
     CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
 CNComponentPtr CocoaViewComponentFactory::makeRedoActionComponent(CNCommandHistoryPtr commandHistory) {
-    MenuEntryViewPtr view = makeMenuEntryView();
+    CNMenuEntryViewPtr view = makeMenuEntryView();
     CNTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeRedoDependenAccessibility(commandHistory),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Redo"));
     CNTransActionPtr action = CNRedoAction::getNewInstance(commandHistory);
-    MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
+    CNMenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     commandHistory->attach(presenter);
     CNComposerPtr composer = makeCNNullComposer();
 
     return makeCNComposable(presenter, composer);
 }
-CNComponentPtr CocoaViewComponentFactory::makeRemoveActionComponent(SelectionModelPtr selectionModel,
-                                                                 std::shared_ptr<InsertingHierarchicModel> model,
-                                                                 CNCommandInvokerPtr invoker) {
-    MenuEntryViewPtr view = makeMenuEntryView();
+CNComponentPtr CocoaViewComponentFactory::makeRemoveActionComponent(CNSelectionModelPtr selectionModel,
+                                                                    std::shared_ptr<CNComponentInserter> model,
+                                                                    CNCommandInvokerPtr invoker) {
+    CNMenuEntryViewPtr view = makeMenuEntryView();
     CNTransActionAppearancePtr appearance = makeCBTransActionAppearance(makeSelectionDependenAccessibility(selectionModel),
                                                                         makeCBFixedActionState(OFF),
                                                                         makeCBFixedActionTitle("Remove"));
-    RemoveActionPtr action = RemoveAction::getNewInstance(selectionModel, model, invoker);
-    MenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
+    CNRemoveActionPtr action = CNRemoveAction::getNewInstance(selectionModel, model, invoker);
+    CNMenuEntryPresenterPtr presenter = makeMenuEntryPresenter(view, appearance, action);
     selectionModel->attach(presenter);
     CNComposerPtr composer = makeCNNullComposer();
 
@@ -137,31 +137,31 @@ CNComponentPtr CocoaViewComponentFactory::makeRemoveActionComponent(SelectionMod
 }
 
 CNTransActionAppearancePtr CocoaViewComponentFactory::makeCBFixedTransActionAppearance(bool accessibility,
-                                                                                       CNActionStates state,
+                                                                                       CNTransActionStateValues state,
                                                                                        std::string title) {
     return appearanceFactory->makeCNFixedTransActionAppearance(accessibility, state, title);
 }
-CNTransActionAppearancePtr CocoaViewComponentFactory::makeCBTransActionAppearance(CNActionAccessibilityPtr accessibility,
-                                                                                  CNActionStatePtr state,
-                                                                                  CNActionTitlePtr title) {
+CNTransActionAppearancePtr CocoaViewComponentFactory::makeCBTransActionAppearance(CNTransActionAccessibilityPtr accessibility,
+                                                                                  CNTransActionStatePtr state,
+                                                                                  CNTransActionTitlePtr title) {
     return appearanceFactory->makeCNTransActionAppearance(accessibility, state, title);
 }
 
-CNActionStatePtr CocoaViewComponentFactory::makeCBFixedActionState(CNActionStates state) {
+CNTransActionStatePtr CocoaViewComponentFactory::makeCBFixedActionState(CNTransActionStateValues state) {
     return appearanceFactory->makeCNFixedActionState(state);
 }
-CNActionTitlePtr CocoaViewComponentFactory::makeCBFixedActionTitle(std::string title) {
+CNTransActionTitlePtr CocoaViewComponentFactory::makeCBFixedActionTitle(std::string title) {
     return appearanceFactory->makeCNFixedActionTitle(title);
 }
 
-CNActionAccessibilityPtr CocoaViewComponentFactory::makeUndoDependenAccessibility(CNCommandHistoryPtr commandHistory) {
+CNTransActionAccessibilityPtr CocoaViewComponentFactory::makeUndoDependenAccessibility(CNCommandHistoryPtr commandHistory) {
     return CNUndoDependentAccessibility::getNewInstance(commandHistory);
 }
-CNActionAccessibilityPtr CocoaViewComponentFactory::makeRedoDependenAccessibility(CNCommandHistoryPtr commandHistory) {
+CNTransActionAccessibilityPtr CocoaViewComponentFactory::makeRedoDependenAccessibility(CNCommandHistoryPtr commandHistory) {
     return CNRedoDependentAccessibility::getNewInstance(commandHistory);
 }
-CNActionAccessibilityPtr CocoaViewComponentFactory::makeSelectionDependenAccessibility(SelectionModelPtr selectionModel) {
-    return SelectionDependentAccessibility::getNewInstance(selectionModel);
+CNTransActionAccessibilityPtr CocoaViewComponentFactory::makeSelectionDependenAccessibility(CNSelectionModelPtr selectionModel) {
+    return CNSelectionDependentAccessibility::getNewInstance(selectionModel);
 }
 
 CNComponentPtr CocoaViewComponentFactory::makeCNComposable(CNVisitablePtr visitable, CNComposerPtr composer) {
@@ -180,20 +180,20 @@ CocoaMenuPtr CocoaViewComponentFactory::makeCocoaMenu(std::string title, std::st
     return menu;
 }
 
-MenuEntryViewPtr CocoaViewComponentFactory::makeMenuEntryView() {
+CNMenuEntryViewPtr CocoaViewComponentFactory::makeMenuEntryView() {
     return CocoaMenuItem::getNewInstance();
 }
 
-MenuEntryPresenterPtr CocoaViewComponentFactory::makeMenuEntryPresenter(MenuEntryViewPtr view,
-                                                                        CNTransActionAppearancePtr appearance,
-                                                                        CNTransActionPtr action) {
-    MenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
+CNMenuEntryPresenterPtr CocoaViewComponentFactory::makeMenuEntryPresenter(CNMenuEntryViewPtr view,
+                                                                          CNTransActionAppearancePtr appearance,
+                                                                          CNTransActionPtr action) {
+    CNMenuEntryPresenterPtr presenter = MenuEntryPresenter::getNewInstance(view, appearance, action);
     view->setListener(presenter);
     return presenter;
 }
 
-DynamicMenuPresenterPtr CocoaViewComponentFactory::makeDynamicMenuPresenter(MenuViewPtr view,
-                                                                         std::shared_ptr<CNComposer> composer,
-                                                                         std::shared_ptr<MenuEntryListProvider> listProvider) {
-    return DynamicMenuPresenter::getNewInstance(view, composer, listProvider);
+CNDynamicMenuPresenterPtr CocoaViewComponentFactory::makeDynamicMenuPresenter(CNMenuViewPtr view,
+                                                                              std::shared_ptr<CNComposer> composer,
+                                                                              std::shared_ptr<CNComponentListProvider> listProvider) {
+    return CNDynamicMenuPresenter::getNewInstance(view, composer, listProvider);
 }

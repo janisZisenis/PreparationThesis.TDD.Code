@@ -1,14 +1,14 @@
 #ifndef CROSSNATIVE_REDODEPENDENTACCESSIBILITY_H
 #define CROSSNATIVE_REDODEPENDENTACCESSIBILITY_H
 
-#include "Base/CNTransActionAppearance/CNActionAccessibility.h"
+#include "Base/CNTransActionAppearance/CNTransActionAccessibility.h"
 
 class CNCommandHistory;
 
 class CNRedoDependentAccessibility;
 typedef std::shared_ptr<CNRedoDependentAccessibility> CNRedoDependentAccessibilityPtr;
 
-class CNRedoDependentAccessibility : public CNActionAccessibility {
+class CNRedoDependentAccessibility : public CNTransActionAccessibility {
 public:
     static CNRedoDependentAccessibilityPtr getNewInstance(std::shared_ptr<CNCommandHistory> commandHistory);
     virtual ~CNRedoDependentAccessibility();

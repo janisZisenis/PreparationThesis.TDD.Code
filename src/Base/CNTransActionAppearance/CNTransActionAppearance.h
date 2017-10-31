@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "CNActionStates.h"
+#include "CNTransActionStateValues.h"
 
 class CNTransActionAppearance;
 typedef std::shared_ptr<CNTransActionAppearance> CNTransActionAppearancePtr;
@@ -17,7 +17,7 @@ protected:
 
 public:
     virtual bool isAccessible() = 0;
-    virtual CNActionStates getState() = 0;
+    virtual CNTransActionStateValues getState() = 0;
     virtual std::string getTitle() = 0;
 };
 

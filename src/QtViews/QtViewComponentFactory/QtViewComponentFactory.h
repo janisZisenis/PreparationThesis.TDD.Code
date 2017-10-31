@@ -3,15 +3,15 @@
 
 #include <memory>
 #include <string>
-#include <Base/CNTransActionAppearance/CNActionState.h>
+#include <Base/CNTransActionAppearance/CNTransActionState.h>
 
 class CNActionAppearanceFactory;
 
 class CNTransAction;
 class CNTransActionAppearance;
-class CNActionAccessibility;
-class CNActionTitle;
-class CNActionState;
+class CNTransActionAccessibility;
+class CNTransActionTitle;
+class CNTransActionState;
 class CNCommandHistory;
 class CNCommandInvoker;
 
@@ -22,18 +22,18 @@ class CNVisitable;
 class CNComposer;
 class CNVisitor;
 
-class SelectionModel;
-class HierarchicModelAccess;
-class InsertingHierarchicModel;
+class CNSelectionModel;
+class CNHierarchicComponentAccess;
+class CNComponentInserter;
 class QtSolutionItemFactory;
 class QtPropertiesModelFactory;
 
-class DynamicMenuPresenter;
-class MenuEntryListProvider;
-class MenuView;
+class CNDynamicMenuPresenter;
+class CNComponentListProvider;
+class CNMenuView;
 class QtMenu;
 class MenuEntryPresenter;
-class MenuEntryView;
+class CNMenuEntryView;
 class QtAction;
 
 class QtViewComponentFactory;
@@ -48,42 +48,42 @@ protected:
 
 public:
     virtual std::shared_ptr<CNComponent> makeShellComponent();
-    virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent(std::shared_ptr<SelectionModel> selectionModel,
-                                                                       std::shared_ptr<HierarchicModelAccess> modelAccess,
+    virtual std::shared_ptr<CNComponent> makeSolutionExplorerComponent(std::shared_ptr<CNSelectionModel> selectionModel,
+                                                                       std::shared_ptr<CNHierarchicComponentAccess> modelAccess,
                                                                        std::shared_ptr<QtSolutionItemFactory> itemFactory);
-    virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent(std::shared_ptr<SelectionModel> selectionModel,
-                                                                         std::shared_ptr<HierarchicModelAccess> modelAccess,
+    virtual std::shared_ptr<CNComponent> makePropertiesExplorerComponent(std::shared_ptr<CNSelectionModel> selectionModel,
+                                                                         std::shared_ptr<CNHierarchicComponentAccess> modelAccess,
                                                                          std::shared_ptr<QtPropertiesModelFactory> modelFactory);
 
     virtual std::shared_ptr<CNComponent> makeMenuBarComponent();
     virtual std::shared_ptr<CNComponent> makeMenuComponent(std::string title, std::string tag);
     virtual std::shared_ptr<CNComponent> makeUndoActionComponent(std::shared_ptr<CNCommandHistory> commandHistory);
     virtual std::shared_ptr<CNComponent> makeRedoActionComponent(std::shared_ptr<CNCommandHistory> commandHistory);
-    virtual std::shared_ptr<CNComponent> makeRemoveActionComponent(std::shared_ptr<SelectionModel> selectionModel,
-                                                                   std::shared_ptr<InsertingHierarchicModel> model,
+    virtual std::shared_ptr<CNComponent> makeRemoveActionComponent(std::shared_ptr<CNSelectionModel> selectionModel,
+                                                                   std::shared_ptr<CNComponentInserter> model,
                                                                    std::shared_ptr<CNCommandInvoker> invoker);
 
 protected:
     virtual std::shared_ptr<QtMenu> makeQtMenu(std::string title, std::string tag);
     virtual std::shared_ptr<QtAction> makeQtAction();
-    virtual std::shared_ptr<MenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<MenuEntryView> view,
+    virtual std::shared_ptr<MenuEntryPresenter> makeMenuEntryPresenter(std::shared_ptr<CNMenuEntryView> view,
                                                                        std::shared_ptr<CNTransActionAppearance> appearance,
                                                                        std::shared_ptr<CNTransAction> action);
-    virtual std::shared_ptr<DynamicMenuPresenter> makeDynamicMenuPresenter(std::shared_ptr<MenuView> view,
+    virtual std::shared_ptr<CNDynamicMenuPresenter> makeDynamicMenuPresenter(std::shared_ptr<CNMenuView> view,
                                                                   std::shared_ptr<CNComposer> composer,
-                                                                  std::shared_ptr<MenuEntryListProvider> listProvider);
+                                                                  std::shared_ptr<CNComponentListProvider> listProvider);
 
-    virtual std::shared_ptr<CNTransActionAppearance> makeCBTransActionAppearance(std::shared_ptr<CNActionAccessibility> accessibility,
-                                                                               std::shared_ptr<CNActionState> state,
-                                                                               std::shared_ptr<CNActionTitle> title);
-    virtual std::shared_ptr<CNTransActionAppearance> makeCBFixedTransActionAppearance(bool accessibility, CNActionStates state, std::string title);
+    virtual std::shared_ptr<CNTransActionAppearance> makeCBTransActionAppearance(std::shared_ptr<CNTransActionAccessibility> accessibility,
+                                                                               std::shared_ptr<CNTransActionState> state,
+                                                                               std::shared_ptr<CNTransActionTitle> title);
+    virtual std::shared_ptr<CNTransActionAppearance> makeCBFixedTransActionAppearance(bool accessibility, CNTransActionStateValues state, std::string title);
 
-    virtual std::shared_ptr<CNActionState> makeCBFixedActionState(CNActionStates state);
-    virtual std::shared_ptr<CNActionTitle> makeCBFixedActionTitle(std::string title);
+    virtual std::shared_ptr<CNTransActionState> makeCBFixedActionState(CNTransActionStateValues state);
+    virtual std::shared_ptr<CNTransActionTitle> makeCBFixedActionTitle(std::string title);
 
-    virtual std::shared_ptr<CNActionAccessibility> makeUndoDependenAccessibility(std::shared_ptr<CNCommandHistory> commandHistory);
-    virtual std::shared_ptr<CNActionAccessibility> makeRedoDependenAccessibility(std::shared_ptr<CNCommandHistory> commandHistory);
-    virtual std::shared_ptr<CNActionAccessibility> makeSelectionDependenAccessibility(std::shared_ptr<SelectionModel> selectionModel);
+    virtual std::shared_ptr<CNTransActionAccessibility> makeUndoDependenAccessibility(std::shared_ptr<CNCommandHistory> commandHistory);
+    virtual std::shared_ptr<CNTransActionAccessibility> makeRedoDependenAccessibility(std::shared_ptr<CNCommandHistory> commandHistory);
+    virtual std::shared_ptr<CNTransActionAccessibility> makeSelectionDependenAccessibility(std::shared_ptr<CNSelectionModel> selectionModel);
 
     virtual std::shared_ptr<CNComponent> makeCNComposable(std::shared_ptr<CNVisitable> visitable,
                                                           std::shared_ptr<CNComposer> composer);

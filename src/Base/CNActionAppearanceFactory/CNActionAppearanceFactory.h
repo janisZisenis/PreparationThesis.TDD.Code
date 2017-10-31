@@ -3,12 +3,12 @@
 
 #include <memory>
 #include <string>
-#include "Base/CNTransActionAppearance/CNActionStates.h"
+#include "Base/CNTransActionAppearance/CNTransActionStateValues.h"
 
 class CNTransActionAppearance;
-class CNActionAccessibility;
-class CNActionState;
-class CNActionTitle;
+class CNTransActionAccessibility;
+class CNTransActionState;
+class CNTransActionTitle;
 
 class CNActionAppearanceFactory;
 typedef std::shared_ptr<CNActionAppearanceFactory> CNActionAppearanceFactoryPtr;
@@ -21,16 +21,16 @@ private:
     CNActionAppearanceFactory();
 
 public:
-    std::shared_ptr<CNTransActionAppearance> makeCNTransActionAppearance(std::shared_ptr<CNActionAccessibility> accessibility,
-                                                                         std::shared_ptr<CNActionState> state,
-                                                                         std::shared_ptr<CNActionTitle> title);
+    std::shared_ptr<CNTransActionAppearance> makeCNTransActionAppearance(std::shared_ptr<CNTransActionAccessibility> accessibility,
+                                                                         std::shared_ptr<CNTransActionState> state,
+                                                                         std::shared_ptr<CNTransActionTitle> title);
     std::shared_ptr<CNTransActionAppearance> makeCNFixedTransActionAppearance(bool accessibility,
-                                                                              CNActionStates state,
+                                                                              CNTransActionStateValues state,
                                                                               std::string title);
 
-    std::shared_ptr<CNActionAccessibility> makeCNFixedActionAccessibility(bool accessibility);
-    std::shared_ptr<CNActionState> makeCNFixedActionState(CNActionStates state);
-    std::shared_ptr<CNActionTitle> makeCNFixedActionTitle(std::string title);
+    std::shared_ptr<CNTransActionAccessibility> makeCNFixedActionAccessibility(bool accessibility);
+    std::shared_ptr<CNTransActionState> makeCNFixedActionState(CNTransActionStateValues state);
+    std::shared_ptr<CNTransActionTitle> makeCNFixedActionTitle(std::string title);
 };
 
 #endif //CROSSNATIVE_ACTIONAPPEARANCEFACTORY_H

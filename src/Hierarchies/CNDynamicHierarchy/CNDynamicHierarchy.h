@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-#include "CrossViews/TransActions/LoadAction/ComponentLoader.h"
+#include "CrossViews/TransActions/CNLoadAction/CNComponentLoader.h"
 
 class CNHierarchyNodeAlreadyLoadedException : public std::exception {
     const char *what() const throw() override {
@@ -25,7 +25,7 @@ class CNMatcher;
 class CNDynamicHierarchy;
 typedef std::shared_ptr<CNDynamicHierarchy> CNDynamicHierarchyPtr;
 
-class CNDynamicHierarchy : public ComponentLoader {
+class CNDynamicHierarchy : public CNComponentLoader {
 public:
     static CNDynamicHierarchyPtr getNewInstance();
     virtual ~CNDynamicHierarchy();

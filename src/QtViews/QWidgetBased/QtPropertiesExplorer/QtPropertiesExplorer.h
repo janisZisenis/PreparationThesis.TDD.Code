@@ -2,7 +2,7 @@
 #define QTVIEWS_QTPROPERTIESEXPLORER_H
 
 #include <memory>
-#include <CrossViews/PropertiesExplorerPresenter/PropertiesExplorerView.h>
+#include <CrossViews/CNPropertiesExplorerPresenter/CNPropertiesExplorerView.h>
 #include "QtViews/QWidgetBased/QWidgetBased.h"
 
 class CNAcceptor;
@@ -16,7 +16,7 @@ class QtPropertiesModel;
 class QtPropertiesExplorer;
 typedef std::shared_ptr<QtPropertiesExplorer> QtPropertiesExplorerPtr;
 
-class QtPropertiesExplorer : public QWidgetBased, public PropertiesExplorerView, public std::enable_shared_from_this<QtPropertiesExplorer> {
+class QtPropertiesExplorer : public QWidgetBased, public CNPropertiesExplorerView, public std::enable_shared_from_this<QtPropertiesExplorer> {
 public:
     static QtPropertiesExplorerPtr getNewInstance(std::shared_ptr<QtPropertiesModelFactory> modelFactory);
     virtual ~QtPropertiesExplorer();

@@ -2,7 +2,7 @@
 #include "CocoaSolutionExplorerVisitor.h"
 #include "CocoaSolutionItemFactory.h"
 #include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
-#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerListener.h>
+#include <CrossViews/CNSolutionExplorerPresenter/CNSolutionExplorerListener.h>
 #import "CocoaSolutionModel.h"
 #import "CocoaSolutionItem.h"
 
@@ -74,7 +74,7 @@ void CocoaSolutionExplorer::accept(CNVisitorPtr visitor) {
     acceptor->accept(visitor, me());
 }
 
-void CocoaSolutionExplorer::setListener(SolutionExplorerListenerPtr listener) {
+void CocoaSolutionExplorer::setListener(CNSolutionExplorerListenerPtr listener) {
     this->listener = listener;
 }
 

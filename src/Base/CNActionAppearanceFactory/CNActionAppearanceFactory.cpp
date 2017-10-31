@@ -1,9 +1,9 @@
 #include "CNActionAppearanceFactory.h"
-#include "Base/CNActionAppearance/CNTransActionAppearanceImp/CNTransActionAppearanceImp.h"
-#include "Base/CNActionAppearance/CNFixedActionAppearance/CNFixedAppearance.h"
-#include "Base/CNActionAppearance/CNFixedActionAppearance/CNFixedAccessibility.h"
-#include "Base/CNActionAppearance/CNFixedActionAppearance/CNFixedState.h"
-#include "Base/CNActionAppearance/CNFixedActionAppearance/CNFixedTitle.h"
+#include "Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionAppearanceImp.h"
+#include "Base/TransActionAppearances/CNFixedActionAppearance/CNFixedAppearance.h"
+#include "Base/TransActionAppearances/CNFixedActionAppearance/CNFixedAccessibility.h"
+#include "Base/TransActionAppearances/CNFixedActionAppearance/CNFixedState.h"
+#include "Base/TransActionAppearances/CNFixedActionAppearance/CNFixedTitle.h"
 
 CNActionAppearanceFactoryPtr CNActionAppearanceFactory::getNewInstance() {
     return CNActionAppearanceFactoryPtr(new CNActionAppearanceFactory());
@@ -12,24 +12,24 @@ CNActionAppearanceFactory::~CNActionAppearanceFactory() {}
 CNActionAppearanceFactory::CNActionAppearanceFactory() {}
 
 CNTransActionAppearancePtr CNActionAppearanceFactory::makeCNTransActionAppearance(
-        std::shared_ptr<CNActionAccessibility> accessibility,
-        std::shared_ptr<CNActionState> state,
-        std::shared_ptr<CNActionTitle> title) {
+        std::shared_ptr<CNTransActionAccessibility> accessibility,
+        std::shared_ptr<CNTransActionState> state,
+        std::shared_ptr<CNTransActionTitle> title) {
     return CNTransActionAppearanceImp::getNewInstance(accessibility, state, title);
 }
 
 CNTransActionAppearancePtr CNActionAppearanceFactory::makeCNFixedTransActionAppearance(bool accessibility,
-                                                                                       CNActionStates state,
+                                                                                       CNTransActionStateValues state,
                                                                                        std::string title) {
     return CNFixedAppearance::getNewInstance(accessibility, state, title);
 }
 
-CNActionAccessibilityPtr CNActionAppearanceFactory::makeCNFixedActionAccessibility(bool accessibility) {
+CNTransActionAccessibilityPtr CNActionAppearanceFactory::makeCNFixedActionAccessibility(bool accessibility) {
     return CNFixedAccessibility::getNewInstance(accessibility);
 }
-CNActionStatePtr CNActionAppearanceFactory::makeCNFixedActionState(CNActionStates state) {
+CNTransActionStatePtr CNActionAppearanceFactory::makeCNFixedActionState(CNTransActionStateValues state) {
     return CNFixedState::getNewInstance(state);
 }
-CNActionTitlePtr CNActionAppearanceFactory::makeCNFixedActionTitle(std::string title) {
+CNTransActionTitlePtr CNActionAppearanceFactory::makeCNFixedActionTitle(std::string title) {
     return CNFixedTitle::getNewInstance(title);
 }

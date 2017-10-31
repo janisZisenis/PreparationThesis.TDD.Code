@@ -18,7 +18,7 @@ public:
     virtual bool isAccessible() override {
         return false;
     }
-    virtual CNActionStates getState() override {
+    virtual CNTransActionStateValues getState() override {
         return OFF;
     }
     virtual std::string getTitle() override {
@@ -46,10 +46,10 @@ public:
         return accessible;
     }
 
-    virtual void setState(CNActionStates state) {
+    virtual void setState(CNTransActionStateValues state) {
         this->state = state;
     }
-    virtual CNActionStates getState() override {
+    virtual CNTransActionStateValues getState() override {
         return state;
     }
 
@@ -62,7 +62,7 @@ public:
 
 private:
     bool accessible = false;
-    CNActionStates state = OFF;
+    CNTransActionStateValues state = OFF;
     std::string title = std::string();
 };
 

@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerView.h>
+#include <CrossViews/CNSolutionExplorerPresenter/CNSolutionExplorerView.h>
 #include <Hierarchies/CNHierarchy/CNHierarchyIndex.h>
 #include "CocoaViews/NSViewBased/NSViewBased.h"
 
@@ -20,7 +20,7 @@ class CocoaSolutionItemFactory;
 class CocoaSolutionExplorer;
 typedef std::shared_ptr<CocoaSolutionExplorer> CocoaSolutionExplorerPtr;
 
-class CocoaSolutionExplorer : public NSViewBased, public SolutionExplorerView, public std::enable_shared_from_this<CocoaSolutionExplorer> {
+class CocoaSolutionExplorer : public NSViewBased, public CNSolutionExplorerView, public std::enable_shared_from_this<CocoaSolutionExplorer> {
 public:
     static CocoaSolutionExplorerPtr getNewInstance(std::shared_ptr<CocoaSolutionItemFactory> itemFactory);
     virtual ~CocoaSolutionExplorer();
@@ -39,7 +39,7 @@ public:
     virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex &index, int childPos) override;
 
     void accept(CNVisitorPtr visitor) override;
-    virtual void setListener(std::shared_ptr<SolutionExplorerListener> listener) override;
+    virtual void setListener(std::shared_ptr<CNSolutionExplorerListener> listener) override;
 private:
     CocoaSolutionItem* makeItem(CNVisitablePtr visitable);
 
@@ -48,7 +48,7 @@ private:
     std::shared_ptr<CNAcceptor> acceptor;
     std::shared_ptr<CocoaSolutionItemFactory> itemFactory;
 
-    std::shared_ptr<SolutionExplorerListener> listener;
+    std::shared_ptr<CNSolutionExplorerListener> listener;
     NSOutlineView* outlineView;
     NSScrollView* scrollView;
 

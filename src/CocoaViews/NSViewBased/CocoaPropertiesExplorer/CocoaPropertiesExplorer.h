@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include "CrossViews/PropertiesExplorerPresenter/PropertiesExplorerView.h"
+#include "CrossViews/CNPropertiesExplorerPresenter/CNPropertiesExplorerView.h"
 #include "CocoaViews/NSViewBased/NSViewBased.h"
 
 class CNAcceptor;
@@ -17,7 +17,7 @@ class CocoaPropertiesModelFactory;
 class CocoaPropertiesExplorer;
 typedef std::shared_ptr<CocoaPropertiesExplorer> CocoaPropertiesExplorerPtr;
 
-class CocoaPropertiesExplorer : public NSViewBased, public PropertiesExplorerView, public std::enable_shared_from_this<CocoaPropertiesExplorer> {
+class CocoaPropertiesExplorer : public NSViewBased, public CNPropertiesExplorerView, public std::enable_shared_from_this<CocoaPropertiesExplorer> {
 public:
     static CocoaPropertiesExplorerPtr getNewInstance(std::shared_ptr<CocoaPropertiesModelFactory> modelFactory);
     virtual ~CocoaPropertiesExplorer();

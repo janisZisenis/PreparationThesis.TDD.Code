@@ -7,7 +7,7 @@
 #include "QtSolutionModel.h"
 
 #include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
-#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerListener.h>
+#include <CrossViews/CNSolutionExplorerPresenter/CNSolutionExplorerListener.h>
 
 QtSolutionExplorerPtr QtSolutionExplorer::getNewInstance(QtSolutionItemFactoryPtr itemFactory) {
     return QtSolutionExplorerPtr(new QtSolutionExplorer(itemFactory));
@@ -66,7 +66,7 @@ void QtSolutionExplorer::accept(CNVisitorPtr visitor) {
     acceptor->accept(visitor, me());
 }
 
-void QtSolutionExplorer::setListener(SolutionExplorerListenerPtr listener) {
+void QtSolutionExplorer::setListener(CNSolutionExplorerListenerPtr listener) {
     this->listener = listener;
 }
 

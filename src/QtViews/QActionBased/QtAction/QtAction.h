@@ -2,7 +2,7 @@
 #define QTVIEWS_QTACTION_H
 
 #include <QObject>
-#include <CrossViews/MenuEntryPresenter/MenuEntryView.h>
+#include <CrossViews/CNMenuEntryPresenter/CNMenuEntryView.h>
 #include "QtViews/QActionBased/QActionBased.h"
 
 class CNAcceptor;
@@ -12,7 +12,7 @@ class QAction;
 class QtAction;
 typedef std::shared_ptr<QtAction> QtActionPtr;
 
-class QtAction : public QObject, public QActionBased, public MenuEntryView, public std::enable_shared_from_this<QtAction> {
+class QtAction : public QObject, public QActionBased, public CNMenuEntryView, public std::enable_shared_from_this<QtAction> {
     Q_OBJECT
 public:
     static QtActionPtr getNewInstance();
@@ -30,7 +30,7 @@ public:
     virtual void disable() override;
 
     virtual void accept(CNVisitorPtr visitor) override;
-    virtual void setListener(std::shared_ptr<MenuEntryListener> listener) override;
+    virtual void setListener(std::shared_ptr<CNMenuEntryListener> listener) override;
 private:
     virtual void setChecked(bool checked);
     virtual void setEnbaled(bool enabled);
@@ -40,7 +40,7 @@ private:
     QtActionPtr me();
 private:
     std::shared_ptr<CNAcceptor> acceptor;
-    std::shared_ptr<MenuEntryListener> listener;
+    std::shared_ptr<CNMenuEntryListener> listener;
 
     QAction* action;
 

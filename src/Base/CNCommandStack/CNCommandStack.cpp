@@ -1,5 +1,5 @@
 #include "CNCommandStack.h"
-#include <Base/CNCommandInvoker/CNCommand.h>
+#include "Base/CNCommandInvoker/CNCommand.h"
 #include "Base/CNObserver/CNObserver.h"
 #include "Base/CNSubject/CNSubject.h"
 

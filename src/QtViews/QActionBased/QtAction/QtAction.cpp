@@ -2,7 +2,7 @@
 #include "QtActionVisitor.h"
 #include <QAction>
 #include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
-#include <CrossViews/MenuEntryPresenter/MenuEntryListener.h>
+#include <CrossViews/CNMenuEntryPresenter/CNMenuEntryListener.h>
 
 QtActionPtr QtAction::getNewInstance() {
     return QtActionPtr(new QtAction());
@@ -64,7 +64,7 @@ QtActionPtr QtAction::me() {
     return this->shared_from_this();
 }
 
-void QtAction::setListener(MenuEntryListenerPtr listener) {
+void QtAction::setListener(CNMenuEntryListenerPtr listener) {
     this->listener = listener;
 }
 

@@ -2,7 +2,7 @@
 #define COCOAVIEWS_COCOAMENUITEM_H
 
 #include <string>
-#include <CrossViews/MenuEntryPresenter/MenuEntryView.h>
+#include <CrossViews/CNMenuEntryPresenter/CNMenuEntryView.h>
 #include "CocoaViews/CocoaActionListener/CocoaTarget.h"
 #include "CocoaViews/NSMenuItemBased/NSMenuItemBased.h"
 #import <Cocoa/Cocoa.h>
@@ -14,7 +14,7 @@ class CNAcceptor;
 class CocoaMenuItem;
 typedef std::shared_ptr<CocoaMenuItem> CocoaMenuItemPtr;
 
-class CocoaMenuItem : public CocoaTarget, public NSMenuItemBased, public MenuEntryView, public std::enable_shared_from_this<CocoaMenuItem> {
+class CocoaMenuItem : public CocoaTarget, public NSMenuItemBased, public CNMenuEntryView, public std::enable_shared_from_this<CocoaMenuItem> {
 public:
     static CocoaMenuItemPtr getNewInstance();
     virtual ~CocoaMenuItem();
@@ -31,7 +31,7 @@ public:
     virtual void disable() override;
 
     void accept(CNVisitorPtr visitor) override;
-    virtual void setListener(std::shared_ptr<MenuEntryListener> listener) override;
+    virtual void setListener(std::shared_ptr<CNMenuEntryListener> listener) override;
 
 private:
     virtual void connectToMenuItem();
@@ -42,7 +42,7 @@ private:
 
 private:
     std::shared_ptr<CNAcceptor> acceptor;
-    std::shared_ptr<MenuEntryListener> listener;
+    std::shared_ptr<CNMenuEntryListener> listener;
 
     std::string title;
 

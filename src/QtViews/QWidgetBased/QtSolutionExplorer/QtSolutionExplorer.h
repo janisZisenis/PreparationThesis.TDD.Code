@@ -2,7 +2,7 @@
 #define QTVIEWS_QTSOLUTIONEXPLORER_H
 
 #include <qobject.h>
-#include <CrossViews/SolutionExplorerPresenter/SolutionExplorerView.h>
+#include <CrossViews/CNSolutionExplorerPresenter/CNSolutionExplorerView.h>
 #include "QtViews/QWidgetBased/QWidgetBased.h"
 
 class CNAcceptor;
@@ -17,7 +17,7 @@ class QtSolutionItemFactory;
 class QtSolutionExplorer;
 typedef std::shared_ptr<QtSolutionExplorer> QtSolutionExplorerPtr;
 
-class QtSolutionExplorer : public QObject, public QWidgetBased, public SolutionExplorerView, public std::enable_shared_from_this<QtSolutionExplorer> {
+class QtSolutionExplorer : public QObject, public QWidgetBased, public CNSolutionExplorerView, public std::enable_shared_from_this<QtSolutionExplorer> {
 public:
     Q_OBJECT
 public:
@@ -35,7 +35,7 @@ public:
     virtual void insertItem(CNVisitablePtr visitable, const CNHierarchyIndex &index, int childPos) override;
 
     virtual void accept(CNVisitorPtr visitor) override;
-    virtual void setListener(std::shared_ptr<SolutionExplorerListener> listener) override;
+    virtual void setListener(std::shared_ptr<CNSolutionExplorerListener> listener) override;
 private:
     virtual std::shared_ptr<QtSolutionItem> makeItem(CNVisitablePtr visitable);
 
@@ -43,7 +43,7 @@ private:
 
 private:
     std::shared_ptr<CNAcceptor> acceptor;
-    std::shared_ptr<SolutionExplorerListener> listener;
+    std::shared_ptr<CNSolutionExplorerListener> listener;
     std::shared_ptr<QtSolutionItemFactory> itemFactory;
     QWidget* widget;
     QPushButton* deselectButton;

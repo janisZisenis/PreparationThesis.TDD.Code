@@ -2,7 +2,7 @@
 #include "CocoaMenuItemVisitor.h"
 #include <Hierarchies/CNAcceptor/CNAcceptorImp.h>
 #import "CocoaViews/CocoaActionListener/CocoaActionListener.h"
-#include "CrossViews/MenuEntryPresenter/MenuEntryListener.h"
+#include "CrossViews/CNMenuEntryPresenter/CNMenuEntryListener.h"
 
 CocoaMenuItemPtr CocoaMenuItem::getNewInstance() {
     return CocoaMenuItemPtr(new CocoaMenuItem());
@@ -56,7 +56,7 @@ void CocoaMenuItem::accept(CNVisitorPtr visitor) {
     acceptor->accept(visitor, me());
 }
 
-void CocoaMenuItem::setListener(MenuEntryListenerPtr listener) {
+void CocoaMenuItem::setListener(CNMenuEntryListenerPtr listener) {
     this->listener = listener;
 }
 
