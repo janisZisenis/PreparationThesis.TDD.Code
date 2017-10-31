@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 #include "CNDynamicMenuPresenter.h"
 #include "CNMenuViewTestDoubles.h"
-#include "CNComponentListProviderTestDoubles.h"
+#include "CNVisitableListProviderTestDoubles.h"
 #include <Hierarchies/CNComposer/CNComposerTestDoubles.h>
 #include <Hierarchies/CNVisitor/CNVisitorTestDoubles.h>
 #include <Hierarchies/CNVisitable/CNVisitableTestDoubles.h>
@@ -31,11 +31,11 @@ protected:
     virtual CNComposerPtr makeCNComposerDummy() {
         return CNComposerDummy::getNewInstance();
     }
-    virtual CNVisitableListProviderPtr makeMenuEntryListProviderDummy() {
-        return CNComponentListProviderDummy::getNewInstance();
+    virtual CNVisitableListProviderPtr makeVisitableListProviderDummy() {
+        return CNVisitableListProviderDummy::getNewInstance();
     }
-    virtual CNComponentListProviderStubPtr makeMenuEntryListProviderStub() {
-        return CNComponentListProviderStub::getNewInstance();
+    virtual CNVisitableListProviderStubPtr makeVisitableListProviderStub() {
+        return CNVisitableListProviderStub::getNewInstance();
     }
 
     virtual void expectComposerMountedVisitable(CNComposerSpyPtr composer, CNVisitablePtr visitable) {
@@ -64,7 +64,7 @@ protected:
 TEST_F(CNDynamicMenuPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorToTheView) {
     CNMenuViewSpyPtr view = makeMenuViewSpy();
     CNComposerPtr composer = makeCNComposerDummy();
-    CNVisitableListProviderPtr listProvider = makeMenuEntryListProviderDummy();
+    CNVisitableListProviderPtr listProvider = makeVisitableListProviderDummy();
     CNDynamicMenuPresenterPtr sut = makeDynamicMenuPresenter(view, composer, listProvider);
 
     CNVisitorPtr visitor = makeCNVisitorDummy();
@@ -76,7 +76,7 @@ TEST_F(CNDynamicMenuPresenterTest, FreshInstance__Accept__ShouldPassTheVisitorTo
 TEST_F(CNDynamicMenuPresenterTest, FreshInstance__Update__ShouldMountTheProvidedMenuEntry) {
     CNMenuViewPtr view = makeMenuViewDummy();
     CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComponentListProviderStubPtr listProvider = makeMenuEntryListProviderStub();
+    CNVisitableListProviderStubPtr listProvider = makeVisitableListProviderStub();
     CNDynamicMenuPresenterPtr sut = makeDynamicMenuPresenter(view, composer, listProvider);
     CNVisitablePtr visitable = makeCNVisitableDummy();
     listProvider->setMenuEntryList({visitable});
@@ -89,7 +89,7 @@ TEST_F(CNDynamicMenuPresenterTest, FreshInstance__Update__ShouldMountTheProvided
 TEST_F(CNDynamicMenuPresenterTest, Updated__Update__ShouldDismountThePreviousProvidedMenuEntry) {
     CNMenuViewPtr view = makeMenuViewDummy();
     CNComposerSpyPtr composer = makeCNComposerSpy();
-    CNComponentListProviderStubPtr listProvider = makeMenuEntryListProviderStub();
+    CNVisitableListProviderStubPtr listProvider = makeVisitableListProviderStub();
     CNDynamicMenuPresenterPtr sut = makeDynamicMenuPresenter(view, composer, listProvider);
     CNVisitablePtr visitable = makeCNVisitableDummy();
     listProvider->setMenuEntryList({visitable});

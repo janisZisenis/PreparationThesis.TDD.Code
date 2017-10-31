@@ -2,7 +2,7 @@
 
 #include <Base/CNActionAppearanceFactory/CNActionAppearanceFactory.h>
 #include <Base/CNTransActionAppearance/CNTransActionAppearance.h>
-#include <Base/CNTransActionAppearance/CNTransActionTitle.h>
+#include <Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionTitle.h>
 #include <Hierarchies/CNComponentFactory/CNComponentFactory.h>
 #include <Hierarchies/CNComposerFactory/CNComposerFactory.h>
 #include <Hierarchies/CNComponent/CNComponent.h>

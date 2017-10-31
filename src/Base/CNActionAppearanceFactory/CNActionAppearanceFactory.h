@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include "Base/CNTransActionAppearance/CNTransActionStateValues.h"
+#include "Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionStateValues.h"
 
 class CNTransActionAppearance;
 class CNTransActionAccessibility;

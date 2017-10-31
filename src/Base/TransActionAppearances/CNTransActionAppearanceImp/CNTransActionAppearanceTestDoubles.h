@@ -1,7 +1,7 @@
 #ifndef CROSSNATIVE_TRANSACTIONAPPEARANCE_TESTDOUBLES_H
 #define CROSSNATIVE_TRANSACTIONAPPEARANCE_TESTDOUBLES_H
 
-#include "CNTransActionAppearance.h"
+#include "Base/CNTransActionAppearance/CNTransActionAppearance.h"
 
 class CNTransActionAppearanceDummy;
 typedef std::shared_ptr<CNTransActionAppearanceDummy> CNTransActionAppearanceDummyPtr;

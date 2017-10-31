@@ -1,7 +1,7 @@
 #ifndef CROSSNATIVE_MENUENTRYVIEW_H
 #define CROSSNATIVE_MENUENTRYVIEW_H
 
-#include <Base/CNTransActionAppearance/CNTransActionState.h>
+#include <Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionState.h>
 #include <Hierarchies/CNVisitable/CNVisitable.h>
 
 class CNMenuEntryListener;

@@ -1,8 +1,8 @@
 #include "CNTransActionAppearanceImp.h"
 
-#include "Base/CNTransActionAppearance/CNTransActionAccessibility.h"
-#include "Base/CNTransActionAppearance/CNTransActionState.h"
-#include "Base/CNTransActionAppearance/CNTransActionTitle.h"
+#include "CNTransActionAccessibility.h"
+#include "CNTransActionState.h"
+#include "CNTransActionTitle.h"
 
 CNTransActionAppearanceImpPtr CNTransActionAppearanceImp::getNewInstance(CNTransActionAccessibilityPtr accessibility,
                                                                          CNTransActionStatePtr state,

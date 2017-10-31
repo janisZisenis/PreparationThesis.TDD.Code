@@ -1,7 +1,7 @@
 #ifndef CROSSNATIVE_FIXEDTITLE_H
 #define CROSSNATIVE_FIXEDTITLE_H
 
-#include "Base/CNTransActionAppearance/CNTransActionTitle.h"
+#include "Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionTitle.h"
 
 class CNFixedTitle;
 typedef std::shared_ptr<CNFixedTitle> CNFixedTitlePtr;

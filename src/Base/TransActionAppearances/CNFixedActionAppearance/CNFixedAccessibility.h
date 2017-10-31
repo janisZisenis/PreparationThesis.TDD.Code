@@ -1,7 +1,7 @@
 #ifndef CROSSNATIVE_FIXEDACCESSIBILITY_H
 #define CROSSNATIVE_FIXEDACCESSIBILITY_H
 
-#include "Base/CNTransActionAppearance/CNTransActionAccessibility.h"
+#include "Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionAccessibility.h"
 
 class CNFixedAccessibility;
 typedef std::shared_ptr<CNFixedAccessibility> CNFixedAccessibilityPtr;

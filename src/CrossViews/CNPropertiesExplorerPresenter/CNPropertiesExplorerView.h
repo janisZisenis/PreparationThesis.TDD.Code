@@ -1,7 +1,7 @@
 #ifndef CROSSNATIVE_PROPERTIESEXPLORERVIEW_H
 #define CROSSNATIVE_PROPERTIESEXPLORERVIEW_H
 
-#include <Base/CNTransActionAppearance/CNTransActionState.h>
+#include <Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionState.h>
 #include <Hierarchies/CNVisitable/CNVisitable.h>
 
 class CNPropertiesExplorerView;

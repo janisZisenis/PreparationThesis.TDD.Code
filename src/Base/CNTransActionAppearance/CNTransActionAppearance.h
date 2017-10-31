@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "CNTransActionStateValues.h"
+#include "Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionStateValues.h"
 
 class CNTransActionAppearance;
 typedef std::shared_ptr<CNTransActionAppearance> CNTransActionAppearancePtr;

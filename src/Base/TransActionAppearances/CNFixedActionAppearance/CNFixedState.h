@@ -1,7 +1,7 @@
 #ifndef CROSSNATIVE_FIXEDSTATE_H
 #define CROSSNATIVE_FIXEDSTATE_H
 
-#include "Base/CNTransActionAppearance/CNTransActionState.h"
+#include "Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionState.h"
 
 class CNFixedState;
 typedef std::shared_ptr<CNFixedState> CNFixedStatePtr;

@@ -1,7 +1,7 @@
 #ifndef CROSSNATIVE_SOLUTIONEXPLORERVIEW_H
 #define CROSSNATIVE_SOLUTIONEXPLORERVIEW_H
 
-#include <Base/CNTransActionAppearance/CNTransActionState.h>
+#include <Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionState.h>
 #include <Hierarchies/CNVisitable/CNVisitable.h>
 #include <Hierarchies/CNHierarchy/CNHierarchyIndex.h>
 

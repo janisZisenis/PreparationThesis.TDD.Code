@@ -1,7 +1,7 @@
 #ifndef CROSSNATIVE_REDODEPENDENTACCESSIBILITY_H
 #define CROSSNATIVE_REDODEPENDENTACCESSIBILITY_H
 
-#include "Base/CNTransActionAppearance/CNTransActionAccessibility.h"
+#include "Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionAccessibility.h"
 
 class CNCommandHistory;
 

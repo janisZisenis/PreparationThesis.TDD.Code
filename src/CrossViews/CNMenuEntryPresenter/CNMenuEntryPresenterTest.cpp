@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 #include "CNMenuEntryPresenter.h"
 #include "CNMenuEntryViewTestDoubles.h"
-#include <Base/CNTransActionAppearance/CNTransActionAppearanceTestDoubles.h>
+#include <Base/TransActionAppearances/CNTransActionAppearanceImp/CNTransActionAppearanceTestDoubles.h>
 #include <Hierarchies/CNVisitable/CNVisitableTestDoubles.h>
 #include <Hierarchies/CNVisitor/CNVisitorTestDoubles.h>
 #include <Base/CNTransAction/CNTransActionTestDoubles.h>
