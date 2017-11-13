@@ -35,7 +35,7 @@ private:
         return std::dynamic_pointer_cast<CNVisitableType>(visitable);
     }
     virtual std::shared_ptr<CNVisitorType> cast(std::shared_ptr<CNVisitor> visitor) {
-        return std::dynamic_pointer_cast<CNVisitorType>(visitor);;
+        return std::dynamic_pointer_cast<CNVisitorType>(visitor);
     }
 };
 
